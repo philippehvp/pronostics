@@ -1,0 +1,200 @@
+<div ui-layout class="forecaster-page">
+
+    <ui-layout options="{ dividerSize: 3, disableToggle: true, disableMobileToggle: true }">
+
+        <div ui-layout-container class="container forecaster-editor" size="580px">
+            <div class="row">
+                <div class="col-xs-12 col-md-12 col-lg-12 centered">
+                    <button ng-disabled="ctrl.hasBeenModified" class="btn btn-primary" ng-click="ctrl.createForecaster()">Nouveau</button>
+                    <button ng-disabled="!ctrl.hasBeenModified" class="btn btn-warning" ng-click="ctrl.cancelModifications()">Annuler</button>
+                    <button ng-disabled="!ctrl.hasBeenModified" class="btn btn-danger" ng-click="ctrl.saveModifications()">Sauvegarder</button>
+                    <button ng-disabled="!ctrl.isMovable" class="btn btn-info" ng-click="ctrl.moveForecaster()">Déplacer</button>
+                    <button ng-disabled="!ctrl.isDeletable" class="btn btn-danger" ng-click="ctrl.deleteForecaster()">Supprimer</button>
+                </div>
+            </div>
+
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <div class="col-lg-4">
+                        <label for="ForecasterUserName" class="control-label">Nom utilisateur</label>
+                        <input ng-model="ctrl.currentForecaster.Pronostiqueurs_NomUtilisateur" ng-change="ctrl.setModifiedOn()" type="text" class="form-control" id="ForecasterUserName" placeholder="Nom utilisateur" autocomplete="off">
+                    </div>
+
+                    <div class="col-lg-4">
+                        <label for="ForecasterFirstName" class="control-label">Prénom</label>
+                        <input ng-model="ctrl.currentForecaster.Pronostiqueurs_Prenom" ng-change="ctrl.setModifiedOn()" type="text" class="form-control" id="ForecasterFirstName" placeholder="Prénom">
+                    </div>
+
+                    <div class="col-lg-4">
+                        <label for="ForecasterLastName" class="control-label">Nom de famille</label>
+                        <input ng-model="ctrl.currentForecaster.Pronostiqueurs_Nom" ng-change="ctrl.setModifiedOn()" type="text" class="form-control" id="ForecasterLastName" placeholder="Nom de famille" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-4">
+                        <label for="ForecasterPassword" class="control-label">Mot de passe</label>
+                        <input ng-model="ctrl.currentForecaster.Pronostiqueurs_MotDePasse" ng-change="ctrl.setModifiedOn()" type="password" class="form-control" id="ForecasterPassword" placeholder="Mot de passe" autocomplete="off">
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="ForecasterEmail" class="control-label">Adresse email</label>
+                        <input ng-model="ctrl.currentForecaster.Pronostiqueurs_MEL" ng-change="ctrl.setModifiedOn()" type="text" class="form-control" id="ForecasterEmail" placeholder="Adresse email">
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="ForecasterBirthday" class="control-label"><i class="glyphicon glyphicon-calendar"></i>&nbsp;Date de naissance</label>
+                        <div id='ForecasterBirthday'>
+                            <span>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Date de naissance"
+                                    ng-model="ctrl.currentForecaster.Pronostiqueurs_DateDeNaissance"
+                                    is-open="ctrl.birthdayCalendar.opened"
+                                    datepicker-options="ctrl.dateOptions"
+                                    close-text="Valider"
+                                    clear-text="Annuler"
+                                    current-text="Maintenant"
+                                    uib-datepicker-popup="dd/MM/yyyy"
+                                    ng-change="ctrl.checkBirthdayIsModified()"
+                                    ng-disabled="!ctrl.currentForecaster"
+                                    ng-focus="ctrl.openBirthdayCalendar()">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-4">
+                        <label for="ForecasterPhoto" class="control-label">Photo</label>
+                        <input ng-model="ctrl.currentForecaster.Pronostiqueurs_Photo" ng-change="ctrl.setModifiedOn()" type="text" class="form-control" id="ForecasterPhoto" placeholder="Photo">
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="checkbox">
+                            <label class="control-label">
+                                <input ng-model="ctrl.currentForecaster.Pronostiqueurs_Administrateur" ng-change="ctrl.setModifiedOn()" type="checkbox" ng-true-value="'1'" ng-false-value="'0'">
+                                &nbsp;Administrateur
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="checkbox">
+                            <label class="control-label">
+                                <input ng-model="ctrl.currentForecaster.Pronostiqueurs_PremiereConnexion" ng-change="ctrl.setModifiedOn()" type="checkbox">
+                                &nbsp;Première connexion
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-4">
+                        <label for="ForecasterLiving" class="control-label">Lieu de résidence</label>
+                        <input ng-model="ctrl.currentForecaster.Pronostiqueurs_LieuDeResidence" ng-change="ctrl.setModifiedOn()" type="text" class="form-control" id="ForecasterLiving" placeholder="Lieu de résidence">
+                    </div>
+
+                    <div class="col-lg-4">
+                        <label for="ForecasterBeginDate" class="control-label"><i class="glyphicon glyphicon-calendar"></i>&nbsp;Début présence</label>
+                        <div id='ForecasterBeginDate'>
+                            <span>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Date de début de présence"
+                                    ng-model="ctrl.currentForecaster.Pronostiqueurs_DateDebutPresence"
+                                    is-open="ctrl.beginDateCalendar.opened"
+                                    datepicker-options="ctrl.dateOptions"
+                                    close-text="Valider"
+                                    clear-text="Annuler"
+                                    current-text="Maintenant"
+                                    uib-datepicker-popup="dd/MM/yyyy"
+                                    ng-change="ctrl.checkBeginDateIsModified()"
+                                    ng-disabled="!ctrl.currentForecaster"
+                                    ng-focus="ctrl.openBeginDateCalendar()">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="ForecasterEndDate" class="control-label"><i class="glyphicon glyphicon-calendar"></i>&nbsp;Fin présence</label>
+                        <div id='ForecasterEndDate'>
+                            <span>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Date de fin de présence"
+                                    ng-model="ctrl.currentForecaster.Pronostiqueurs_DateFinPresence"
+                                    is-open="ctrl.endDateCalendar.opened"
+                                    datepicker-options="ctrl.dateOptions"
+                                    close-text="Valider"
+                                    clear-text="Annuler"
+                                    current-text="Maintenant"
+                                    uib-datepicker-popup="dd/MM/yyyy"
+                                    ng-change="ctrl.checkEndDateIsModified()"
+                                    ng-disabled="!ctrl.currentForecaster"
+                                    ng-focus="ctrl.openEndDateCalendar()">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-4">
+                        <label for="ForecasterFavorite" class="control-label">Equipe favorite</label>
+                        <input ng-model="ctrl.currentForecaster.Pronostiqueurs_EquipeFavorite" ng-change="ctrl.setModifiedOn()" type="text" class="form-control" id="ForecasterFavorite" placeholder="Equipe favorite">
+                    </div>
+
+                    <div class="col-lg-4">
+                        <label for="ForecasterCarrer" class="control-label">Carrière</label>
+                        <textarea ng-model="ctrl.currentForecaster.Pronostiqueurs_Carriere" ng-change="ctrl.setModifiedOn()" type="text" class="form-control" id="ForecasterCarrer" placeholder="Carrière"></textarea>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <label for="ForecasterSuccess" class="control-label">Palmares</label>
+                        <textarea ng-model="ctrl.currentForecaster.Pronostiqueurs_Palmares" ng-change="ctrl.setModifiedOn()" type="text" class="form-control" id="ForecasterSuccess" placeholder="Palmarès"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-4">
+                        <label for="ForecasterAmbitions" class="control-label">Ambitions</label>
+                        <textarea ng-model="ctrl.currentForecaster.Pronostiqueurs_Ambitions" ng-change="ctrl.setModifiedOn()" type="text" class="form-control" id="ForecasterAmbitions" placeholder="Ambitions"></textarea>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <label for="ForecasterComment" class="control-label">Commentaire</label>
+                        <textarea ng-model="ctrl.currentForecaster.Pronostiqueurs_Commentaire" ng-change="ctrl.setModifiedOn()" type="text" class="form-control" id="ForecasterComment" placeholder="Commentaire"></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div ui-layout-container class="forecasters-list">
+            <div ng-show="ctrl.hasBeenModified" class="mask"></div>
+
+            <div class="container scrollable scrollbar">
+                <div class="row">
+                    <div ng-repeat="forecaster in ctrl.forecasters track by $index">
+                        <div class="col-xs-6 col-md-4 col-lg-2">
+                            <div class="forecaster-frame" ng-click="ctrl.editForecaster(forecaster, $index)">
+                                <div ng-if="forecaster.Pronostiqueurs_Photo">
+                                    <img class="forecaster-photo" ng-src="../images/pronostiqueurs/{{forecaster.Pronostiqueurs_Photo}}" alt="Photo du pronostiqueur">
+                                </div>
+                                <div ng-if="!forecaster.Pronostiqueurs_Photo">
+                                    <img class="forecaster-photo" ng-src="../images/pronostiqueurs/_inconnu.png" alt="Photo du pronostiqueur">
+                                </div>
+                                <span>{{forecaster.Pronostiqueurs_Prenom}} {{forecaster.Pronostiqueurs_Nom}}</span>
+
+                                <div class="forecaster-name">
+                                    <span>{{ forecaster.Pronostiqueurs_NomUtilisateur }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui-layout>
+</div>
+
+

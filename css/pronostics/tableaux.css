@@ -1,0 +1,247 @@
+/* Les tableaux */
+table.dataTable tbody tr {
+	background: none;
+}
+
+table.dataTable tbody th, table.dataTable tbody td {
+	padding: 0;
+}
+
+
+/* Commun à tous les tableaux */
+table {
+	font-family: pronostics,Verdana,Helvetica,Arial,sans-serif;
+	text-align: center;
+}
+
+/* Tableau des bonus */
+.tableau--bonus thead {
+	font-size: 0.9em;
+}
+
+.tableau--bonus tbody {
+	font-size: 0.8em;
+}
+
+.tableau--bonus tbody tr:first-child td {
+	border-top: none;
+}
+
+.tableau--bonus tbody td {
+	padding: 1em 0 !important;
+}
+
+.tableau--bonus tbody td:last-child {
+	border-right: none;
+}
+
+.tableau--bonus .fanion {
+    width: 35px;
+}
+
+/* Tableau des trophées */
+.tableau--trophees thead {
+	font-size: 0.9em;
+}
+
+.tableau--trophees thead th {
+	padding: 10px;
+}
+
+.tableau--trophees tbody {
+	font-size: 0.8em;
+}
+
+.tableau--trophees tbody td {
+	padding: 10px;
+}
+
+.tableau--trophees tbody tr:first-child td {
+	border-top: none;
+}
+
+.tableau--trophees tbody td:last-child {
+	border-right: none;
+}
+
+/* Tableau des classements */
+.tableau--classement {
+	font-size: 1em;
+}
+
+.tableau--classement-nom-colonnes th {
+	font-size: 0.9em;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.tableau--classement thead tr th {
+	font-weight: normal;
+    padding: 0 5px;
+}
+
+.tableau--classement tbody td {
+	height: 29px;
+	padding: 0 5px;
+	font-size: 0.8em;
+}
+
+.tableau--classement--top-classement {
+	background-image: url('../../images/etoile.png');
+	background-position: 4px 50%;
+	background-repeat: no-repeat;
+}
+
+.tableau--classement--top-classement--photo {
+	padding: 0 !important;
+}
+
+.tableau--classement--top-classement--photo img {
+	width: 29px;
+	height: 29px;
+}
+
+/* Tableau des classements des buteurs */
+.tableau--classement-buteurs tbody td {
+	padding-top: 5px;
+}
+
+.tableau--classement-buteurs--colonne-pronostiqueurs {
+	max-width: 400px;
+}
+
+/* Tableau des résultats de journée */
+.tableau--resultat-journee {
+	width: 100%;
+	margin-left: 0!important;
+}
+
+.tableau--resultat-journee tbody tr {
+	border-bottom: 1px solid #ccc;
+}
+
+.tableau--resultat-journee tbody td {
+	vertical-align: top;
+	padding: 5px 10px;
+	border-bottom: 1px solid #ccc;
+}
+
+.tableau--resultat-journee--fanion {
+	width: 24px;
+	height: 24px;
+}
+
+.match-en-direct {
+	color: #fff;
+	background-color: rgba(207, 35, 35, 0.7);
+}
+
+.match-non-en-direct {
+	
+}
+
+/* Tableau des résultats */
+.tableau--resultat {
+	font-size: 0.7em;
+	color: #333;
+	/*text-align: center;*/
+	background-color: #eee;
+}
+
+.tableau--resultat td {
+	border-bottom: 1px solid #999;
+	min-width: 130px;
+	white-space: nowrap;
+}
+
+.tableau--resultat th {
+	color: #333;
+	background-color: #ccc;
+	border-bottom: 1px solid #fff;
+	font-size: 0.9em;
+	font-weight: bold;
+	min-width: 130px;
+	white-space: nowrap;
+}
+
+.tableau--resultat td.coeff2 {
+	background-image: url('../../images/coeff2.png');
+	background-position: bottom right;
+	background-repeat: no-repeat;
+}
+
+.tableau--resultat td.coeff3 {
+	background-image: url('../../images/coeff3.png');
+	background-position: bottom right;
+	background-repeat: no-repeat;
+}
+
+.tableau--administration-match {
+	text-align: left;
+	color: #000;
+}
+
+/* Tableau de la page d'administration des matches */
+
+.tableau--administration-match td {
+	padding: 0 0.25em 0 0.5em;
+}
+
+.colonne-theme {
+	text-align: right;
+}
+
+.tableau--liste-joueurs {
+	text-align: left;
+}
+
+.tableau--liste-joueurs th {
+	border-bottom: 1px solid #000;
+}
+
+.tableau--liste-joueurs th, .tableau--liste-joueurs td {
+	padding: 0 5px;
+	border-right: 1px solid #000;
+}
+
+.tableau--liste-joueurs th:last-child, td:last-child {
+	border-right: none;
+}
+
+.tableau--liste {
+	text-align: left;
+	color: #000;
+	background-color: #fff;
+}
+
+.tableau--liste th, .tableau--liste td {
+	padding-left: 10px;
+	padding-right: 10px;
+	border-bottom: 1px solid #000;
+	border-right: 1px solid #000;
+}
+
+.tableau--liste td {
+	height: 35px;
+}
+
+.tableau--liste tr:last-child td {
+	border-bottom: none;
+}
+
+.tableau--liste th {
+	border-bottom: 2px solid #000;
+}
+
+.tableau--liste th:last-child, .tableau--liste td:last-child {
+	border-right: none;
+}
+
+.tableau--poules {
+    border: 1px solid #fff;
+}
+
+.tableau--poules th, .tableau--poules td {
+    padding: 0 5px;
+    padding-bottom: 15px;
+}

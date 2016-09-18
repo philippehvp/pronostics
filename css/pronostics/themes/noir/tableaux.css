@@ -1,0 +1,99 @@
+/* Tableau des bonus */
+.tableau--bonus {
+	border: 1px solid #fff;
+}
+
+.tableau--bonus thead {
+	color: #000;
+	background-color: #fff;
+}
+
+.tableau--bonus thead th {
+	border-bottom: 1px solid #ddd !important;
+}
+
+.tableau--bonus tbody {
+	color: #fff;
+	background-color: #000;
+}
+
+.tableau--bonus tbody td {
+	border-top: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+}
+
+/* Tableau des trophees */
+.tableau--trophees {
+	border: 1px solid #ddd;
+}
+
+.tableau--trophees thead {
+	color: #000;
+	background-color: #fff;
+}
+
+.tableau--trophees thead tr:last-child th {
+	border-bottom: 1px solid #ddd !important;
+}
+
+.tableau--trophees tbody {
+	color: #fff;
+	background-color: #000;
+}
+
+.tableau--trophees tbody td {
+	border-top: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+}
+
+/* Tableau des classements */
+.tableau--classement--bordure {
+	border: 1px solid #fff;
+}
+
+.tableau--classement thead {
+	color: #fff;
+}
+
+.tableau--classement--entete {
+	background-color: #fff;
+	color: #000 !important;
+}
+
+.tableau--classement--entete tr:last-child th {
+	border-bottom: 1px solid #fff;
+}
+
+.tableau--classement tbody td {
+	color: #fff;
+}
+
+.tableau--classement tbody td.surbrillance {
+	color: #000;
+	background-color: #fff;
+}
+
+.tableau--classement--corps td {
+	background-color: #000;
+}
+
+.tableau--classement--corps td.bordure--haut {
+	border-top: 1px solid #fff;
+}
+
+.tableau--classement--top-classement {
+	color: #fff !important;
+	/*background-color: #000 !important;*/
+}
+
+.tableau--classement tr:hover td {
+	background-color: #fff;color: #000;
+}
+
+.tableau--classement tr.neutre:hover td {
+	/*background-color: #000;*/
+}
+
+.tableau--liste-joueurs {
+	color: #333;
+}

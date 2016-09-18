@@ -1,0 +1,1303 @@
+/* Surcharge de jqueryui */
+
+.ui-dialog {
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 0;
+	outline: 0;
+	border: 1px solid #ccc;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+	background-image: url('../../images/fond_transparent.png');
+}
+
+.ui-dialog .ui-dialog-title {
+	font-size: 1.2em;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+	position: absolute;
+	right: 0.3em;
+	top: 50%;
+	width: 20px;
+	margin: -10px 0 0 0;
+	padding: 1px;
+	height: 20px;
+}
+
+.ui-dialog .ui-dialog-content {
+	background-image: url('../../images/fond_transparent.png');
+}
+
+.ui-dialog .ui-dialog-buttonpane {
+	margin: 0;
+	background-image: url('../../images/fond_transparent.png');
+}
+
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+	float: left;
+	padding-left: 10px;
+}
+
+.ui-tabs .ui-tabs-nav li {
+	margin: 0;
+}
+
+/* Boutons */
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited {
+	color: #fedf00;
+	background-image: url('../../images/fond_transparent.png');
+	text-decoration: none;
+}
+
+.ui-state-default a:hover, .ui-state-default a:active {
+	background-color: #005f24;
+	background-image: none;
+}
+
+li.ui-tabs-active .ui-tabs-anchor, .ui-tabs .ui-tabs-nav li.ui-state-disabled .ui-tabs-anchor, .ui-tabs .ui-tabs-nav li.ui-tabs-loading .ui-tabs-anchor {
+	background-color: #005f24;
+	background-image: none;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+	border: none;
+	background: none;
+}
+
+.ui-button, .ui-dialog .ui-dialog-buttonpane button {
+	color: #fedf00;
+	background-image: url('../../images/fond_transparent.png');
+}
+
+.ui-button:hover, .ui-dialog .ui-dialog-buttonpane button:hover {
+	background-color: #005f24;
+}
+
+.ui-tabs .ui-tabs-panel {
+	padding: 0;
+	margin-top: 10px;
+}
+
+/* Eléments communs */
+
+html {
+	height: 100%;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	outline: 0;
+	border-spacing: 0;
+}
+
+body {
+	color: #fff;
+	background-color: #a0a220;
+	font: 0.9em Verdana,Helvetica,Arial,sans-serif;
+	height: 100%;
+	background-image: url('../../images/fond/fond_principal.jpg');
+	background-repeat: repeat;
+	background-position: center top;
+}
+
+ul {
+	list-style-type: none;
+}
+
+select, select option {
+	color: #fff;
+	background-color: #005f24;
+	border: 1px solid #fff;
+}
+
+h1 {
+	font-size: 2em;
+	text-transform: uppercase;
+	margin-bottom: 10px;
+}
+
+.colle-gauche {
+	clear: both;
+}
+
+.gauche {
+	float: left;
+}
+
+.centre {
+	text-align: center;
+}
+
+.gras {
+	font-weight: bold;
+}
+
+.petit {
+	font-size: 0.8em;
+}
+
+.grand {
+	font-size: 1.2em;
+}
+
+.blanc {
+	background-color: #fff;
+	color: #333;
+}
+
+.vert {
+	background-color: #457a1e;
+	color: #fff;
+}
+
+.orange {
+	background-color: #e67f2a;
+	color: #fff;
+}
+
+.bordure-gauche {
+	border-left: 1px solid #fff;
+}
+
+.bordure-droite {
+	border-right: 1px solid #fff;
+}
+
+.pair {
+	background-color: #333;
+}
+
+.impair {
+	background-color: #828282;
+}
+
+table tbody tr.bordureHaut td {
+	border-top: 1px solid #fff;
+}
+
+table {
+	color: #fff;
+	
+	border-spacing: 0;
+}
+
+table thead th {
+	background-color: #fff;
+	color: #333;
+	font-size: 0.9em;
+	font-weight: normal;
+}
+
+table thead tr th {
+	height: 25px;
+}
+
+table tbody tr td {
+	height: 15px;
+}
+
+table tbody tr.surbrillance {
+	background-color: #c2cadd;
+	color: #fff;
+}
+
+table.lignes thead tr th {
+	/*min-width: 100px;*/
+}
+
+table.lignes tbody tr td {
+	min-width: 100px;
+}
+
+.curseur-main {
+	cursor: pointer;
+}
+
+/* Retour haut de page */
+.retourHautPage {
+	width: 50px; 
+	height: 20px;
+	padding: 10px; 
+	text-align: center; 
+	background: #333;
+	color: #fff;
+	text-decoration: none;
+	position: fixed;
+	top: 75px;
+	right: 40px;
+	display: none;
+	background-image: url('../../images/fleche_haut.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+	z-index: 1000;
+}
+
+.retourHautPage:hover {
+	text-decoration:none;
+}
+
+/* Page bandeau.php */
+#divBandeau {
+	width: 100%;
+	height: 69px;
+	color: #fff;
+	border-bottom: 1px solid #888;
+	background-image: url('../../images/fond_bandeau.png');
+}
+
+#divBandeau div.icones {
+	margin: 0 auto;
+	width: 840px;
+	height: 50px;
+}
+
+#divBandeau ul li {
+	float: left;
+	margin-top: 5px;
+	font-size: 1em;
+	text-align: center;
+	cursor: pointer;
+	width: 120px;
+	height: 65px;
+}
+
+#divBandeau ul li:hover {
+	text-decoration: underline;
+}
+
+#divBandeau ul li:hover > ul {
+	display: block;
+	z-index: 1000;
+}
+
+#divBandeau ul li ul li:hover > div {
+	display: block;
+	z-index: 1000;
+}
+
+#divBandeau ul li ul {
+	display: none;
+	padding: 5px 0 5px 5px;
+	margin-left: 30px;
+	background-color: #7d825a;
+	position: absolute;
+	top: 70px;
+}
+
+#divBandeau ul li div.listePronostiqueurs {
+	display: none;
+	padding: 5px 0 5px 5px;
+	background-color: #7d825a;
+	position: absolute;
+	width: 615px;
+	top: 180px;
+	left: 205px;
+}
+
+#divBandeau div.nomPronostiqueurs {
+	display: block;
+	width: 200px;
+	left: 0;
+	top: 0;
+	position: static;
+	padding: 0 0 5px 5px;
+}
+
+#divBandeau ul li ul li:hover {
+	text-decoration: underline;
+	/*color: #ccc;*/
+}
+
+/* Dans les menus imbriqués, les éléments s'affichent à nouveau les uns sous les autres */
+#divBandeau ul li ul li {
+	float: none;
+	width: 200px;
+	text-align: left;
+	margin: 0;
+	height: 25px;
+	font-size: 0.9em;
+}
+
+/* Page menu.php */
+#divFenetreMenu {
+	width: 850px;
+	height: 450px;
+	margin: 0 auto;
+	background-color: #001940;
+	color: #fff;
+	font: 1em Verdana,Helvetica,Arial,sans-serif;
+}
+
+#divMenuW8 {
+	width: 787px;
+	font: 0.7em Verdana,Helvetica,Arial,sans-serif;
+	padding-left: 38px;
+}
+
+#divMenuW8 div {
+	margin: 0 8px 8px 0;
+	background-color: #333;
+	float: left;
+	height: 20px;
+	padding: 100px 0 0 7px;
+}
+
+#divMenuW8 div.tuileCarree {
+	width: 114px;
+}
+
+#divMenuW8 div.tuileRectangulaire {
+	width: 243px;
+}
+
+#divMenuW8 div.tuileCarree:hover, #divMenuW8 div.tuileRectangulaire:hover {
+	background-color: #005f24;
+}
+
+#divMenuW8 div.tuileFermer {
+	margin: 10px 0 0 0;
+	width: 30px;
+	height: 50px;
+	padding: 0;
+	background-color: #001940;
+	font-size: 4em;
+}
+
+#divMenuW8 div.tuileFermer label.fermer:hover {
+	color: #005f24;
+}
+
+#divMenuW8 div.tuileProfil {
+	margin: 10px 0 0 0;
+	padding: 0;
+	background-color: transparent;
+	width: 736px;
+	height: 50px;
+}
+
+#divMenuW8 div.tuileProfil div.zoneTexte label.deconnecter:hover {
+	color: #005f24;
+}
+
+#divMenuW8 div.tuileProfil div.zoneTexte {
+	float: left;
+	margin: 0;
+	width: 690px;
+	height: 50px;
+	padding: 0 6px 0 0;
+	background-color: transparent;
+	text-align: right;
+}
+
+#divMenuW8 div.tuileProfil label.nomPronostiqueur {
+	font-size: 1.5em;
+	font-weight: bold;
+	color: #fff;
+}
+
+#divTuileLigue1 {
+	background-image: url('../../images/ligue1.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+#divTuileLDC {
+	background-image: url('../../images/ldc.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+#divTuileEL {
+	background-image: url('../../images/el.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+#divTuilePronostics {
+	background-image: url('../../images/pronostics.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+#divTuileBonus {
+	background-image: url('../../images/bonus.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+#divTuileGererBonus {
+	background-image: url('../../images/bonus_reduit.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+#divTuileQualifications {
+	background-image: url('../../images/qualifications.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+#divTuileGererQualifications {
+	background-image: url('../../images/qualifications_reduit.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+#divTuileGererEffectif {
+	background-image: url('../../images/effectif.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+/* Page index.php (page de connexion au site) */
+#divConnexion {
+	height: 170px;
+	width: 255px;
+	margin: 20px auto;
+}
+
+#divConnexion div.titre {
+	width: 900px;
+	height: 34px;
+	font-size: 1.3em;
+}
+
+#divConnexion div.validation {
+	width: 37px;
+	height: 32px;
+	margin-left: 5px;
+	float: left;
+	font-size: 2em;
+}
+
+#divConnexion div.validation:hover {
+	color: #005f24;
+}
+
+#divConnexion input {
+	color: #000;
+	background-color: #fff;
+	border: 1px solid #fff;
+	width: 200px;
+	height: 34px;
+	padding-left: 10px;
+}
+
+#divConnexion input:focus {
+	color: #fff;
+	background-color: #005f24;
+	border: 1px solid #005f24;
+	outline: none;
+}
+
+.ui-tabs .ui-tabs-nav {
+	padding: 0;
+}
+
+/* Page creer_prono.php */
+#divReinitialisation {
+	width: 900px;
+	margin-bottom: 40px;
+	margin: 0 auto;
+}
+
+#divPronosticsPoules {
+	width: 900px;
+	height: 260px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#divPronosticsPoules div.matchPoule {
+	width: 520px;
+	height: 35px;
+	line-height: 35px;
+	font-size: 1em;
+	color: #fff;
+}
+
+#divPronosticsPoules div.matchPoule span {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+#divPronosticsPoules div.matchPoule span.score {
+	width: 150px;
+	font-size: 0.8em;
+}
+
+#divPronosticsPoules div.matchPoule span.nomEquipeGauche, #divPronosticsPoules div.matchPoule span.nomEquipeDroite {
+	width: 138px;
+}
+
+#divPronosticsPoules div.matchPoule span.nomEquipeGauche {
+	margin-right: 5px;
+	text-align: right;
+}
+
+#divPronosticsPoules div.matchPoule span.nomEquipeDroite {
+	margin-left: 5px;
+	text-align: left;
+}
+
+#divPronosticsPoules div.matches {
+	width: 520px;
+	font-size: 1.1em;
+}
+
+#divPronosticsPoules table.classementPoule {
+	border: 1px solid #fff;
+}
+
+#divPronosticsPoules table.classementPoule th, #divPronosticsPoules table.classementPoule td {
+	width: 30px;
+	text-align: center;
+	font-size: 0.75em;
+	overflow: hidden;
+}
+
+#divPronosticsPoules table.classementPoule th.equipe {
+	width: 100px;
+}
+
+#divPronosticsPoules table.classementPoule tbody tr.fondVert {
+	background-color: #005f24;
+}
+
+#divPronosticsPoules table.classementPoule tbody tr.fondOrange {
+	background-color: #d85a0e;
+}
+
+#divPronosticsPoules .ui-button .ui-button-text {
+	color: #fedf00;
+	background-image: url('../../images/fond_transparent.png');
+}
+
+#divPronosticsPoules .ui-button .ui-button-text:hover {
+	background-color: #005f24;
+}
+
+ul.listeTriee li {
+	margin: 0 3px;
+	float: left;
+	width: 115px;
+	height: 50px;
+	font-size: 0.7em;
+	text-align: center;
+	border: 1px solid #fff;
+	cursor: pointer;
+	margin-bottom: 10px;
+}
+
+#divPronosticsPhaseFinale {
+	width: 900px;
+	height: 510px;
+	margin: 10px auto;
+	color: #fff;
+	font-size: 0.7em;
+}
+
+#divTableau {
+	position: relative;
+	height: 472px;
+	background-image: url('../../images/tableau.png');
+	background-repeat: no-repeat;
+}
+
+#divTableau img.fanion {
+	width: 24px;
+	height: 16px;
+	margin-left: 3px;
+	margin-right: 3px;
+}
+
+#divEntetePhaseFinale {
+	font-size: 1.2em;
+	color: #fedf00;
+	background-image: url('../../images/fond_transparent.png');
+	width: 900px;
+	height: 40px;
+	line-height: 40px;
+	vertical-align: middle;
+	text-align: center;
+}
+
+#divEntetePhaseFinale span.huitieme, #divEntetePhaseFinale span.quart, #divEntetePhaseFinale span.demi {
+	width: 120px;
+}
+
+#divEntetePhaseFinale span.finale {
+	width: 180px;
+}
+
+#divTableau1_8 {
+	position: absolute;
+	z-index: 2;
+	top: 2px;
+}
+
+#divTableau1_4 {
+	left: 120px;
+	top: 70px;
+	position: absolute;
+	z-index: 2;
+}
+
+#divTableau1_2 {
+	left: 240px;
+	top: 210px;
+	position: absolute;
+	z-index: 3;
+}
+
+#divTableau1_1 {
+	left: 391px;
+	top: 158px;
+	position: absolute;
+	z-index: 4;
+}
+
+#divPronosticsPhaseFinale div.equipe1_8, #divPronosticsPhaseFinale div.equipe1_4, #divPronosticsPhaseFinale div.equipe1_2, #divPronosticsPhaseFinale div.equipe1_1 {
+	width: 120px;
+	height: 24px;
+	line-height: 24px;
+	background-image: url('../../images/fond_equipe.png');
+}
+
+#divTableau div.equipe1_8 span.score, #divTableau div.equipe1_4 span.score, #divTableau div.equipe1_2 span.score, #divTableau div.equipe1_1 span.score {
+	width: 60px;
+	height: 24px;
+	line-height: 24px;
+	background-image: url('../../images/score.png');
+	background-position: 0 0;
+	background-repeat: no-repeat;
+	text-align: center;
+}
+
+#divTableau div.equipe1_8 span.nomEquipe, #divTableau div.equipe1_4 span.nomEquipe, #divTableau div.equipe1_2 span.nomEquipe, #divTableau div.equipe1_1 span.nomEquipe {
+	width: 30px;
+	height: 24px;
+	line-height: 24px;
+}
+
+#divPronosticsPhaseFinale div.espacement1_8, #divPronosticsPhaseFinale div.espacement1_4, #divPronosticsPhaseFinale div.espacement1_2 {
+	height: 24px;
+}
+
+#divPronosticsPhaseFinale div.espacement1_8 {
+	width: 660px;
+}
+
+#divPronosticsPhaseFinale div.espacement1_4 {
+	width: 420px;
+}
+
+#divPronosticsPhaseFinale div.espacement1_2 {
+	width: 180px;
+}
+
+#divPronosticsPhaseFinale div.espacementVertical1_8 {
+	width: 900px;
+	height: 92px;
+}
+
+#divPronosticsPhaseFinale div.espacementVertical1_4 {
+	height: 232px;
+	width: 420px;
+}
+
+#divPronosticsPhaseFinale div.espacementVertical1_1 {
+	width: 120px;
+	height: 48px;
+}
+
+#divPronosticsPhaseFinale div span {
+	vertical-align: middle;
+	display: inline-block;
+}
+
+#divScoreMatch {
+	width: 400px;
+	height: 300px;
+	margin: 0 auto;
+	display: none;
+}
+
+#divScoreMatch div.equipe {
+	width: 150px;
+	text-align: center;
+}
+
+#divScoreMatch div.vainqueur {
+	text-align: center;
+}
+
+#divScoreMatch img {
+	margin: 3px 0 5px 0;
+}
+
+#divPodium {
+	position: absolute;
+	left: 385px;
+	top: 390px;
+	line-height: 2em;
+	color: #fff;
+	font-weight: bold;
+}
+
+#divMeilleurButeur {
+	width: 900px;
+	height: 50px;
+	color: #fedf00;
+	background-image: url('../../images/fond_transparent.png');
+	text-align: center;
+	padding-top: 10px;
+	position: relative;
+}
+
+#divListeJoueurs {
+	position: absolute;
+	z-index: 1000;
+}
+
+#divMeilleurButeur div.titre {
+	width: 360px;
+	float: left;
+}
+
+#divMeilleurButeur div.saisie {
+	text-align: left;
+}
+
+#divMeilleurButeur div.saisie input[type="text"] {
+	margin-top: 3px;
+}
+
+#divMeilleurButeur div.listeJoueurs {
+	position: absolute;
+	left: 360px;
+	top: 41px;
+}
+
+#divMeilleurButeur div.listeJoueurs table {
+	border: 1px solid #ccc;
+	width: 200px;
+	background-color: #333;
+	color: #fedf00;
+}
+
+#divMeilleurButeur div.listeJoueurs table tbody tr:hover td {
+	background-color: #005f24;
+	cursor: pointer;
+}
+
+/* Page consulter_prono.php */
+#divPronostiqueursConsultables div {
+	width: 200px;
+}
+
+#divPronostiqueursConsultables div label:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+/* Page reglement.php */
+#divEnteteReglement {
+	width: 900px;
+	margin: 0 auto;
+}
+
+#divReglement {
+	width: 890px;
+	height: 1050px;
+	margin: 0 auto;
+	padding-left: 10px;
+	background-color: #333;
+	
+}
+
+#divReglement ul {
+	list-style-type: disc;
+	margin-left: 25px;
+}
+
+#divReglement #tableBonus tr td {
+	width: 230px;
+}
+
+/* Page accueil.php */
+#divAccueil {
+	width: 900px;
+	margin: 0 auto;
+	padding-top: 20px;
+	color: #fff;
+}
+
+#txtTexteAccueil {
+	display: block;
+	margin-bottom: 20px;
+	width: 900px;
+	height: 120px;
+	background: none;
+	border: none;
+	color: #fff;
+	font-size: 1.2em;
+}
+
+#divClassementGeneral {
+	width: 320px;
+	height: 400px;
+	margin-right: 30px;
+}
+
+#tblClassementGeneral {
+	text-align: center;
+	border-bottom: 1px solid #fff;
+	cursor: pointer;
+}
+
+#tblClassementGeneral tr {
+	height: 30px;
+}
+
+#tblClassementGeneral tr.surbrillance {
+	background-image: none;
+	background-color: #ccc !important;
+}
+
+#tblClassementGeneral div.photo, #tblClassementGeneral div.photo img {
+	width: 30px;
+	height: 30px;
+}
+
+#tblClassementGeneral div.evolution {
+	width: 49px;
+	height: 30px;
+	line-height: 30px;
+}
+
+#tblClassementGeneral th.classement {
+	width: 30px;
+}
+
+#tblClassementGeneral th.evolution {
+	width: 80px;
+}
+
+#tblClassementGeneral th.noms {
+	width: 120px;
+}
+
+#tblClassementGeneral th.points {
+	width: 90px;
+}
+
+#tblClassementGeneral td.evolution {
+	font-size: 0.7em;
+}
+
+#tblClassementGeneral td.evolutionMax, #tblClassementGeneral td.evolutionPointsMax {
+	background-color: #457a1e;
+}
+
+#tblClassementGeneral td.evolutionMin, #tblClassementGeneral td.evolutionPointsMin {
+	background-color: #af2d2d;
+}
+
+
+/* Page des pronostics (pronostics_poule.php, pronostics_phase_finale.php, etc.) */
+#divVisuPronostics, #divVisuPronosticsPoule, #divVisuPronosticsPhaseFinale, #divVisuClassements, #divVisuClassementsPoule, #divVisuMeilleurButeur, #divVisuPodium {
+	width: 900px;
+	margin: 0 auto;
+}
+
+#divAccueilPronosticsPoule, #divAccueilPronosticsPhaseFinale {
+	width: 520px;
+	margin: 0 auto;
+}
+
+#tblPronosticsPoule, #tblPronosticsPhaseFinale, #tblMeilleurButeur, #tblClassementsPoule {
+	border-bottom: 1px solid #fff;
+}
+
+#tblPronosticsPhaseFinale tr, #tblPronosticsPoule tr, #tblClassementsPoule tr, #tblMeilleurButeur tr {
+	height: 27px;
+}
+
+#tblPronosticsPoule tr:nth-child(even)
+,#tblPronosticsPhaseFinale tr:nth-child(even)
+,#tblClassementsPoule tr:nth-child(even)
+,#tblClassementsPoule tr:nth-child(even)
+,#tblMeilleurButeur tr:nth-child(even)
+,#tblClassementGeneral tr:nth-child(even)
+,#tblStatistiques tr:nth-child(even)
+,#tblStatistiquesEvolution tr:nth-child(even)
+,#tblPoints tr:nth-child(even) {
+	background-color: #333;
+}
+
+#tblPronosticsPoule tr:nth-child(odd)
+,#tblPronosticsPhaseFinale tr:nth-child(odd)
+,#tblClassementsPoule tr:nth-child(odd)
+,#tblClassementsPoule tr:nth-child(odd)
+,#tblMeilleurButeur tr:nth-child(odd)
+,#tblClassementGeneral tr:nth-child(odd)
+,#tblStatistiques tr:nth-child(odd)
+,#tblStatistiquesEvolution tr:nth-child(odd)
+,#tblPoints tr:nth-child(odd) {
+	background-color: #828282;
+}
+
+#tblPronosticsPhaseFinale td, #tblClassementsPoule td, #tblMeilleurButeur td {
+	width: 210px;
+	text-align: center;
+}
+
+#tblPronosticsPoule td {
+	width: 90px;
+	text-align: center;
+}
+
+#tblPronosticsPoule td.match {
+	border-right: 1px solid #fff;
+}
+
+#tblPronosticsPoule td.nomPronostiqueur, #tblClassementsPoule td.nomPronostiqueur, #tblMeilleurButeur td.nomPronostiqueur {
+	width: 129px;
+	border-left: 1px solid #fff;
+}
+
+#tblPronosticsPhaseFinale td.nomPronostiqueur {
+	width: 97px;
+	border-left: 1px solid #fff;
+}
+
+#tblPronosticsPhaseFinale div.affiches {
+	width: 12px;
+	height: 27px;
+}
+
+#tblPronosticsPhaseFinale div.pastilleVerte {
+	background-image: url('../../images/pastille_verte.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+	height: 14px;
+}
+
+#tblPronosticsPhaseFinale div.pastilleOrange {
+	background-image: url('../../images/pastille_orange.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+	height: 13px;
+}
+
+#tblPronosticsPhaseFinale div.nomEquipes, #tblPronosticsPoule div.nomEquipes {
+	width: 39px;
+	height: 27px;
+	font-size: 0.7em;
+}
+
+#tblPronosticsPhaseFinale div.scoreEquipes {
+	width: 79px;
+	height: 27px;
+	font-size: 0.7em;
+}
+
+#tblPronosticsPhaseFinale div.scoreEquipes {
+	line-height: 27px;
+}
+
+#tblPronosticsPoule div.scoreEquipes {
+	width: 40px;
+	height: 27px;
+	line-height: 27px;
+	text-align: center;
+	font-size: 0.8em;
+}
+
+#tblPronosticsPoule div.matchEnDirect, #tblPronosticsPhaseFinale div.matchEnDirect {
+	background-image: url('../../images/live.gif');
+	background-repeat: no-repeat;
+	background-position: center top;
+}
+
+
+
+#tblPronosticsPhaseFinale div.fondScore, #tblPronosticsPoule div.fondScore {
+	background-image: url('../../images/fond_score.png');
+}
+
+#tblPronosticsPhaseFinale div.pointsBonus, #tblPronosticsPoule div.pointsBonus {
+	width: 41px;
+	height: 27px;
+	line-height: 27px;
+}
+
+#tblPronosticsPhaseFinale div.pointsMatch {
+	width: 39px;
+	height: 27px;
+	line-height: 27px;
+}
+
+#tblPronosticsPoule div.pointsMatch {
+	width: 50px;
+	height: 27px;
+	line-height: 27px;
+}
+
+/* Page voir_statistiques.php */
+#divStatistiques {
+	width: 900px;
+	margin: 0 auto;
+}
+
+#divStatistiques div {
+	margin-bottom: 20px;
+}
+
+#divStatistiques table {
+	border-left: 1px solid #fff;
+	border-bottom: 1px solid #fff;
+}
+
+#divStatistiques table td {
+	width: 170px;
+	text-align: center;
+	border-right: 1px solid #fff;
+}
+
+#divStatistiques table tr {
+	height: 27px;
+}
+
+#divStatistiques table tr:nth-child(even) {
+	background-color: #333;
+}
+
+#divStatistiques table tr:nth-child(odd) {
+	background-color: #828282;
+}
+
+
+/* Modules */
+
+#divModulePronosticsPoule, #divModulePronosticsPhaseFinale, #divModuleClassementsPoule {
+	position: absolute;
+	overflow: hidden;
+}
+
+#divEnteteJournees, #divEnteteClassements, #divEnteteClassementGeneral {
+	width: 340px;
+	height: 25px;
+	line-height: 25px;
+	padding-left: 10px;
+}
+
+#divEnteteJournees:hover, #divEnteteClassements:hover {
+	cursor: pointer;
+}
+
+#divEnteteJournees div.nomModule, #divEnteteClassements div.nomModule {
+	background-color: #fff;
+	color: #333;
+	width: 150px;
+	height: 25px;
+	font-size: 0.8em;
+}
+
+#divEnteteJournees label, #divEnteteClassements label, #divEnteteClassementGeneral label {
+	display: inline-block;
+}
+
+#divEnteteJournees label.date {
+	width: 180px;
+	text-align: center;
+}
+
+#divEnteteClassementGeneral label.journee {
+	width: 220px;
+	text-align: center;
+}
+
+#divEnteteClassements label.poule {
+	width: 180px;
+	text-align: center;
+}
+
+#divEnteteJournees label.legende {
+	width: 100px;
+	text-align: right;
+	cursor: pointer;
+}
+
+#divEnteteJournees label.legende:hover {
+	text-decoration: underline;
+}
+
+#divEnteteJournees label.bouton, #divEnteteClassements label.bouton, #divEnteteClassementGeneral label.bouton {
+	width: 20px;
+	text-align: center;
+}
+
+#divEnteteJournees label.bouton:hover, #divEnteteClassements label.bouton:hover, #divEnteteClassementGeneral label.bouton:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+#divDirect {
+	width: 900px;
+	margin: 0 auto 30px 0;
+}
+
+#divDirect div.entete {
+	background-color: #fff;
+	color: #000;
+	height: 20px;
+}
+
+#divDirect div.entete div.equipeA {
+	width: 220px;
+	height: 20px;
+	text-align: center;
+	margin-left: 80px;
+}
+
+#divDirect div.entete div.matchNul {
+	width: 300px;
+	height: 20px;
+	text-align: center;
+}
+
+#divDirect div.entete div.equipeB {
+	width: 220px;
+	height: 20px;
+	text-align: center;
+}
+
+#divDirect div.match {
+	height: 55px;
+	padding-top: 5px;
+	border: 1px solid #fff;
+	margin-bottom: 10px;
+}
+
+#divDirect div.match div.drapeau {
+	width: 60px;
+	height: 44px;
+	margin-top: 11px;
+	margin-left: 19px;
+}
+
+#divDirect div.match div.equipe {
+	width: 220px;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+}
+
+#divDirect div.match label {
+	text-transform: uppercase;
+	text-align: center;
+	font-weight: bold;
+	font-size: 1.5em;
+}
+
+#divDirect div.score {
+	width: 200px;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	font-size: 1.6em;
+	background-image: url('../../images/fond_score_direct.png');
+	cursor: pointer;
+}
+
+#divDirect div.butActif {
+	width: 50px;
+	height: 50px;
+	background-image: url('../../images/plus.png');
+}
+
+#divDirect div.butInactif {
+	width: 50px;
+	height: 50px;
+	background-image: url('../../images/live_direct.png');
+}
+
+#tblStatistiques th, #tblStatistiques td
+,#tblStatistiquesEvolution th, #tblStatistiquesEvolution td
+,#tblPoints th, #tblPoints td {
+	height: 27px;
+}
+
+#tblStatistiques, #tblStatistiquesEvolution, #tblPoints {
+	border: 1px solid #fff;
+}
+
+#tblStatistiques .nombre {
+	width: 60px;
+	text-align: center;
+}
+
+#tblStatistiques .resultat {
+	width: 510px;
+	padding-left: 10px;
+	text-align: left;
+}
+
+#tblStatistiquesEvolution th, #tblStatistiquesEvolution td
+,#tblPoints th, #tblPoints td {
+	width: 120px;
+	text-align: center;
+}
+
+/* Page envouer_courrier.php */
+#divEnvoyerCourrier {
+	width: 900px;
+	margin: 0 auto;
+}
+
+#divEnvoyerCourrier #divMessage {
+	height: 800px;
+	background-color: #fff;
+}
+
+
+/* Page site_maintenance.php */
+#divSiteMaintenance {
+	width: 900px;
+	margin: 100px auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Page consulter_resultats.php */
+#divResultats {
+	width: 1200px;
+	margin: 0 auto;
+}
+
+/* Page creer_match.php */
+#divCreerMatch {
+	max-width: 1000px;
+	width: 1000px;
+	margin: 0 auto;
+}
+

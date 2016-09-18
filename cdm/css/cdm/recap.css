@@ -1,0 +1,38 @@
+div.matchesRecap {
+	width: 110px;
+}
+
+div.nomPoule {
+	height: 23px;
+	padding-top: 7px;
+	background-image: url('../../images/fond_transparent.png');
+	color: #fedf00;
+}
+
+div.matchPouleRecap {
+	height: 30px;
+	line-height: 30px;
+	padding-left: 7px;
+}
+
+div.matchesRecap img {
+	width: 30px;
+	height: 20px;
+	padding-top: 5px;
+}
+
+div.scoreRecap {
+	width: 36px;
+}
+
+#divPronosticsPoulesRecap {
+	width: 900px;
+	height: 350px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+div.classementPouleRecap {
+	height: 120px;
+	border-top: 1px solid #fff;
+}

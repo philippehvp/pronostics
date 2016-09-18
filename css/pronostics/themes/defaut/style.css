@@ -1,0 +1,323 @@
+/* Défaut */
+
+
+
+
+
+
+
+
+
+
+
+body {
+	color: #fff;
+	font-family: pronostics,Verdana,Helvetica,Arial,sans-serif;
+	/*background-image: url('../fond_om_psg.jpg');*/
+	background-image: url('fond.jpg');
+	background-color: #000;
+	background-position: 50% 85px;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+}
+
+h1 {
+	color: #fff;
+}
+
+.pair {
+	background-color: rgba(255, 255, 255, 0.8)
+}
+
+.impair {
+	background-color: rgba(255, 255, 255, 0.9)
+}
+
+.bordure-basse {
+	border-bottom: 1px solid #999;
+}
+
+.bordure-droite {
+	border-right: 1px solid #999;
+}
+
+.bouton-precedent, .bouton-suivant {
+	background-color: #a6b5ab;
+}
+
+.bouton-precedent {
+	background-image: url('precedent.png');
+}
+
+.bouton-suivant {
+	background-image: url('suivant.png');
+}
+
+.bandeau {
+	background-color: #000;
+	border-bottom: 1px solid #fff;
+}
+
+.ui-widget-content {
+	color: #fff;
+}
+
+.ui-dialog-titlebar {
+	background-color: #a6b5ab;
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.7);
+}
+
+/* Fond des boîtes de dialogue */
+.ui-dialog {
+	background-color: rgba(0, 0, 0, 0.8);
+	border: 2px solid #a6b5ab;
+}
+
+.ui-dialog .ui-dialog-buttonpane {
+	border-top: 1px solid #a6b5ab;
+	color: #fff;
+}
+
+.ui-dialog .ui-dialog-buttonpane button {
+	background-color: #a6b5ab;
+	color: #fff;
+}
+
+.ui-dialog .ui-dialog-content {
+	color: #fff;
+}
+
+/*.ui-dialog .ui-dialog-buttonpane button:hover {
+	color: #a6b5ab;
+	border: 1px solid #fff;
+	background-color: #fff;
+}*/
+
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
+	color: #fff;
+}
+
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited {
+	color: #fff;
+}
+
+.ui-state-hover a:hover {
+	color: #fff;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+	color: #fff;
+}
+
+.ui-datepicker .ui-datepicker-header {
+	background-color: #a6b5ab;
+}
+
+div.tuile .ui-button, .ui-button {
+	background-color: #a6b5ab;
+	/*border: 1px solid #fff;*/
+}
+
+.lienJournee, .texteJournee {
+	color: #fff;
+}
+
+.tuile {
+	color: #000;
+	border: 1px solid #ccc;
+}
+
+.menu--lien {
+	color: #fff;
+}
+
+.menu--lien:hover {
+	background-color: #a6b5ab;
+}
+
+.menu .selectionne {
+	/*color: #fff;*/
+	background-color: #a6b5ab;
+}
+
+.sous-menu, .sous-menu-flottant {
+	background-color: #a6b5ab;
+	border-top: 3px solid #fff;
+	border-bottom: 3px solid #fff;
+}
+
+.titre {
+	color: #333;
+}
+
+.lien, .lien a {
+	color: #fff;
+}
+
+.lien--actif {
+	color: #0f7b0d !important;
+}
+
+.lien--inactif {
+}
+
+.nom-pronostiqueur {
+	color: #fff;
+}
+
+.modules-concours {
+	background-image: url('widgets.png');
+}
+
+.bulle-tchat {
+	background-image: url('bulle_tchat.png');
+}
+
+.bulles-tchat {
+	background-image: url('bulles_tchat.png');
+}
+
+.profil img {
+	width: 33px;
+}
+
+.parametres {
+		background-image: url('parametres.png');
+}
+
+.classement-groupe ul.listeTriee li:hover, .classement-groupe ul.listeTriee li:active {
+	background-color: #a6b5ab;
+	color: #fff;
+}
+
+.fiche {
+	background-color: rgba(0, 0, 0, 0.5);
+	border: 1px solid #ccc;
+}
+
+.fiche input[type="text"] {
+	color: #fff;
+}
+
+.fiche textarea {
+	color: #fff;
+	background-color: rgba(255, 255, 255, 0.3);
+}
+
+.fiche .photo img {
+	border: 1px solid #ccc;
+}
+
+.simple {
+	color: #fff;
+}
+
+.retour-haut-page {
+	background-color: #a6b5ab;
+	background-image: url('fleche_haut.png');
+}
+
+#divReglement {
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+.listeButeurs ul.effectif li:hover, .listeButeurs ul.buteurs li:hover {
+	background-color: #a6b5ab;
+    /*color: #fff;*/
+}
+
+.module--l1 {
+	background-color: rgba(0, 0, 0, 0.6) !important;
+	/*color: #333;*/
+}
+
+.module--l1 .module--entete {
+	background: linear-gradient(180deg, #2798dc, #1f78ae) !important;
+	/*border-bottom: #666 1px solid !important;*/
+}
+
+.module--ldc {
+	background-color: rgba(0, 0, 0, 0.6) !important;
+	/*color: #333;*/
+}
+
+.module--ldc .module--entete {
+	background: linear-gradient(180deg, #3072c4, #224e86) !important;
+	/*border-bottom: #999 1px solid !important;*/
+}
+
+.module--el {
+	background-color: rgba(0, 0, 0, 0.6) !important;
+	/*color: #333;*/
+}
+
+.module--el .module--entete {
+	background: linear-gradient(180deg, #e9ab2a, #c79225) !important;
+	/*border-bottom: #ccc 1px solid !important;*/
+}
+
+.module--barrages {
+	background-color: rgba(0, 0, 0, 0.6) !important;
+	/*color: #333;*/
+}
+
+.module--barrages .module--entete {
+	background: linear-gradient(180deg, #3072c4, #224e86) !important;
+	/*border-bottom: #ccc 1px solid !important;*/
+}
+
+.module--cdf {
+	background-color: rgba(0, 0, 0, 0.6) !important;
+	/*color: #333;*/
+}
+
+.module--cdf .module--entete {
+	background: linear-gradient(180deg, #3d4966, #283045) !important;
+}
+
+.module--discussion {
+	background-color: rgba(0, 0, 0, 0.6) !important;
+}
+
+.module--discussion .module--entete {
+	background: linear-gradient(180deg, #5f1c1c, #3e1212) !important;
+}
+
+.module--options .rafraichissement {
+	background-image: url('rafraichissement.png');
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	color: #fff;
+}
+
+.module--options select option {
+	color: #000;
+}
+
+.titre--site {
+	color: #fff;
+}
+
+.effectif-equipe {
+	background-color: #dedede;
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.7);
+}
+
+.effectif-equipe .titre-liste {
+	color: #fff;
+	background-color: #a6b5ab;
+}
+
+.module--tchat-texte {
+	color: #fff;
+}
+
+table.dataTable.no-footer {
+	border: 1px solid #fff;
+}
+
+.creation-bonus .saisie-joueur table {
+	color: #000;
+	background-color: #fff;
+}

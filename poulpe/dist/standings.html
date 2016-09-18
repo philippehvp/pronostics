@@ -1,0 +1,123 @@
+<div ui-layout class="standing-page">
+
+    <ui-layout options="{ dividerSize: 3, disableToggle: true, disableMobileToggle: true }">
+
+        <div ui-layout-container class="container" size="175px">
+
+            <div class="row">
+                <div class="col-xs-12 col-md-12 col-lg-12 centered">
+                    <ul class="nav nav-pills">
+                        <li data-toggle="tab" ng-repeat="season in ctrl.seasons track by $index" ng-click="ctrl.selectSeason(season)"><a>{{ season.Saison }}</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-md-12 col-lg-12 centered">
+                    <ul class="nav nav-pills">
+                        <li data-toggle="tab" ng-repeat="championship in ctrl.championships track by $index" ng-click="ctrl.selectChampionship(championship)"><a>{{ championship.Championnats_NomCourt }}</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-md-12 col-lg-12 centered">
+                    <ul class="nav nav-pills">
+                        <li data-toggle="tab" ng-repeat="week in ctrl.weeks track by $index" ng-click="ctrl.selectWeek(week, week.Classements_DateReference)"><a>{{ week.Journees_NomCourt }}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div ui-layout-container class="container standings">
+            <div class="row" ng-if="ctrl.standings.length">
+                <div class="col-xs-12 col-md-4 col-lg-4">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr><th colspan="4">GENERAL</th></tr>
+                            <tr>
+                                <th>CLT</th>
+                                <th>PRONOSTIQUEURS</th>
+                                <th>GENERAL</th>
+                                <th>BUTEUR</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="standing in ctrl.standings track by $index">
+                                <td>{{ standing.Classements_ClassementGeneralMatch }}</td>
+                                <td ng-if="standing.Pronostiqueurs_Photo">
+                                    <img class="standing-photo" ng-src="../images/pronostiqueurs/{{standing.Pronostiqueurs_Photo}}" alt="Photo du pronostiqueur">
+                                    &nbsp;{{ standing.Pronostiqueurs_NomUtilisateur }}
+                                </td>
+                                <td ng-if="!standing.Pronostiqueurs_Photo">
+                                    <img class="standing-photo" ng-src="../images/pronostiqueurs/_inconnu.png" alt="Photo du pronostiqueur">
+                                    &nbsp;{{ standing.Pronostiqueurs_NomUtilisateur }}
+                                </td>
+                                <td>{{ standing.Classements_PointsGeneralMatch }}</td>
+                                <td>{{ standing.Classements_PointsGeneralButeur }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-xs-12 col-md-4 col-lg-4">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr><th colspan="4">JOURNEE</th></tr>
+                            <tr>
+                                <th>CLT</th>
+                                <th>PRONOSTIQUEURS</th>
+                                <th>JOURNEE</th>
+                                <th>BUTEUR</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="standingWeek in ctrl.standingsWeek track by $index">
+                                <td>{{ standingWeek.Classements_ClassementJourneeMatch }}</td>
+                                <td ng-if="standingWeek.Pronostiqueurs_Photo">
+                                    <img class="standing-photo" ng-src="../images/pronostiqueurs/{{standingWeek.Pronostiqueurs_Photo}}" alt="Photo du pronostiqueur">
+                                    &nbsp;{{ standingWeek.Pronostiqueurs_NomUtilisateur }}
+                                </td>
+                                <td ng-if="!standingWeek.Pronostiqueurs_Photo">
+                                    <img class="standing-photo" ng-src="../images/pronostiqueurs/_inconnu.png" alt="Photo du pronostiqueur">
+                                    &nbsp;{{ standingWeek.Pronostiqueurs_NomUtilisateur }}
+                                </td>
+                                <td>{{ standingWeek.Classements_PointsJourneeMatch }}</td>
+                                <td>{{ standingWeek.Classements_PointsJourneeButeur }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-xs-12 col-md-4 col-lg-4">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr><th colspan="4">BUTEUR</th></tr>
+                            <tr>
+                                <th>CLT</th>
+                                <th>PRONOSTIQUEURS</th>
+                                <th>GENERAL BUTEUR</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="standingGoal in ctrl.standingsGoal track by $index">
+                                <td>{{ standingGoal.Classements_ClassementGeneralButeur }}</td>
+                                <td ng-if="standingGoal.Pronostiqueurs_Photo">
+                                    <img class="standing-photo" ng-src="../images/pronostiqueurs/{{standingGoal.Pronostiqueurs_Photo}}" alt="Photo du pronostiqueur">
+                                    &nbsp;{{ standingGoal.Pronostiqueurs_NomUtilisateur }}
+                                </td>
+                                <td ng-if="!standingGoal.Pronostiqueurs_Photo">
+                                    <img class="standing-photo" ng-src="../images/pronostiqueurs/_inconnu.png" alt="Photo du pronostiqueur">
+                                    &nbsp;{{ standingGoal.Pronostiqueurs_NomUtilisateur }}
+                                </td>
+                                <td>{{ standingGoal.Classements_PointsGeneralButeur }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </ui-layout>
+</div>
+
+

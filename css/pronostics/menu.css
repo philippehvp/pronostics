@@ -1,0 +1,181 @@
+.largeur-menu {
+	width: 1000px;
+	margin: 0 auto;
+}
+
+.largeur-pied {
+	width: 1200px;
+	margin: 0 auto;
+}
+
+.menu--lien {
+	line-height: 39px;
+	float: left;
+	padding: 0 16px;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+.menu-complementaire-lien {
+	font-size: 0.8em;
+}
+
+.separateur {
+	padding: 0 !important;
+	line-height: 39px;
+	float: left;
+}
+
+.sous-menu {
+	display: none;
+	position: absolute;
+	line-height: 22px;
+	margin-left: -16px;
+	padding: 24px 80px 24px 16px;
+}
+
+.sous-menu-flottant {
+	display: none;
+	position: absolute;
+	padding: 24px 16px;
+	line-height: 22px;
+	margin-left: -16px;
+}
+
+.conteneur-sous-menu {
+	/*width: 1000px;*/
+	margin: 0 auto;
+}
+
+.espacement-bas {
+	margin-bottom: 32px;
+}
+
+.espacement-haut {
+	margin-top: 32px;
+}
+
+.groupe-menu {
+	margin-right: 32px;
+}
+
+.titre {
+	display: block;
+	margin-bottom: 3px;
+	font-size: 1.1em;
+}
+
+.lien {
+	font-size: 0.9em;
+	display: block;
+	cursor: pointer;
+}
+
+.lien:hover {
+	text-decoration: underline;
+}
+
+.lien a:link, .lien a:visited {
+	text-decoration: none !important;
+}
+
+.lien a:hover, .lien a:active {
+	text-decoration: none !important;
+}
+
+.nom-pronostiqueur:hover {
+	text-decoration: underline;
+}
+
+.tchatGroupe {
+	font-size: 0.8em;
+	line-height: 32px;
+	height: 32px;
+	margin-bottom: 16px;
+	text-align: left;
+}
+
+.tchatGroupe th {
+	width: 112px;
+}
+
+.tchatGroupe td {
+	overflow: hidden;
+}
+
+.modules-concours, .bulle-tchat, .bulles-tchat, .profil, .parametres {
+	display: inline-block;
+	width: 34px;
+	height: 40px;
+	margin-right: 7px;
+	background-repeat: no-repeat;
+	background-position: 50% 6px;
+	vertical-align: top;
+}
+
+
+.profil {
+	height: 36px;
+	margin-top: 4px;
+}
+
+.section1 {
+	height: 139px;
+	padding-top: 10px;
+	text-align: center;
+}
+
+.section1 .logo {
+	width: 100%;
+}
+
+.section1 .logo-poulpe {
+	display: block;
+}
+
+.section2 {
+	height: 149px;
+	padding: 0 8px;
+}
+
+.section3 {
+	height: 149px;
+	padding: 0 8px;
+}
+
+.section4 {
+	height: 144px;
+	padding-top: 5px;
+	padding-bottom: -5px;
+	text-align: right;
+	cursor: pointer;
+}
+
+.pied--navigation {
+	list-style-type: disc;
+	list-style-position: inside;
+	font-size: 0.9em;
+}
+
+.pied--navigation li {
+	width: 55%;
+	border-bottom: 1px solid #4a4845;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	font-size: 0.85em;
+}
+
+.pied--navigation a:link, .pied--navigation a:visited {
+	color: #c8c5c2;
+	text-decoration: none;
+}
+
+.pied--navigation a:hover, .pied--navigation a:active {
+	color: #c8c5c2;
+	text-decoration: underline;
+}
+
+.pied--navigation li:first-child {
+	list-style-type: none;
+	font-size: 0.9em;
+}

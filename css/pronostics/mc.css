@@ -1,0 +1,325 @@
+.mc {
+	display: block;
+	position: absolute;
+	width: 1198px;
+	height: 939px;
+	border-left: 1px solid #78a1b2;
+	border-right: 1px solid #78a1b2;
+	border-bottom: 1px solid #78a1b2;
+	z-index: 1000;
+	color: #fff;
+	vertical-align: middle;
+	/*background: radial-gradient(circle at center, rgb(57, 91, 115), rgb(15, 46, 69));*/
+	background-image: url('../../images/match_centre_fond.jpg');
+	background-repeat: no-repeat;
+	background-position: 0 0;
+}
+
+.mc--contenu {
+	padding: 0 10px 5px 10px;
+}
+
+.mc--titre {
+	font-size: 2em;
+	font-weight: bold;
+}
+
+.mc--onglets {
+	margin-top: 5px;
+}
+
+.mc--nom-onglet {
+	font-size: 1.1em;
+	margin-right: 2em;
+	color: #78a1b2;
+	text-transform: uppercase;
+}
+
+.mc--nom-onglet:hover {
+	color: #fff !important;
+}
+
+.mc--selectionne {
+	color: #fff !important;
+}
+
+.mc--section {
+	font-size: 1.3em;
+}
+
+.mc--liste-pronostiqueurs {
+}
+
+.mc--tableau-resultats {
+	text-align: left;
+}
+
+.mc--tableau-resultats tr:hover {
+	cursor: pointer;
+}
+
+.mc--tableau-resultats tr:hover td.selectionnable {
+	background-color: #0e2c3d;
+}
+
+.mc--tableau-resultats tr.selectionne td.selectionnable {
+	background-color: #78a1b2;
+}
+
+.mc--tableau-resultats thead tr th {
+	font-size: 0.9em;
+	font-weight: normal;
+	padding: 0 5px;
+	color: #78a1b2;
+}
+
+.mc .direct {
+	background: rgba(207, 35, 35, 0.4);
+}
+
+.mc--tableau-resultats tr td {
+	font-size: 0.8em;
+	padding: 0 5px;
+}
+
+.mc--tableau-resultats tr td.points, .mc--tableau-resultats tr th.points {
+	padding: 0 !important;
+}
+
+.mc .bordure-basse-legere {
+	border-bottom: 1px dotted rgba(120, 161, 178, 0.3);
+}
+
+.mc .bordure-basse {
+	border-bottom: 1px solid #78a1b2;
+}
+
+.mc .bordure-droite {
+	border-right: 2px solid #78a1b2;
+}
+
+.mc .bordure-droite-legere {
+	border-right: 1px dotted rgba(120, 161, 178, 0.3);
+}
+
+.mc--resultats {
+	width: 660px;
+	max-width: 670px;
+	max-height: 395px;
+	height: 395px;
+	margin: 10px 10px 10px 0;
+}
+
+.mc--detail-match {
+	display: inline-block;
+	visibility: hidden;
+	width: 478px;
+	max-width: 478px;
+	height: 380px;
+	max-height: 370px;
+	overflow: auto;
+	padding: 0 10px 20px 10px;
+	border-left: 4px solid #32556c;
+
+}
+
+.mc--titre-section {
+	color: #78a1b2;
+	font-size: 1em;
+	display: block;
+}
+
+.mc--nom-joueur {
+	font-size: 0.8em;
+	margin: 0 1em;
+}
+
+.mc--classement-general {
+	height: 215px;
+	max-height: 215px;
+}
+
+.mc--classement-journee {
+	height: 165px;
+	max-height: 165px;
+}
+
+.mc--classement-general, .mc--classement-journee {
+	width: 800px;
+	max-width: 800px;
+	white-space: nowrap;
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+
+.mc--classement-general div.premiere-colonne, .mc--classement-journee div.premiere-colonne {
+	display: inline-block;
+	padding: 0 5px 0 0;
+	vertical-align: top;
+}
+
+.mc--classement-general div.colonne-suivante, .mc--classement-journee div.colonne-suivante {
+	display: inline-block;
+	padding: 0 5px;
+	border-left: 1px solid #78a1b2;
+	vertical-align: top;
+}
+
+.mc--tableau-repartition-pronostics {
+	margin: 0 auto;
+}
+
+.mc--tableau-repartition-pronostics td, .mc--tableau-repartition-pronostics th {
+	padding: 0 5px;
+}
+
+.mc--tableau-equipes {
+	margin: 0 auto;
+}
+
+.mc--tableau-equipes img.fanion {
+	width: 35px;
+	margin: 5px 0;
+}
+
+.mc tr.logistique td, .mc tr.logistique th {
+	font-size: 0.7em;
+}
+
+.mc--tableau-equipes td.equipe {
+	min-width: 200px;
+}
+
+.mc--tableau-effectif {
+	margin: 0 auto;
+}
+
+.mc--tableau-effectif td, .mc--tableau-effectif th {
+	padding: 0 5px;
+	font-size: 0.8em;
+}
+
+.mc--tableau-effectif thead tr th {
+	color: #78a1b2;
+	font-weight: normal;
+}
+
+.mc--tableau-effectif td.buteur {
+	text-decoration: underline;
+}
+
+.mc--tableau-classements thead tr th {
+	font-size: 0.8em;
+	color: #78a1b2;
+	font-weight: normal;
+	padding: 0 5px;
+}
+
+.mc--tableau-classements img.photo {
+	width: 24px;
+}
+
+.mc--tableau-classements tbody tr td {
+	padding: 0 5px;
+	font-size: 0.7em;
+	line-height: 20px;
+}
+
+.mc--tableau-classements tbody tr.surbrillance td {
+	background-color: #78a1b2;
+}
+	
+.mc--graphiques {
+	display: block;
+	width: 300px;
+	height: 200px;
+	max-height: 300px;
+	margin-top: 10px;
+	overflow: auto;
+}
+
+.mc--graphiques rect {
+	fill: rgba(14, 44, 61, 0.8);
+}
+
+.mc--graphiques text {
+	fill: #fff;
+	font-size: 0.7em;
+	text-anchor: middle;
+}
+
+.mc--graphiques-axe text {
+	font: 10px sans-serif;
+	stroke: #fff;
+}
+
+.mc--graphiques-axe path, .mc--graphiques-axe line {
+	fill: none;
+	stroke: #fff;
+	shape-rendering: crispedges;
+}
+
+.x.mc--graphiques-axe line, .x.mc--graphiques-axe path {
+	/*display: none;*/
+}
+
+.mc--graphique-barre:hover {
+	fill: brown;
+}
+
+.mc--graphique-courbe-pleine {
+	fill: rgba(0, 0, 0, 0.1);
+	stroke: none;
+}
+
+.mc--graphique-courbe {
+	fill: none;
+	stroke: #fff;
+	stroke-width: 1.5px;
+}
+
+.mc--graphiques .graphique {
+	border: 1px dotted rgba(120, 161, 178, 0.3);
+}
+
+.mc--graphiques .titre-axe {
+	font-size: 14px !important;
+	text-rendering: optimizeLegibility;
+	letter-spacing: 1.5px;
+}
+
+.mc--graphique-infobulle {
+	padding: 3px;
+	background-color: #78a1b2;
+	color: #fff;
+	font-size: 11px;
+	z-index: 1100;
+}
+
+.mc--graphique-infobulle:after {
+	box-sizing: border-box;
+	display: inline;
+	font-size: 10px;
+	width: 100%;
+	line-height: 1;
+	color: #78a1b2;
+	content: "\25BC";
+	position: absolute;
+	text-align: center;
+}
+
+.mc--graphique-infobulle.n:after {
+	margin: -1px 0 0 0;
+	top: 100%;
+	left: 0;
+}
+
+.mc--graphique-grille .tick {
+	stroke: lightgrey;
+	stroke-opacity: 0.2;
+	shape-rendering: crispEdges;
+}
+
+.mc--graphique-grille path {
+	stroke-width: 0;
+}

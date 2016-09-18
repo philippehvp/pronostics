@@ -1,0 +1,52 @@
+<div ui-layout class="standing-page">
+
+    <ui-layout options="{ dividerSize: 3, disableToggle: true, disableMobileToggle: true }">
+
+        <div ui-layout-container class="container" size="90px">
+            <div class="row">
+                <div class="col-xs-12 col-md-12 col-lg-12 centered">
+                    <ul class="nav nav-pills">
+                        <li data-toggle="tab" ng-repeat="season in ctrl.seasons track by $index" ng-click="ctrl.selectSeason(season)"><a>{{ season.Saison }}</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-md-12 col-lg-12 centered">
+                    <ul class="nav nav-pills">
+                        <li data-toggle="tab" ng-repeat="championship in ctrl.championships track by $index" ng-click="ctrl.selectChampionship(championship)"><a>{{ championship.Championnats_NomCourt }}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div ui-layout-container class="container trophies">
+            <div class="row" ng-if="ctrl.trophies.length">
+                <div class="col-xs-12 col-md-12 col-lg-12">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr><th>PRONOSTIQUEURS</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="trophy in ctrl.trophies track by $index">
+                                <td>
+                                    <span class="forecaster-name">{{ trophy.Pronostiqueurs_NomUtilisateur }}</span><br />
+                                    <span ng-if="trophy.Poulpe_Or">Poulpe d'Or : {{ trophy.Poulpe_Or }}<br /></span>
+                                    <span ng-if="trophy.Poulpe_Argent">Poulpe d'Argent : {{ trophy.Poulpe_Argent }}<br /></span>
+                                    <span ng-if="trophy.Poulpe_Bronze">Poulpe de Bronze : {{ trophy.Poulpe_Bronze }}<br /></span>
+                                    <span ng-if="trophy.Soulier_Or">Soulier d'Or : {{ trophy.Soulier_Or }}<br /></span>
+                                    <span ng-if="trophy.Brandao">Brandao : {{ trophy.Brandao }}<br /></span>
+                                    <span ng-if="trophy.Jeremy_Morel">Jeremy Morel : {{ trophy.Jeremy_Morel }}<br /></span>
+                                    <span ng-if="trophy.Record_Points">Record de points : {{ trophy.Record_Points }}<br /></span>
+                                    <span ng-if="trophy.Record_Buteur">Record buteur : {{ trophy.Record_Buteur }}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </ui-layout>
+</div>
+
+
