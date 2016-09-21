@@ -1,18 +1,18 @@
 module Application.Directives {
 
-	export class Navbar {
+    export class Navbar {
 
-		constructor() {
-			return this.createDirective();
-		}
+        constructor() {
+            return this.createDirective();
+        }
 
-		private createDirective(): any {
-			return {
-				restrict: 'E',
-				templateUrl: './dist/navbar.html',
-				scope: {
-				}
-			};
-		}
-	}
+        private createDirective(): any {
+            return {
+                restrict: "E",
+                templateUrl: "./dist/navbar.html",
+                scope: {
+                }
+            };
+        }
+    }
 }

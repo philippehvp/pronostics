@@ -1,92 +1,77 @@
 @import 'partials/_variables';
 @import 'partials/_navbar';
 
-
 body {
-    /*background-image: url('./images/background-image.jpg');
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-attachment: fixed;*/
-    color: #333333;
-    padding-top: $body-padding-top;
+  color: $body-color;
+  padding-top: $body-padding-top;
 }
 
 .centered {
-    text-align: center;
+  text-align: center;
 }
 
 form {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 .ui-layout-row > .ui-splitbar {
-    background: $splitbar-color;
+  background: $splitbar-color;
 }
 
 .forecaster-frame {
-    margin-top: 2px;
-    margin-bottom: 5px;
-    padding-top: 10px;
-    text-align: center;
-    color: $forecaster-color;
-    background: $forecaster-background;
-    cursor: pointer;
-    
-    .forecaster-photo {
-        width: $forecaster-photo;
-    }
+  background: $forecaster-background;
+  color: $forecaster-color;
+  cursor: pointer;
+  margin-bottom: 5px;
+  margin-top: 2px;
+  padding-top: 10px;
+  text-align: center;
 
-    .forecaster-name {
-        color: $forecaster-name-color;
-        background-color: $forecaster-name-background-color;
-        font-size: 20px;
-    }
+  .forecaster-photo {
+    width: $forecaster-photo;
+  }
 
+  .forecaster-name {
+    background-color: $forecaster-name-background-color;
+    color: $forecaster-name-color;
+    font-size: 20px;
+  }
 }
 
 .forecasters-list {
-    position: relative;
+  position: relative;
 }
 
 .mask {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 500;
+  background: $mask-background-color;
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 500;
 }
 
 .standings {
-    .title {
-        font-size: 24px;
-    }
+  .title {
+    font-size: 24px;
+  }
 
-    .standing-photo {
-        width: $standing-photo;
-    }
+  .standing-photo {
+    width: $standing-photo;
+  }
 }
 
 .trophies {
-    .title {
-        font-size: 24px;
-    }
-    
-    .forecaster-name {
-        font-size: 24px;
-    }
+  .title {
+    font-size: 24px;
+  }
+
+  .forecaster-name {
+    font-size: 24px;
+  }
 }
-
-
-/* Small to large devices */
-@media screen and (min-width: 768px) {
-
-
-}
-
-
-
-
+// Small to large devices
+//@media screen and (min-width: 768px) {}

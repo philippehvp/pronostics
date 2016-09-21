@@ -5,7 +5,7 @@
 /// <reference path="models/standing.ts" />
 
 
-module Application.Controllers{
+module Application.Controllers {
     export class StandingsController {
         private seasons: any[];
         private championships: any[];
@@ -21,7 +21,7 @@ module Application.Controllers{
         private currentReferenceDate: any;
 
         private service: any;
-        
+
         constructor(standingsService: any) {
             this.service = standingsService;
         }
@@ -31,13 +31,13 @@ module Application.Controllers{
             this.service.getSeasons().then((seasons) => {
                 this.seasons = seasons;
             }, (err) => {
-                console.log('StandingsController $onInit(): Error during reading seasons');
-            }); 
+                console.log("StandingsController $onInit(): Error during reading seasons");
+            });
         }
 
         /* Select a season */
         selectSeason(season: Season): void {
-            if(this.currentSeason === season)
+            if (this.currentSeason === season)
                 return;
 
             this.currentSeason = season;
@@ -50,7 +50,7 @@ module Application.Controllers{
             this.service.getChampionships(this.currentSeason).then((championships) => {
                 this.championships = championships;
             }, (err) => {
-                console.log('StandingsController selectSeason(): Error during reading championships');
+                console.log("StandingsController selectSeason(): Error during reading championships");
             });
         }
 
@@ -63,7 +63,7 @@ module Application.Controllers{
                 this.weeks = weeks;
                 this.standings = [];
             }, (err) => {
-                console.log('StandingsController selectChampionship(): Error during reading weeks');
+                console.log("StandingsController selectChampionship(): Error during reading weeks");
             });
         }
 
@@ -75,19 +75,19 @@ module Application.Controllers{
             this.service.getStandings(this.currentSeason, this.currentWeek, this.currentReferenceDate).then((standings) => {
                 this.standings = standings;
             }, (err) => {
-                console.log('StandingsController $onInit(): Error during reading standings');
+                console.log("StandingsController $onInit(): Error during reading standings");
             });
 
             this.service.getStandingsWeek(this.currentSeason, this.currentWeek, this.currentReferenceDate).then((standingsWeek) => {
                 this.standingsWeek = standingsWeek;
             }, (err) => {
-                console.log('StandingsController $onInit(): Error during reading standings week');
+                console.log("StandingsController $onInit(): Error during reading standings week");
             });
 
             this.service.getStandingsGoal(this.currentSeason, this.currentWeek, this.currentReferenceDate).then((standingsGoal) => {
                 this.standingsGoal = standingsGoal;
             }, (err) => {
-                console.log('StandingsController $onInit(): Error during reading standings goal');
+                console.log("StandingsController $onInit(): Error during reading standings goal");
             });
         }
     }

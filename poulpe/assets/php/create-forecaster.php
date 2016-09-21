@@ -2,7 +2,7 @@
 	include_once('common.php');
 
 	$postedData = json_decode(file_get_contents("php://input"), true);
-	$data = json_decode($postedData['data']);
+	$data = json_decode($postedData["data"]);
 	$nomUtilisateur = $data->Pronostiqueurs_NomUtilisateur;
 	$nom = $data->Pronostiqueurs_Nom;
 	$prenom = $data->Pronostiqueurs_Prenom;
@@ -50,7 +50,7 @@
 	$stmt->bindParam(':premiereConnexion', $premiereConnexion);
 	$stmt->bindParam(':dateDeNaissance', $dateDeNaissance);
 	$stmt->bindParam(':lieuDeResidence', $lieuDeResidence);
-	
+
 	$stmt->bindParam(':ambitions', $ambitions);
 	$stmt->bindParam(':palmares', $palmares);
 	$stmt->bindParam(':carriere', $carriere);
@@ -86,6 +86,3 @@
 
 
 ?>
-
-
-

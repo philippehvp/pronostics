@@ -11,19 +11,19 @@ module Application.Services {
 
         /* Get all seasons */
         getSeasons(): any {
-            let url = './dist/seasons.php';
+            let url = "./dist/seasons.php";
 
             return this.http({
-                method: 'POST',
+                method: "POST",
                 url: url
             }).then(function successCallback(response) {
                 return response.data || {};
             }, function errorCallback(error) {
                 let errMsg = (error.message) ? error.message :
-                    error.status ? `${error.status} - ${error.statusText}` : 'trophies-service getSeasons: Server error';
+                    error.status ? `${error.status} - ${error.statusText}` : "trophies-service getSeasons: Server error";
                 console.error(errMsg); // log to console instead
                 return [];
-            }); 
+            });
         }
 
         /* Get all championships */
@@ -31,17 +31,17 @@ module Application.Services {
             let url = "./dist/championships.php";
 
             return this.http({
-                method: 'POST',
+                method: "POST",
                 url: url,
-                data: {saison: season}
+                data: { saison: season }
             }).then(function successCallback(response) {
                 return response.data || {};
             }, function errorCallback(error) {
                 let errMsg = (error.message) ? error.message :
-                    error.status ? `${error.status} - ${error.statusText}` : 'trophies-service getChampionships: Server error';
+                    error.status ? `${error.status} - ${error.statusText}` : "trophies-service getChampionships: Server error";
                 console.error(errMsg); // log to console instead
                 return [];
-            }); 
+            });
         }
 
         /* Get all trophies */
@@ -49,17 +49,17 @@ module Application.Services {
             let url = "./dist/trophies.php";
 
             return this.http({
-                method: 'POST',
+                method: "POST",
                 url: url,
-                data: JSON.stringify({saison: season.Saison, championnat: championship.Championnat})
+                data: JSON.stringify({ saison: season.Saison, championnat: championship.Championnat })
             }).then(function successCallback(response) {
                 return response.data || {};
             }, function errorCallback(error) {
                 let errMsg = (error.message) ? error.message :
-                    error.status ? `${error.status} - ${error.statusText}` : 'trophies-service getTrophies: Server error';
+                    error.status ? `${error.status} - ${error.statusText}` : "trophies-service getTrophies: Server error";
                 console.error(errMsg); // log to console instead
                 return [];
-            }); 
+            });
         }
     }
 }

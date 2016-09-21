@@ -4,7 +4,7 @@
 /// <reference path="models/trophy.ts" />
 
 
-module Application.Controllers{
+module Application.Controllers {
     export class TrophiesController {
         private seasons: any[];
         private championships: any[];
@@ -14,7 +14,7 @@ module Application.Controllers{
         private currentChampionship: Championship;
 
         private service: any;
-        
+
         constructor(trophiesService: any) {
             this.service = trophiesService;
         }
@@ -24,13 +24,13 @@ module Application.Controllers{
             this.service.getSeasons().then((seasons) => {
                 this.seasons = seasons;
             }, (err) => {
-                console.log('TrophiesController $onInit(): Error during reading seasons');
-            }); 
+                console.log("TrophiesController $onInit(): Error during reading seasons");
+            });
         }
 
         /* Select a season */
         selectSeason(season: Season): void {
-            if(this.currentSeason === season)
+            if (this.currentSeason === season)
                 return;
 
             this.currentSeason = season;
@@ -41,7 +41,7 @@ module Application.Controllers{
             this.service.getChampionships(this.currentSeason).then((championships) => {
                 this.championships = championships;
             }, (err) => {
-                console.log('TrophiesController selectSeason(): Error during reading championships');
+                console.log("TrophiesController selectSeason(): Error during reading championships");
             });
         }
 
@@ -53,7 +53,7 @@ module Application.Controllers{
             this.service.getTrophies(this.currentSeason, this.currentChampionship).then((trophies) => {
                 this.trophies = trophies;
             }, (err) => {
-                console.log('TrophiesController $onInit(): Error during reading trophies');
+                console.log("TrophiesController $onInit(): Error during reading trophies");
             });
         }
     }

@@ -2,7 +2,7 @@
 
 	ini_set('session.gc_maxlifetime', '86400');
 	session_start();
-	
+
 	// Connect to DB
 	try {
 		if($_SERVER['HTTP_HOST'] == 'localhost') {

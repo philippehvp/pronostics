@@ -48,7 +48,7 @@
 	$stmt->bindParam(':premiereConnexion', $premiereConnexion);
 	$stmt->bindParam(':dateDeNaissance', $dateDeNaissance);
 	$stmt->bindParam(':lieuDeResidence', $lieuDeResidence);
-	
+
 	$stmt->bindParam(':ambitions', $ambitions);
 	$stmt->bindParam(':palmares', $palmares);
 	$stmt->bindParam(':carriere', $carriere);
@@ -69,6 +69,3 @@
 
 	echo json_encode($errorMessage);
 ?>
-
-
-
