@@ -4,7 +4,7 @@
 /// <reference path="models/trophy.ts" />
 
 
-module Application.Controllers {
+namespace Application.Controllers {
     export class TrophiesController {
         private seasons: any[];
         private championships: any[];

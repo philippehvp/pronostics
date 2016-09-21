@@ -1,7 +1,7 @@
 /// <reference path="angular.d.ts" />
 
 
-module Application.Services {
+namespace Application.Services {
     export class StandingsService {
         private http: any;
 

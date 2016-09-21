@@ -5,7 +5,7 @@
 /// <reference path="models/standing.ts" />
 
 
-module Application.Controllers {
+namespace Application.Controllers {
     export class StandingsController {
         private seasons: any[];
         private championships: any[];

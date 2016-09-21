@@ -1,8 +1,7 @@
 /// <reference path="angular.d.ts" />
 /// <reference path="models/forecaster.ts" />
 
-
-module Application.Controllers {
+namespace Application.Controllers {
     export class ForecastersController {
         private forecasters: any[];
         private service: any;
@@ -218,5 +217,4 @@ module Application.Controllers {
             });
         }
     }
-
 }

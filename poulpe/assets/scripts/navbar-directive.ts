@@ -1,4 +1,4 @@
-module Application.Directives {
+namespace Application.Directives {
 
     export class Navbar {
 
