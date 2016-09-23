@@ -64,10 +64,12 @@ gulp.task('php', function() {
 /* Concat SASS files */
 gulp.task('sass', function () {
 	return	gulp.src(cssSource)
+			.pipe(sourcemaps.init())
 			.pipe(sass())
 			.pipe(concat(cssTarget))
-    		.pipe(gulp.dest('./dist/'))
-    		.pipe(livereload());
+			.pipe(sourcemaps.write('./dist/'))
+    	.pipe(gulp.dest('./dist/'))
+    	.pipe(livereload());
 });
 
 gulp.task('watch', function() {
