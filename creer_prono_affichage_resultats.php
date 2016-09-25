@@ -1,11 +1,11 @@
 <?php
 	include('commun.php');
-	
+
 	// Page d'affichage des derniers résultats des équipes d'une rencontre
-	
+
 	// Match concerné
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
-	
+
 	$ordreSQL =		'	SELECT		Equipes_EquipeDomicile, Equipes_EquipeVisiteur, equipesDomicile.Equipes_Nom AS EquipesDomicile_Nom, equipesVisiteur.Equipes_Nom AS EquipesVisiteur_Nom' .
 					'	FROM		matches' .
 					'	JOIN		equipes equipesDomicile' .
@@ -19,7 +19,7 @@
 	$equipeVisiteur = $equipes[0]["Equipes_EquipeVisiteur"];
 	$equipeDomicile_Nom = $equipes[0]["EquipesDomicile_Nom"];
 	$equipeVisiteur_Nom = $equipes[0]["EquipesVisiteur_Nom"];
-	
+
 	// Lecture des classements de l'équipe domicile
 	$ordreSQL =		'	SELECT		(' .
 					'					SELECT		ClassementsEquipes_Classement' .
@@ -114,26 +114,26 @@
 					'				,fn_nombredefaites(' . $equipeDomicile . ') AS Nombre_Defaites';
 	$req = $bdd->query($ordreSQL);
 	$equipeDomicile_general = $req->fetchAll();
-					
+
 	$ordreSQL =		'	SELECT		fn_nombrevictoires_domicile(' . $equipeDomicile . ') AS Nombre_Victoires' .
 					'				,fn_nombrenuls_domicile(' . $equipeDomicile . ') AS Nombre_Nuls' .
 					'				,fn_nombredefaites_domicile(' . $equipeDomicile . ') AS Nombre_Defaites';
 	$req = $bdd->query($ordreSQL);
 	$equipeDomicile_domicile = $req->fetchAll();
-	
+
 	// Nombre de matches de l'équipe visiteur
 	$ordreSQL =		'	SELECT		fn_nombrevictoires(' . $equipeVisiteur . ') AS Nombre_Victoires' .
 					'				,fn_nombrenuls(' . $equipeVisiteur . ') AS Nombre_Nuls' .
 					'				,fn_nombredefaites(' . $equipeVisiteur . ') AS Nombre_Defaites';
 	$req = $bdd->query($ordreSQL);
 	$equipeVisiteur_general = $req->fetchAll();
-					
+
 	$ordreSQL =		'	SELECT		fn_nombrevictoires_visiteur(' . $equipeVisiteur . ') AS Nombre_Victoires' .
 					'				,fn_nombrenuls_visiteur(' . $equipeVisiteur . ') AS Nombre_Nuls' .
 					'				,fn_nombredefaites_visiteur(' . $equipeVisiteur . ') AS Nombre_Defaites';
 	$req = $bdd->query($ordreSQL);
 	$equipeVisiteur_visiteur = $req->fetchAll();
-	
+
 	// Meilleurs buteurs de l'équipe domicile
 	$ordreSQL =		'	SELECT		GROUP_CONCAT(buteurs.Buteurs SEPARATOR \', \') AS Buteurs' .
 					'	FROM		(' .
@@ -155,7 +155,7 @@
 					'				) buteurs';
 	$req = $bdd->query($ordreSQL);
 	$equipeDomicile_meilleurs_buteurs = $req->fetchAll();
-	
+
 	// Tous les buteurs de l'équipe domicile
 	$ordreSQL =		'	SELECT		GROUP_CONCAT(buteurs.Buteurs SEPARATOR \', \') AS Buteurs' .
 					'	FROM		(' .
@@ -176,7 +176,7 @@
 					'				) buteurs';
 	$req = $bdd->query($ordreSQL);
 	$equipeDomicile_buteurs = $req->fetchAll();
-	
+
 	// Meilleurs buteurs de l'équipe visiteur
 	$ordreSQL =		'	SELECT		GROUP_CONCAT(buteurs.Buteurs SEPARATOR \', \') AS Buteurs' .
 					'	FROM		(' .
@@ -198,7 +198,7 @@
 					'				) buteurs';
 	$req = $bdd->query($ordreSQL);
 	$equipeVisiteur_meilleurs_buteurs = $req->fetchAll();
-	
+
 	// Tous les buteurs de l'équipe visiteur
 	$ordreSQL =		'	SELECT		GROUP_CONCAT(buteurs.Buteurs SEPARATOR \', \') AS Buteurs' .
 					'	FROM		(' .
@@ -218,8 +218,8 @@
 					'					ORDER BY	COUNT(*) DESC' .
 					'				) buteurs';
 	$req = $bdd->query($ordreSQL);
-	$equipeVisiteur_buteurs = $req->fetchAll();	
-	
+	$equipeVisiteur_buteurs = $req->fetchAll();
+
 	// Liste des derniers matches de l'équipe domicile
 	$ordreSQL =		'	SELECT		matches.Match' .
 					'				,CASE' .
@@ -278,8 +278,10 @@
 					'					OR		equipesVisiteur.Equipe = ' . $equipeDomicile .
 					'				)' .
 					'				AND		matches.Match <> ' . $match .
+					'				AND		matches.Matches_Date <= NOW()' .
 					'	ORDER BY	matches.Matches_Date DESC' .
 					'	LIMIT		10';
+
 	$req = $bdd->query($ordreSQL);
 	$equipeDomicile_resultats = $req->fetchAll();
 
@@ -342,6 +344,7 @@
 					'					OR		equipesVisiteur.Equipe = ' . $equipeVisiteur .
 					'				)' .
 					'				AND		matches.Match <> ' . $match .
+					'				AND		matches.Matches_Date <= NOW()' .
 					'	ORDER BY	matches.Matches_Date DESC' .
 					'	LIMIT		10';
 	$req = $bdd->query($ordreSQL);
@@ -356,19 +359,19 @@
 				echo '<th class="bordure-basse" style="width: 50%;">' . $equipeVisiteur_Nom . '</th>';
 			echo '</tr>';
 		echo '</thead>';
-		
+
 		echo '<tbody>';
-		
+
 			// Meilleurs buteurs
 			echo '<tr class="neutre">';
 				echo '<td colspan="2">Meilleurs buteurs</td>';
 			echo '</tr>';
-		
+
 			echo '<tr class="curseur-main neutre" onclick="afficherMasquerObjet(\'buteurs\');">';
 				echo '<td class="bordure-basse" title="' . $equipeDomicile_buteurs[0]["Buteurs"] . '">' . $equipeDomicile_meilleurs_buteurs[0]["Buteurs"];
 				echo '<td class="bordure-basse" title="' . $equipeVisiteur_buteurs[0]["Buteurs"] . '">' . $equipeVisiteur_meilleurs_buteurs[0]["Buteurs"];
 			echo '</tr>';
-			
+
 			echo '<tr id="buteurs" class="curseur-main neutre" style="display: none; vertical-align: top;" onclick="afficherMasquerObjet(\'buteurs\');">';
 				echo '<td class="bordure-basse tous-buteurs" style="word-wrap: break-word;">' . $equipeDomicile_buteurs[0]["Buteurs"] . '</td>';
 				echo '<td class="bordure-basse tous-buteurs" style="word-wrap: break-word;">' . $equipeVisiteur_buteurs[0]["Buteurs"] . '</td>';
@@ -412,12 +415,12 @@
 					echo '</table>';
 				echo '</td>';
 			echo '</tr>';
-			
+
 			echo '<tr class="neutre">';
 				echo '<td>Matches à domicile</td>';
 				echo '<td>Matches à l\'extérieur</td>';
 			echo '</tr>';
-			
+
 			echo '<tr class="neutre">';
 				echo '<td class="bordure-basse">';
 					echo '<table style="border: none; margin: 0 auto;">';
@@ -452,11 +455,11 @@
 					echo '</table>';
 				echo '</td>';
 			echo '</tr>';
-			
+
 			echo '<tr class="neutre">';
 				echo '<td colspan="2">Attaque et défense (att. = attaque - déf. = défense - dom. = domicile - ext. = extérieur)</td>';
 			echo '</tr>';
-			
+
 			echo '<tr class="neutre">';
 				echo '<td class="bordure-basse">';
 					echo '<table style="border: none; margin: 0 auto;">';
@@ -501,7 +504,7 @@
 			echo '</tr>';
 		echo '</tbody>';
 	echo '</table>';
-	
+
 	echo '<table class="tableau--classement tableau--statistique" style="margin: 0 auto;">';
 		echo '<tbody>';
 			echo '<tr class="neutre">';
@@ -521,7 +524,7 @@
 									$classe = 'rouge';
 								echo '<td class="' . $classe . '">' . $unResultat["Resultat"] . '</td>';
 							echo '</tr>';
-							
+
 							if($unResultat["Buteurs"] != '') {
 								// Affichage de tous les buteurs dans une ligne cachée
 								echo '<tr class="curseur-main" id="match_' . $unResultat["Match"] . '" style="display: none;" onclick="afficherMasquerObjet(\'match_' . $unResultat["Match"] . '\');">';
@@ -531,7 +534,7 @@
 						}
 					echo '</table>';
 				echo '</td>';
-				
+
 				echo '<td style="vertical-align: top;">';
 					echo '<table style="table-layout: fixed; border: none; margin: 0 auto;">';
 						foreach($equipeVisiteur_resultats as $unResultat) {
@@ -548,7 +551,7 @@
 								echo '<td>' . $unResultat["Equipe"] . '</td>';
 								echo '<td>' . $unResultat["Localisation"] . '</td>';
 							echo '</tr>';
-							
+
 							if($unResultat["Buteurs"] != '') {
 								// Affichage de tous les buteurs dans une ligne cachée
 								echo '<tr class="curseur-main" id="match_' . $unResultat["Match"] . '" style="display: none;" onclick="afficherMasquerObjet(\'match_' . $unResultat["Match"] . '\');">';
@@ -561,14 +564,14 @@
 			echo '</tr>';
 		echo '</tbody>';
 	echo '</table>';
-	
+
 ?>
 
 <script>
 	$(function() {
 		var tousButeursLargeurActuelle = $('.tous-buteurs').css('width');
 		$('.tous-buteurs').css('max-width', tousButeursLargeurActuelle);
-		
+
 		var buteursMatchLargeurActuelle = $('.buteurs-match').css('width');
 		$('.buteurs-match').css('max-width', buteursMatchLargeurActuelle);
 	});
