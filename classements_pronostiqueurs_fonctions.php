@@ -44,7 +44,7 @@
 
 		return $ordreSQL;
 	}
-	
+
 	// Recherche de la journée en cours
 	function lireJournee($championnat) {
 		$ordreSQL =		'	SELECT		journees.Journee' .
@@ -56,7 +56,7 @@
 						'	WHERE		journees.Journee = fn_recherchejourneeencours(' . $championnat . ')';
 		return $ordreSQL;
 	}
-	
+
 	// Recherche de la journée dont le classement a déjà été au moins une fois calculé
 	function lireDerniereJournee($bdd, $championnat) {
 		$ordreSQL =		'	SELECT		IFNULL	(' .
@@ -74,7 +74,7 @@
 			$derniereJournee = $journees[0]["Journees_Journee"];
 		else
 			$derniereJournee = 0;
-		
+
 		$ordreSQL =		'	SELECT		journees.Journee' .
 						'				,journees.Journees_Nom' .
 						'				,IFNULL(journees.Journees_DateMAJ, \'\') AS Journees_DateMAJ' .
@@ -126,7 +126,7 @@
 		// Classement général du championnat
 
 		$nombrePlaces = 5;
-		
+
 		// Si le mode concurrent direct est activé, il est nécessaire de lire d'abord le classement du joueur pour ensuite savoir quelles sont les places à afficher
 		// Exemple, le joueur est 15ème, on affiche donc les places 10 à 20
 		$borneInferieure = 0;
@@ -144,7 +144,7 @@
 			$borneInferieure = $classementActuel - $nombrePlaces;
 			$borneSuperieure = $classementActuel + $nombrePlaces;
 		}
-		
+
 		// Nom interne de la journée
 		// Utilisée notamment pour les championnats européens (la journée 1 de LDC ne doit pas en effet avoir le numéro 39 mais 1)
 		// Il n'est pas toujours nécessaire de regarder le nombre de pronostics saisis dans la journée suivante (dans le cas de l'affichage de la page des classements par exemple)
@@ -157,12 +157,12 @@
 		$journees = $req->fetchAll();
 		$journeeNomCourt = $journees[0]["Journees_NomCourt"];
 		if(is_numeric($journeeNomCourt))					$journeeNomCourt = 'J' . $journeeNomCourt;
-		
-		
+
+
 		$journeeSuivanteNomCourt = $journees[0]["JourneesSuivantes_NomCourt"];
 		if($journeeSuivanteNomCourt == null)
 			$journeeSuivanteNomCourt = '';
-		
+
 		if(is_numeric($journeeSuivanteNomCourt))			$journeeSuivanteNomCourt = 'J' . $journeeSuivanteNomCourt;
 		$journeeSuivante = $journees[0]["JourneesSuivantes_Journee"];
 		if($journeeSuivante == null)
@@ -197,7 +197,7 @@
 						'					ELSE	NULL' .
 						'				END AS NombreMatchesTheoriquesSuivants' .
 						'	FROM';
-						
+
 		if($modeRival == 1 && $modeModule == 1)
 			$ordreSQL .=	'			(' .
 							'				SELECT		PronostiqueursRivaux_Pronostiqueur' .
@@ -210,12 +210,12 @@
 							'			ON		vue_pronostiqueursrivaux.PronostiqueursRivaux_Pronostiqueur = pronostiqueurs.Pronostiqueur';
 		else
 			$ordreSQL .=	'			pronostiqueurs';
-			
-		
+
+
 		$ordreSQL .=	'	LEFT JOIN	classements' .
 						'				ON		pronostiqueurs.Pronostiqueur = classements.Pronostiqueurs_Pronostiqueur' .
 						'	LEFT JOIN	(' .
-						
+
 						'					SELECT		Pronostiqueurs_Pronostiqueur, classements.Journees_Journee, Classements_ClassementGeneralMatch, Classements_PointsGeneralMatch' .
 						'					FROM		classements' .
 						'					JOIN		(' .
@@ -230,6 +230,7 @@
 						'																AND		journees.Championnats_Championnat = ' . $championnat .
 						'												) journees' .
 						'												ON		classements.Classements_DateReference = journees.Classements_DateReference' .
+						'									GROUP BY	journees.Classements_DateReference' .
 						'								) journees' .
 						'								ON		classements.Journees_Journee = journees.Journee' .
 						'										AND		classements.Classements_DateReference = journees.Classements_DateReference' .
@@ -316,13 +317,13 @@
 				$classe = 'tableau--classement tableau--classement--bordure';
 			else
 				$classe = 'tableau--classement';
-			
+
 			echo '<table class="' . $classe . '">';
 				echo $modeModule == 0 ? '<thead class="tableau--classement--entete">' : '<thead>';
 					echo '<tr>';
 						if($journeeSuivanteActive == 0)						echo '<th colspan="6">';
 						else												echo '<th colspan="7">';
-						
+
 							if($dtDateMAJ != '') {
 								if($modeModule == 0)			echo '<b>Général (' . $dtDateMAJ->format('d/m/Y H:i') . ')</b>';
 								else							echo 'Mise à jour le ' . $dtDateMAJ->format('d/m/Y H:i');
@@ -351,12 +352,12 @@
 							}
 							else
 								echo '<td>&nbsp;</td>';
-								
+
 							if($classementPrecedent == $unClassement["Classements_ClassementGeneralMatch"])					$classementsAffiche = '-';
 							else																							$classementsAffiche = $unClassement["Classements_ClassementGeneralMatch"];
-									
+
 							$classementPrecedent = $unClassement["Classements_ClassementGeneralMatch"];
-							
+
 							if($unClassement["Classements_ClassementGeneralMatch"] <= 5) {
 								if($_SESSION["pronostiqueur"] == $unClassement["Pronostiqueur"])
 									echo '<td class="tableau--classement--top-classement surbrillance">' . $classementsAffiche . '</td>';
@@ -365,7 +366,7 @@
 							}
 							else
 								echo '<td ' . ($_SESSION["pronostiqueur"] == $unClassement["Pronostiqueur"] ? ' class="surbrillance"' : '') . '>' . $classementsAffiche . '</td>';
-									
+
 							echo '<td' . ($_SESSION["pronostiqueur"] == $unClassement["Pronostiqueur"] ? ' class="surbrillance"' : '') . '>';
 								if($unClassement["Classement_Evolution"] == -1000)
 									echo '&nbsp;';
@@ -382,7 +383,7 @@
 								else
 									echo '-';
 							echo '</td>';
-							
+
 							// Affichage de l'état des pronostics saisis et des pronostics théoriques de la journée en cours
 							if($unClassement["NombreMatchesTheoriques"]) {
 								if($unClassement["Nombre_MatchesPronostiques"] == 0)												echo '<td class="rouge">0</td>';
@@ -392,7 +393,7 @@
 							else {
 								echo '<td class="vert">-</td>';
 							}
-							
+
 							// Affichage de l'état des pronostics saisis et des pronostics théoriques de la journée suivante
 							if($journeeSuivanteActive != null && $journeeSuivanteActive) {
 								if($unClassement["NombreMatchesTheoriquesSuivants"]) {
@@ -405,8 +406,8 @@
 								}
 							}
 
-							
-							
+
+
 						echo '</tr>';
 					}
 				echo '</tbody>';
@@ -417,7 +418,7 @@
 	// Affichage du classement virtuel général
 	function afficherClassementGeneralVirtuel($bdd, $championnat, $modeRival, $modeConcurrentDirect) {
 		// Classement virtuel général du championnat
-		
+
 		// Equipe championne
 		$ordreSQL =		'	SELECT		Equipes_NomCourt' .
 						'				,CASE' .
@@ -431,10 +432,10 @@
 						'	LEFT JOIN	bonus_anticipes_equipe_championne' .
 						'				ON		classements_virtuels_equipes.Equipes_Equipe = bonus_anticipes_equipe_championne.Equipes_Equipe' .
 						'	WHERE		ClassementsEquipes_Classement = 1';
-						
+
 		$req = $bdd->query($ordreSQL);
 		$equipe_championne = $req->fetchAll();
-		
+
 		// Trois premières et trois dernières places du championnat
 		$ordreSQL =		'	SELECT		equipes.Equipes_NomCourt' .
 						'				,CASE' .
@@ -452,7 +453,7 @@
 
 		$req = $bdd->query($ordreSQL);
 		$equipes_podium = $req->fetchAll();
-		
+
 		$ordreSQL =		'	SELECT		equipes.Equipes_NomCourt' .
 						'				,CASE' .
 						'					WHEN		bonus_anticipes_equipes_relegation.Equipes_Equipe IS NOT NULL' .
@@ -469,7 +470,7 @@
 
 		$req = $bdd->query($ordreSQL);
 		$equipes_relegation = $req->fetchAll();
-		
+
 		// Meilleur(s) buteur(s)
 		$ordreSQL =		'	SELECT		GROUP_CONCAT(joueurs.Joueurs_NomFamille SEPARATOR \', \') AS Joueurs_NomFamille' .
 						'	FROM		(' .
@@ -504,15 +505,15 @@
 						'				ON		meilleurs_buteurs.Joueurs_Joueur = joueurs.Joueur';
 		$req = $bdd->query($ordreSQL);
 		$meilleur_buteur = $req->fetchAll();
-		
+
 		$ordreSQL =		'	SELECT		GROUP_CONCAT(joueurs.Joueurs_NomFamille SEPARATOR \', \') AS Joueurs_NomFamille' .
 						'	FROM		bonus_meilleur_passeur' .
 						'	JOIN		joueurs' .
 						'				ON		bonus_meilleur_passeur.Joueurs_Joueur = joueurs.Joueur';
 		$req = $bdd->query($ordreSQL);
 		$meilleur_passeur = $req->fetchAll();
-		
-		
+
+
 		// Lecture des pronostics de bonus
 		$ordreSQL =		'	SELECT		equipes_championnes.Equipes_NomCourt AS Equipe_Championne' .
 						'				,CONCAT(equipes_1.Equipes_NomCourt, \', \', equipes_2.Equipes_NomCourt, \', \', equipes_3.Equipes_NomCourt) AS Equipes_LDC' .
@@ -545,11 +546,11 @@
 						'	ORDER BY	ClassementsVirtuels_PointsGeneralMatch DESC, ClassementsVirtuels_PointsGeneralButeur ASC, Pronostiqueurs_NomUtilisateur';
 		$req = $bdd->query($ordreSQL);
 		$pronostics_bonus = $req->fetchAll();
-		
-		
+
+
 		// Pour le mode concurrent direct, on limite à 5 places au-dessus et en-dessous du pronostiqueur
 		$nombrePlaces = 5;
-		
+
 		// Si le mode concurrent direct est activé, il est nécessaire de lire d'abord le classement du joueur pour ensuite savoir quelles sont les places à afficher
 		// Exemple, le joueur est 15ème, on affiche donc les places 10 à 20
 		$borneInferieure = 0;
@@ -564,7 +565,7 @@
 			$borneInferieure = $classementActuel - $nombrePlaces;
 			$borneSuperieure = $classementActuel + $nombrePlaces;
 		}
-		
+
 		$ordreSQL =		'	SELECT		pronostiqueurs.Pronostiqueur' .
 						'				,classements_virtuels.ClassementsVirtuels_ClassementGeneralMatch' .
 						'				,pronostiqueurs.Pronostiqueurs_NomUtilisateur' .
@@ -577,7 +578,7 @@
 						'				,IFNULL(pronostics_bonuspoints.PronosticsBonusPoints_PointsEquipesPodium, 0) AS PronosticsBonusPoints_PointsEquipesPodium' .
 						'				,IFNULL(pronostics_bonuspoints.PronosticsBonusPoints_PointsEquipesRelegation, 0) AS PronosticsBonusPoints_PointsEquipesRelegation' .
 						'	FROM';
-						
+
 		if($modeRival == 1)
 			$ordreSQL .=	'			(' .
 							'				SELECT		PronostiqueursRivaux_Pronostiqueur' .
@@ -590,8 +591,8 @@
 							'			ON		vue_pronostiqueursrivaux.PronostiqueursRivaux_Pronostiqueur = pronostiqueurs.Pronostiqueur';
 		else
 			$ordreSQL .=	'			pronostiqueurs';
-			
-		
+
+
 		$ordreSQL .=	'	LEFT JOIN	classements_virtuels' .
 						'				ON		pronostiqueurs.Pronostiqueur = classements_virtuels.Pronostiqueurs_Pronostiqueur' .
 						'	LEFT JOIN	pronostics_bonuspoints' .
@@ -626,24 +627,24 @@
 									/*if($equipe_championne[0]["Equipe_ChampionneAnticipee"] == 1)		echo '<label class="texte-vert texte-souligne">' . $equipe_championne[0]['Equipes_NomCourt'] . '</label>';
 									else*/																echo '<label">' . $equipe_championne[0]['Equipes_NomCourt'] . '</label>';
 								echo '</th>';
-								
+
 								$nombreEquipesPodium = count($equipes_podium);
 								echo '<th>';
 									for($i = 0; $i < $nombreEquipesPodium; $i++) {
 										/*if($equipes_podium[$i]["Equipes_PodiumAnticipe"] == 1)			echo '<label class="texte-vert texte-souligne">' . $equipes_podium[$i]["Equipes_NomCourt"] . '</label>';
 										else*/															echo '<label>' . $equipes_podium[$i]["Equipes_NomCourt"] . '</label>';
-										
+
 										if($i < $nombreEquipesPodium - 1)
 											echo '<label>, </label>';
 									}
 								echo '</th>';
-								
+
 								$nombreEquipesRelegation = count($equipes_relegation);
 								echo '<th>';
 									for($i = 0; $i < $nombreEquipesRelegation; $i++) {
 										/*if($equipes_relegation[$i]["Equipes_RelegationAnticipee"] == 1)			echo '<label class="texte-vert texte-souligne">' . $equipes_relegation[$i]["Equipes_NomCourt"] . '</label>';
 										else*/																	echo '<label>' . $equipes_relegation[$i]["Equipes_NomCourt"] . '</label>';
-										
+
 										if($i < $nombreEquipesRelegation - 1)
 											echo '<label>, </label>';
 									}
@@ -663,12 +664,12 @@
 									}
 									else
 										echo '<td>&nbsp;</td>';
-										
+
 									if($classementPrecedent == $unClassement["ClassementsVirtuels_ClassementGeneralMatch"])					$classementsAffiche = '-';
 									else																							$classementsAffiche = $unClassement["ClassementsVirtuels_ClassementGeneralMatch"];
-											
+
 									$classementPrecedent = $unClassement["ClassementsVirtuels_ClassementGeneralMatch"];
-									
+
 									if($unClassement["ClassementsVirtuels_ClassementGeneralMatch"] <= 5) {
 										if($_SESSION["pronostiqueur"] == $unClassement["Pronostiqueur"])
 											echo '<td class="tableau--classement--top-classement surbrillance">' . $classementsAffiche . '</td>';
@@ -677,7 +678,7 @@
 									}
 									else
 										echo '<td ' . ($_SESSION["pronostiqueur"] == $unClassement["Pronostiqueur"] ? ' class="surbrillance"' : '') . '>' . $classementsAffiche . '</td>';
-											
+
 									echo '<td' . ($_SESSION["pronostiqueur"] == $unClassement["Pronostiqueur"] ? ' class="aligne-gauche surbrillance"' : ' class="aligne-gauche"') . '>' . $unClassement["Pronostiqueurs_NomUtilisateur"] . '</td>';
 									echo '<td' . ($_SESSION["pronostiqueur"] == $unClassement["Pronostiqueur"] ? ' class="aligne-gauche surbrillance"' : ' class="aligne-gauche"') . '>';
 										if($unClassement["ClassementsVirtuels_PointsGeneralMatch"] != null && $unClassement["ClassementsVirtuels_PointsGeneralMatch"] != '')
@@ -685,7 +686,7 @@
 										else
 											echo '-';
 									echo '</td>';
-									
+
 									echo '<td title="' . $pronostics_bonus[$i]["Equipe_Championne"] . '" ' . ($_SESSION["pronostiqueur"] == $unClassement["Pronostiqueur"] ? ' class="surbrillance"' : '') . '>' . $unClassement["PronosticsBonusPoints_PointsEquipeChampionne"] . '</td>';
 									echo '<td title="' . $pronostics_bonus[$i]["Equipes_LDC"] . '"' . ($_SESSION["pronostiqueur"] == $unClassement["Pronostiqueur"] ? ' class="surbrillance"' : '') . '>' . $unClassement["PronosticsBonusPoints_PointsEquipesPodium"] . '</td>';
 									echo '<td title="' . $pronostics_bonus[$i]["Equipes_Releguees"] . '"' . ($_SESSION["pronostiqueur"] == $unClassement["Pronostiqueur"] ? ' class="surbrillance"' : '') . '>' . $unClassement["PronosticsBonusPoints_PointsEquipesRelegation"] . '</td>';
@@ -700,11 +701,11 @@
 			echo '</div>';
 		}
 	}
-	
+
 	// Affichage du classement d'une journée
 	function afficherClassementJournee($bdd, $championnat, $journee, $dateReference, $dtDateMAJ, $journeeNom, $modeModule, $modeRival, $modeConcurrentDirect) {
 		// Classement d'une journée du championnat
-		
+
 		// Si le mode concurrent direct est activé, il est nécessaire de lire d'abord le classement du joueur pour ensuite savoir quelles sont les places à afficher
 		// Exemple, le joueur est 15ème, on affiche donc les places 10 à 20
 		$borneInferieure = 0;
@@ -718,7 +719,7 @@
 				$ordreSQL .=		'	AND		Classements_DateReference = \'' . $dateReference . '\'';
 			else
 				$ordreSQL .=		'	AND		Classements_DateReference IS NULL';
-							
+
 			$req = $bdd->query($ordreSQL);
 			$donnees = $req->fetchAll();
 			$classementActuel = $donnees[0]["Classements_ClassementJourneeMatch"];
@@ -736,7 +737,7 @@
 						'				,IFNULL(matches_pronostiques.Nombre_MatchesPronostiques, 0) AS Nombre_MatchesPronostiques' .
 						'				,journees_rattrapage.JourneesRattrapage_Points' .
 						'	FROM';
-						
+
 		if($modeRival == 1 && $modeModule == 1)
 			$ordreSQL .=	'			(' .
 							'				SELECT		PronostiqueursRivaux_Pronostiqueur' .
@@ -748,8 +749,8 @@
 							'	JOIN	pronostiqueurs' .
 							'			ON		vue_pronostiqueursrivaux.PronostiqueursRivaux_Pronostiqueur = pronostiqueurs.Pronostiqueur';
 		else
-			$ordreSQL .=	'			pronostiqueurs';						
-						
+			$ordreSQL .=	'			pronostiqueurs';
+
 		$ordreSQL .=	'	LEFT JOIN	classements' .
 						'				ON		pronostiqueurs.Pronostiqueur = classements.Pronostiqueurs_Pronostiqueur' .
 						'	LEFT JOIN	(' .
@@ -776,7 +777,7 @@
 
 		$req = $bdd->query($ordreSQL);
 		$classementsJournee = $req->fetchAll();
-		
+
 		if(sizeof($classementsJournee)) {
 			if($modeModule == 1)		echo '<div class="gauche">';
 			else						echo '<div class="gauche" style="margin-left: 20px;">';
@@ -785,7 +786,7 @@
 					if($modeModule == 0)
 						$classe = 'tableau--classement tableau--classement--bordure';
 					else $classe = 'tableau--classement';
-					
+
 					echo '<table class="' . $classe . '">';
 						echo $modeModule == 0 ? '<thead class="tableau--classement--entete">' : '<thead>';
 							echo '<tr>';
@@ -809,12 +810,12 @@
 									}
 									else
 										echo '<td>&nbsp;</td>';
-										
+
 									if($classementPrecedent == $unClassement["Classements_ClassementJourneeMatch"])			$classementsAffiche = '-';
 									else																					$classementsAffiche = $unClassement["Classements_ClassementJourneeMatch"];
-											
+
 									$classementPrecedent = $unClassement["Classements_ClassementJourneeMatch"];
-										
+
 									if($unClassement["Classements_ClassementJourneeMatch"] <= 3) {
 										if($_SESSION["pronostiqueur"] == $unClassement["Pronostiqueur"])
 											echo '<td class="tableau--classement--top-classement surbrillance">' . $classementsAffiche . '</td>';
@@ -825,7 +826,7 @@
 										echo '<td ' . ($_SESSION["pronostiqueur"] == $unClassement["Pronostiqueur"] ? ' class="surbrillance"' : '') . '>' . $classementsAffiche . '</td>';
 
 									echo '<td' . ($_SESSION["pronostiqueur"] == $unClassement["Pronostiqueur"] ? ' class="aligne-gauche surbrillance"' : ' class="aligne-gauche"') . '>' . $unClassement["Pronostiqueurs_NomUtilisateur"] . '</td>';
-									
+
 									// L'affichage des points doit prendre en compte les éventuels points de rattrapage
 									$pointsJourneeMatch = $unClassement["JourneesRattrapage_Points"] != null ? (($unClassement["Classements_PointsJourneeMatch"] - $unClassement["JourneesRattrapage_Points"]) . '+<i>' . $unClassement["JourneesRattrapage_Points"] . '</i>') : $unClassement["Classements_PointsJourneeMatch"];
 									if($unClassement["Classements_PointsJourneeMatch"] != null && $unClassement["Classements_PointsJourneeMatch"] != '')
@@ -840,10 +841,10 @@
 					echo '</table>';
 				echo '</div>';
 			echo '</div>';
-			
+
 		}
 	}
-	
+
 	// Affichage du classement général buteur
 	function afficherClassementGeneralButeur($bdd, $championnat, $journee, $dateReference, $dtDateMAJ, $journeeNom) {
 		$ordreSQL =		'	SELECT		Pronostiqueur' .
@@ -888,12 +889,12 @@
 						'	WHERE		classements.Journees_Journee = ' . $journee .
 						'				AND		pronostiqueurs.Pronostiqueurs_DateDebutPresence <= \'' . $dateReference . '\'' .
 						'				AND		(pronostiqueurs.Pronostiqueurs_DateFinPresence IS NULL OR pronostiqueurs.Pronostiqueurs_DateFinPresence > \'' . $dateReference . '\')';
-						
+
 			if($dateReference != 0)
 				$ordreSQL .=	'	AND		Classements_DateReference = \'' . $dateReference . '\'';
 			else
 				$ordreSQL .=	'	AND		Classements_DateReference IS NULL';
-						
+
 			$ordreSQL .=		'	ORDER BY	Classements_ClassementGeneralButeur ASC, Pronostiqueurs_NomUtilisateur';
 
 		$req = $bdd->query($ordreSQL);
@@ -926,9 +927,9 @@
 										$classementsAffiche = '-';
 									else
 										$classementsAffiche = $unClassement["Classements_ClassementGeneralButeur"];
-											
+
 									$classementPrecedent = $unClassement["Classements_ClassementGeneralButeur"];
-										
+
 									echo '<td' . ($_SESSION["pronostiqueur"] == $unClassement["Pronostiqueur"] ? ' class="surbrillance"' : '') . '>' . $classementsAffiche . '</td>';
 									echo '<td' . ($_SESSION["pronostiqueur"] == $unClassement["Pronostiqueur"] ? ' class="surbrillance"' : '') . '>';
 										if($unClassement["Classement_Evolution"] == -1000)
@@ -956,7 +957,7 @@
 
 	// Affichage des trois classements pour un championnat donné et une journée donnée
 	function afficherClassements($bdd, $championnat, $journee, $dateReference, $dtDateMAJ, $journeeNom, $affichageClassementButeur, $affichageJourneeSuivante) {
-	
+
 		// Dans le cas où l'on demande à voir le nombre de pronostics remplis de la journée suivante, il est nécessaire de voir si cette journée suivante est active ou non
 		// Sinon, on ne fait pas cette lecture
 		if($affichageJourneeSuivante == 1) {
@@ -970,18 +971,18 @@
 		}
 		else
 			$journeeSuivanteActive = 0;
-		
+
 		$modeModule = 0;
 		$modeRival = 0;
 		$modeConcurrentDirect = 0;
-		
+
 		echo '<div class="colle-gauche gauche">';
 			afficherClassementGeneral($bdd, $championnat, $journee, $dateReference, $dtDateMAJ, $journeeNom, $journeeSuivanteActive, $modeModule, $modeRival, $modeConcurrentDirect);
 		echo '</div>';
 		echo '<div class="gauche">';
 			afficherClassementJournee($bdd, $championnat, $journee, $dateReference, $dtDateMAJ, $journeeNom, $modeModule, $modeRival, $modeConcurrentDirect);
 		echo '</div>';
-		
+
 		// Classement général buteur du championnat
 		if($affichageClassementButeur == 1) {
 			echo '<div class="gauche">';
