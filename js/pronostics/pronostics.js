@@ -633,6 +633,7 @@ function creerMatch_detecterCotesV1(numeroMatch) {
                                     if($('.listeJoueurs').length == 0)
                                         $('body').append('<div class="listeJoueurs"></div>');
 
+<<<<<<< HEAD
                                         $('.listeJoueurs').empty().append(html);
                                         $('.listeJoueurs').dialog({
                                                 autoOpen: true
@@ -736,6 +737,8 @@ function creerMatch_detecterCotesV2(numeroMatch, numeroEquipe) {
                                     if($('.listeJoueurs').length == 0)
                                         $('body').append('<div class="listeJoueurs"></div>');
 
+=======
+>>>>>>> 2e2c23ff0a5ae7271341c416ed8ec8231a8391bf
                                         $('.listeJoueurs').empty().append(html);
                                         $('.listeJoueurs').dialog({
                                                 autoOpen: true
@@ -1448,6 +1451,25 @@ function creerMatch_reinitialiserMatch(match) {
 		location.reload();
 	}).fail(function(html) {
 		console.log('Fonction creerMatch_reinitialiserMatch : dans le fail');
+	});
+}
+
+// Gestion de match - Génération du CR
+function creerMatch_genererCR() {
+	var journee = $('#selectJournee').val();
+
+	if(journee == 0)
+			return;
+
+	$.ajax(
+	  url: 'creer_match_generation_cr.php',
+	  type: 'POST',
+	  data:   {
+	              journee: journee
+	          }
+    }
+	).done(function(html) {
+		console.log(html);
 	});
 }
 

@@ -93,10 +93,16 @@
 			echo ' - <label class="bouton" onclick="calculerResultats_finaliserConfrontations();">Finaliser la journée de Coupe de France</label>';
 
 		echo '<br />';
+<<<<<<< HEAD
 		echo '<label class="detail">Page des trophées</label><label class="bouton" onclick="creerMatch_afficherTrophees(' . $championnat .');">Afficher la page des trophées</label>';
 
 		echo '<br />';
 		echo '<label class="detail">Compte-rendu</label><label class="bouton" onclick="creerMatch_genererCR(' . $journee .');">Générer le compte-rendu</label>';
+=======
+		echo '<label class="detail">Page des trophées</label>';
+		echo '<label class="bouton" onclick="creerMatch_afficherTrophees(' . $championnat .');">Afficher la page des trophées</label>';
+		echo '&nbsp;<label class="bouton" onclick="creerMatch_genererCR();">Générer le compte-rendu</label>';
+>>>>>>> 2e2c23ff0a5ae7271341c416ed8ec8231a8391bf
 	echo '</div>';
 
 
