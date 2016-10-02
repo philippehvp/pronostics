@@ -5,16 +5,17 @@
 
 	// Génération du CR
     // Lecture du modèle de CR
-    $ordreSQL =     '   SELECT      CompteRenduModele' .
-                    '   FROM        compte_rendu_modele' .
+    $ordreSQL =     '   SELECT      CompteRenduModeles_Modele' .
+                    '   FROM        compte_rendu_modeles' .
                     '   LIMIT       1';
     $req = $bdd->query($ordreSQL);
-    $modele = $req->fetchAll()[0]["CompteRenduModele"];
+    $modele = $req->fetchAll()[0]["CompteRenduModeles_Modele"];
     $texteFinal = $modele;
 
     // Lecture des différentes requêtes
 	$ordreSQL =		'	SELECT      CompteRenduRequete, CompteRenduRequetes_Requete' .
                     '   FROM        compte_rendu_requetes' .
+					'	WHERE		CompteRenduRequetes_Actif = 1' .
                     '   ORDER BY    CompteRenduRequete';
 	$req = $bdd->query($ordreSQL);
     $requetes = $req->fetchAll();
@@ -26,15 +27,14 @@
             // Exécution de la requête
             // Dans une requête, il est possible qu'un champ p_Journee soit présent
             // Dans ce cas, il est nécessaire de le remplacer par le numéro de la journée avant de lancer l'exécution de la requête
-            // $ordreSQL = str_replace('p_Journee', $journee, $uneRequete["CompteRenduRequetes_Requete"]);
-            $ordreSQL = $uneRequete["CompteRenduRequetes_Requete"];
+            $ordreSQL = str_replace("p_Journee", $journee, $uneRequete["CompteRenduRequetes_Requete"]);
 
             $req = $bdd->query($ordreSQL);
-            var_dump($req);
-            // $resultat = $req->fetchAll()[0]["Chaine"];
+            $resultats = $req->fetchAll();
+			$resultat = $resultats[0]["Chaine"];
 
             // Remplacement dans le compte-rendu de l'identifiant par le résultat de la requête
-            // str_replace($identifiant, $resultat, $texteFinal);
+            $texteFinal = str_replace($identifiant, $resultat, $texteFinal);
         }
     }
 
