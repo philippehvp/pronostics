@@ -166,12 +166,12 @@
 				echo '<tr>';
 					echo '<td class="colonne-theme">Buteurs</td>';
 					echo '<td colspan="2">';
-						echo '<label class="bouton" onclick="creerMatch_detecterCotes(' . $numeroMatch . ')">Détection des cotes</label>';
-						echo '&nbsp;<label class="bouton" onclick="creerMatch_remplirCotes(' . $numeroMatch . ')">Remplissage automatique des cotes</label>';
-                        
+						echo '<label class="bouton" onclick="creerMatch_detecterCotesV1(' . $numeroMatch . ')">Détection des cotes v1</label>';
+						echo '&nbsp;<label class="bouton" onclick="creerMatch_remplirCotes(' . $numeroMatch . ')">Remplissage auto. des cotes</label>';
+
 					echo '</td>';
 				echo '</tr>';
-                
+
 				// Dans le cas du match retour d'une confrontation directe, il faut indiquer le nombre de points pour la qualification d'une équipe
 				// Il n'y a pas de points de qualification pour le match nul bien entendu
 				// C'est le cas également pour les matches de Coupe
@@ -183,22 +183,24 @@
 								echo '<input type="text" id="pointsQualificationEquipeV_match_' . $numeroMatch . '"  value="' . $pointsQualificationEquipeVisiteur . '" onchange="creerMatch_sauvegarderMatch(0, \'\', ' . $numeroMatch . ');" />';
 						echo '</td>';
 				}
-				
+
 				echo '<tr>';
 					echo '<td class="colonne-theme">&nbsp;</td>';
-					
+
 					echo '<td>';
 						echo '<label class="bouton" onclick="creerMatch_confirmerParticipants(' . $numeroMatch . ', 0)">Joueurs</label>';
-						echo '<label class="bouton" style="margin-left: 5px;" onclick="creerMatch_confirmerButeurs(' . $numeroMatch . ', 0)">Buteurs</label>';
-						echo '<label class="bouton" style="margin-left: 5px;" onclick="creerMatch_saisirCotes(' . $numeroMatch . ', 0)">Cotes / postes manu</label>';
+						echo '&nbsp;<label class="bouton" onclick="creerMatch_confirmerButeurs(' . $numeroMatch . ', 0)">Buteurs</label>';
+						echo '&nbsp;<label class="bouton" onclick="creerMatch_detecterCotesV2(' . $numeroMatch . ', ' . $equipeDomicile . ')">Cotes auto</label>';
+						echo '&nbsp;<label class="bouton" onclick="creerMatch_saisirCotes(' . $numeroMatch . ', 0)">Cotes / postes manu</label>';
 					echo '</td>';
-					
+
 					echo '<td>';
 						echo '<label class="bouton" onclick="creerMatch_confirmerParticipants(' . $numeroMatch . ', 1)">Joueurs</label>';
-						echo '<label class="bouton" style="margin-left: 5px;"onclick="creerMatch_confirmerButeurs(' . $numeroMatch . ', 1)">Buteurs</label>';
-						echo '<label class="bouton" style="margin-left: 5px;" onclick="creerMatch_saisirCotes(' . $numeroMatch . ', 1)">Cotes / postes manu</label>';
+						echo '&nbsp;<label class="bouton" onclick="creerMatch_confirmerButeurs(' . $numeroMatch . ', 1)">Buteurs</label>';
+						echo '&nbsp;<label class="bouton" onclick="creerMatch_detecterCotesV2(' . $numeroMatch . ', ' . $equipeVisiteur . ')">Cotes auto</label>';
+						echo '&nbsp;<label class="bouton" onclick="creerMatch_saisirCotes(' . $numeroMatch . ', 1)">Cotes / postes manu</label>';
 					echo '</td>';
-					
+
 				echo '</tr>';
 
 				echo '<tr>';
@@ -251,9 +253,9 @@
 						echo '</select>';
 					echo '</td>';
 				echo '</tr>';
-				
+
 				echo '<tr><td colspan="3"><hr /></td></tr>';
-				
+
 				echo '<tr>';
 					echo '<td class="colonne-theme">Lien page MeD</td>';
 					echo '<td colspan="2">';
@@ -261,7 +263,7 @@
 						echo '&nbsp;<label class="bouton" onclick="window.open(\'' . $matchLienPage . '\', \'_blank\');">Match</label>';
 					echo '</td>';
 				echo '</tr>';
-				
+
 				/*echo '<tr>';
 					echo '<td class="colonne-theme">Lien page FR</td>';
 					echo '<td colspan="2">';
@@ -269,7 +271,7 @@
 						echo '&nbsp;<label class="bouton" onclick="window.open(\'' . $matchLienPageComplementaire . '\', \'_blank\');">Match</label>';
 					echo '</td>';
 				echo '</tr>';*/
-				
+
 				echo '<tr>';
 					if($matchDirect == 1)			echo '<td id="libelleMatchDirect_match_' . $numeroMatch . '" class="colonne-theme vert">Direct</td>';
 					else							echo '<td id="libelleMatchDirect_match_' . $numeroMatch . '" class="colonne-theme">Direct</td>';
@@ -297,7 +299,7 @@
 	$(function() {
 		$('.date').datepicker({dateFormat: 'dd/mm/yy'});
 	});
-	
+
 	// Passe un match en direct ou non
 	function matchEnDirect(elt, match, libelle, lienPage) {
 		if(elt.is(':checked') == true) {
@@ -306,7 +308,7 @@
 				alert('Veuillez saisir un lien de page pour le match');
 				return;
 			}*/
-			
+
 			// Ajout du match dans la liste des matches en direct
 			creerMatch_passerEnDirect(match);
 		}
@@ -319,13 +321,12 @@
 		else
 			$('#' + libelle).addClass('vert');
 	}
-    
+
     // Le lien pour le site Flash Résultats doit être modifié à la main
     function corrigerLien_FlashResultats(elt) {
         var nouvelleValeur = elt.value;
         nouvelleValeur = nouvelleValeur.replace("#resume-du-match", "#compositions;1");
         elt.value = nouvelleValeur;
     }
-	
-</script>
 
+</script>

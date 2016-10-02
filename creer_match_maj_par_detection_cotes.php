@@ -19,10 +19,10 @@
 
     // Recherche du tableau des cotes
     $listeJoueursEtCotes = $xpath->query("//h3[normalize-space(text())='Quel joueur marquera au moins un but ?']/ancestor::*[contains(@class, 'row')]/following-sibling::node()/descendant::td[not(@colspan)]");
-    
+
     // Tableau de résultat de l'exécution de la recherche de cotes
     $tableau = array();
-    
+
     // Liste des joueurs inconnus
     $tableauJoueursInconnusEquipeDomicile = array();
     $tableauJoueursInconnusEquipeVisiteur = array();
@@ -32,7 +32,7 @@
     }
     else {
         $tableau['nombre_cotes_detectees'] = count($listeJoueursEtCotes);
-        
+
         // Effacement d'une éventuelle liste précédente
         $ordreSQL =		'	DELETE FROM		joueurs_cotes ' .
                         '	WHERE			Matches_Match = ' . $match .
@@ -43,18 +43,18 @@
         // Dans le parcours des cotes, si elles sont trouvées, la cote qui se trouve à gauche du tableau est celle de l'équipe domicile
         $coteEquipeDomicile = true;
         foreach ($listeJoueursEtCotes as $unJoueurEtUneCote) {
-            // On ignore les cellules vides et celle dont le texte est "En voir moins"
+            // On ignore les cellules vides et celles dont le texte est "En voir moins"
             if(strlen(trim($unJoueurEtUneCote->nodeValue)) > 0 && trim($unJoueurEtUneCote->nodeValue) != 'En voir moins') {
                 $texteEntier = trim($unJoueurEtUneCote->nodeValue);
-                
+
                 $mots = explode(' ', $texteEntier);
                 $cote = array_pop($mots);
                 $prenomNomFamille = trim(substr($texteEntier, 0, strpos($texteEntier, $cote)));
-                
+
                 $equipe = $coteEquipeDomicile == true ? $equipeDomicile : $equipeVisiteur;
-                
+
                 $joueur = rechercherJoueurInitialePrenomSansPoint($bdd, $prenomNomFamille, $equipe, $dateSQL, 3);
-                
+
                 if($joueur == -1 || $joueur == 0) {
                     if($coteEquipeDomicile) {
                         array_push($tableauJoueursInconnusEquipeDomicile, array('equipe'=>$equipe, 'joueur'=>$prenomNomFamille));
@@ -65,18 +65,18 @@
                 else {
                     $ordreSQL =		'	INSERT INTO	joueurs_cotes(Joueurs_Joueur, Equipes_Equipe, Matches_Match, JoueursCotes_Cote)' .
                                     '	SELECT		' . $joueur . ', ' . $equipe . ', ' . $match . ', FLOOR(' . intval($cote) . ')';
-                    
+
                     $bdd->exec($ordreSQL);
                 }
             }
             $coteEquipeDomicile = !$coteEquipeDomicile;
         }
-        
+
         $tableau['nombre_joueurs_inconnus'] = count($tableauJoueursInconnusEquipeDomicile) + count($tableauJoueursInconnusEquipeVisiteur);
         $tableau['joueurs_inconnus_equipe_domicile'] = $tableauJoueursInconnusEquipeDomicile;
         $tableau['joueurs_inconnus_equipe_visiteur'] = $tableauJoueursInconnusEquipeVisiteur;
     }
-  
+
     echo json_encode($tableau);
- 
+
 ?>

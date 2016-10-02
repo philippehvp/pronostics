@@ -1,6 +1,6 @@
 <?php
 	include_once('commun_administrateur.php');
-	
+
 	// Lecture des matches de la journée dont le numéro a été passé en paramètre
 	if(isset($_POST["journee"])) {
 		include_once('commun.php');
@@ -79,7 +79,7 @@
 		echo '<label class="detail">Lire la journée</label>';
 		echo '<label class="bouton" onclick="creerMatch_lireLiensMatches(' . $journee . ');">Page des matches MeD</label> - <label class="bouton" onclick="creerMatch_lireLiensMatchesScoresPro(' . $journee . ');">Page des matches SP</label>';
 		echo '<br />';
-		
+
 		if($active == 1)			echo '<label class="detail vert" id="labelEtatJournee">Journée active</label>';
 		else						echo '<label class="detail rouge" id="labelEtatJournee">Journée inactive</label>';
 
@@ -87,13 +87,16 @@
 
 		echo '<br />';
 		echo '<label class="detail">Lancement des calculs</label><label class="bouton" onclick="calculerResultats_calculerResultats();">Calculer les scores</label>';
-		
+
 		// Spécificité de la Coupe de France : il faut afficher un bouton qui permette de déplacer les vainqueurs des confrontations vers le tour suivant
 		if($championnat == 5)
 			echo ' - <label class="bouton" onclick="calculerResultats_finaliserConfrontations();">Finaliser la journée de Coupe de France</label>';
-		
+
 		echo '<br />';
 		echo '<label class="detail">Page des trophées</label><label class="bouton" onclick="creerMatch_afficherTrophees(' . $championnat .');">Afficher la page des trophées</label>';
+
+		echo '<br />';
+		echo '<label class="detail">Compte-rendu</label><label class="bouton" onclick="creerMatch_genererCR(' . $journee .');">Générer le compte-rendu</label>';
 	echo '</div>';
 
 
