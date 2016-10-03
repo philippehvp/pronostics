@@ -82,7 +82,7 @@
                     echo '</li>';
                     echo '<li class="menu--lien" id="horloge">';
                     echo '</li>';
-                    
+
                 echo '</ul>';
             echo '</div>';
             echo '<div class="colle-gauche gauche">';
@@ -96,22 +96,22 @@
                                 echo '<div class="groupe-menu colle-gauche gauche">';
                                     echo '<label class="titre">Pronostics</label>';
                                     echo '<label class="lien" onclick="window.open(\'creer_prono.php\', \'_self\');" title="Saisir les pronostics de la journée ou des journées en cours">Journée(s) en cours</label>';
-                                    
+
                                     if($menu100 == 1)
                                         echo '<label class="lien" onclick="window.open(\'consulter_bonus.php\', \'_self\');" title="Consulter les bonus de la Ligue 1 (meilleur buteur et passeur, équipes sur le podium...)">Consulter les bonus</label>';
-                                    
+
                                     if($menu140 == 1)
                                         echo '<label class="lien" onclick="window.open(\'consulter_bareme_bonus.php\', \'_self\');" title="Consulter les barèmes de bonus">Consulter les barèmes de bonus</label>';
 
                                     if($menu110 == 1)
                                         echo '<label class="lien" onclick="window.open(\'consulter_qualification.php\', \'_self\');" title="Consulter les pronostics des classements de poule de votre championnat européen">Consultation des classements de poule</label>';
-                                    
+
                                     if($menu120 == 1)
                                         echo '<label class="lien" onclick="window.open(\'creer_bonus.php\', \'_self\');" title="Saisir les bonus de la Ligue 1 (meilleur buteur et passeur, équipes sur le podium...)">Saisir les bonus de Ligue 1</label>';
-                                    
+
                                     if($menu130 == 1)
                                         echo '<label class="lien" onclick="window.open(\'creer_qualification.php\', \'_self\');" title="Saisir les qualifications des poules européennes">Saisir les qualifications des poules européennes</label>';
-                                    
+
                                     echo '<label class="titre espacement-haut">Trophées</label>';
                                     echo '<label class="lien" onclick="window.open(\'consulter_trophees.php?championnat=1\', \'_self\');" title="Consultation des trophées de Ligue 1">Ligue 1</label>';
                                     echo '<label class="lien" onclick="window.open(\'consulter_trophees.php?championnat=2\', \'_self\');" title="Consultation des trophées de Ligue des Champions">Ligue des Champions</label>';
@@ -138,11 +138,11 @@
                     echo '<li class="menu--lien" onclick="window.open(\'classements_pronostiqueurs.php\', \'_self\');">Classements</li>';
 
                     echo '<li class="menu--lien" onclick="concoursCentre_afficherConcoursCentre();">Contest Centre</li>';
-                    
+
                     echo '<li class="menu--lien" onclick="matchCentre_afficherMatchCentre();">Match Centre</li>';
-                    
+
                     //echo '<li class="menu--lien" onclick="window.open(\'cdf.php\', \'_self\');">Coupe de France</li>';
-                    
+
                     if($administrateur == 1) {
                         // Recherche des journées en cours des 4 championnats et coupes
                         $ordreSQL =     '   SELECT      fn_recherchejourneeencours(1) AS Journee_L1' .
@@ -157,7 +157,7 @@
                         $journeeCDF = $journeesActives[0]["Journee_CDF"];
 
                         echo '<li class="separateur">&nbsp;|&nbsp;</li>';
-                        
+
                         //echo '<li class="menu--lien" onclick="window.open(\'classements_divisions_pronostiqueurs.php\', \'_self\');">Divisions</li>';
                         echo '<li class="menu--lien">Administration +';
                             echo '<div class="sous-menu">';
@@ -179,7 +179,7 @@
                                         echo '<label class="lien" onclick="window.open(\'gerer_effectif_creation_multiple.php\', \'_self\');" title="Création multiple de joueurs">Création multiple</label>';
                                         echo '<label class="titre espacement-haut">Gestion des équipes</label>';
                                         echo '<label class="lien" onclick="window.open(\'gerer_equipes.php\', \'_self\');" title="Gestion des équipes">Gestion des équipes</label>';
-                                        
+
                                         echo '<label class="titre espacement-haut">Coupe de France</label>';
                                         echo '<label class="lien" onclick="window.open(\'gerer_cdf.php\', \'_self\');" title="Gérer la Coupe de France">Gestion de la Coupe</label>';
                                         echo '<label class="lien" onclick="window.open(\'cdf_prec.php?saison=2016\', \'_self\');" title="Coupe de France 2016">Coupe de France 2016</label>';
@@ -188,45 +188,48 @@
                                         echo '<label class="lien" onclick="window.open(\'poulpe/index.php\', \'_blank\');" title="Historique">Historique</label>';
 
 
-                                        
+
                                     echo '</div>';
                                     echo '<div class="groupe-menu gauche">';
                                         echo '<label class="titre">Poules Coupes d\'Europe</label>';
                                         echo '<label class="lien" title="Gestion des poules">Poules <span onclick="window.open(\'gerer_poules.php?championnat=2\', \'_self\');">LDC</span> - <span onclick="window.open(\'gerer_poules.php?championnat=3\', \'_self\');">EL</span></label>';
                                         echo '<label class="lien" title="Gestion des qualifications">Qualifications <span onclick="window.open(\'gerer_qualification.php?championnat=2\', \'_self\');">LDC</span> - <span onclick="window.open(\'gerer_qualification.php?championnat=3\', \'_self\');">EL</span></label>';
-                                        
+
                                         echo '<label class="titre espacement-haut">Divers</label>';
                                         //echo '<label class="lien" onclick="window.open(\'calculer_points_anticipes.php\', \'_self\');" title="Calcul des points de bonus anticipés de ligue 1">Calcul points bonus anticipés L1</label>';
-                                        
+
                                         if($menu100 == 1)               echo '<label class="lien" onclick="menu_basculerAffichage(100);" title="Masquer page de consultation des bonus">Masquer "Consultation de bonus"</label>';
                                         else                            echo '<label class="lien" onclick="menu_basculerAffichage(100);" title="Afficher page de consultation des bonus">Afficher "Consultation de bonus"</label>';
-                                        
+
                                         if($menu110 == 1)               echo '<label class="lien" onclick="menu_basculerAffichage(110);" title="Masquer page de consultation des qualifications">Masquer "Consultation de qualification"</label>';
                                         else                            echo '<label class="lien" onclick="menu_basculerAffichage(110);" title="Afficher page de consultation des qualifications">Afficher "Consultation de qualification"</label>';
-                                        
+
                                         if($menu120 == 1)               echo '<label class="lien" onclick="menu_basculerAffichage(120);" title="Masquer page de création des bonus">Masquer "Création de bonus"</label>';
                                         else                            echo '<label class="lien" onclick="menu_basculerAffichage(120);" title="Afficher page de création des bonus">Afficher "Création de bonus"</label>';
 
                                         if($menu130 == 1)               echo '<label class="lien" onclick="menu_basculerAffichage(130);" title="Masquer page de saisie des qualifications">Masquer "Création des qualifications"</label>';
                                         else                            echo '<label class="lien" onclick="menu_basculerAffichage(130);" title="Afficher page de saisie des qualifications">Afficher "Création des qualifications"</label>';
-                                        
+
                                         if($menu140 == 1)               echo '<label class="lien" onclick="menu_basculerAffichage(140);" title="Masquer page de barème des bonus">Masquer "Consultation des barèmes de bonus"</label>';
                                         else                            echo '<label class="lien" onclick="menu_basculerAffichage(140);" title="Afficher page de saisie des qualifications">Afficher "Consultation des barèmes de bonus"</label>';
-                                        
+
                                         echo '<label class="titre espacement-haut">Sauvegarde et pronostiqueurs</label>';
                                         echo '<label class="lien" onclick="window.open(\'gerer_site.php\', \'_self\');" title="Sauvegarde et gestion des données">Sauvegarde et gestion des données</label>';
                                         echo '<label class="lien" onclick="window.open(\'gerer_pronostiqueurs.php\', \'_self\');" title="Gestion des pronostiqueurs">Gestion des pronostiqueurs</label>';
-                                        
+
                                         echo '<label class="titre espacement-haut">Bonus</label>';
                                         echo '<label class="lien" onclick="window.open(\'gerer_bareme_bonus_equipes.php\', \'_self\');" title="Barème des bonus des équipes">Barème des équipes</label>';
                                         echo '<label class="lien" onclick="window.open(\'gerer_bareme_bonus_buteurs.php\', \'_self\');" title="Barème des bonus des buteurs">Barème des meilleurs buteurs</label>';
                                         echo '<label class="lien" onclick="window.open(\'gerer_meilleurs_passeurs.php\', \'_self\');" title="Meilleurs passeurs">Meilleurs passeurs</label>';
-                                        
+
                                         echo '<label class="titre espacement-haut">Règlements</label>';
                                         echo '<label class="lien" onclick="window.open(\'reglement_edition.php\', \'_self\');" title="Règlement général">Règlement général</label>';
                                         echo '<label class="lien" onclick="window.open(\'reglement_ldc_edition.php\', \'_self\');" title="Règlement LDC">Règlement LDC</label>';
                                         echo '<label class="lien" onclick="window.open(\'reglement_el_edition.php\', \'_self\');" title="Règlement EL">Règlement EL</label>';
                                         echo '<label class="lien" onclick="window.open(\'reglement_cdf_edition.php\', \'_self\');" title="Règlement CDF">Règlement CDF</label>';
+
+                                        echo '<label class="titre espacement-haut">Compte-rendu</label>';
+                                        echo '<label class="lien" onclick="window.open(\'creer_compte_rendu.php\', \'_self\');" title="Modèle du compte-rendu">Modèle du compte-rendu</label>';
 
                                     echo '</div>';
                                 echo '</div>';

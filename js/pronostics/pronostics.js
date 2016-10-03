@@ -232,6 +232,22 @@ function enregistrerReglement(championnat) {
 	});
 }
 
+// Création de compte-rendu - Enregistrement compte-rendu
+function enregistrerCompteRendu() {
+	var compteRendu = CKEDITOR.instances.txtCompteRendu.getData();
+	$.ajax(	{
+				url: 'creer_compte_rendu_maj_compte_rendu.php',
+				type: 'POST',
+				data:	{
+							compte_rendu: compteRendu
+						}
+			}
+	).done(function(html) {
+		afficherMessageInformationBandeau('Compte-rendu sauvegardé avec succès', 2000, '');
+	});
+}
+
+
 // Connexion - Soumission de formulaire
 function connexion_connecter(el) {
     var elt = document.forms['formConnexion'];
@@ -633,7 +649,7 @@ function creerMatch_detecterCotesV1(numeroMatch) {
                                     if($('.listeJoueurs').length == 0)
                                         $('body').append('<div class="listeJoueurs"></div>');
 
-<<<<<<< HEAD
+
                                         $('.listeJoueurs').empty().append(html);
                                         $('.listeJoueurs').dialog({
                                                 autoOpen: true
@@ -737,8 +753,6 @@ function creerMatch_detecterCotesV2(numeroMatch, numeroEquipe) {
                                     if($('.listeJoueurs').length == 0)
                                         $('body').append('<div class="listeJoueurs"></div>');
 
-=======
->>>>>>> 2e2c23ff0a5ae7271341c416ed8ec8231a8391bf
                                         $('.listeJoueurs').empty().append(html);
                                         $('.listeJoueurs').dialog({
                                                 autoOpen: true
@@ -1088,7 +1102,7 @@ function creerMatch_genererCR(journee) {
 						}
 			}
 	).done(function(html) {
-		console.log(html);
+		alert(html);
 	});
 }
 
@@ -1461,15 +1475,33 @@ function creerMatch_genererCR() {
 	if(journee == 0)
 			return;
 
-	$.ajax(
+	$.ajax(	{
 	  url: 'creer_match_generation_cr.php',
 	  type: 'POST',
 	  data:   {
 	              journee: journee
 	          }
-    }
-	).done(function(html) {
-		console.log(html);
+	}).done(function(html) {
+		if($('.info').length == 0)
+			$('body').append('<div class="info" style="z-index: 20000;"></div>');
+
+		$('.info').html(html);
+		$('.info').dialog({
+			autoOpen: false
+			,width: 'auto'
+			,height: 'auto'
+			,modal: true
+			,title: 'Compte-rendu'
+			,position: 'center'
+			,buttons: {
+				'Fermer':   function() {
+								$(this).dialog('close');
+							}
+			}
+
+		});
+
+		$('.info').dialog('open');
 	});
 }
 

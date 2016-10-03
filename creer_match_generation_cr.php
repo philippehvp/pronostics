@@ -28,7 +28,6 @@
             // Dans une requête, il est possible qu'un champ p_Journee soit présent
             // Dans ce cas, il est nécessaire de le remplacer par le numéro de la journée avant de lancer l'exécution de la requête
             $ordreSQL = str_replace("p_Journee", $journee, $uneRequete["CompteRenduRequetes_Requete"]);
-
             $req = $bdd->query($ordreSQL);
             $resultats = $req->fetchAll();
 			$resultat = $resultats[0]["Chaine"];
