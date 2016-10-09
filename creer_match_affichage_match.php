@@ -166,7 +166,8 @@
 				echo '<tr>';
 					echo '<td class="colonne-theme">Buteurs</td>';
 					echo '<td colspan="2">';
-						echo '<label class="bouton" onclick="creerMatch_detecterCotesV1(' . $numeroMatch . ')">Détection des cotes v1</label>';
+						echo '<label class="bouton" onclick="creerMatch_detecterCotesV1(' . $numeroMatch . ')">Cotes auto format L1</label>';
+						echo '&nbsp;<label class="bouton" onclick="creerMatch_detecterCotesV2(' . $numeroMatch . ')">Cotes auto format LDC</label>';
 						echo '&nbsp;<label class="bouton" onclick="creerMatch_remplirCotes(' . $numeroMatch . ')">Remplissage auto. des cotes</label>';
 
 					echo '</td>';
@@ -190,14 +191,12 @@
 					echo '<td>';
 						echo '<label class="bouton" onclick="creerMatch_confirmerParticipants(' . $numeroMatch . ', 0)">Joueurs</label>';
 						echo '&nbsp;<label class="bouton" onclick="creerMatch_confirmerButeurs(' . $numeroMatch . ', 0)">Buteurs</label>';
-						echo '&nbsp;<label class="bouton" onclick="creerMatch_detecterCotesV2(' . $numeroMatch . ', ' . $equipeDomicile . ')">Cotes auto</label>';
 						echo '&nbsp;<label class="bouton" onclick="creerMatch_saisirCotes(' . $numeroMatch . ', 0)">Cotes / postes manu</label>';
 					echo '</td>';
 
 					echo '<td>';
 						echo '<label class="bouton" onclick="creerMatch_confirmerParticipants(' . $numeroMatch . ', 1)">Joueurs</label>';
 						echo '&nbsp;<label class="bouton" onclick="creerMatch_confirmerButeurs(' . $numeroMatch . ', 1)">Buteurs</label>';
-						echo '&nbsp;<label class="bouton" onclick="creerMatch_detecterCotesV2(' . $numeroMatch . ', ' . $equipeVisiteur . ')">Cotes auto</label>';
 						echo '&nbsp;<label class="bouton" onclick="creerMatch_saisirCotes(' . $numeroMatch . ', 1)">Cotes / postes manu</label>';
 					echo '</td>';
 

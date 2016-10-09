@@ -1,7 +1,7 @@
 <?php
 	include_once('commun_administrateur.php');
-	
-	
+
+
 	// Ajout d'un événement dans la table des événements d'un match (mouvement de joueur, but, etc.)
 	// Si le paramètre unique vaut 1, alors l'ajout ne se fait qu'à partir du moment où l'événément n'existe pas encore
 	function ajouterEvenement($bdd, $match, $joueur, $codeEvenement, $datation, $unique) {
@@ -15,7 +15,7 @@
 
 			$req = $bdd->query($ordreSQL);
 			$evenement = $req->fetchAll();
-			
+
 			if($evenement[0]["Nombre"] == 0) {
 				// Cas particulier pour l'événement de fin de match : on doit mettre la date à laquelle on détecte cet événement
 				// La surveillance ne s'arrêtera que si un certain laps de temps s'est écoulé, évitant ainsi qu'une mise à jour sur le site externe
@@ -36,10 +36,10 @@
 			$bdd->exec($ordreSQL);
 			return 1;
 		}
-		
+
 		return 0;
 	}
-	
+
 	// Initialisation d'un match
 	function initialiserMatch($bdd, $match) {
 		$ordreSQL =		'	UPDATE		matches' .
@@ -48,17 +48,17 @@
 						'				,Matches_Direct = 1' .
 						'	WHERE		matches.Match = ' . $match;
 		$bdd->exec($ordreSQL);
-		
+
 		mettreAJourJournee($bdd, $match);
 	}
-	
+
 	// Ajout d'un participant dans la table des participants de match
 	function ajouterParticipant($bdd, $match, $joueur, $equipe) {
 		$ordreSQL =		'	INSERT IGNORE INTO matches_participants(Matches_Match, Joueurs_Joueur, Equipes_Equipe)' .
 						'	VALUES(' . $match . ', ' . $joueur . ', ' . $equipe . ')';
 		$bdd->exec($ordreSQL);
 	}
-	
+
 	// Fonction de remplacement de certains caractères d'un nom passé en paramètre
 	function remplacerCaracteres($chaine) {
         $retour = $chaine;
@@ -80,7 +80,7 @@
 		return $retour;
 
 	}
-	
+
 	// Recherche d'un joueur dans une équipe
 	// Le paramètre origine permet de savoir quel nom de correspondance utiliser (NomCorrespondance, NomCorrespondanceComplementaire, NomCorrespondanceCote)
 	function rechercherJoueur($bdd, $joueurNomComplet, $equipe, $date, $origine) {
@@ -90,10 +90,10 @@
 			case 2: $champ = 'Joueurs_NomCorrespondanceComplementaire'; break;
 			case 3: $champ = 'Joueurs_NomCorrespondanceCote'; break;
 		}
-		
+
 		if($champ == '')
 			return -2;
-		
+
 		$joueurNomModifie = remplacerCaracteres($joueurNomComplet);
 		$ordreSQL =		'	SELECT		Joueur' .
 						'	FROM		joueurs' .
@@ -119,17 +119,17 @@
 						'				AND		JoueursEquipes_Debut <= \'' . $date . '\'' .
 						'				AND		(JoueursEquipes_Fin IS NULL OR JoueursEquipes_Fin > \'' . $date . '\')';
 		$req = $bdd->query($ordreSQL);
-        
+
 		$joueurs = $req->fetchAll();
-		
+
 		if(sizeof($joueurs) == 1)
 			return $joueurs[0]["Joueur"];
 		else if(sizeof($joueurs) == 0)
 			return -1;
-		
+
 		return 0;
 	}
-	
+
 	// Recherche d'un joueur dans une équipe à partir de la première lettre de son prénom et de son nom de famille
 	function rechercherJoueurInitialePrenom($bdd, $joueurNomComplet, $equipe, $date, $origine) {
 		$champ = '';
@@ -138,12 +138,12 @@
 			case 2: $champ = 'Joueurs_NomCorrespondanceComplementaire'; break;
 			case 3: $champ = 'Joueurs_NomCorrespondanceCote'; break;
 		}
-		
+
 		if($champ == '')
 			return -2;
-		
+
 		$joueurNomModifie = remplacerCaracteres($joueurNomComplet);
-		
+
 		$ordreSQL =		'	SELECT		Joueur' .
 						'	FROM		joueurs' .
 						'	JOIN		joueurs_equipes' .
@@ -161,15 +161,15 @@
 
 		$req = $bdd->query($ordreSQL);
 		$joueurs = $req->fetchAll();
-		
+
 		if(sizeof($joueurs) == 1)
 			return $joueurs[0]["Joueur"];
 		else if(sizeof($joueurs) == 0)
 			return -1;
-		
+
 		return 0;
 	}
-	
+
 	// Recherche d'un joueur dans une équipe à partir de la première lettre de son prénom et de son nom de famille
 	function rechercherJoueurInitialePrenomSansPoint($bdd, $joueurNomComplet, $equipe, $date, $origine) {
 		$champ = '';
@@ -178,12 +178,12 @@
 			case 2: $champ = 'Joueurs_NomCorrespondanceComplementaire'; break;
 			case 3: $champ = 'Joueurs_NomCorrespondanceCote'; break;
 		}
-		
+
 		if($champ == '')
 			return -2;
-		
+
 		$joueurNomModifie = remplacerCaracteres($joueurNomComplet);
-		
+
 		$ordreSQL =		'	SELECT		Joueur' .
 						'	FROM		joueurs' .
 						'	JOIN		joueurs_equipes' .
@@ -201,19 +201,19 @@
 
 		$req = $bdd->query($ordreSQL);
 		$joueurs = $req->fetchAll();
-		
+
 		if(sizeof($joueurs) == 1)
 			return $joueurs[0]["Joueur"];
 		else if(sizeof($joueurs) == 0)
 			return -1;
-		
+
 		return 0;
 	}
 
 	// Recherche d'un joueur dans une équipe à partir du nom de famille et de la première lettre de son prénom
 	function rechercherJoueurInitialePrenomInverse($bdd, $joueurNomComplet, $equipe, $date) {
 		$joueurNomModifie = remplacerCaracteres($joueurNomComplet);
-		
+
 		// Attention au cas spécifique des prénoms composés
 		$ordreSQL =		'	SELECT		Joueur' .
 						'	FROM		joueurs' .
@@ -234,35 +234,35 @@
 
 		$req = $bdd->query($ordreSQL);
 		$joueurs = $req->fetchAll();
-		
+
 		if(sizeof($joueurs) == 1)
 			return $joueurs[0]["Joueur"];
 		else if(sizeof($joueurs) == 0)
 			return -1;
-		
+
 		return 0;
 	}
-	
-	
-	
+
+
+
 	// Ajout d'un joueur dans une équipe pour un match
 	// Le paramètre origine permet de savoir quel nom de correspondance utiliser (NomCorrespondance, NomCorrespondanceComplementaire, NomCorrespondanceCote)
 	function ajouterJoueur($bdd, $joueurNomComplet, $equipe, $match, $date, $origine) {
 		$joueurNomModifie = remplacerCaracteres($joueurNomComplet);
-		
+
 		$joueur = rechercherJoueur($bdd, $joueurNomModifie, $equipe, $date, $origine);
 		if($joueur <= 0)
 			$joueur = rechercherJoueurInitialePrenom($bdd, $joueurNomModifie, $equipe, $date, 1);
-		
+
 		if($joueur > 0) {
 			$ordreSQL =		'	REPLACE INTO matches_participants(Matches_Match, Joueurs_Joueur, Equipes_Equipe)' .
 							'	SELECT		' . $match . ', ' . $joueur . ', ' . $equipe;
 			$bdd->exec($ordreSQL);
 		}
-		
+
 		return $joueur;
 	}
-	
+
 	// Effacement des événements de but de la table des événements
 	function effacerEvenementsScore($bdd, $match) {
 		$ordreSQL =		'	DELETE FROM matches_evenements' .
@@ -271,7 +271,7 @@
 						'				AND		MatchesEvenements_Evenement <= 34';
 		$bdd->exec($ordreSQL);
 	}
-	
+
 	// Synchronisation des événements de but de la table des événements et de la table des buts du match
 	function synchroniserEvenementsScore($bdd, $match, $prolongation) {
 		$ordreSQL =		'		SELECT		IFNULL(SUM(Joueurs_Joueur), 0) AS Signature' .
@@ -282,30 +282,30 @@
 		$req = $bdd->query($ordreSQL);
 		$donnees = $req->fetchAll();
 		$signatureEvenements = $donnees[0]["Signature"];
-		
+
 		$ordreSQL =		'		SELECT		IFNULL(SUM(Joueurs_Joueur), 0) AS Signature' .
 						'		FROM		matches_buteurs' .
 						'		WHERE		Matches_Match = ' . $match;
 		$req = $bdd->query($ordreSQL);
 		$donnees = $req->fetchAll();
 		$signatureButeurs = $donnees[0]["Signature"];
-		
+
 		if($signatureEvenements != $signatureButeurs) {
-			
+
 			$ordreSQL =		'	CALL	sp_synchronisationevenementsbut(' . $match . ', ' . $prolongation . ')';
 			$bdd->exec($ordreSQL);
-			
+
 			return 1;
 		}
 		return 0;
 	}
-	
+
 	// Lancement du calcul d'une journée
 	function lancerCalcul($bdd, $journee) {
 		$ordreSQL = 'CALL sp_calcultouslesscores(' . $journee . ')';
 		$bdd->exec($ordreSQL);
 	}
-	
+
 	// Ajout d'un buteur
 	function ajouterButeur($bdd, $match, $joueur, $equipe, $csc) {
 		$ordreSQL =		'	INSERT INTO matches_buteurs(Matches_Match, Joueurs_Joueur, Equipes_Equipe, Buteurs_Cote, Buteurs_CSC)' .
@@ -334,12 +334,12 @@
 						'				AND		matches_evenements.MatchesEvenements_Evenement = 9' .
 						'				AND		NOW() > DATE_ADD(matches_evenements.MatchesEvenements_DateEvenement, INTERVAL 30 MINUTE)';
 		$bdd->exec($ordreSQL);
-		
+
 		$ordreSQL =		'	UPDATE		matches' .
 						'	SET			Matches_Direct = 0' .
 						'	WHERE		matches.Match = ' . $match;
 		$bdd->exec($ordreSQL);
-		
+
 		mettreAJourJournee($bdd, $match);
 	}
 
@@ -355,7 +355,7 @@
 						'				AND		MatchesErreurs_Datation = ' . $datation;
 		$req = $bdd->query($ordreSQL);
 		$erreur = $req->fetchAll();
-		
+
 		if($erreur[0]["Nombre"] == 0) {
 			$ordreSQL =		'	INSERT INTO matches_erreurs(Matches_Match, MatchesErreurs_Message, MatchesErreurs_Datation)' .
 							'	VALUES(' . $match . ', ' . $bdd->quote($message) . ', ' . $datation . ')';
@@ -364,7 +364,7 @@
 		}
 		return 0;
 	}
-	
+
 	// Finalisation de la composition d'équipes d'un match
 	function finaliserCompositionEquipes($bdd, $match) {
 		$ordreSQL =		'	UPDATE		matches' .
@@ -372,7 +372,7 @@
 						'	WHERE		matches.Match = ' . $match;
 		$bdd->exec($ordreSQL);
 	}
-	
+
 	// Mise à jour de la journée pour indiquer qu'une modification a eu lieu
 	function mettreAJourJournee($bdd, $match) {
 		$ordreSQL =		'	UPDATE		journees' .

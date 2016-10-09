@@ -669,7 +669,7 @@ function creerMatch_detecterCotesV1(numeroMatch) {
                             else
                                 afficherMessageInformationBandeau('Lecture des cotes des joueurs effectuée avec succès', 2000, '');
                         }).fail(function(html) {
-                            console.log('Fonction creerMatch_detecterCotes : dans le fail - ' + html);
+                            console.log('Fonction creerMatch_detecterCotesV1 : dans le fail - ' + html);
                         });
                     },
                     'Annuler':  function() {
@@ -681,12 +681,18 @@ function creerMatch_detecterCotesV1(numeroMatch) {
 }
 
 // Gestion de match - Détection des cotes des buteurs v2
-function creerMatch_detecterCotesV2(numeroMatch, numeroEquipe) {
+function creerMatch_detecterCotesV2(numeroMatch) {
+	// Lecture des valeurs saisies par l'utilisateur dans l'interface
+    var numeroEquipeDomicile = 0;
+    var numeroEquipeVisiteur = 0;
+
     if(numeroMatch == 0 || numeroMatch == null)
         return;
 
-    if(numeroEquipe == 0) {
-        alert('Veuillez renseigner le numéro de l\'équipe');
+    numeroEquipeDomicile = $('#equipeD_match_' + numeroMatch).val();
+    numeroEquipeVisiteur = $('#equipeV_match_' + numeroMatch).val();
+    if(numeroEquipeDomicile == 0 || numeroEquipeVisiteur == 0) {
+        alert('Veuillez renseigner les deux équipes');
         return;
     }
 
@@ -698,7 +704,7 @@ function creerMatch_detecterCotesV2(numeroMatch, numeroEquipe) {
 
     // Appel de la page de détection des cotes joueurs
     $.ajax( {
-                url: 'creer_match_detection_cotes_texte.php',
+                url: 'creer_match_detection_cotes_v2.php',
                 type: 'POST'
             }
     ).done(function(html) {
@@ -722,19 +728,18 @@ function creerMatch_detecterCotesV2(numeroMatch, numeroEquipe) {
 
                         // Appel de la page de détection des cotes joueurs
                         $.ajax(	{
-                                    url: 'creer_match_maj_par_detection_cotes_texte.php',
+                                    url: 'creer_match_maj_par_detection_cotes_v2.php',
                                     type: 'POST',
                                     data:   {
                                                 match: numeroMatch,
-                                                equipe: numeroEquipe,
+												equipe_domicile: numeroEquipeDomicile,
+                                                equipe_visiteur: numeroEquipeVisiteur,
                                                 date_debut_match: dateDebutMatch,
                                                 liste_cotes_joueurs: listeCotesJoueurs
-                                            }/*,
-                                    dataType: 'json'*/
+                                            },
+                                    dataType: 'json'
                                 }
                         ).done(function(html) {
-                            console.log(html);
-							return;
                             if(html.nombre_cotes_detectees == 0) {
                                 alert('Aucune cote détectée');
                                 return;
@@ -743,10 +748,10 @@ function creerMatch_detecterCotesV2(numeroMatch, numeroEquipe) {
                             if(html.nombre_joueurs_inconnus > 0) {
                                 // Affichage d'une fenêtre de mise à jour des données des joueurs pour lesquels la recherche a été infructueuse
                                 $.ajax(	{
-                                            url: 'creer_match_correction_cotes.php',
+                                            url: 'creer_match_correction_cotes_v2.php',
                                             type: 'POST',
                                             data:	{	match: numeroMatch,
-                                                        joueurs_inconnus_equipe_domicile: html.joueurs_inconnus_equipe_domicile,
+														joueurs_inconnus_equipe_domicile: html.joueurs_inconnus_equipe_domicile,
                                                         joueurs_inconnus_equipe_visiteur: html.joueurs_inconnus_equipe_visiteur
                                                     }
                                 }).done(function(html) {
@@ -772,7 +777,7 @@ function creerMatch_detecterCotesV2(numeroMatch, numeroEquipe) {
                             else
                                 afficherMessageInformationBandeau('Lecture des cotes des joueurs effectuée avec succès', 2000, '');
                         }).fail(function(html) {
-                            console.log('Fonction creerMatch_detecterCotes : dans le fail - ' + html);
+                            console.log('Fonction creerMatch_detecterCotesV2 : dans le fail - ' + html);
                         });
                     },
                     'Annuler':  function() {
