@@ -51,17 +51,21 @@
 			// Parcours de tous les noeuds enfants
 			$cotes = $unJoueurEtCotes;
 			$i = 0;
+			$cote = 0;
 			foreach($cotes->childNodes as $unNoeud) {
-				if($unNoeud->nodeName == 'td') {
+				if($unNoeud->nodeName == 'td' && trim($unNoeud->nodeValue) != '') {
 					if($i == 0)
 						// Lecture du nom du joueur
 						$prenomNomFamille = trim($unNoeud->nodeValue);
-					else if($i == $colonneCote)
+					else if($i == $colonneCote) {
 						// Cote buteur
 						$cote = trim($unNoeud->nodeValue);
+						break;
+					}
+					$i++;
 				}
-				$i++;
 			}
+
 	        $joueur = rechercherJoueurInitialePrenomSansPoint($bdd, $prenomNomFamille, $equipeDomicile, $dateSQL, 3);
 
 	        if($joueur == -1 || $joueur == 0) {
@@ -90,17 +94,21 @@
 			// Parcours de tous les noeuds enfants
 			$cotes = $unJoueurEtCotes;
 			$i = 0;
+			$cote = 0;
 			foreach($cotes->childNodes as $unNoeud) {
-				if($unNoeud->nodeName == 'td') {
+				if($unNoeud->nodeName == 'td' && trim($unNoeud->nodeValue) != '') {
 					if($i == 0)
 						// Lecture du nom du joueur
 						$prenomNomFamille = trim($unNoeud->nodeValue);
-					else if($i == $colonneCote)
+					else if($i == $colonneCote) {
 						// Cote buteur
 						$cote = trim($unNoeud->nodeValue);
+						break;
+					}
+					$i++;
 				}
-				$i++;
 			}
+			
 	        $joueur = rechercherJoueurInitialePrenomSansPoint($bdd, $prenomNomFamille, $equipeVisiteur, $dateSQL, 3);
 
 	        if($joueur == -1 || $joueur == 0) {
