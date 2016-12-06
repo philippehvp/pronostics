@@ -62,6 +62,8 @@
 				echo '<div class="tuile classement-groupe ' . $classe . '">';
 					echo '<div class="nomGroupe gauche">';
 						echo '<label>' . $groupes[$i * 4]["Groupes_Nom"] . '</label>';
+						echo '<label>&nbsp;-&nbsp;</label>';
+						echo '<label class="bouton" onclick="gererQualification_validerQualifieesPoule(' . $championnat . ', ' . $i . ', ' . $numeroPremierGroupe . ', 4);">Valider cette poule</label>';
 					echo '</div>';
 					echo '<div class="equipes">';
 						echo '<ul id="ulGroupe' . $i . '" class="listeTriee">';

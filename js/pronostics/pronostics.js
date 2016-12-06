@@ -2337,7 +2337,7 @@ function creerQualification_validerQualifiees(nomGroupe, nombreGroupes, numeroPr
 	});
 }
 
-// Gestion des qualifications - Validation des équipes qualifiées
+// Gestion des qualifications - Validation des équipes qualifiées pour toutes les poules
 function gererQualification_validerQualifiees(championnat, nombreGroupes, numeroPremierGroupe, nombreEquipes) {
     var param = 'championnat=' + championnat + '&groupes=' + nombreGroupes + '&equipes=' + nombreEquipes + '&numeroPremierGroupe=' + numeroPremierGroupe;
     for(var i = 0; i < nombreGroupes; i++) {
@@ -2350,6 +2350,25 @@ function gererQualification_validerQualifiees(championnat, nombreGroupes, numero
 
     $.ajax( {
                 url: 'gerer_qualification_maj_qualifications.php',
+                type: 'POST',
+                data: param
+            }
+    ).done(function(html) {
+		afficherMessageInformationBandeau('Sauvegarde effectuée avec succès', 2000, '');
+	});
+}
+
+// Gestion des qualifications - Validation des équipes qualifiées pour une poule
+function gererQualification_validerQualifieesPoule(championnat, numeroIndice, numeroPremierGroupe, nombreEquipes) {
+	var numeroGroupe = numeroIndice + numeroPremierGroupe;
+    var param = 'championnat=' + championnat + '&equipes=' + nombreEquipes + '&groupe=' + numeroGroupe + '&numeroPremierGroupe=' + numeroPremierGroupe;
+	var obj = $('#ulGroupe' + numeroIndice + ' > li');
+	obj.each(   function(j) {
+		param += '&groupe' + numeroIndice + 'equipe' + j + '=' + $(this).attr('data-val');
+	});
+
+    $.ajax( {
+                url: 'gerer_qualification_maj_qualifications_poule.php',
                 type: 'POST',
                 data: param
             }
