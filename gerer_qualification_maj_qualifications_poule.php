@@ -26,4 +26,21 @@
 
         $bdd->exec($ordreSQL);
     }
+
+	// Lecture de la dernière journée de poule selon le championnat
+	$ordreSQL =		'	SELECT		MAX(journees.Journee) AS Journee' .
+					'	FROM		journees' .
+					'	JOIN		matches' .
+					'				ON		journees.Journee = matches.Journees_Journee' .
+					'	WHERE		journees.Championnats_Championnat = ' . $championnat .
+					'				AND		matches.Matches_MatchLie IS NULL' .
+					'				AND		matches.Matches_AvecProlongation = 0';
+	$req = $bdd->query($ordreSQL);
+	$journees = $req->fetchAll();
+	$journee = $journees[0]["Journee"];
+
+	$ordreSQL =		'	CALL sp_calcultouslesscores(' . $journee . ')';
+
+	$bdd->exec($ordreSQL);
+
 ?>

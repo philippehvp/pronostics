@@ -2373,7 +2373,7 @@ function gererQualification_validerQualifieesPoule(championnat, numeroIndice, nu
                 data: param
             }
     ).done(function(html) {
-		afficherMessageInformationBandeau('Sauvegarde effectuée avec succès', 2000, '');
+		afficherMessageInformationBandeau('Sauvegarde et calculs effectués avec succès', 2000, '');
 	});
 }
 
