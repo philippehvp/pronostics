@@ -141,7 +141,7 @@
 
                     echo '<li class="menu--lien" onclick="matchCentre_afficherMatchCentre();">Match Centre</li>';
 
-                    //echo '<li class="menu--lien" onclick="window.open(\'cdf.php\', \'_self\');">Coupe de France</li>';
+                    echo '<li class="menu--lien" onclick="window.open(\'cdf.php\', \'_self\');">Coupe de France</li>';
 
                     if($administrateur == 1) {
                         // Recherche des journées en cours des 4 championnats et coupes
