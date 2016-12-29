@@ -4,7 +4,8 @@
                     '               ,(SELECT Menus_Visible FROM menus WHERE Menu = 110) AS Menu110' .
                     '               ,(SELECT Menus_Visible FROM menus WHERE Menu = 120) AS Menu120' .
                     '               ,(SELECT Menus_Visible FROM menus WHERE Menu = 130) AS Menu130' .
-                    '               ,(SELECT Menus_Visible FROM menus WHERE Menu = 140) AS Menu140';
+                    '               ,(SELECT Menus_Visible FROM menus WHERE Menu = 140) AS Menu140' .
+                    '               ,(SELECT Menus_Visible FROM menus WHERE Menu = 150) AS Menu150';
     $req = $bdd->query($ordreSQL);
     $menus = $req->fetchAll();
     $menu100 = $menus[0]["Menu100"];
@@ -12,6 +13,7 @@
     $menu120 = $menus[0]["Menu120"];
     $menu130 = $menus[0]["Menu130"];
     $menu140 = $menus[0]["Menu140"];
+    $menu150 = $menus[0]["Menu150"];
 
 
     echo '<div class="bandeau">';
@@ -141,7 +143,8 @@
 
                     echo '<li class="menu--lien" onclick="matchCentre_afficherMatchCentre();">Match Centre</li>';
 
-                    echo '<li class="menu--lien" onclick="window.open(\'cdf.php\', \'_self\');">Coupe de France</li>';
+                    if($menu150 == 1)
+                        echo '<li class="menu--lien" onclick="window.open(\'cdf.php\', \'_self\');">Coupe de France</li>';
 
                     if($administrateur == 1) {
                         // Recherche des journées en cours des 4 championnats et coupes
@@ -212,6 +215,9 @@
 
                                         if($menu140 == 1)               echo '<label class="lien" onclick="menu_basculerAffichage(140);" title="Masquer page de barème des bonus">Masquer "Consultation des barèmes de bonus"</label>';
                                         else                            echo '<label class="lien" onclick="menu_basculerAffichage(140);" title="Afficher page de saisie des qualifications">Afficher "Consultation des barèmes de bonus"</label>';
+
+                                        if($menu150 == 1)               echo '<label class="lien" onclick="menu_basculerAffichage(150);" title="Masquer page de Coupe de France">Masquer "Coupe de France"</label>';
+                                        else                            echo '<label class="lien" onclick="menu_basculerAffichage(150);" title="Afficher page de Coupe de France">Afficher "Coupe de France"</label>';
 
                                         echo '<label class="titre espacement-haut">Sauvegarde et pronostiqueurs</label>';
                                         echo '<label class="lien" onclick="window.open(\'gerer_site.php\', \'_self\');" title="Sauvegarde et gestion des données">Sauvegarde et gestion des données</label>';
