@@ -4,11 +4,12 @@
 
     // Lecture des paramètres passés à la page
     $adresse = isset($_POST["adresse"]) ? $_POST["adresse"] : '';
-    if($adresse == '')
-        $ordreSQL =     '   TRUNCATE TABLE cdf_adresse_video';
-    else
-        $ordreSQL =     '   REPLACE INTO    cdf_adresse_video(CDF_AdresseVideo)' .
-                        '   SELECT          ' . $bdd->quote($adresse);
+
+    $ordreSQL =     '   TRUNCATE TABLE cdf_adresse_video';
+    $bdd->exec($ordreSQL);
+
+    $ordreSQL =     '   INSERT INTO    cdf_adresse_video(CDF_AdresseVideo)' .
+                    '   SELECT          ' . $bdd->quote($adresse);
     $bdd->exec($ordreSQL);
 
     $ordreSQL =     '   UPDATE      journees' .
