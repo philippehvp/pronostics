@@ -54,7 +54,7 @@
 		if(strpos($adresseVideo, 'http') == false)
 			$adresseVideo = 'http://' . $adresseVideo;
 
-		echo '<div><a class="lien" style="width: 1200px; display: block; text-align: center;" href="' . $adresseVideo . '" alt="" target="_blank">Tirage en direct</a></div><br />';
+		echo '<div><a class="lien" style="width: 1200px; display: block; text-align: center;" href="https://www.youtube.com/watch?v=PqynGfLge48" alt="" target="_blank">Tirage en direct</a></div><br />';
 	}
 	
 	// Affichage des branches reliant les confrontations
