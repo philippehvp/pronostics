@@ -139,12 +139,12 @@
 
                     echo '<li class="menu--lien" onclick="window.open(\'classements_pronostiqueurs.php\', \'_self\');">Classements</li>';
 
-                    echo '<li class="menu--lien" onclick="concoursCentre_afficherConcoursCentre();">Contest</li>';
+                    echo '<li class="menu--lien" onclick="concoursCentre_afficherConcoursCentre();">Contest Centre</li>';
 
                     //echo '<li class="menu--lien" onclick="matchCentre_afficherMatchCentre();">Match Centre</li>';
 
                     if($menu150 == 1)
-                        echo '<li class="menu--lien" onclick="window.open(\'cdf.php\', \'_self\');">CDF</li>';
+                        echo '<li class="menu--lien" onclick="window.open(\'cdf.php\', \'_self\');">Coupe de France</li>';
 
                     if($administrateur == 1) {
                         // Recherche des journées en cours des 4 championnats et coupes
@@ -159,7 +159,7 @@
                         $journeeEL = $journeesActives[0]["Journee_EL"];
                         $journeeCDF = $journeesActives[0]["Journee_CDF"];
 
-                        echo '<li class="menu--lien">Administration+';
+                        echo '<li class="menu--lien">Admin+';
                             echo '<div class="sous-menu">';
                                 echo '<div class="conteneur-sous-menu">';
                                     echo '<div class="groupe-menu colle-gauche gauche">';
