@@ -91,7 +91,7 @@
                 echo '<ul class="menu">';
                     echo '<li class="menu--lien" onclick="window.open(\'accueil.php\', \'_self\');">Accueil</li>';
 
-                    echo '<li class="menu--lien">Pronostics +';
+                    echo '<li class="menu--lien">Pronostics+';
                         //echo '<div class="sous-menu" style="background-image: url(\'images/fond_menu_pronostics.png\'); background-repeat: no-repeat; background-position: 50% 50%;">';
                         echo '<div class="sous-menu">';
                             echo '<div class="conteneur-sous-menu">';
@@ -139,12 +139,12 @@
 
                     echo '<li class="menu--lien" onclick="window.open(\'classements_pronostiqueurs.php\', \'_self\');">Classements</li>';
 
-                    echo '<li class="menu--lien" onclick="concoursCentre_afficherConcoursCentre();">Contest Centre</li>';
+                    echo '<li class="menu--lien" onclick="concoursCentre_afficherConcoursCentre();">Contest</li>';
 
-                    echo '<li class="menu--lien" onclick="matchCentre_afficherMatchCentre();">Match Centre</li>';
+                    //echo '<li class="menu--lien" onclick="matchCentre_afficherMatchCentre();">Match Centre</li>';
 
                     if($menu150 == 1)
-                        echo '<li class="menu--lien" onclick="window.open(\'cdf.php\', \'_self\');">Coupe de France</li>';
+                        echo '<li class="menu--lien" onclick="window.open(\'cdf.php\', \'_self\');">CDF</li>';
 
                     if($administrateur == 1) {
                         // Recherche des journées en cours des 4 championnats et coupes
@@ -159,10 +159,7 @@
                         $journeeEL = $journeesActives[0]["Journee_EL"];
                         $journeeCDF = $journeesActives[0]["Journee_CDF"];
 
-                        echo '<li class="separateur">&nbsp;|&nbsp;</li>';
-
-                        //echo '<li class="menu--lien" onclick="window.open(\'classements_divisions_pronostiqueurs.php\', \'_self\');">Divisions</li>';
-                        echo '<li class="menu--lien">Administration +';
+                        echo '<li class="menu--lien">Administration+';
                             echo '<div class="sous-menu">';
                                 echo '<div class="conteneur-sous-menu">';
                                     echo '<div class="groupe-menu colle-gauche gauche">';
