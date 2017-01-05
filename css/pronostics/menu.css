@@ -55,6 +55,10 @@
 	margin-top: 32px;
 }
 
+#menu-administration .espacement-haut {
+    margin-top: 12px;
+}
+
 .groupe-menu {
 	margin-right: 32px;
 }
@@ -71,16 +75,16 @@
 	cursor: pointer;
 }
 
-.lien:hover {
+.lien span:hover {
 	text-decoration: underline;
 }
 
 .lien a:link, .lien a:visited {
-	text-decoration: none !important;
+	text-decoration: none;
 }
 
 .lien a:hover, .lien a:active {
-	text-decoration: none !important;
+	text-decoration: underline;
 }
 
 .nom-pronostiqueur:hover {
