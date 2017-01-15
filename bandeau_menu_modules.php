@@ -59,7 +59,7 @@
 						$classe = 'lien--inactif';
 						
 					//echo '<label class="lien ' . $classe . ' divModule' . $modules[$i]["Module"] . $modules[$i]["Modules_Parametre"] . '" onclick="basculerEtat(\'divModule' . $modules[$i]["Module"] . $modules[$i]["Modules_Parametre"] . '\'); afficherMasquerModule(' . $modules[$i]["Module"] . ', \'divModule' . $modules[$i]["Module"] . '\', \'' . $modules[$i]["Modules_Parametre"] . '\');">' . $modules[$i]["Modules_NomCourt"] . '</label>';
-					echo '<label class="lien ' . $classe . ' divModule' . $modules[$i]["Module"] . $modules[$i]["Modules_Parametre"] . '" onclick="basculerEtat(\'cbChampionnat_' . $unChampionnat["Championnat"] . '\', \'divModule' . $modules[$i]["Module"] . $modules[$i]["Modules_Parametre"] . '\', ' . $modules[$i]["Module"] . ', \'divModule' . $modules[$i]["Module"] . '\', \'' . $modules[$i]["Modules_Parametre"] . '\');">' . $modules[$i]["Modules_NomCourt"] . '</label>';
+					echo '<label class="lien ' . $classe . ' divModule' . $modules[$i]["Module"] . $modules[$i]["Modules_Parametre"] . '" onclick="basculerEtat(\'cbChampionnat_' . $unChampionnat["Championnat"] . '\', \'divModule' . $modules[$i]["Module"] . $modules[$i]["Modules_Parametre"] . '\', ' . $modules[$i]["Module"] . ', \'divModule' . $modules[$i]["Module"] . '\', \'' . $modules[$i]["Modules_Parametre"] . '\');"><span>' . $modules[$i]["Modules_NomCourt"] . '</span></label>';
 				}
 				
 				$nombreChampionnatsAffiches++;

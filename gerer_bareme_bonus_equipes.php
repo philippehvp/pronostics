@@ -26,6 +26,7 @@
                         '               ,IFNULL(bonus_equipe_championne.Bonus_Points, 0) AS Bonus_Championne' .
                         '               ,IFNULL(bonus_equipes_podium.Bonus_Points, 0) AS Bonus_Podium' .
                         '               ,IFNULL(bonus_equipes_relegation.Bonus_Points, 0) AS Bonus_Relegation' .
+                        '               ,IFNULL(equipes_penalites.EquipesPenalites_Penalite, 0) AS EquipesPenalite_Penalite' .
                         '               ,CASE WHEN bonus_anticipes_equipe_championne.Equipes_Equipe IS NOT NULL THEN 1 ELSE 0 END AS BonusAnticipes_Championne' .
                         '               ,CASE WHEN bonus_anticipes_equipes_podium.Equipes_Equipe IS NOT NULL THEN 1 ELSE 0 END AS BonusAnticipes_Podium' .
                         '               ,CASE WHEN bonus_anticipes_equipes_relegation.Equipes_Equipe IS NOT NULL THEN 1 ELSE 0 END AS BonusAnticipes_Relegation' .
@@ -38,6 +39,8 @@
                         '               ON      equipes.Equipe = bonus_equipes_podium.Equipes_Equipe' .
                         '   LEFT JOIN   bonus_equipes_relegation' .
                         '               ON      equipes.Equipe = bonus_equipes_relegation.Equipes_Equipe' .
+                        '   LEFT JOIN   equipes_penalites' .
+                        '               ON      equipes.Equipe = equipes_penalites.Equipes_Equipe' .
                         '   LEFT JOIN   bonus_anticipes_equipe_championne' .
                         '               ON      equipes.Equipe = bonus_anticipes_equipe_championne.Equipes_Equipe' .
                         '   LEFT JOIN   bonus_anticipes_equipes_podium' .
@@ -62,6 +65,7 @@
                         echo '<th>Championnes de Ligue 1</th>';
                         echo '<th>Sur le podium</th>';
                         echo '<th>Reléguées en L2</th>';
+                        echo '<th>Pénalités</th>';
                     echo '</tr>';
                 echo '</thead>';
                 
@@ -85,6 +89,9 @@
                             echo '<td>';
                                 echo '<input type="text" id="txtBaremeBonusEquipesRelegation_' . $baremesBonus[$i]["Equipe"] . '" value="' . $baremesBonus[$i]["Bonus_Relegation"]. '" onchange="gererBaremeBonusEquipes_modifierBonus($(this), ' . $baremesBonus[$i]["Equipe"] . ', 3);" />';
                                 echo '&nbsp;<input type="checkbox" value="' . $baremesBonus[$i]["Equipe"] . '" ' . $bonusAnticipeEquipeRelegation . ' onclick="gererBaremeBonusEquipes_modifierBonusAnticipe(this, 3);" />';
+                            echo '</td>';
+                            echo '<td>';
+                                echo '<input type="text" id="txtPenalites_' . $baremesBonus[$i]["Equipe"] . '" value="' . $baremesBonus[$i]["EquipesPenalite_Penalite"]. '" onchange="gererBaremeBonusEquipes_modifierBonus($(this), ' . $baremesBonus[$i]["Equipe"] . ', 4);" />';
                             echo '</td>';
                         echo '</tr>';
                     }
