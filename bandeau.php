@@ -143,8 +143,8 @@
                                         if($menu100 == 1)               echo '<label class="lien" onclick="menu_basculerAffichage(100);" title="Masquer page de consultation des bonus"><span>Masquer "Consultation de bonus"</span></label>';
                                         else                            echo '<label class="lien" onclick="menu_basculerAffichage(100);" title="Afficher page de consultation des bonus"><span>Afficher "Consultation de bonus"</span></label>';
 
-                                        if($menu110 == 1)               echo '<label class="lien" onclick="menu_basculerAffichage(110);" title="Masquer page de consultation des qualifications"><span>Masquer "Consultation de qualification"</span></label>';
-                                        else                            echo '<label class="lien" onclick="menu_basculerAffichage(110);" title="Afficher page de consultation des qualifications"><span>Afficher "Consultation de qualification"</span></label>';
+                                        if($menu110 == 1)               echo '<label class="lien" onclick="menu_basculerAffichage(110);" title="Masquer page de consultation des qualifications"><span>Masquer "Consulter les qualifications"</span></label>';
+                                        else                            echo '<label class="lien" onclick="menu_basculerAffichage(110);" title="Afficher page de consultation des qualifications"><span>Afficher "Consulter les qualifications"</span></label>';
 
                                         if($menu120 == 1)               echo '<label class="lien" onclick="menu_basculerAffichage(120);" title="Masquer page de création des bonus"><span>Masquer "Création de bonus"</span></label>';
                                         else                            echo '<label class="lien" onclick="menu_basculerAffichage(120);" title="Afficher page de création des bonus"><span>Afficher "Création de bonus"</span></label>';
@@ -195,7 +195,7 @@
                                         echo '<label class="lien" onclick="window.open(\'consulter_bareme_bonus.php\', \'_self\');" title="Consulter les barèmes de bonus"><span>Consulter les barèmes de bonus</span></label>';
 
                                     if($menu110 == 1)
-                                        echo '<label class="lien" onclick="window.open(\'consulter_qualification.php\', \'_self\');" title="Consulter les pronostics des classements de poule de votre championnat européen"><span>Consultation des classements de poule</span></label>';
+                                        echo '<label class="lien" onclick="window.open(\'consulter_qualification.php\', \'_self\');" title="Consulter les pronostics des classements de poule de votre championnat européen"><span>Consulter les classements de poule</span></label>';
 
                                     if($menu120 == 1)
                                         echo '<label class="lien" onclick="window.open(\'creer_bonus.php\', \'_self\');" title="Saisir les bonus de la Ligue 1 (meilleur buteur et passeur, équipes sur le podium...)"><span>Saisir les bonus de Ligue 1</span></label>';
@@ -204,10 +204,10 @@
                                         echo '<label class="lien" onclick="window.open(\'creer_qualification.php\', \'_self\');" title="Saisir les qualifications des poules européennes"><span>Saisir les qualifications des poules européennes</span></label>';
 
                                     echo '<label class="titre espacement-haut">Trophées</label>';
-                                    echo '<label class="lien" onclick="window.open(\'consulter_trophees.php?championnat=1\', \'_self\');" title="Consultation des trophées de Ligue 1"><span>Ligue 1</span></label>';
-                                    echo '<label class="lien" onclick="window.open(\'consulter_trophees.php?championnat=2\', \'_self\');" title="Consultation des trophées de Ligue des Champions"><span>Ligue des Champions</span></label>';
-                                    echo '<label class="lien" onclick="window.open(\'consulter_trophees.php?championnat=3\', \'_self\');" title="Consultation des trophées d\'Europa League"><span>Europa League</span></label>';
-                                    //echo '<label class="lien" onclick="window.open(\'consulter_trophees.php?championnat=4\', \'_self\');" title="Consultation des résultats des barrages LDC"><span>Barrages LDC</span></label>';
+                                    echo '<label class="lien" onclick="window.open(\'consulter_trophees.php?championnat=1\', \'_self\');" title="Consulter les trophées de Ligue 1"><span>Ligue 1</span></label>';
+                                    echo '<label class="lien" onclick="window.open(\'consulter_trophees.php?championnat=2\', \'_self\');" title="Consulter les trophées de Ligue des Champions"><span>Ligue des Champions</span></label>';
+                                    echo '<label class="lien" onclick="window.open(\'consulter_trophees.php?championnat=3\', \'_self\');" title="Consulter les trophées d\'Europa League"><span>Europa League</span></label>';
+                                    //echo '<label class="lien" onclick="window.open(\'consulter_trophees.php?championnat=4\', \'_self\');" title="Consulter les résultats des barrages LDC"><span>Barrages LDC</span></label>';
 
                                 echo '</div>';
 
