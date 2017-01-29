@@ -229,12 +229,12 @@
 				foreach($attributs as $unAttribut) {
 					$nomJoueur = trim(str_replace('(Contre son camps)', '', $unButeur->parentNode->textContent));
 					if($unAttribut->nodeValue == 'c3') {
-						$codeEvenement = 34;
-						$equipe = $unMatch["Equipes_EquipeVisiteur"];
-					}
-					else if($unAttribut->nodeValue == 'c1') {
 						$codeEvenement = 33;
 						$equipe = $unMatch["Equipes_EquipeDomicile"];
+					}
+					else if($unAttribut->nodeValue == 'c1') {
+						$codeEvenement = 34;
+						$equipe = $unMatch["Equipes_EquipeVisiteur"];
 					}
 
 					// Même remarque pour les matches sans buteur
