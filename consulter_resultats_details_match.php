@@ -203,6 +203,7 @@
 					'												FROM		matches_buteurs' .
 					'												JOIN		(	SELECT		@indiceMatches := 0, @joueur := NULL, @equipe := NULL	) r' .
 					'												WHERE		matches_buteurs.Matches_Match = ' . $match .
+					'															AND		matches_buteurs.Buteurs_CSC = 0' .
 					'												ORDER BY	Joueurs_Joueur, Equipes_Equipe' .
 					'											) matches_buteurs' .
 					'											ON		pronostics_buteurs.Joueurs_Joueur = matches_buteurs.Joueurs_Joueur' .
@@ -245,6 +246,7 @@
 					'												FROM		matches_buteurs' .
 					'												JOIN		(	SELECT		@indiceMatches := 0, @joueur := NULL, @equipe := NULL	) r' .
 					'												WHERE		matches_buteurs.Matches_Match = ' . $match .
+					'															AND		matches_buteurs.Buteurs_CSC = 0' .
 					'												ORDER BY	Joueurs_Joueur, Equipes_Equipe' .
 					'											) matches_buteurs' .
 					'											ON		pronostics_buteurs.Joueurs_Joueur = matches_buteurs.Joueurs_Joueur' .
@@ -291,6 +293,7 @@
 					'												FROM		matches_buteurs' .
 					'												JOIN		(	SELECT		@indiceMatches := 0, @joueur :=  NULL, @equipe := NULL	) r' .
 					'												WHERE		matches_buteurs.Matches_Match = ' . $match .
+					'															AND		matches_buteurs.Buteurs_CSC = 0' .
 					'												ORDER BY	Joueurs_Joueur, Equipes_Equipe' .
 					'											) matches_buteurs' .
 					'											ON		pronostics_buteurs.Joueurs_Joueur = matches_buteurs.Joueurs_Joueur' .
@@ -337,6 +340,7 @@
 					'												FROM		matches_buteurs' .
 					'												JOIN		(	SELECT		@indiceMatches := 0, @joueur := NULL, @equipe := NULL	) r' .
 					'												WHERE		matches_buteurs.Matches_Match = ' . $match .
+					'															AND		matches_buteurs.Buteurs_CSC = 0' .
 					'												ORDER BY	Joueurs_Joueur, Equipes_Equipe' .
 					'											) matches_buteurs' .
 					'											ON		pronostics_buteurs.Joueurs_Joueur = matches_buteurs.Joueurs_Joueur' .

@@ -27,5 +27,9 @@
         $ordreSQL =     '   DELETE FROM ' . $nomTable . ' WHERE Equipes_Equipe = ' . $equipe;
                         
     $bdd->exec($ordreSQL);
+
+    // Appel automatique de la procédure de calcul des points bonus anticipés
+    $ordreSQL =     '   CALL sp_calculpointsbonusanticipes()';
+    $bdd->exec($ordreSQL);    
     
 ?>

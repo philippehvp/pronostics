@@ -57,7 +57,7 @@
 		}
 		
 		// Affichage des cotes de l'équipe (et du nul)
-		// On affiche les points de qualification et non les cotes dans les deux cas spécifique suivants :
+		// On affiche les points de qualification et non les cotes dans les deux cas spécifiques suivants :
 		// - Coupe de France (championnat numéro 5)
 		// - en finale de coupe européenne
 		function afficherCote($unMatch, $nulDomicileVisiteur, $finaleEuropeenne) {
