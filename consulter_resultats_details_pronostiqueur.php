@@ -187,6 +187,7 @@
 					'														ON		matches_buteurs.Matches_Match = matches.Match' .
 					'											JOIN		(	SELECT		@indiceMatches := 0, @joueur := NULL, @equipe := NULL	) r' .
 					'											WHERE		matches.Journees_Journee = ' . $journee .
+					'														AND		matches_buteurs.Buteurs_CSC = 0' .
 					'											ORDER BY	Matches_Match, Joueurs_Joueur, Equipes_Equipe' .
 					'										) matches_buteurs' .
 					'										ON		pronostics_buteurs.Matches_Match = matches_buteurs.Matches_Match' .
@@ -237,6 +238,7 @@
 					'														ON		matches_buteurs.Matches_Match = matches.Match' .
 					'											JOIN		(	SELECT		@indiceMatches := 0, @joueur := NULL, @equipe := NULL	) r' .
 					'											WHERE		matches.Journees_Journee = ' . $journee .
+					'														AND		matches_buteurs.Buteurs_CSC = 0' .
 					'											ORDER BY	Matches_Match, Joueurs_Joueur, Equipes_Equipe' .
 					'										) matches_buteurs' .
 					'										ON		pronostics_buteurs.Matches_Match = matches_buteurs.Matches_Match' .
@@ -291,6 +293,7 @@
 					'														ON		matches_buteurs.Matches_Match = matches.Match' .
 					'											JOIN		(	SELECT		@indiceMatches := 0, @match := NULL, @joueur :=  NULL, @equipe := NULL	) r' .
 					'											WHERE		matches.Journees_Journee = ' . $journee .
+					'														AND		matches_buteurs.Buteurs_CSC = 0' .
 					'											ORDER BY	Matches_Match, Joueurs_Joueur, Equipes_Equipe' .
 					'										) matches_buteurs' .
 					'										ON		pronostics_buteurs.Matches_Match = matches_buteurs.Matches_Match' .
@@ -346,6 +349,7 @@
 					'														ON		matches_buteurs.Matches_Match = matches.Match' .
 					'											JOIN		(	SELECT		@indiceMatches := 0, @match := NULL, @joueur :=  NULL, @equipe := NULL	) r' .
 					'											WHERE		matches.Journees_Journee = ' . $journee .
+					'														AND		matches_buteurs.Buteurs_CSC = 0' .
 					'											ORDER BY	Matches_Match, Joueurs_Joueur, Equipes_Equipe' .
 					'										) matches_buteurs' .
 					'										ON		pronostics_buteurs.Matches_Match = matches_buteurs.Matches_Match' .
