@@ -15,7 +15,6 @@
     $menu140 = $menus[0]["Menu140"];
     $menu150 = $menus[0]["Menu150"];
 
-
     echo '<div class="bandeau">';
         echo '<div class="largeur-menu">';
             echo '<div class="colle-gauche gauche">';
@@ -37,6 +36,7 @@
                     echo '<li class="menu--lien" id="liTchatGroupe"><span class="bulles-tchat"></span><label class="menu-complementaire-lien">Tchat de groupe</label>';
                         echo '<div class="sous-menu-flottant"></div>';
                     echo '</li>';
+
 
                     echo '<li class="menu--lien"><span class="profil"><img src="images/pronostiqueurs/' . $_SESSION["photo_pronostiqueur"] . '" alt=""/></span><label class="menu-complementaire-lien">Compte (' . $_SESSION["prenom"] . ')</label>';
                         echo '<div class="sous-menu-flottant" style="background-image: url(\'images/fond_menu_profil.png\'); background-repeat: no-repeat; background-position: 50% 0;">';

@@ -30,6 +30,7 @@
 	$matchLienPage = isset($_POST["matchLienPage"]) ? $_POST["matchLienPage"] : '';
 	$matchLienPageComplementaire = isset($_POST["matchLienPageComplementaire"]) ? $_POST["matchLienPageComplementaire"] : '';
 	$matchIgnore = isset($_POST["matchIgnore"]) ? $_POST["matchIgnore"] : 0;
+	$matchHorsPronostic = isset($_POST["matchHorsPronostic"]) ? $_POST["matchHorsPronostic"] : 0;
 	
 	// L'heure max à laquelle un utilisateur peut faire ses pronostics dépend :
 	// - du type de championnat
@@ -113,6 +114,7 @@
 					'				,Matches_LienPage = \'' . $matchLienPage . '\'' .
 					'				,Matches_LienPageComplementaire = \'' . $matchLienPageComplementaire . '\'' .
 					'				,Matches_MatchIgnore = ' . $matchIgnore .
+					'				,Matches_MatchHorsPronostic = ' . $matchHorsPronostic .
 					'	WHERE		matches.Match = ' . $match;
 
 	$bdd->exec($ordreSQL);

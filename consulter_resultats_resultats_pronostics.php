@@ -23,9 +23,8 @@
 				'	FROM		journees' .
 				'	WHERE		Journee = ' . $journee;
 	$req = $bdd->query($ordreSQL);
-	$donnees = $req->fetch();
-	$afficherPointsQualification = $donnees["Journees_PointsQualification"] != null ? $donnees["Journees_PointsQualification"] : 0;
-	$req->closeCursor();
+	$donnees = $req->fetchAll();
+	$afficherPointsQualification = $donnees[0]["Journees_PointsQualification"] != null ? $donnees[0]["Journees_PointsQualification"] : 0;
 	
 	// Bons résultats des matches d'une journée donnée
 	$ordreSQL = '	SELECT DISTINCT		vue_resultatsjournees.Match' .
@@ -214,9 +213,15 @@
 					'					END AS Scores_TotalButeur' .
 					'					,CASE' .
 					'						WHEN	vue_pronostiqueursmatches.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] . ' OR fn_matchpronostiquable(matches.Match, ' . $_SESSION["pronostiqueur"] . ') = 0' .
-					'						THEN	CAST(SUM(IFNULL(Scores_ScoreQualification, 0)) AS CHAR(5))' .
+					'						THEN	CAST(SUM(IFNULL(IFNULL(Scores_ScoreQualification , 0) * IFNULL(pronostics_carrefinal.PronosticsCarreFinal_Coefficient, 0), 0)) AS CHAR(5))' .
 					'						ELSE	\'?\'' .
 					'					END AS Scores_Qualification' .
+					'					,CASE' .
+					'						WHEN	vue_pronostiqueursmatches.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] . ' OR fn_matchpronostiquable(matches.Match, ' . $_SESSION["pronostiqueur"] . ') = 0' .
+					'						THEN	CAST(SUM(IFNULL(IFNULL(Scores_ScoreBonus , 0) * IFNULL(pronostics_carrefinal.PronosticsCarreFinal_Coefficient, 0), 0)) AS CHAR(5))' .
+					'						ELSE	\'?\'' .
+					'					END AS Scores_Bonus' .
+					'					, pronostics_carrefinal.PronosticsCarreFinal_Coefficient' .
 					'		FROM		vue_pronostiqueursmatches' .
 					'		LEFT JOIN	scores' .
 					'					ON		vue_pronostiqueursmatches.Pronostiqueurs_Pronostiqueur = scores.Pronostiqueurs_Pronostiqueur' .
@@ -229,6 +234,9 @@
 					'		JOIN		journees' .
 					'					ON		vue_pronostiqueursmatches.Journees_Journee = journees.Journee' .
 					'							AND		vue_pronostiqueursmatches.Championnats_Championnat = journees.Championnats_Championnat' .
+					'		LEFT JOIN	pronostics_carrefinal' .
+					'					ON		vue_pronostiqueursmatches.Matches_Match = pronostics_carrefinal.Matches_Match' .
+					'							AND		vue_pronostiqueursmatches.Pronostiqueurs_Pronostiqueur = pronostics_carrefinal.Pronostiqueurs_Pronostiqueur' .
 					'		WHERE		matches.Journees_Journee = ' . $journee .
 					'		GROUP BY	vue_pronostiqueursmatches.Pronostiqueurs_Pronostiqueur' .
 					'		ORDER BY	vue_pronostiqueursmatches.Pronostiqueurs_Pronostiqueur';
@@ -401,8 +409,8 @@
 						}
 
 					}
-					echo '<td>' . $totaux[$i][0] . '</td>';
-					echo '<td>' . $totaux[$i][1] . '</td>';
+					echo '<td>' . $totaux[$i]["Scores_Total"] . '</td>';
+					echo '<td>' . $totaux[$i]["Scores_TotalButeur"] . '</td>';
 					if($afficherPointsQualification == 1) {
 						// Parcours de la liste des équipes pronostiquées gagnantes
 						for($k = 0; $k < $nombreConfrontations; $k++) {
@@ -423,7 +431,10 @@
 								echo $vainqueursPronostics[($i * $nombreConfrontations) + $k][0];
 							echo '</td>';
 						}
-						echo '<td>' . $totaux[$i][2] . '</td>';
+						if($resultat["Matches_TypeMatch"] == 3)
+							echo '<td>' . $totaux[$i]["Scores_Qualification"]. '</td>';
+						else
+							echo '<td>' . $totaux[$i]["Scores_Bonus"] . '</td>';
 					}
 
 				echo '</tr>';

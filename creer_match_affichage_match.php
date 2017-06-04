@@ -35,6 +35,7 @@
 						'						,Matches_LienPage' .
 						'						,Matches_LienPageComplementaire' .
 						'						,Matches_MatchIgnore' .
+						'						,Mathches_MatchHorsPronostic' .
 						'	FROM				vue_matches' .
 						'	WHERE				vue_matches.Match = ' . $match;
 
@@ -68,6 +69,7 @@
 		$matchLienPage = $matches[0]["Matches_LienPage"] != null ? $matches[0]["Matches_LienPage"] : '';
 		$matchLienPageComplementaire = $matches[0]["Matches_LienPageComplementaire"] != null ? $matches[0]["Matches_LienPageComplementaire"] : '';
 		$matchIgnore = $matches[0]["Matches_MatchIgnore"] != null ? $matches[0]["Matches_MatchIgnore"] : 0;
+		$matchHorsPronostic = $matches[0]["Matches_MatchHorsPronostic"] != null ? $matches[0]["Matches_MatchHorsPronostic"] : 0;
 	}
 
 	echo '<div id="divEntete_match_' . $numeroMatch . '" class="zoneEntete">';
@@ -285,6 +287,11 @@
 						$checked = $matchIgnore == 1 ? ' checked' : '';
 						echo '<label style="margin-left: 35px;">Non surveillé : </label>';
 						echo '<input type="checkbox" id="matchIgnore_match_' . $numeroMatch . '" onclick="creerMatch_sauvegarderMatch(0, \'\', ' . $numeroMatch . ');"' . $checked . ' />';
+
+						$checked = $matchHorsPronostic == 1 ? ' checked' : '';
+						echo '<label style="margin-left: 35px;">Hors points pronostics : </label>';
+						echo '<input type="checkbox" id="matchHorsPronostic_match_' . $numeroMatch . '" onclick="creerMatch_sauvegarderMatch(0, \'\', ' . $numeroMatch . ');"' . $checked . ' />';
+
 					echo '</td>';
 				echo '</tr>';
 

@@ -67,6 +67,7 @@
 					'						,Matches_LienPage' .
 					'						,Matches_LienPageComplementaire' .
 					'						,Matches_MatchIgnore' .
+					'						,Matches_MatchHorsPronostic' .
 					'	FROM				vue_matches' .
 					'	WHERE				Journees_Journee = ' . $journee .
 					'	ORDER BY			vue_matches.Match';
@@ -129,6 +130,7 @@
 		$matchLienPage = $unMatch["Matches_LienPage"] != null ? $unMatch["Matches_LienPage"] : '';
 		$matchLienPageComplementaire = $unMatch["Matches_LienPageComplementaire"] != null ? $unMatch["Matches_LienPageComplementaire"] : '';
 		$matchIgnore = $unMatch["Matches_MatchIgnore"] != null ? $unMatch["Matches_MatchIgnore"] : 0;
+		$matchHorsPronostic = $unMatch["Matches_MatchHorsPronostic"] != null ? $unMatch["Matches_MatchHorsPronostic"] : 0;
 
 		echo '<div id="divMatch_match_' . $numeroMatch . '" class="match">';
 			include('creer_match_affichage_match.php');

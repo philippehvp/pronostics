@@ -379,6 +379,7 @@ function creerMatch_sauvegarderMatch(evenement, element, numeroMatch) {
     var report = $('#report_match_' + numeroMatch).prop('checked') ? 1 : 0;                     // Match reporté
     var matchCS = $('#matchCS_match_' + numeroMatch).prop('checked') ? 1 : 0;                   // Match de la Community Shield
 	var matchIgnore = $('#matchIgnore_match_' + numeroMatch).prop('checked') ? 1 : 0;			// Match ignoré de la surveillance
+	var matchHorsPronostic = $('#matchHorsPronostic_match_' + numeroMatch).prop('checked') ? 1 : 0;			// Match ignoré des points des pronostiqueurs
 
     var pointsQualificationEquipeD = null;
     if($('#pointsQualificationEquipeD_match_' + numeroMatch).length != 0)
@@ -430,7 +431,8 @@ function creerMatch_sauvegarderMatch(evenement, element, numeroMatch) {
                             matchDirect: matchDirect,
 							matchLienPage: matchLienPage,
 							matchLienPageComplementaire: matchLienPageComplementaire,
-							matchIgnore : matchIgnore
+							matchIgnore : matchIgnore,
+							matchHorsPronostic: matchHorsPronostic
                         }
             }
     ).done(function(html) {
