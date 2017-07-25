@@ -106,6 +106,10 @@
 						echo ' - Match Canal : ';
 						echo '<input type="checkbox" id="matchCanal_match_' . $numeroMatch . '" onclick="creerMatch_sauvegarderMatch(0, \'\', ' . $numeroMatch . ');"' . $checked . ' />';
 
+						$checked = $matchCS == 1 ? ' checked' : '';
+						echo ' - Community Shield : ';
+						echo '<input type="checkbox" id="matchCS_match_' . $numeroMatch . '" onclick="creerMatch_sauvegarderMatch(0, \'\', ' . $numeroMatch . ');"' . $checked . ' />';
+
 						$checked = $matchReport == 1 ? ' checked' : '';
 						echo ' - Match reporté : ';
 						echo '<input type="checkbox" id="report_match_' . $numeroMatch . '" onclick="creerMatch_sauvegarderMatch(0, \'\', ' . $numeroMatch . ');"' . $checked . ' />';
