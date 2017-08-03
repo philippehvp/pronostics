@@ -20,7 +20,7 @@
 		// Page de gestion de l'effectif (équipes et joueurs)
 	
 		// Sélection des différents championnats
-		$ordreSQL = 'SELECT DISTINCT Equipe, Equipes_Nom FROM equipes ORDER BY Equipes_Nom';
+		$ordreSQL = 'SELECT DISTINCT Equipe, IFNULL(Equipes_NomCourt, Equipes_Nom) AS Equipes_Nom FROM equipes ORDER BY Equipes_Nom';
 		$req = $bdd->query($ordreSQL);
         $equipes = $req->fetchAll();
 
