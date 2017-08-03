@@ -12,10 +12,10 @@
 	// Affichage de la liste des équipes
 	$ordreSQL =		'	SELECT		DISTINCT equipes.Equipe, equipes.Equipes_Nom' .
 					'	FROM		(' .
-					'					SELECT		Equipe, IFNULL(Equipes_NomCourt, Equipes_Nom) AS Equipes_Nom' .
+					'					SELECT		1 AS Ordre, Equipe, IFNULL(Equipes_NomCourt, Equipes_Nom) AS Equipes_Nom' .
 					'					FROM		equipes' .
 					'					UNION' .
-					'					SELECT		0 AS Equipe, \'Hors concours\' AS Equipes_Nom' .
+					'					SELECT		0 AS Ordre, 0 AS Equipe, \'Hors concours\' AS Equipes_Nom' .
 					'				) equipes' .
 					'	LEFT JOIN	(' .
 					'					SELECT		DISTINCT joueurs_equipes.Equipes_Equipe' .
@@ -25,7 +25,7 @@
 					'				) joueurs_equipes' .
 					'				ON		equipes.Equipe = joueurs_equipes.Equipes_Equipe' .
 					'	WHERE		joueurs_equipes.Equipes_Equipe IS NULL' .
-					'	ORDER BY	equipes.Equipes_Nom';
+					'	ORDER BY	equipes.Ordre, equipes.Equipes_Nom';
 
 	$req = $bdd->query($ordreSQL);
 
