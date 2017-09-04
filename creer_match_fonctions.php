@@ -62,7 +62,8 @@
 	// Fonction de remplacement de certains caractères d'un nom passé en paramètre
 	function remplacerCaracteres($chaine) {
         $retour = $chaine;
-		$retour = str_replace('ä', 'a', str_replace('á', 'a', str_replace('ă', 'a', str_replace('ã', 'a', $retour))));
+        $retour = str_replace('ä', 'a', str_replace('á', 'a', str_replace('ă', 'a', str_replace('ã', 'a', str_replace('æ', 'a', $retour)))));
+		$retour = str_replace('Ä', 'A', str_replace('á', 'a', str_replace('ă', 'a', str_replace('ã', 'a', str_replace('Á', 'A', $retour)))));
 		$retour = str_replace('č', 'c', str_replace('Ç', 'C', str_replace('Č', 'C', str_replace('ć', 'c', str_replace('Ć', 'C', $retour)))));
 		$retour = str_replace('Đ', 'D', str_replace('đ', 'd', str_replace('Ď', 'D', $retour)));
 		$retour = str_replace('ę', 'e', str_replace('ě', 'e', $retour));
@@ -119,7 +120,6 @@
 						'				AND		JoueursEquipes_Debut <= \'' . $date . '\'' .
 						'				AND		(JoueursEquipes_Fin IS NULL OR JoueursEquipes_Fin > \'' . $date . '\')';
 		$req = $bdd->query($ordreSQL);
-
 		$joueurs = $req->fetchAll();
 
 		if(sizeof($joueurs) == 1)
@@ -158,7 +158,6 @@
 						'						END = ' . $bdd->quote($joueurNomModifie) .
 						'				AND		JoueursEquipes_Debut <= \'' . $date . '\'' .
 						'				AND		(JoueursEquipes_Fin IS NULL OR JoueursEquipes_Fin > \'' . $date . '\')';
-
 		$req = $bdd->query($ordreSQL);
 		$joueurs = $req->fetchAll();
 
@@ -211,6 +210,7 @@
 	}
 
 	// Recherche d'un joueur dans une équipe à partir du nom de famille et de la première lettre de son prénom
+	// Utilisée par Scores Pro uniquement, donc désactivée
 	function rechercherJoueurInitialePrenomInverse($bdd, $joueurNomComplet, $equipe, $date) {
 		$joueurNomModifie = remplacerCaracteres($joueurNomComplet);
 

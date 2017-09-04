@@ -15,6 +15,7 @@
 					'	JOIN		equipes equipes_visiteur' .
 					'				ON		matches.Equipes_EquipeVisiteur = equipes_visiteur.Equipe' .
 					'	WHERE		matches.Match = ' . $match;
+
 	$req = $bdd->query($ordreSQL);
     $matches = $req->fetchAll();
     
@@ -26,37 +27,53 @@
 		$equipeVisiteur = $matches[0]["Equipes_EquipeVisiteur"];
 		
 		$xpath = new DOMXpath($document);
-        
+
+		$divComposition = $xpath->query('//div[contains(@class, "MEDpanelcomposition")]');
+		if(!$divComposition)
+			return;
+
+		$tableauComposition = $xpath->query('div[@class="panel-body"]/table/tbody/tr/td', $divComposition->item(0));
+
+		// Equipe domicile
+		$htmlEquipeDomicile = remplacerCaracteres(utf8_decode($document->saveHTML($tableauComposition->item(0))));
+		$compositionEquipeDomicile = preg_replace('/<[^>]*>/', ',', $htmlEquipeDomicile);
+		$joueursEquipeDomicile = explode(",", $compositionEquipeDomicile);
+
+		// Equipe visiteur
+		$htmlEquipeVisiteur = remplacerCaracteres(utf8_decode($document->saveHTML($tableauComposition->item(1))));
+		$compositionEquipeVisiteur = preg_replace('/<[^>]*>/', ',', $htmlEquipeVisiteur);
+		$joueursEquipeVisiteur = explode(",", $compositionEquipeVisiteur);
+
 		// Lecture des joueurs de l'équipe domicile
-		$baliseCompo1 = $xpath->query('//td[@class="compo1"]');
-		$joueurs = $baliseCompo1->item(0)->childNodes;
-		foreach($joueurs as $unJoueur) {
-			if($unJoueur->textContent != null && substr(trim($unJoueur->textContent), 0, 5) != 'cache') {
-				$retour = rechercherJoueur($bdd, trim($unJoueur->textContent), $equipeDomicile, $dateMatch, 1);
+		foreach($joueursEquipeDomicile as $unJoueur) {
+			if($unJoueur && trim($unJoueur) != "") {
+				$nomJoueurModifie = mb_convert_encoding(trim($unJoueur), 'UTF-8');
+
+				$retour = rechercherJoueur($bdd, $nomJoueurModifie, $equipeDomicile, $dateMatch, 1);
 				if($retour == -1)
-					$retour = rechercherJoueurInitialePrenom($bdd, trim($unJoueur->textContent), $equipeDomicile, $dateMatch, 1);
+					$retour = rechercherJoueurInitialePrenom($bdd, $nomJoueurModifie, $equipeDomicile, $dateMatch, 1);
 				if($retour == -1)
-					array_push($tableauErreurs, array('equipe'=>$equipeDomicile, 'joueur'=>trim($unJoueur->textContent)));
+					array_push($tableauErreurs, array('equipe'=>$equipeDomicile, 'joueur'=>$nomJoueurModifie));
 				else if($retour == 0)
-					array_push($tableauErreurs, array('equipe'=>$equipeDomicile, 'joueur'=>trim($unJoueur->textContent)));
+					array_push($tableauErreurs, array('equipe'=>$equipeDomicile, 'joueur'=>$nomJoueurModifie));
 			}
 		}
 
 		// Lecture des joueurs de l'équipe visiteur
-		$baliseCompo2 = $xpath->query('//td[@class="compo2"]');
-		$joueurs = $baliseCompo2->item(0)->childNodes;
-		foreach($joueurs as $unJoueur) {
-			if($unJoueur->textContent != null && substr(trim($unJoueur->textContent), 0, 5) != 'cache') {
-				$retour = rechercherJoueur($bdd, trim($unJoueur->textContent), $equipeVisiteur, $dateMatch, 1);
+		foreach($joueursEquipeVisiteur as $unJoueur) {
+			if($unJoueur && trim($unJoueur) != "") {
+				$nomJoueurModifie = mb_convert_encoding(trim($unJoueur), 'UTF-8');
+
+				$retour = rechercherJoueur($bdd, $nomJoueurModifie, $equipeVisiteur, $dateMatch, 1);
 				if($retour <= 0)
-					$retour = rechercherJoueurInitialePrenom($bdd, trim($unJoueur->textContent), $equipeVisiteur, $dateMatch, 1);
+					$retour = rechercherJoueurInitialePrenom($bdd, $nomJoueurModifie, $equipeVisiteur, $dateMatch, 1);
 				if($retour == -1)
-					array_push($tableauErreurs, array('equipe'=>$equipeVisiteur, 'joueur'=>trim($unJoueur->textContent)));
+					array_push($tableauErreurs, array('equipe'=>$equipeVisiteur, 'joueur'=>$nomJoueurModifie));
 				else if($retour == 0)
-					array_push($tableauErreurs, array('equipe'=>$equipeVisiteur, 'joueur'=>trim($unJoueur->textContent)));
+					array_push($tableauErreurs, array('equipe'=>$equipeVisiteur, 'joueur'=>$nomJoueurModifie));
 			}
 		}
 	}
-
+	
 	echo json_encode($tableauErreurs);
 ?>

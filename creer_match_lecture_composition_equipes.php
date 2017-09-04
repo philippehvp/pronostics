@@ -23,35 +23,52 @@
 		
 		$xpath = new DOMXpath($document);
 
+		$divComposition = $xpath->query('//div[contains(@class, "MEDpanelcomposition")]');
+		if(!$divComposition)
+			return;
+
+		$tableauComposition = $xpath->query('div[@class="panel-body"]/table/tbody/tr/td', $divComposition->item(0));
+
+		$htmlEquipeDomicile = utf8_decode($document->saveHTML($tableauComposition->item(0)));
+		$compositionEquipeDomicile = str_replace('<td class="text-right">', '', $htmlEquipeDomicile);
+		$compositionEquipeDomicile = str_replace('</td>', '', $compositionEquipeDomicile);
+		$compositionEquipeDomicile = str_replace('<span class="ico ico_compo_titulaire" title="Titulaire"></span><br>', ',', $compositionEquipeDomicile);
+		$compositionEquipeDomicile = str_replace('<span class="ico ico_compo_remplacant" title="Remplaçant"></span><br>', ',', $compositionEquipeDomicile);
+		$joueursEquipeDomicile = explode(",", $compositionEquipeDomicile);
+
+		$htmlEquipeVisiteur = utf8_decode($document->saveHTML($tableauComposition->item(1)));
+		$compositionEquipeVisiteur = str_replace('<td>', '', $htmlEquipeVisiteur);
+		$compositionEquipeVisiteur = str_replace('</td>', '', $compositionEquipeVisiteur);
+		$compositionEquipeVisiteur = str_replace('<br>', '', $compositionEquipeVisiteur);
+		$compositionEquipeVisiteur = str_replace('<span class="ico ico_compo_titulaire" title="Titulaire"></span>', ',', $compositionEquipeVisiteur);
+		$compositionEquipeVisiteur = str_replace('<span class="ico ico_compo_remplacant" title="Remplaçant"></span>', ',', $compositionEquipeVisiteur);
+		$joueursEquipeVisiteur = explode(",", $compositionEquipeVisiteur);
+
 		// Lecture des joueurs de l'équipe domicile
-		$baliseCompo1 = $xpath->query('//td[@class="compo1"]');
-		$joueurs = $baliseCompo1->item(0)->childNodes;
 		$i = 0;
-		foreach($joueurs as $unJoueur) {
-			if($unJoueur->textContent != null) {
-				$nomJoueur = trim(str_replace('\\u00ef', '&iuml;', $unJoueur->textContent));
-				$retour = ajouterJoueur($bdd, $nomJoueur, $equipeDomicile, $match, $dateMatch, 1);
+		foreach($joueursEquipeDomicile as $unJoueur) {
+			if($unJoueur && trim($unJoueur) != "") {
+				$nomJoueurModifie = remplacerCaracteres(trim($unJoueur));
+				$retour = ajouterJoueur($bdd, $nomJoueurModifie, $equipeDomicile, $match, $dateMatch, 1);
 				if($retour == -1)
-					array_push($tableauErreurs, array('equipe'=>$equipeDomicile, 'joueur'=>trim($unJoueur->textContent)));
+					array_push($tableauErreurs, array('equipe'=>$equipeDomicile, 'joueur'=>$nomJoueurModifie));
 				else if($retour == 0)
-					array_push($tableauErreurs, array('equipe'=>$equipeDomicile, 'joueur'=>trim($unJoueur->textContent)));
+					array_push($tableauErreurs, array('equipe'=>$equipeDomicile, 'joueur'=>$nomJoueurModifie));
 				if(++$i == 11)
 					break;
 			}
 		}
 		
 		// Lecture des joueurs de l'équipe visiteur
-		$baliseCompo2 = $xpath->query('//td[@class="compo2"]');
-		$joueurs = $baliseCompo2->item(0)->childNodes;
 		$i = 0;
-		foreach($joueurs as $unJoueur) {
-			if($unJoueur->textContent != null) {
-				$nomJoueur = trim(str_replace('\\u00ef', '&iuml;', $unJoueur->textContent));
-				$retour = ajouterJoueur($bdd, $nomJoueur, $equipeVisiteur, $match, $dateMatch, 1);
+		foreach($joueursEquipeVisiteur as $unJoueur) {
+			if($unJoueur && trim($unJoueur) != "") {
+				$nomJoueurModifie = remplacerCaracteres(trim($unJoueur));
+				$retour = ajouterJoueur($bdd, $nomJoueurModifie, $equipeVisiteur, $match, $dateMatch, 1);
 				if($retour == -1)
-					array_push($tableauErreurs, array('equipe'=>$equipeVisiteur, 'joueur'=>trim($unJoueur->textContent)));
+					array_push($tableauErreurs, array('equipe'=>$equipeVisiteur, 'joueur'=>$nomJoueurModifie));
 				else if($retour == 0)
-					array_push($tableauErreurs, array('equipe'=>$equipeVisiteur, 'joueur'=>trim($unJoueur->textContent)));
+					array_push($tableauErreurs, array('equipe'=>$equipeVisiteur, 'joueur'=>$nomJoueurModifie));
 				if(++$i == 11)
 					break;
 			}
