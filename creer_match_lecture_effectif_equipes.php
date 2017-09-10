@@ -35,19 +35,23 @@
 		$tableauComposition = $xpath->query('div[@class="panel-body"]/table/tbody/tr/td', $divComposition->item(0));
 
 		// Equipe domicile
-		$htmlEquipeDomicile = remplacerCaracteres(utf8_decode($document->saveHTML($tableauComposition->item(0))));
+		//$htmlEquipeDomicile = remplacerCaracteres(utf8_decode($document->saveHTML($tableauComposition->item(0))));
+		$htmlEquipeDomicile = $document->saveHTML($tableauComposition->item(0));
+
 		$compositionEquipeDomicile = preg_replace('/<[^>]*>/', ',', $htmlEquipeDomicile);
 		$joueursEquipeDomicile = explode(",", $compositionEquipeDomicile);
 
 		// Equipe visiteur
-		$htmlEquipeVisiteur = remplacerCaracteres(utf8_decode($document->saveHTML($tableauComposition->item(1))));
+		//$htmlEquipeVisiteur = remplacerCaracteres(utf8_decode($document->saveHTML($tableauComposition->item(1))));
+		$htmlEquipeVisiteur = $document->saveHTML($tableauComposition->item(1));
 		$compositionEquipeVisiteur = preg_replace('/<[^>]*>/', ',', $htmlEquipeVisiteur);
 		$joueursEquipeVisiteur = explode(",", $compositionEquipeVisiteur);
 
 		// Lecture des joueurs de l'équipe domicile
 		foreach($joueursEquipeDomicile as $unJoueur) {
 			if($unJoueur && trim($unJoueur) != "") {
-				$nomJoueurModifie = mb_convert_encoding(trim($unJoueur), 'UTF-8');
+				$nomJoueurModifie = remplacerCaracteres(trim($unJoueur));
+				echo $nomJoueurModifie;
 
 				$retour = rechercherJoueur($bdd, $nomJoueurModifie, $equipeDomicile, $dateMatch, 1);
 				if($retour == -1)
@@ -62,7 +66,8 @@
 		// Lecture des joueurs de l'équipe visiteur
 		foreach($joueursEquipeVisiteur as $unJoueur) {
 			if($unJoueur && trim($unJoueur) != "") {
-				$nomJoueurModifie = mb_convert_encoding(trim($unJoueur), 'UTF-8');
+				$nomJoueurModifie = remplacerCaracteres(trim($unJoueur));
+				echo $nomJoueurModifie;
 
 				$retour = rechercherJoueur($bdd, $nomJoueurModifie, $equipeVisiteur, $dateMatch, 1);
 				if($retour <= 0)
