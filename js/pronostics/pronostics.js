@@ -1163,14 +1163,12 @@ function creerMatch_lireEffectif(match, champLienPage, origine) {
 	$.ajax(	{
 				url: page,
 				type: 'POST',
-				data:	{
-							match: match
-				}/*,
-				dataType: 'json'*/
+				data: {
+					match: match
+				},
+				dataType: 'json'
 			}
 	).done(function(html) {
-		console.log(html);
-		return;
 		if(html.length > 0) {
 			// Affichage d'une fenêtre de mise à jour des données des joueurs pour lesquels la recherche a été infructueuse
 			$.ajax(	{

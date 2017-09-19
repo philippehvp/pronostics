@@ -1,5 +1,5 @@
 <?php
-
+	header('Content-type: text/html; charset=utf-8');
 	// Lecture des effectifs des deux équipes d'un match
 	
 	include_once('creer_match_fonctions.php');
@@ -35,24 +35,20 @@
 		$tableauComposition = $xpath->query('div[@class="panel-body"]/table/tbody/tr/td', $divComposition->item(0));
 
 		// Equipe domicile
-		//$htmlEquipeDomicile = remplacerCaracteres(utf8_decode($document->saveHTML($tableauComposition->item(0))));
-		$htmlEquipeDomicile = $document->saveHTML($tableauComposition->item(0));
-
-		$compositionEquipeDomicile = preg_replace('/<[^>]*>/', ',', $htmlEquipeDomicile);
-		$joueursEquipeDomicile = explode(",", $compositionEquipeDomicile);
+		$htmlEquipeDomicile = remplacerCaracteres(utf8_decode(trim($document->saveHTML($tableauComposition->item(0)))));
+		$htmlEquipeDomicile = preg_replace('/<[^>]*>/', ',', $htmlEquipeDomicile);
+		$joueursEquipeDomicile = explode(",", $htmlEquipeDomicile);
 
 		// Equipe visiteur
-		//$htmlEquipeVisiteur = remplacerCaracteres(utf8_decode($document->saveHTML($tableauComposition->item(1))));
-		$htmlEquipeVisiteur = $document->saveHTML($tableauComposition->item(1));
-		$compositionEquipeVisiteur = preg_replace('/<[^>]*>/', ',', $htmlEquipeVisiteur);
-		$joueursEquipeVisiteur = explode(",", $compositionEquipeVisiteur);
+		$htmlEquipeVisiteur = remplacerCaracteres(utf8_decode(trim($document->saveHTML($tableauComposition->item(1)))));
+		$htmlEquipeVisiteur = preg_replace('/<[^>]*>/', ',', $htmlEquipeVisiteur);
+		$joueursEquipeVisiteur = explode(",", $htmlEquipeVisiteur);
 
 		// Lecture des joueurs de l'équipe domicile
 		foreach($joueursEquipeDomicile as $unJoueur) {
 			if($unJoueur && trim($unJoueur) != "") {
 				$nomJoueurModifie = remplacerCaracteres(trim($unJoueur));
-				echo $nomJoueurModifie;
-
+				
 				$retour = rechercherJoueur($bdd, $nomJoueurModifie, $equipeDomicile, $dateMatch, 1);
 				if($retour == -1)
 					$retour = rechercherJoueurInitialePrenom($bdd, $nomJoueurModifie, $equipeDomicile, $dateMatch, 1);
@@ -67,7 +63,6 @@
 		foreach($joueursEquipeVisiteur as $unJoueur) {
 			if($unJoueur && trim($unJoueur) != "") {
 				$nomJoueurModifie = remplacerCaracteres(trim($unJoueur));
-				echo $nomJoueurModifie;
 
 				$retour = rechercherJoueur($bdd, $nomJoueurModifie, $equipeVisiteur, $dateMatch, 1);
 				if($retour <= 0)

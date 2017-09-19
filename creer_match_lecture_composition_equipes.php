@@ -29,20 +29,15 @@
 
 		$tableauComposition = $xpath->query('div[@class="panel-body"]/table/tbody/tr/td', $divComposition->item(0));
 
-		$htmlEquipeDomicile = utf8_decode($document->saveHTML($tableauComposition->item(0)));
-		$compositionEquipeDomicile = str_replace('<td class="text-right">', '', $htmlEquipeDomicile);
-		$compositionEquipeDomicile = str_replace('</td>', '', $compositionEquipeDomicile);
-		$compositionEquipeDomicile = str_replace('<span class="ico ico_compo_titulaire" title="Titulaire"></span><br>', ',', $compositionEquipeDomicile);
-		$compositionEquipeDomicile = str_replace('<span class="ico ico_compo_remplacant" title="Remplaçant"></span><br>', ',', $compositionEquipeDomicile);
-		$joueursEquipeDomicile = explode(",", $compositionEquipeDomicile);
+		// Equipe domicile
+		$htmlEquipeDomicile = remplacerCaracteres(utf8_decode(trim($document->saveHTML($tableauComposition->item(0)))));
+		$htmlEquipeDomicile = preg_replace('/<[^>]*>/', ',', $htmlEquipeDomicile);
+		$joueursEquipeDomicile = explode(",", $htmlEquipeDomicile);
 
-		$htmlEquipeVisiteur = utf8_decode($document->saveHTML($tableauComposition->item(1)));
-		$compositionEquipeVisiteur = str_replace('<td>', '', $htmlEquipeVisiteur);
-		$compositionEquipeVisiteur = str_replace('</td>', '', $compositionEquipeVisiteur);
-		$compositionEquipeVisiteur = str_replace('<br>', '', $compositionEquipeVisiteur);
-		$compositionEquipeVisiteur = str_replace('<span class="ico ico_compo_titulaire" title="Titulaire"></span>', ',', $compositionEquipeVisiteur);
-		$compositionEquipeVisiteur = str_replace('<span class="ico ico_compo_remplacant" title="Remplaçant"></span>', ',', $compositionEquipeVisiteur);
-		$joueursEquipeVisiteur = explode(",", $compositionEquipeVisiteur);
+		// Equipe visiteur
+		$htmlEquipeVisiteur = remplacerCaracteres(utf8_decode(trim($document->saveHTML($tableauComposition->item(1)))));
+		$htmlEquipeVisiteur = preg_replace('/<[^>]*>/', ',', $htmlEquipeVisiteur);
+		$joueursEquipeVisiteur = explode(",", $htmlEquipeVisiteur);
 
 		// Lecture des joueurs de l'équipe domicile
 		$i = 0;
