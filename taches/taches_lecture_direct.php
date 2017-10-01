@@ -28,12 +28,9 @@
 	// On détermine si à la fin de la lecture des informations, un nouvel événement important a eu lieu, auquel cas il faudra relancer les calculs
 	$lancementCalcul = false;
 
-
 	foreach($matches as $unMatch) {
 		if(strcmp($unMatch["Matches_LienPage"], '') == 0)
 			continue;
-
-		
 
 		$document = new DOMDocument();
 		@$document->loadHTMLFile($unMatch["Matches_LienPage"]);
@@ -43,49 +40,61 @@
 		$match = $unMatch["Match"];
 
 		// Le match a-t-il débuté ?
-		$baliseMatchScore = $xpath->query('//div[@id="match_score"]');
-		if($baliseMatchScore == null) {
+		$baliseMatchDetail = $xpath->query('//div[@id="ajax-match-detail-1"]');
+		if(!$baliseMatchDetail) {
 			continue;
 		}
 
-		// La recherche des balises col2 et col3 se fait à partir de la balise match_score et non sur l'ensemble du document
-		$scoreEquipeDomicile = $xpath->query('//div[@class="col2"]', $baliseMatchScore->item(0));
-		$scoreEquipeVisiteur = $xpath->query('//div[@class="col3"]', $baliseMatchScore->item(0));
-
-		if($scoreEquipeDomicile->item(0) == null || $scoreEquipeVisiteur->item(0) == null) {
+		$baliseScore = $xpath->query('//span[contains(@class, "score")]', $baliseMatchDetail->item(0));
+		if(!$baliseScore) {
 			continue;
 		}
-		$scoreEquipeDomicile = str_replace(chr(0xC2) . chr(0xA0), '', $scoreEquipeDomicile->item(0)->textContent);
-		$scoreEquipeVisiteur = str_replace(chr(0xC2) . chr(0xA0), '', $scoreEquipeVisiteur->item(0)->textContent);
 
-		if($scoreEquipeDomicile != '' && $scoreEquipeVisiteur != '') {
-			if(ajouterEvenement($bdd, $match, 0, 1, 0, 1) == 1) {
-				initialiserMatch($bdd, $match);
+		$scoreEquipeDomicile = trim($baliseScore->item(0)->textContent);
+		$scoreEquipeVisiteur = trim($baliseScore->item(1)->textContent);
 
-				// Lancement du calcul
-				$lancementCalcul = true;
-			}
-		}
-		else
+		if($scoreEquipeDomicile == "" || $scoreEquipeVisiteur == "") {
 			continue;
+		}
+
+		// Le match a débuté
+		if(ajouterEvenement($bdd, $match, 0, 1, 0, 1) == 1) {
+			initialiserMatch($bdd, $match);
+
+			// Lancement du calcul
+			$lancementCalcul = true;
+		}
 
 		// Sorties et entrées de joueurs (sorties normales et expulsions)
-		$remplacants = $xpath->query('//span[@class="ico_evenement91" or @class="ico_evenement92" or @class="ico_evenement81" or @class="ico_evenement82"]');
+		$remplacants = $xpath->query('//span[contains(@class, "ico_evenement91") or contains(@class, "ico_evenement92") or contains(@class, "ico_evenement81") or contains(@class, "ico_evenement82")]');
+		
 		foreach($remplacants as $unRemplacant) {
-			$evenement = $unRemplacant->getAttribute('class');
+			$classeEvenement = $unRemplacant->getAttribute('class');
+
+			$codeClasseEvenement = 0;
+			if(strpos($classeEvenement, "ico_evenement91"))
+				$codeClasseEvenement = 91;
+			else if(strpos($classeEvenement, "ico_evenement92"))
+				$codeClasseEvenement = 92;
+			else if(strpos($classeEvenement, "ico_evenement81"))
+				$codeClasseEvenement = 81;
+			else if(strpos($classeEvenement, "ico_evenement82"))
+				$codeClasseEvenement = 82;
 
 			$ajoutTableParticipants = false;
 
-			switch($evenement) {
-				case 'ico_evenement81': $codeEvenement = 21; $equipe = $unMatch["Equipes_EquipeDomicile"]; break;
-				case 'ico_evenement82': $codeEvenement = 23; $equipe = $unMatch["Equipes_EquipeVisiteur"]; break;
-				case 'ico_evenement91': $codeEvenement = 22; $equipe = $unMatch["Equipes_EquipeDomicile"]; $ajoutTableParticipants = true; break;
-				case 'ico_evenement92': $codeEvenement = 24; $equipe = $unMatch["Equipes_EquipeVisiteur"]; $ajoutTableParticipants = true; break;
+			switch($codeClasseEvenement) {
+				case 81: $codeEvenement = 21; $equipe = $unMatch["Equipes_EquipeDomicile"]; break;
+				case 82: $codeEvenement = 23; $equipe = $unMatch["Equipes_EquipeVisiteur"]; break;
+				case 91: $codeEvenement = 22; $equipe = $unMatch["Equipes_EquipeDomicile"]; $ajoutTableParticipants = true; break;
+				case 92: $codeEvenement = 24; $equipe = $unMatch["Equipes_EquipeVisiteur"]; $ajoutTableParticipants = true; break;
 			}
 
-			$joueur = rechercherJoueur($bdd, trim($unRemplacant->parentNode->textContent), $equipe, $unMatch["Matches_Date"], 1);
+			$nomJoueur = remplacerCaracteres(my_utf8_decode($local, trim($unRemplacant->parentNode->textContent)));
+
+			$joueur = rechercherJoueur($bdd, $nomJoueur, $equipe, $unMatch["Matches_Date"], 1);
 			if($joueur <= 0) {
-				$joueur = rechercherJoueurInitialePrenom($bdd, trim($unRemplacant->parentNode->textContent), $equipe, $unMatch["Matches_Date"], 1);
+				$joueur = rechercherJoueurInitialePrenom($bdd, $nomJoueur, $equipe, $unMatch["Matches_Date"], 1);
 			}
 
 			// Ecriture de l'événement dans la table des événements
@@ -111,30 +120,29 @@
 				}
 			}
 			else
-				ajouterErreur($bdd, $match, 'Equipe ' . $equipe . ' - Joueur ' . trim($unRemplacant->parentNode->textContent) . ' inconnu', 0);
+				ajouterErreur($bdd, $match, 'Equipe ' . $equipe . ' - Joueur remplaçant ' . $nomJoueur . ' inconnu', 0);
 		}
 
-		// Expulsions de joueurs
-		$expulses = $xpath->query('//span[@class="ico_evenement3" or @class="ico_evenement5"]');
-		foreach($expulses as $unExpulse) {
-			$evenement = $unExpulse->getAttribute('class');
+		// Expulsions de joueurs (expulsion directe ou après deux cartons jaunes)
+		$expulses = $xpath->query('//span[contains(@class, "ico_evenement3") or contains(@class, "ico_evenement5")]');
 
+		foreach($expulses as $unExpulse) {
 			$attributs = $unExpulse->parentNode->attributes;
 			foreach($attributs as $unAttribut) {
 				if($unAttribut->nodeValue == 'c1') {
 					// Expulsion d'un joueur de l'équipe domicile
 					$codeEvenement = 25;
 					$equipe = $unMatch["Equipes_EquipeDomicile"];
-				}
-				else if($unAttribut->nodeValue == 'c3') {
+				} else if($unAttribut->nodeValue == 'c3') {
 					// Expulsion d'un joueur de l'équipe visiteur
 					$codeEvenement = 26;
 					$equipe = $unMatch["Equipes_EquipeVisiteur"];
 				}
 
-				$joueur = rechercherJoueur($bdd, trim($unExpulse->parentNode->textContent), $equipe, $unMatch["Matches_Date"], 1);
+				$nomJoueur = remplacerCaracteres(my_utf8_decode($local, trim($unExpulse->parentNode->textContent)));
+				$joueur = rechercherJoueur($bdd, $nomJoueur, $equipe, $unMatch["Matches_Date"], 1);
 				if($joueur <= 0)
-					$joueur = rechercherJoueurInitialePrenom($bdd, trim($unExpulse->parentNode->textContent), $equipe, $unMatch["Matches_Date"], 1);
+					$joueur = rechercherJoueurInitialePrenom($bdd, $nomJoueur, $equipe, $unMatch["Matches_Date"], 1);
 
 				// Ecriture de l'événement dans la table des événements des joueurs
 				if($joueur > 0) {
@@ -146,9 +154,9 @@
 
 					if($minute != -1)
 						ajouterEvenement($bdd, $match, $joueur, $codeEvenement, $minute, 1);
+				} else {
+					ajouterErreur($bdd, $match, 'Equipe ' . $equipe . ' - Expulsion ' . $nomJoueur . ' inconnu', 0);
 				}
-				else
-					ajouterErreur($bdd, $match, 'Equipe ' . $equipe . ' - Expulsion ' . trim($unRemplacant->parentNode->textContent) . ' inconnu', 0);
 			}
 		}
 
@@ -177,11 +185,11 @@
 			// Effacement des événements de but de la table matches_evenements
 			effacerEvenementsScore($bdd, $match);
 
-			$buteurs = $xpath->query('//span[@class="ico_evenement1" or @class="ico_evenement2"]');
+			$buteurs = $xpath->query('//span[contains(@class, "ico_evenement1") or contains(@class, "ico_evenement2")]');
 			foreach($buteurs as $unButeur) {
 				$attributs = $unButeur->parentNode->attributes;
 				foreach($attributs as $unAttribut) {
-					$nomJoueur = trim(str_replace('(Pénalty)', '', $unButeur->parentNode->textContent));
+					$nomJoueur = str_replace('(Pénalty)', '', remplacerCaracteres(my_utf8_decode($local, trim($unButeur->parentNode->textContent))));
 					if($unAttribut->nodeValue == 'c1') {
 						$codeEvenement = 31;
 						$equipe = $unMatch["Equipes_EquipeDomicile"];
@@ -217,17 +225,17 @@
 						}
 					}
 					else
-						ajouterErreur($bdd, $match, 'Equipe ' . $equipe . ' - Buteur ' . trim($unButeur->parentNode->textContent) . ' inconnu', 0);
+						ajouterErreur($bdd, $match, 'Equipe ' . $equipe . ' - Buteur ' . $nomJoueur . ' inconnu', 0);
 				}
 			}
 
 			// Buts CSC (ico_evenement7)
 			// Le but est du bon côté, mais le nom du buteur doit être recherché dans l'équipe adverse
-			$buteurs = $xpath->query('//span[@class="ico_evenement7"]');
+			$buteurs = $xpath->query('//span[contains(@class, "ico_evenement7")]');
 			foreach($buteurs as $unButeur) {
 				$attributs = $unButeur->parentNode->attributes;
 				foreach($attributs as $unAttribut) {
-					$nomJoueur = trim(str_replace('(Contre son camps)', '', $unButeur->parentNode->textContent));
+					$nomJoueur = str_replace('(Contre son camps)', '', remplacerCaracteres(my_utf8_decode($local, trim($unButeur->parentNode->textContent))));
 					if($unAttribut->nodeValue == 'c3') {
 						$codeEvenement = 33;
 						$equipe = $unMatch["Equipes_EquipeDomicile"];
@@ -291,8 +299,6 @@
 						$prolongation = 1;
 				}
 			}
-
-
 
 			// Arrivé ici, on compare la signature des buteurs de la table des événements et on met à jour, le cas échéant, la table des buteurs
 			if(synchroniserEvenementsScore($bdd, $match, $prolongation) == 1) {

@@ -2,6 +2,15 @@
 	include_once('commun_administrateur.php');
 
 
+	// Pour des raisons inconnues, la fonction utf8_decode a des comportements différents en local et sur OVH
+	// Une fonction my_utf8_decode a donc été créée pour tester si l'on est en local ou non et faire le comportement adéquat
+	function my_utf8_decode($local, $chaine) {
+		if($local == 1)
+			return $chaine;
+
+		return utf8_decode($chaine);
+	}
+
 	// Ajout d'un événement dans la table des événements d'un match (mouvement de joueur, but, etc.)
 	// Si le paramètre unique vaut 1, alors l'ajout ne se fait qu'à partir du moment où l'événément n'existe pas encore
 	function ajouterEvenement($bdd, $match, $joueur, $codeEvenement, $datation, $unique) {
