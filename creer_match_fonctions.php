@@ -70,8 +70,8 @@
 
 	// Fonction de remplacement de certains caractères d'un nom passé en paramètre
 	function remplacerCaracteres($chaine) {
-        $retour = $chaine;
-        $retour = str_replace('ä', 'a', str_replace('á', 'a', str_replace('ă', 'a', str_replace('ã', 'a', str_replace('æ', 'a', $retour)))));
+    $retour = $chaine;
+    $retour = str_replace('ä', 'a', str_replace('á', 'a', str_replace('ă', 'a', str_replace('ã', 'a', str_replace('æ', 'a', $retour)))));
 		$retour = str_replace('Ä', 'A', str_replace('á', 'a', str_replace('ă', 'a', str_replace('ã', 'a', str_replace('Á', 'A', $retour)))));
 		$retour = str_replace('č', 'c', str_replace('Ç', 'C', str_replace('Č', 'C', str_replace('ć', 'c', str_replace('Ć', 'C', $retour)))));
 		$retour = str_replace('Đ', 'D', str_replace('đ', 'd', str_replace('Ď', 'D', $retour)));
@@ -81,11 +81,11 @@
 		$retour = str_replace('ł', 'l', str_replace('Ł', 'L', $retour));
 		$retour = str_replace('ñ', 'n', str_replace('ń', 'n', $retour));
 		$retour = str_replace('ö', 'o', str_replace('Ö', 'O', str_replace('ø', 'o', str_replace('ó', 'o', $retour))));
-        $retour = str_replace('ř', 'r', str_replace('Ř', 'R', $retour));
+    $retour = str_replace('ř', 'r', str_replace('Ř', 'R', $retour));
 		$retour = str_replace('š', 's', str_replace('ş', 's', str_replace('Ş', 'S', str_replace('Š', 'S', str_replace('ș', 's', $retour)))));
 		$retour = str_replace('ţ', 't', str_replace('ț', 't', $retour));
 		$retour = str_replace('ü', 'u', str_replace('ú', 'u', str_replace('ů', 'u', $retour)));
-        $retour = str_replace('ý', 'y', $retour);
+    $retour = str_replace('ý', 'y', $retour);
 		$retour = str_replace('ž', 'z', str_replace('ź', 'z', $retour));
 		return $retour;
 
@@ -332,7 +332,7 @@
 	}
 
 	// Suppression du match de la liste des matches en direct et mise à jour du statut de match en direct
-	// La suppression de la surveillance n'intervient que 10 minutes après la fin de la détection de la fin du match
+	// La suppression de la surveillance n'intervient que 30 minutes après la fin de la détection de la fin du match
 	// Cela permet de détecter des mises à jour effeectuées sur le site externe
 	function supprimerMatchDuDirect($bdd, $match) {
 		$ordreSQL =		'	DELETE		matches_direct' .

@@ -325,7 +325,7 @@
 		}
 
 		// Arrivé ici, on regarde si le match est terminé pour indiquer qu'il n'est plus en direct
-		$matchTermine = $xpath->query('//div[starts-with(text(), "Match terminé")]');
+		$matchTermine = $xpath->query("//div[contains(text(), 'Match')]");
 		if($matchTermine->length) {
 			ajouterEvenement($bdd, $match, 0, 9, 0, 1);
 			supprimerMatchDuDirect($bdd, $match);
