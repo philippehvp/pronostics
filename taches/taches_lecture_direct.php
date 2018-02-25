@@ -286,11 +286,13 @@
 			// - lecture du chrono et détection si l'on est à 91 ou plus
 			$prolongation = 0;
 
-			$baliseProlongation = $xpath->query('//td[text()="Score après prolongation"]');
+			$texteScoreApresProlongation = "Score apr";
+			$baliseProlongation = $xpath->query('//td[contains(text(), "' . my_utf8_decode($local, $texteScoreApresProlongation) . '")]');
 			$baliseEntete = $xpath->query('//div[@id="match_entete_2"]');
 
-			if($baliseProlongation->length)
+			if($baliseProlongation->length) {
 				$prolongation = 1;
+			}
 
 			if($baliseEntete->length) {
 				if(is_numeric($baliseEntete->item(0)->textContent)) {
@@ -325,8 +327,9 @@
 		}
 
 		// Arrivé ici, on regarde si le match est terminé pour indiquer qu'il n'est plus en direct
-		$matchTermine = $xpath->query("//div[contains(text(), 'Match')]");
-		if($matchTermine->length) {
+		$texteMatchTermine = "Match termin";
+		$baliseMatchTermine = $xpath->query('//div[contains(text(), "' . my_utf8_decode($local, $texteMatchTermine) . '")]');
+		if($baliseMatchTermine->length) {
 			ajouterEvenement($bdd, $match, 0, 9, 0, 1);
 			supprimerMatchDuDirect($bdd, $match);
 		}
