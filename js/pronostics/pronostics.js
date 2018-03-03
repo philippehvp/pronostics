@@ -632,7 +632,6 @@ function creerMatch_detecterCotesV1(numeroMatch) {
                                     dataType: 'json'
                                 }
                         ).done(function(html) {
-                            //console.log(html);
                             if(html.nombre_cotes_detectees == 0) {
                                 alert('Aucune cote détectée');
                                 return;
@@ -738,7 +737,7 @@ function creerMatch_detecterCotesV2(numeroMatch) {
                                                 equipe_visiteur: numeroEquipeVisiteur,
                                                 date_debut_match: dateDebutMatch,
                                                 liste_cotes_joueurs: listeCotesJoueurs
-                                            },
+									},
                                     dataType: 'json'
                                 }
                         ).done(function(html) {
@@ -1123,8 +1122,6 @@ function creerMatch_lireLiensMatches(journee) {
 						}
 			}
 	).done(function(html) {
-		//console.log(html.replace(/<br\s*\/?>/mg,"\n"));
-
 		// Rechargement de la page
 		location.reload();
 	});
@@ -1140,8 +1137,6 @@ function creerMatch_lireLiensMatchesScoresPro(journee) {
 						}
 			}
 	).done(function(html) {
-		//console.log(html.replace(/<br\s*\/?>/mg,"\n"));
-
 		// Rechargement de la page
 		location.reload();
 	});

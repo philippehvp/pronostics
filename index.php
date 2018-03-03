@@ -14,7 +14,6 @@
 	$erreurLogin = isset($_SESSION["erreurLogin"]) ? $_SESSION["erreurLogin"] : 0;
 	$login = isset($_COOKIE["lepoulpeg_login"]) ? $_COOKIE["lepoulpeg_login"] : '';
 	$mdp = isset($_COOKIE["lepoulpeg_mdp"]) ? $_COOKIE["lepoulpeg_mdp"] : '';
-
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
