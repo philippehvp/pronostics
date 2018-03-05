@@ -43,7 +43,7 @@
 		$i = 0;
 		foreach($joueursEquipeDomicile as $unJoueur) {
 			if($unJoueur && trim($unJoueur) != "") {
-				$nomJoueurModifie = remplacerCaracteres(trim($unJoueur));
+				$nomJoueurModifie = trim($unJoueur);
 				$retour = ajouterJoueur($bdd, $nomJoueurModifie, $equipeDomicile, $match, $dateMatch, 1);
 				if($retour == -1)
 					array_push($tableauErreurs, array('equipe'=>$equipeDomicile, 'joueur'=>$nomJoueurModifie));
@@ -58,7 +58,7 @@
 		$i = 0;
 		foreach($joueursEquipeVisiteur as $unJoueur) {
 			if($unJoueur && trim($unJoueur) != "") {
-				$nomJoueurModifie = remplacerCaracteres(trim($unJoueur));
+				$nomJoueurModifie = trim($unJoueur);
 				$retour = ajouterJoueur($bdd, $nomJoueurModifie, $equipeVisiteur, $match, $dateMatch, 1);
 				if($retour == -1)
 					array_push($tableauErreurs, array('equipe'=>$equipeVisiteur, 'joueur'=>$nomJoueurModifie));

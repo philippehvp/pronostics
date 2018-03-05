@@ -90,7 +90,7 @@
 				case 92: $codeEvenement = 24; $equipe = $unMatch["Equipes_EquipeVisiteur"]; $ajoutTableParticipants = true; break;
 			}
 
-			$nomJoueur = remplacerCaracteres(my_utf8_decode(trim($unRemplacant->parentNode->textContent)));
+			$nomJoueur = remplacerCaracteres(trim($unRemplacant->parentNode->textContent));
 
 			$joueur = rechercherJoueur($bdd, $nomJoueur, $equipe, $unMatch["Matches_Date"], 1);
 			if($joueur <= 0) {
@@ -139,7 +139,7 @@
 					$equipe = $unMatch["Equipes_EquipeVisiteur"];
 				}
 
-				$nomJoueur = remplacerCaracteres(my_utf8_decode(trim($unExpulse->parentNode->textContent)));
+				$nomJoueur = remplacerCaracteres(trim($unExpulse->parentNode->textContent));
 				$joueur = rechercherJoueur($bdd, $nomJoueur, $equipe, $unMatch["Matches_Date"], 1);
 				if($joueur <= 0)
 					$joueur = rechercherJoueurInitialePrenom($bdd, $nomJoueur, $equipe, $unMatch["Matches_Date"], 1);
@@ -189,7 +189,7 @@
 			foreach($buteurs as $unButeur) {
 				$attributs = $unButeur->parentNode->attributes;
 				foreach($attributs as $unAttribut) {
-					$nomJoueur = str_replace('(Pénalty)', '', remplacerCaracteres(my_utf8_decode(trim($unButeur->parentNode->textContent))));
+					$nomJoueur = str_replace('(Pénalty)', '', remplacerCaracteres(trim($unButeur->parentNode->textContent)));
 					if($unAttribut->nodeValue == 'c1') {
 						$codeEvenement = 31;
 						$equipe = $unMatch["Equipes_EquipeDomicile"];
@@ -235,7 +235,7 @@
 			foreach($buteurs as $unButeur) {
 				$attributs = $unButeur->parentNode->attributes;
 				foreach($attributs as $unAttribut) {
-					$nomJoueur = str_replace('(Contre son camps)', '', remplacerCaracteres(my_utf8_decode(trim($unButeur->parentNode->textContent))));
+					$nomJoueur = str_replace('(Contre son camps)', '', remplacerCaracteres(trim($unButeur->parentNode->textContent)));
 					if($unAttribut->nodeValue == 'c3') {
 						$codeEvenement = 33;
 						$equipe = $unMatch["Equipes_EquipeDomicile"];

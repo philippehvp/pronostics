@@ -2,6 +2,7 @@
 	// Affichage de la liste des joueurs pour lesquels la recherche a été infructueuse
 	
 	include_once('commun_administrateur.php');
+	include_once('creer_match_fonctions.php');
 	
 	// Lecture des paramètres passés à la page
 	$joueurs = isset($_POST["joueurs"]) ? $_POST["joueurs"] : null;
@@ -16,18 +17,18 @@
 	// Lecture de la liste des joueurs d'une équipe
 	function lireListeJoueurs($match, $equipe, $date) {
 		$ordreSQL =		'	SELECT		joueurs.Joueur' .
-						'				,CASE' .
-						'					WHEN	joueurs.Joueurs_Prenom IS NULL' .
-						'					THEN	Joueurs_NomFamille' .
-						'					ELSE	CONCAT(joueurs.Joueurs_Prenom, \' \', joueurs.Joueurs_NomFamille)' .
-						'				END AS Joueurs_NomComplet' .
-						'	FROM		joueurs' .
-						'	JOIN		joueurs_equipes' .
-						'				ON		joueurs.Joueur = joueurs_equipes.Joueurs_Joueur' .
-						'	WHERE		joueurs_equipes.Equipes_Equipe = ' . $equipe .
-						'				AND		JoueursEquipes_Debut <= \'' . $date . '\'' .
-						'				AND		(JoueursEquipes_Fin IS NULL OR JoueursEquipes_Fin > \'' . $date . '\')' .
-						'	ORDER BY	IFNULL(joueurs.Joueurs_Prenom, joueurs.Joueurs_NomFamille)';
+									'						,CASE' .
+									'							WHEN	joueurs.Joueurs_Prenom IS NULL' .
+									'							THEN	Joueurs_NomFamille' .
+									'							ELSE	CONCAT(joueurs.Joueurs_Prenom, \' \', joueurs.Joueurs_NomFamille)' .
+									'						END AS Joueurs_NomComplet' .
+									'	FROM			joueurs' .
+									'	JOIN			joueurs_equipes' .
+									'						ON		joueurs.Joueur = joueurs_equipes.Joueurs_Joueur' .
+									'	WHERE			joueurs_equipes.Equipes_Equipe = ' . $equipe .
+									'						AND		JoueursEquipes_Debut <= \'' . $date . '\'' .
+									'						AND		(JoueursEquipes_Fin IS NULL OR JoueursEquipes_Fin > \'' . $date . '\')' .
+									'	ORDER BY	IFNULL(joueurs.Joueurs_Prenom, joueurs.Joueurs_NomFamille)';
 		return $ordreSQL;
 	}
 	
@@ -44,13 +45,13 @@
 	
 	// Lecture des équipes du match
 	$ordreSQL =		'	SELECT		Matches_Date, Equipes_EquipeDomicile, Equipes_EquipeVisiteur' .
-					'				,equipes_domicile.Equipes_NomCourt AS EquipesDomicile_NomCourt, equipes_visiteur.Equipes_NomCourt AS EquipesVisiteur_NomCourt' .
-					'	FROM		matches' .
-					'	JOIN		equipes equipes_domicile' .
-					'				ON		Equipes_EquipeDomicile = equipes_domicile.Equipe' .
-					'	JOIN		equipes equipes_visiteur' .
-					'				ON		Equipes_EquipeVisiteur = equipes_visiteur.Equipe' .
-					'	WHERE		matches.Match = ' . $match;
+								'						,equipes_domicile.Equipes_NomCourt AS EquipesDomicile_NomCourt, equipes_visiteur.Equipes_NomCourt AS EquipesVisiteur_NomCourt' .
+								'	FROM			matches' .
+								'	JOIN			equipes equipes_domicile' .
+								'						ON		Equipes_EquipeDomicile = equipes_domicile.Equipe' .
+								'	JOIN			equipes equipes_visiteur' .
+								'						ON		Equipes_EquipeVisiteur = equipes_visiteur.Equipe' .
+								'	WHERE			matches.Match = ' . $match;
 	$req = $bdd->query($ordreSQL);
 	$equipes = $req->fetchAll();
 	

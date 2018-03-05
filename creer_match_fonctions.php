@@ -71,7 +71,7 @@
 
 	// Fonction de remplacement de certains caractères d'un nom passé en paramètre
 	function remplacerCaracteres($chaine) {
-    $retour = my_utf8_decode($chaine);
+		$retour = $chaine;
     $retour = str_replace('ä', 'a', str_replace('á', 'a', str_replace('ă', 'a', str_replace('ã', 'a', str_replace('æ', 'a', $retour)))));
 		$retour = str_replace('Ä', 'A', str_replace('á', 'a', str_replace('ă', 'a', str_replace('ã', 'a', str_replace('Á', 'A', $retour)))));
 		$retour = str_replace('č', 'c', str_replace('Ç', 'C', str_replace('Č', 'C', str_replace('ć', 'c', str_replace('Ć', 'C', $retour)))));
@@ -106,28 +106,28 @@
 
 		$joueurNomModifie = remplacerCaracteres($joueurNomComplet);
 		$ordreSQL =		'	SELECT		Joueur' .
-						'	FROM		joueurs' .
-						'	JOIN		joueurs_equipes' .
-						'				ON		joueurs.Joueur = joueurs_equipes.Joueurs_Joueur' .
-						'	WHERE		joueurs_equipes.Equipes_Equipe = ' . $equipe .
-						'				AND		(	CASE' .
-						'								WHEN	joueurs.' . $champ . ' IS NOT NULL' .
-						'								THEN	joueurs.' . $champ .
-						'								WHEN	joueurs.Joueurs_Prenom IS NOT NULL AND joueurs.Joueurs_Prenom <> \'\'' .
-						'								THEN	CONCAT(joueurs.Joueurs_Prenom, \' \', joueurs.Joueurs_NomFamille)' .
-						'								ELSE	joueurs.Joueurs_NomFamille' .
-						'							END = ' . $bdd->quote($joueurNomModifie) .
-						'							OR' .
-						'							CASE' .
-						'								WHEN	joueurs.' . $champ . ' IS NOT NULL' .
-						'								THEN	joueurs.' . $champ .
-						'								WHEN	joueurs.Joueurs_Prenom IS NOT NULL AND joueurs.Joueurs_Prenom <> \'\'' .
-						'								THEN	CONCAT(joueurs.Joueurs_NomFamille, \' \', joueurs.Joueurs_Prenom)' .
-						'								ELSE	joueurs.Joueurs_NomFamille' .
-						'							END = ' . $bdd->quote($joueurNomModifie) .
-						'						)' .
-						'				AND		JoueursEquipes_Debut <= \'' . $date . '\'' .
-						'				AND		(JoueursEquipes_Fin IS NULL OR JoueursEquipes_Fin > \'' . $date . '\')';
+									'	FROM			joueurs' .
+									'	JOIN			joueurs_equipes' .
+									'						ON		joueurs.Joueur = joueurs_equipes.Joueurs_Joueur' .
+									'	WHERE			joueurs_equipes.Equipes_Equipe = ' . $equipe .
+									'						AND		(	CASE' .
+									'											WHEN	joueurs.' . $champ . ' IS NOT NULL' .
+									'											THEN	joueurs.' . $champ .
+									'											WHEN	joueurs.Joueurs_Prenom IS NOT NULL AND joueurs.Joueurs_Prenom <> \'\'' .
+									'											THEN	CONCAT(joueurs.Joueurs_Prenom, \' \', joueurs.Joueurs_NomFamille)' .
+									'											ELSE	joueurs.Joueurs_NomFamille' .
+									'										END = ' . $bdd->quote($joueurNomModifie) .
+									'										OR' .
+									'										CASE' .
+									'											WHEN	joueurs.' . $champ . ' IS NOT NULL' .
+									'											THEN	joueurs.' . $champ .
+									'											WHEN	joueurs.Joueurs_Prenom IS NOT NULL AND joueurs.Joueurs_Prenom <> \'\'' .
+									'											THEN	CONCAT(joueurs.Joueurs_NomFamille, \' \', joueurs.Joueurs_Prenom)' .
+									'											ELSE	joueurs.Joueurs_NomFamille' .
+									'										END = ' . $bdd->quote($joueurNomModifie) .
+									'									)' .
+									'						AND		JoueursEquipes_Debut <= \'' . $date . '\'' .
+									'						AND		(JoueursEquipes_Fin IS NULL OR JoueursEquipes_Fin > \'' . $date . '\')';
 		$req = $bdd->query($ordreSQL);
 		$joueurs = $req->fetchAll();
 
@@ -249,8 +249,6 @@
 
 		return 0;
 	}
-
-
 
 	// Ajout d'un joueur dans une équipe pour un match
 	// Le paramètre origine permet de savoir quel nom de correspondance utiliser (NomCorrespondance, NomCorrespondanceComplementaire, NomCorrespondanceCote)

@@ -47,14 +47,12 @@
 		// Lecture des joueurs de l'équipe domicile
 		foreach($joueursEquipeDomicile as $unJoueur) {
 			if($unJoueur && trim($unJoueur) != "") {
-				$nomJoueurModifie = remplacerCaracteres(trim($unJoueur));
+				$nomJoueurModifie = trim($unJoueur);
 				
 				$retour = rechercherJoueur($bdd, $nomJoueurModifie, $equipeDomicile, $dateMatch, 1);
 				if($retour == -1)
 					$retour = rechercherJoueurInitialePrenom($bdd, $nomJoueurModifie, $equipeDomicile, $dateMatch, 1);
-				if($retour == -1)
-					array_push($tableauErreurs, array('equipe'=>$equipeDomicile, 'joueur'=>$nomJoueurModifie));
-				else if($retour == 0)
+				if($retour == -1 || $retour == 0)
 					array_push($tableauErreurs, array('equipe'=>$equipeDomicile, 'joueur'=>$nomJoueurModifie));
 			}
 		}
@@ -62,14 +60,12 @@
 		// Lecture des joueurs de l'équipe visiteur
 		foreach($joueursEquipeVisiteur as $unJoueur) {
 			if($unJoueur && trim($unJoueur) != "") {
-				$nomJoueurModifie = remplacerCaracteres(trim($unJoueur));
+				$nomJoueurModifie = trim($unJoueur);
 
 				$retour = rechercherJoueur($bdd, $nomJoueurModifie, $equipeVisiteur, $dateMatch, 1);
 				if($retour <= 0)
 					$retour = rechercherJoueurInitialePrenom($bdd, $nomJoueurModifie, $equipeVisiteur, $dateMatch, 1);
-				if($retour == -1)
-					array_push($tableauErreurs, array('equipe'=>$equipeVisiteur, 'joueur'=>$nomJoueurModifie));
-				else if($retour == 0)
+				if($retour == -1 || $retour == 0)
 					array_push($tableauErreurs, array('equipe'=>$equipeVisiteur, 'joueur'=>$nomJoueurModifie));
 			}
 		}

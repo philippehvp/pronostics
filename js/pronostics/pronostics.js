@@ -1156,12 +1156,10 @@ function creerMatch_lireEffectif(match, champLienPage, origine) {
 	else
 		page = 'creer_match_lecture_effectif_equipes_scorespro.php';
 	$.ajax(	{
-				url: page,
-				type: 'POST',
-				data: {
-					match: match
-				},
-				dataType: 'json'
+				url: page
+				,type: 'POST'
+				,data: { match: match }
+				,dataType: 'json'
 			}
 	).done(function(html) {
 		if(html.length > 0) {
@@ -1211,12 +1209,10 @@ function creerMatch_lireComposition(match, champLienPage, origine) {
 		page = 'creer_match_lecture_composition_equipes_scorespro.php';
 
 	$.ajax(	{
-				url: page,
-				type: 'POST',
-				data:	{
-							match: match
-						},
-				dataType: 'json'
+				url: page
+				,type: 'POST'
+				,data:	{ match: match }
+				,dataType: 'json'
 			}
 	).done(function(html) {
 		if(html.length > 0) {
@@ -1251,7 +1247,7 @@ function creerMatch_lireComposition(match, champLienPage, origine) {
 		else
 			afficherMessageInformationBandeau('Composition remplie avec succès', 2000, '');
 	}).fail(function(html) {
-		console.log('Fonction creerMatch_lireComposition : dans le fail');
+		console.log('Fonction creerMatch_lireComposition : dans le fail', html);
 	});
 }
 

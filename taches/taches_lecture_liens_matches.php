@@ -133,12 +133,12 @@
 		$tableauComposition = $xpath->query('div[@class="panel-body"]/table/tbody/tr/td', $divComposition->item(0));
 
 		// Equipe domicile
-		$htmlEquipeDomicile = remplacerCaracteres(my_utf8_decode(trim($document->saveHTML($tableauComposition->item(0)))));
+		$htmlEquipeDomicile = remplacerCaracteres(trim($document->saveHTML($tableauComposition->item(0))));
 		$htmlEquipeDomicile = preg_replace('/<[^>]*>/', ',', $htmlEquipeDomicile);
 		$joueursEquipeDomicile = explode(",", $htmlEquipeDomicile);
 
 		// Equipe visiteur
-		$htmlEquipeVisiteur = remplacerCaracteres(my_utf8_decode(trim($document->saveHTML($tableauComposition->item(1)))));
+		$htmlEquipeVisiteur = remplacerCaracteres(trim($document->saveHTML($tableauComposition->item(1))));
 		$htmlEquipeVisiteur = preg_replace('/<[^>]*>/', ',', $htmlEquipeVisiteur);
 		$joueursEquipeVisiteur = explode(",", $htmlEquipeVisiteur);
 
