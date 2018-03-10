@@ -26,7 +26,7 @@
 		$tableau['erreur'] = '0';
 		$tableau['prenom'] = $joueurs[0]["Joueurs_Prenom"];
 		$tableau['nom'] = $joueurs[0]["Joueurs_NomFamille"];
-		$tableau['correspondance'] = remplacerCaracteres($joueurs[0][$champ]);
+		$tableau['correspondance'] = remplacerCaracteres(my_utf8_decode($joueurs[0][$champ]));
 	}
 	else {
 		$tableau['erreur'] = '1';
