@@ -1,16 +1,16 @@
 <?php
 
-	// Lecture des compositions des deux équipes d'un match
-	// La page peut être appelée de deux manières :
+	// Lecture des compositions des deux Ã©quipes d'un match
+	// La page peut Ãªtre appelÃ©e de deux maniÃ¨res :
 	// - soit par une inclusion
-	// - soit par un rafraîchissement (Ajax)
+	// - soit par un rafraÃ®chissement (Ajax)
 	
 	// Dans un premier temps, on regarde si des matches vont commencer d'ici 15 minutes et pour lesquels
-	// aucun lien vers la page de match sur le site extérieur n'existe
-	// Dans un deuxième temps, on regarde si :
-	// - des matches vont commencer d'ici 15 minutes et pour lesquels la composition des équipes n'a pas encore été déterminée
-	// - des matches sont en direct et dont la composition n'a pas encore été remplie automatiquement
-	// Dans un troisième temps, on regarde si des matches vont commencer d'ici 5 minutes et qui ne trouvent pas
+	// aucun lien vers la page de match sur le site extÃ©rieur n'existe
+	// Dans un deuxiÃ¨me temps, on regarde si :
+	// - des matches vont commencer d'ici 15 minutes et pour lesquels la composition des Ã©quipes n'a pas encore Ã©tÃ© dÃ©terminÃ©e
+	// - des matches sont en direct et dont la composition n'a pas encore Ã©tÃ© remplie automatiquement
+	// Dans un troisiÃ¨me temps, on regarde si des matches vont commencer d'ici 5 minutes et qui ne trouvent pas
 	// dans la liste des matches en direct
 	
 	$rafraichissement = isset($_POST["rafraichissement"]) ? $_POST["rafraichissement"] : 0;
@@ -26,7 +26,7 @@
 	
 	$tableauErreurs = array();
 	
-	// Premier temps : lecture de la page de lien pour les matches qui commencent d'ici 15 minutes et qui n'en possèdent pas encore
+	// Premier temps : lecture de la page de lien pour les matches qui commencent d'ici 15 minutes et qui n'en possÃ¨dent pas encore
 	$ordreSQL =		'	UPDATE		matches' .
 					'	JOIN		equipes equipes_domicile' .
 					'				ON		matches.Equipes_EquipeDomicile = equipes_domicile.Equipe' .
@@ -41,9 +41,9 @@
 					'				AND		IFNULL(matches.Matches_LienPageComplementaire, \'\') = \'\'';
 	$bdd->exec($ordreSQL);
 
-	// Deuxième temps, on regarde si :
-	// - des matches vont commencer d'ici 15 minutes et pour lesquels la composition des équipes n'a pas encore été déterminée
-	// - des matches sont en direct et dont la composition n'a pas encore été remplie automatiquement
+	// DeuxiÃ¨me temps, on regarde si :
+	// - des matches vont commencer d'ici 15 minutes et pour lesquels la composition des Ã©quipes n'a pas encore Ã©tÃ© dÃ©terminÃ©e
+	// - des matches sont en direct et dont la composition n'a pas encore Ã©tÃ© remplie automatiquement
 	$ordreSQL =		'	SELECT		matches.Match, Matches_Date, Equipes_EquipeDomicile, Equipes_EquipeVisiteur, IFNULL(Matches_LienPageComplementaire, \'\') AS Matches_LienPageComplementaire' .
 					'	FROM		matches' .
 					'	WHERE		DATE_ADD(NOW(), INTERVAL 15 MINUTE) >= matches.Matches_Date' .
@@ -76,7 +76,7 @@
 			
 			$xpathComposition = new DOMXpath($documentComposition);
 			
-			// Lecture des joueurs de l'équipe domicile
+			// Lecture des joueurs de l'Ã©quipe domicile
 			$baliseCompo1 = $xpathComposition->query('//td[@class="h_player"]');
 			$i = 0;
 			foreach($baliseCompo1 as $uneLigneDeCompo) {
@@ -87,11 +87,11 @@
 						$retour = ajouterJoueur($bdd, trim($unJoueur->textContent), $equipeDomicile, $match, $dateMatch, 2);
 						if($retour == -1) {
 							array_push($tableauErreurs, array('equipe'=>$equipeDomicile, 'joueur'=>trim($unJoueur->textContent)));
-							echo 'Joueur ' . trim($unJoueur->textContent) . ' non trouvé en base<br />';
+							echo 'Joueur ' . trim($unJoueur->textContent) . ' non trouvÃ© en base<br />';
 						}
 						else if($retour == 0) {
 							array_push($tableauErreurs, array('equipe'=>$equipeDomicile, 'joueur'=>trim($unJoueur->textContent)));
-							echo 'Joueur ' . trim($unJoueur->textContent) . ' trouvé en base avec doublon<br />';
+							echo 'Joueur ' . trim($unJoueur->textContent) . ' trouvÃ© en base avec doublon<br />';
 						}
 						
 						$i++;
@@ -101,7 +101,7 @@
 					break;
 			}
 
-			// Lecture des joueurs de l'équipe visiteur
+			// Lecture des joueurs de l'Ã©quipe visiteur
 			$baliseCompo2 = $xpathComposition->query('//td[@class="a_player"]');
 			$i = 0;
 			foreach($baliseCompo2 as $uneLigneDeCompo) {
@@ -112,11 +112,11 @@
 						$retour = ajouterJoueur($bdd, trim($unJoueur->textContent), $equipeVisiteur, $match, $dateMatch, 2);
 						if($retour == -1) {
 							array_push($tableauErreurs, array('equipe'=>$equipeVisiteur, 'joueur'=>trim($unJoueur->textContent)));
-							echo 'Joueur ' . trim($unJoueur->textContent) . ' non trouvé en base<br />';
+							echo 'Joueur ' . trim($unJoueur->textContent) . ' non trouvÃ© en base<br />';
 						}
 						else if($retour == 0) {
 							array_push($tableauErreurs, array('equipe'=>$equipeVisiteur, 'joueur'=>trim($unJoueur->textContent)));
-							echo 'Joueur ' . trim($unJoueur->textContent) . ' trouvé en base avec doublon<br />';
+							echo 'Joueur ' . trim($unJoueur->textContent) . ' trouvÃ© en base avec doublon<br />';
 						}
 						
 						$i++;
@@ -126,12 +126,12 @@
 					break;
 			}
 			
-			// On indique que la composition a été lue, même si des erreurs sont survenues
+			// On indique que la composition a Ã©tÃ© lue, mÃªme si des erreurs sont survenues
 			finaliserCompositionEquipes($bdd, $match);
 		}
 	}
 	
-	// Troisième temps : lecture des matches qui vont commencer d'ici 5 minutes
+	// TroisiÃ¨me temps : lecture des matches qui vont commencer d'ici 5 minutes
 	$ordreSQL =		'	INSERT INTO	matches_direct(Matches_Match)' .
 					'	SELECT		matches.Match' .
 					'	FROM		matches' .

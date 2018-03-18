@@ -3,7 +3,7 @@
 	// Lecture des effectifs des deux équipes d'un match
 	
 	include_once('creer_match_fonctions.php');
-	$tableauErreurs = array();
+	$tableauErreurs['joueurs'] = array();
 	
 	// Lecture des paramètres passés à la page
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
@@ -48,12 +48,11 @@
 		foreach($joueursEquipeDomicile as $unJoueur) {
 			if($unJoueur && trim($unJoueur) != "") {
 				$nomJoueurModifie = trim($unJoueur);
-				
 				$retour = rechercherJoueur($bdd, $nomJoueurModifie, $equipeDomicile, $dateMatch, 1);
 				if($retour == -1)
 					$retour = rechercherJoueurInitialePrenom($bdd, $nomJoueurModifie, $equipeDomicile, $dateMatch, 1);
 				if($retour == -1 || $retour == 0)
-					array_push($tableauErreurs, array('equipe'=>$equipeDomicile, 'joueur'=>$nomJoueurModifie));
+					array_push($tableauErreurs['joueurs'], array('equipe'=>$equipeDomicile, 'joueur'=>$nomJoueurModifie));
 			}
 		}
 
@@ -66,7 +65,7 @@
 				if($retour <= 0)
 					$retour = rechercherJoueurInitialePrenom($bdd, $nomJoueurModifie, $equipeVisiteur, $dateMatch, 1);
 				if($retour == -1 || $retour == 0)
-					array_push($tableauErreurs, array('equipe'=>$equipeVisiteur, 'joueur'=>$nomJoueurModifie));
+					array_push($tableauErreurs['joueurs'], array('equipe'=>$equipeVisiteur, 'joueur'=>$nomJoueurModifie));
 			}
 		}
 	}

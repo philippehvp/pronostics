@@ -154,19 +154,19 @@
 		$joueurNomModifie = remplacerCaracteres($joueurNomComplet);
 
 		$ordreSQL =		'	SELECT		Joueur' .
-									'	FROM		joueurs' .
-									'	JOIN		joueurs_equipes' .
-									'				ON		joueurs.Joueur = joueurs_equipes.Joueurs_Joueur' .
-									'	WHERE		joueurs_equipes.Equipes_Equipe = ' . $equipe .
-									'				AND		CASE' .
-									'							WHEN	joueurs.' . $champ . ' IS NOT NULL' .
-									'							THEN	joueurs.' . $champ .
-									'							WHEN	joueurs.Joueurs_Prenom IS NOT NULL AND joueurs.Joueurs_Prenom <> \'\'' .
-									'							THEN	CONCAT(LEFT(joueurs.Joueurs_Prenom, 1), \'. \', joueurs.Joueurs_NomFamille)' .
-									'							ELSE	joueurs.Joueurs_NomFamille' .
-									'						END = ' . $bdd->quote($joueurNomModifie) .
-									'				AND		JoueursEquipes_Debut <= \'' . $date . '\'' .
-									'				AND		(JoueursEquipes_Fin IS NULL OR JoueursEquipes_Fin > \'' . $date . '\')';
+									'	FROM			joueurs' .
+									'	JOIN			joueurs_equipes' .
+									'						ON		joueurs.Joueur = joueurs_equipes.Joueurs_Joueur' .
+									'	WHERE			joueurs_equipes.Equipes_Equipe = ' . $equipe .
+									'						AND		CASE' .
+									'										WHEN	joueurs.' . $champ . ' IS NOT NULL' .
+									'										THEN	joueurs.' . $champ .
+									'										WHEN	joueurs.Joueurs_Prenom IS NOT NULL AND joueurs.Joueurs_Prenom <> \'\'' .
+									'										THEN	CONCAT(LEFT(joueurs.Joueurs_Prenom, 1), \'. \', joueurs.Joueurs_NomFamille)' .
+									'										ELSE	joueurs.Joueurs_NomFamille' .
+									'									END = ' . $bdd->quote($joueurNomModifie) .
+									'						AND		JoueursEquipes_Debut <= \'' . $date . '\'' .
+									'						AND		(JoueursEquipes_Fin IS NULL OR JoueursEquipes_Fin > \'' . $date . '\')';
 		$req = $bdd->query($ordreSQL);
 		$joueurs = $req->fetchAll();
 
