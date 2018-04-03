@@ -2,45 +2,45 @@
 
 	function lirePronostics($journee) {
 		$ordreSQL =		'	    SELECT		Pronostiqueur, Journees_Journee' .
-						'					,IFNULL(equipesdomicile.Equipes_NomCourt, equipesdomicile.Equipes_Nom) AS EquipesDomicile_NomCourt' .
-						'					,equipesdomicile.Equipes_Nom AS EquipesDomicile_Nom' .
-						'					,Pronostics_ScoreEquipeDomicile AS Pronostics_ScoreEquipeDomicile' .
-						'					,Pronostics_ScoreAPEquipeDomicile' .
-						'					,IFNULL(equipesvisiteur.Equipes_NomCourt, equipesvisiteur.Equipes_Nom) AS EquipesVisiteur_NomCourt' .
-						'					,equipesvisiteur.Equipes_Nom AS EquipesVisiteur_Nom' .
-						'					,Pronostics_ScoreEquipeVisiteur' .
-						'					,Pronostics_ScoreAPEquipeVisiteur' .
-						'					,Pronostics_Vainqueur' .
-						'					,(	SELECT		GROUP_CONCAT(Joueurs_NomCourt SEPARATOR \', \')' .
-						'						FROM		pronostics_buteurs' .
-						'						JOIN		joueurs' .
-						'									ON		pronostics_buteurs.Joueurs_Joueur = joueurs.Joueur' .
-						'						WHERE		pronostics_buteurs.Matches_Match = matches.Match' .
-						'									AND		pronostics_buteurs.Pronostiqueurs_Pronostiqueur = pronostiqueurs.Pronostiqueur' .
-						'									AND		pronostics_buteurs.Equipes_Equipe = equipesdomicile.Equipe' .
-						'						GROUP BY	pronostics_buteurs.Matches_Match' .
-						'					) AS EquipesDomicile_Buteurs' .
-						'					,(	SELECT		GROUP_CONCAT(Joueurs_NomCourt SEPARATOR \', \')' .
-						'						FROM		pronostics_buteurs' .
-						'						JOIN		joueurs' .
-						'									ON		pronostics_buteurs.Joueurs_Joueur = joueurs.Joueur' .
-						'						WHERE		pronostics_buteurs.Matches_Match = matches.Match' .
-						'									AND		pronostics_buteurs.Pronostiqueurs_Pronostiqueur = pronostiqueurs.Pronostiqueur' .
-						'									AND		pronostics_buteurs.Equipes_Equipe = equipesvisiteur.Equipe' .
-						'						GROUP BY	pronostics_buteurs.Matches_Match' .
-						'					) AS EquipesVisiteur_Buteurs' .
-						'		FROM		pronostics' .
-						'		JOIN		matches' .
-						'					ON pronostics.Matches_Match = matches.Match' .
-						'		JOIN		equipes equipesdomicile' .
-						'					ON		matches.Equipes_EquipeDomicile = equipesdomicile.Equipe' .
-						'		JOIN		equipes equipesvisiteur' .
-						'					ON		matches.Equipes_EquipeVisiteur = equipesvisiteur.Equipe' .
-						'		JOIN		pronostiqueurs' .
-						'					ON		pronostics.Pronostiqueurs_Pronostiqueur = pronostiqueurs.Pronostiqueur' .
-						'		WHERE		Journees_Journee = ' . $journee .
-						'					AND		Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
-						'		ORDER BY	matches.Match';
+									'								,IFNULL(equipesdomicile.Equipes_NomCourt, equipesdomicile.Equipes_Nom) AS EquipesDomicile_NomCourt' .
+									'								,equipesdomicile.Equipes_Nom AS EquipesDomicile_Nom' .
+									'								,Pronostics_ScoreEquipeDomicile AS Pronostics_ScoreEquipeDomicile' .
+									'								,Pronostics_ScoreAPEquipeDomicile' .
+									'								,IFNULL(equipesvisiteur.Equipes_NomCourt, equipesvisiteur.Equipes_Nom) AS EquipesVisiteur_NomCourt' .
+									'								,equipesvisiteur.Equipes_Nom AS EquipesVisiteur_Nom' .
+									'								,Pronostics_ScoreEquipeVisiteur' .
+									'								,Pronostics_ScoreAPEquipeVisiteur' .
+									'								,Pronostics_Vainqueur' .
+									'								,(	SELECT		GROUP_CONCAT(Joueurs_NomCourt SEPARATOR \', \')' .
+									'										FROM			pronostics_buteurs' .
+									'										JOIN			joueurs' .
+									'															ON		pronostics_buteurs.Joueurs_Joueur = joueurs.Joueur' .
+									'										WHERE			pronostics_buteurs.Matches_Match = matches.Match' .
+									'															AND		pronostics_buteurs.Pronostiqueurs_Pronostiqueur = pronostiqueurs.Pronostiqueur' .
+									'															AND		pronostics_buteurs.Equipes_Equipe = equipesdomicile.Equipe' .
+									'										GROUP BY	pronostics_buteurs.Matches_Match' .
+									'								) AS EquipesDomicile_Buteurs' .
+									'								,(	SELECT		GROUP_CONCAT(Joueurs_NomCourt SEPARATOR \', \')' .
+									'										FROM			pronostics_buteurs' .
+									'										JOIN			joueurs' .
+									'															ON		pronostics_buteurs.Joueurs_Joueur = joueurs.Joueur' .
+									'										WHERE			pronostics_buteurs.Matches_Match = matches.Match' .
+									'															AND		pronostics_buteurs.Pronostiqueurs_Pronostiqueur = pronostiqueurs.Pronostiqueur' .
+									'															AND		pronostics_buteurs.Equipes_Equipe = equipesvisiteur.Equipe' .
+									'										GROUP BY	pronostics_buteurs.Matches_Match' .
+									'								) AS EquipesVisiteur_Buteurs' .
+									'		FROM				pronostics' .
+									'		JOIN				matches' .
+									'								ON pronostics.Matches_Match = matches.Match' .
+									'		JOIN				equipes equipesdomicile' .
+									'								ON		matches.Equipes_EquipeDomicile = equipesdomicile.Equipe' .
+									'		JOIN				equipes equipesvisiteur' .
+									'								ON		matches.Equipes_EquipeVisiteur = equipesvisiteur.Equipe' .
+									'		JOIN				pronostiqueurs' .
+									'								ON		pronostics.Pronostiqueurs_Pronostiqueur = pronostiqueurs.Pronostiqueur' .
+									'		WHERE				Journees_Journee = ' . $journee .
+									'								AND		Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+									'		ORDER BY		matches.Match';
 
 		return $ordreSQL;
 	}
@@ -48,12 +48,12 @@
 	// Recherche de la journée en cours
 	function lireJournee($championnat) {
 		$ordreSQL =		'	SELECT		journees.Journee' .
-						'				,journees.Journees_Nom' .
-						'				,IFNULL(journees.Journees_DateMAJ, \'\') AS Journees_DateMAJ' .
-						'				,journees.Journees_DateEvenement' .
-						'				,(SELECT MAX(Classements_DateReference) FROM classements WHERE classements.Journees_Journee = journees.Journee GROUP BY classements.Journees_Journee) AS Classements_DateReference' .
-						'	FROM		journees' .
-						'	WHERE		journees.Journee = fn_recherchejourneeencours(' . $championnat . ')';
+									'						,journees.Journees_Nom' .
+									'						,IFNULL(journees.Journees_DateMAJ, \'\') AS Journees_DateMAJ' .
+									'						,journees.Journees_DateEvenement' .
+									'						,(SELECT MAX(Classements_DateReference) FROM classements WHERE classements.Journees_Journee = journees.Journee GROUP BY classements.Journees_Journee) AS Classements_DateReference' .
+									'	FROM		journees' .
+									'	WHERE		journees.Journee = fn_recherchejourneeencours(' . $championnat . ')';
 		return $ordreSQL;
 	}
 
@@ -759,36 +759,36 @@
 
 		// Meilleur(s) buteur(s)
 		$ordreSQL =		'	SELECT		GROUP_CONCAT(joueurs.Joueurs_NomFamille SEPARATOR \', \') AS Joueurs_NomFamille' .
-						'	FROM		(' .
-						'					SELECT		COUNT(*) AS Nombre_Buts, Joueurs_Joueur' .
-						'					FROM		matches_buteurs' .
-						'					JOIN		matches' .
-						'								ON		matches_buteurs.Matches_Match = matches.Match' .
-						'					JOIN		journees' .
-						'								ON		matches.Journees_Journee = journees.Journee' .
-						'					WHERE		journees.Championnats_Championnat = 1' .
-						'								AND		Buteurs_CSC = 0' .
-						'								AND		Joueurs_Joueur <> 999999' .
-						'					GROUP BY	Joueurs_Joueur' .
-						'				) meilleurs_buteurs' .
-						'	JOIN		(' .
-						'					SELECT		MAX(Nombre_Buts) AS Nombre_Buts' .
-						'					FROM		(' .
-						'									SELECT		COUNT(*) AS Nombre_Buts' .
-						'									FROM		matches_buteurs' .
-						'									JOIN		matches' .
-						'												ON		matches_buteurs.Matches_Match = matches.Match' .
-						'									JOIN		journees' .
-						'												ON		matches.Journees_Journee = journees.Journee' .
-						'									WHERE		journees.Championnats_Championnat = 1' .
-						'												AND		Buteurs_CSC = 0' .
-						'												AND		Joueurs_Joueur <> 999999' .
-						'									GROUP BY	Joueurs_Joueur' .
-						'								) buts' .
-						'				) nombre_buts' .
-						'				ON		meilleurs_buteurs.Nombre_Buts = nombre_buts.Nombre_Buts' .
-						'	JOIN		joueurs' .
-						'				ON		meilleurs_buteurs.Joueurs_Joueur = joueurs.Joueur';
+									'	FROM		(' .
+									'					SELECT		COUNT(*) AS Nombre_Buts, Joueurs_Joueur' .
+									'					FROM		matches_buteurs' .
+									'					JOIN		matches' .
+									'								ON		matches_buteurs.Matches_Match = matches.Match' .
+									'					JOIN		journees' .
+									'								ON		matches.Journees_Journee = journees.Journee' .
+									'					WHERE		journees.Championnats_Championnat = 1' .
+									'								AND		Buteurs_CSC = 0' .
+									'								AND		Joueurs_Joueur <> 999999' .
+									'					GROUP BY	Joueurs_Joueur' .
+									'				) meilleurs_buteurs' .
+									'	JOIN		(' .
+									'					SELECT		MAX(Nombre_Buts) AS Nombre_Buts' .
+									'					FROM		(' .
+									'									SELECT		COUNT(*) AS Nombre_Buts' .
+									'									FROM		matches_buteurs' .
+									'									JOIN		matches' .
+									'												ON		matches_buteurs.Matches_Match = matches.Match' .
+									'									JOIN		journees' .
+									'												ON		matches.Journees_Journee = journees.Journee' .
+									'									WHERE		journees.Championnats_Championnat = 1' .
+									'												AND		Buteurs_CSC = 0' .
+									'												AND		Joueurs_Joueur <> 999999' .
+									'									GROUP BY	Joueurs_Joueur' .
+									'								) buts' .
+									'				) nombre_buts' .
+									'				ON		meilleurs_buteurs.Nombre_Buts = nombre_buts.Nombre_Buts' .
+									'	JOIN		joueurs' .
+									'				ON		meilleurs_buteurs.Joueurs_Joueur = joueurs.Joueur';
 		$req = $bdd->query($ordreSQL);
 		$meilleur_buteur = $req->fetchAll();
 
@@ -802,34 +802,34 @@
 
 		// Lecture des pronostics de bonus
 		$ordreSQL =		'	SELECT		equipes_championnes.Equipes_NomCourt AS Equipe_Championne' .
-						'				,CONCAT(equipes_1.Equipes_NomCourt, \', \', equipes_2.Equipes_NomCourt, \', \', equipes_3.Equipes_NomCourt) AS Equipes_LDC' .
-						'				,CONCAT(equipes_18.Equipes_NomCourt, \', \', equipes_19.Equipes_NomCourt, \', \', equipes_20.Equipes_NomCourt) AS Equipes_Releguees' .
-						'				,meilleurs_buteurs.Joueurs_NomFamille AS Meilleur_Buteur' .
-						'				,meilleurs_passeurs.Joueurs_NomFamille AS Meilleur_Passeur' .
-						'	FROM		pronostics_bonus' .
-						'	JOIN		equipes equipes_championnes' .
-						'				ON		PronosticsBonus_EquipeChampionne = equipes_championnes.Equipe' .
-						'	JOIN		equipes equipes_1' .
-						'				ON		pronostics_bonus.PronosticsBonus_EquipeLDC1 = equipes_1.Equipe' .
-						'	JOIN		equipes equipes_2' .
-						'				ON		pronostics_bonus.PronosticsBonus_EquipeLDC2 = equipes_2.Equipe' .
-						'	JOIN		equipes equipes_3' .
-						'				ON		pronostics_bonus.PronosticsBonus_EquipeLDC3 = equipes_3.Equipe' .
-						'	JOIN		equipes equipes_18' .
-						'				ON		pronostics_bonus.PronosticsBonus_EquipeReleguee1 = equipes_18.Equipe' .
-						'	JOIN		equipes equipes_19' .
-						'				ON		pronostics_bonus.PronosticsBonus_EquipeReleguee2 = equipes_19.Equipe' .
-						'	JOIN		equipes equipes_20' .
-						'				ON		pronostics_bonus.PronosticsBonus_EquipeReleguee3 = equipes_20.Equipe' .
-						'	JOIN		joueurs meilleurs_buteurs' .
-						'				ON		pronostics_bonus.PronosticsBonus_JoueurMeilleurButeur = meilleurs_buteurs.Joueur' .
-						'	JOIN		joueurs meilleurs_passeurs' .
-						'				ON		pronostics_bonus.PronosticsBonus_JoueurMeilleurPasseur = meilleurs_passeurs.Joueur' .
-						'	JOIN		pronostiqueurs' .
-						'				ON		pronostics_bonus.Pronostiqueurs_Pronostiqueur = pronostiqueurs.Pronostiqueur' .
-						'	JOIN		classements_virtuels' .
-						'				ON		pronostics_bonus.Pronostiqueurs_Pronostiqueur = classements_virtuels.Pronostiqueurs_Pronostiqueur' .
-						'	ORDER BY	ClassementsVirtuels_PointsGeneralMatch DESC, ClassementsVirtuels_PointsGeneralButeur ASC, Pronostiqueurs_NomUtilisateur';
+									'						,CONCAT(equipes_1.Equipes_NomCourt, \', \', equipes_2.Equipes_NomCourt, \', \', equipes_3.Equipes_NomCourt) AS Equipes_LDC' .
+									'						,CONCAT(equipes_18.Equipes_NomCourt, \', \', equipes_19.Equipes_NomCourt, \', \', equipes_20.Equipes_NomCourt) AS Equipes_Releguees' .
+									'						,meilleurs_buteurs.Joueurs_NomFamille AS Meilleur_Buteur' .
+									'						,meilleurs_passeurs.Joueurs_NomFamille AS Meilleur_Passeur' .
+									'	FROM			pronostics_bonus' .
+									'	JOIN			equipes equipes_championnes' .
+									'						ON		PronosticsBonus_EquipeChampionne = equipes_championnes.Equipe' .
+									'	JOIN			equipes equipes_1' .
+									'						ON		pronostics_bonus.PronosticsBonus_EquipeLDC1 = equipes_1.Equipe' .
+									'	JOIN			equipes equipes_2' .
+									'						ON		pronostics_bonus.PronosticsBonus_EquipeLDC2 = equipes_2.Equipe' .
+									'	JOIN			equipes equipes_3' .
+									'						ON		pronostics_bonus.PronosticsBonus_EquipeLDC3 = equipes_3.Equipe' .
+									'	JOIN			equipes equipes_18' .
+									'						ON		pronostics_bonus.PronosticsBonus_EquipeReleguee1 = equipes_18.Equipe' .
+									'	JOIN			equipes equipes_19' .
+									'						ON		pronostics_bonus.PronosticsBonus_EquipeReleguee2 = equipes_19.Equipe' .
+									'	JOIN			equipes equipes_20' .
+									'						ON		pronostics_bonus.PronosticsBonus_EquipeReleguee3 = equipes_20.Equipe' .
+									'	LEFT JOIN	joueurs meilleurs_buteurs' .
+									'						ON		pronostics_bonus.PronosticsBonus_JoueurMeilleurButeur = meilleurs_buteurs.Joueur' .
+									'	LEFT JOIN	joueurs meilleurs_passeurs' .
+									'						ON		pronostics_bonus.PronosticsBonus_JoueurMeilleurPasseur = meilleurs_passeurs.Joueur' .
+									'	JOIN			pronostiqueurs' .
+									'						ON		pronostics_bonus.Pronostiqueurs_Pronostiqueur = pronostiqueurs.Pronostiqueur' .
+									'	JOIN			classements_virtuels' .
+									'						ON		pronostics_bonus.Pronostiqueurs_Pronostiqueur = classements_virtuels.Pronostiqueurs_Pronostiqueur' .
+									'	ORDER BY	ClassementsVirtuels_PointsGeneralMatch DESC, ClassementsVirtuels_PointsGeneralButeur ASC, Pronostiqueurs_NomUtilisateur';
 		$req = $bdd->query($ordreSQL);
 		$pronostics_bonus = $req->fetchAll();
 
@@ -976,8 +976,15 @@
 									echo '<td title="' . $pronostics_bonus[$i]["Equipe_Championne"] . '" ' . ($_SESSION["pronostiqueur"] == $unClassement["Pronostiqueur"] ? ' class="surbrillance"' : '') . '>' . $unClassement["PronosticsBonusPoints_PointsEquipeChampionne"] . '</td>';
 									echo '<td title="' . $pronostics_bonus[$i]["Equipes_LDC"] . '"' . ($_SESSION["pronostiqueur"] == $unClassement["Pronostiqueur"] ? ' class="surbrillance"' : '') . '>' . $unClassement["PronosticsBonusPoints_PointsEquipesPodium"] . '</td>';
 									echo '<td title="' . $pronostics_bonus[$i]["Equipes_Releguees"] . '"' . ($_SESSION["pronostiqueur"] == $unClassement["Pronostiqueur"] ? ' class="surbrillance"' : '') . '>' . $unClassement["PronosticsBonusPoints_PointsEquipesRelegation"] . '</td>';
-									echo '<td title="' . $pronostics_bonus[$i]["Meilleur_Buteur"] . '"' . ($_SESSION["pronostiqueur"] == $unClassement["Pronostiqueur"] ? ' class="surbrillance"' : '') . '>' . $unClassement["PronosticsBonusPoints_PointsMeilleurButeur"] . '</td>';
-									echo '<td title="' . $pronostics_bonus[$i]["Meilleur_Passeur"] . '"' . ($_SESSION["pronostiqueur"] == $unClassement["Pronostiqueur"] ? ' class="surbrillance"' : '') . '>' . $unClassement["PronosticsBonusPoints_PointsMeilleurPasseur"] . '</td>';
+									if($pronostics_bonus[$i]["Meilleur_Buteur"] != null)
+										echo '<td title="' . $pronostics_bonus[$i]["Meilleur_Buteur"] . '"' . ($_SESSION["pronostiqueur"] == $unClassement["Pronostiqueur"] ? ' class="surbrillance"' : '') . '>' . $unClassement["PronosticsBonusPoints_PointsMeilleurButeur"] . '</td>';
+									else
+										echo '<td title="Aucun"' . ($_SESSION["pronostiqueur"] == $unClassement["Pronostiqueur"] ? ' class="surbrillance"' : '') . '>' . $unClassement["PronosticsBonusPoints_PointsMeilleurButeur"] . '</td>';
+									
+									if($pronostics_bonus[$i]["Meilleur_Passeur"] != null)
+										echo '<td title="' . $pronostics_bonus[$i]["Meilleur_Passeur"] . '"' . ($_SESSION["pronostiqueur"] == $unClassement["Pronostiqueur"] ? ' class="surbrillance"' : '') . '>' . $unClassement["PronosticsBonusPoints_PointsMeilleurPasseur"] . '</td>';
+									else
+										echo '<td title="Aucun"' . ($_SESSION["pronostiqueur"] == $unClassement["Pronostiqueur"] ? ' class="surbrillance"' : '') . '>' . $unClassement["PronosticsBonusPoints_PointsMeilleurPasseur"] . '</td>';
 								echo '</tr>';
 								$i++;
 							}
