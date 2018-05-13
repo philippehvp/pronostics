@@ -18,8 +18,8 @@
 		
 		// Nom du pronostiqueur consulté
 		$ordreSQL =		'	SELECT		Pronostiqueurs_Nom' .
-						'	FROM		cdm_pronostiqueurs' .
-						'	WHERE		Pronostiqueur = ' . $pronostiqueurConsulte;
+									'	FROM		cdm_pronostiqueurs' .
+									'	WHERE		Pronostiqueur = ' . $pronostiqueurConsulte;
 						
 		$req = $bdd->query($ordreSQL);
 		$donnees = $req->fetch();

@@ -48,18 +48,18 @@
 
 /* Boutons */
 .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited {
-	color: #fedf00;
+	color: #fff;
 	background-image: url('../../images/fond_transparent.png');
 	text-decoration: none;
 }
 
 .ui-state-default a:hover, .ui-state-default a:active {
-	background-color: #005f24;
+	background-color: #d52b1e;
 	background-image: none;
 }
 
 li.ui-tabs-active .ui-tabs-anchor, .ui-tabs .ui-tabs-nav li.ui-state-disabled .ui-tabs-anchor, .ui-tabs .ui-tabs-nav li.ui-tabs-loading .ui-tabs-anchor {
-	background-color: #005f24;
+	background-color: #d52b1e;
 	background-image: none;
 }
 
@@ -69,12 +69,12 @@ li.ui-tabs-active .ui-tabs-anchor, .ui-tabs .ui-tabs-nav li.ui-state-disabled .u
 }
 
 .ui-button, .ui-dialog .ui-dialog-buttonpane button {
-	color: #fedf00;
+	color: #fff;
 	background-image: url('../../images/fond_transparent.png');
 }
 
 .ui-button:hover, .ui-dialog .ui-dialog-buttonpane button:hover {
-	background-color: #005f24;
+	background-color: #d52b1e;
 }
 
 .ui-tabs .ui-tabs-panel {
@@ -97,7 +97,7 @@ html {
 
 body {
 	color: #fff;
-	background-color: #a0a220;
+	background-color: #000;
 	font: 0.9em Verdana,Helvetica,Arial,sans-serif;
 	height: 100%;
 	background-image: url('../../images/fond/fond_principal.jpg');
@@ -111,7 +111,7 @@ ul {
 
 select, select option {
 	color: #fff;
-	background-color: #005f24;
+	background-color: #0039a6;
 	border: 1px solid #fff;
 }
 
@@ -284,7 +284,7 @@ table.lignes tbody tr td {
 	display: none;
 	padding: 5px 0 5px 5px;
 	margin-left: 30px;
-	background-color: #7d825a;
+	background-color: #872a2b;
 	position: absolute;
 	top: 70px;
 }
@@ -356,7 +356,7 @@ table.lignes tbody tr td {
 }
 
 #divMenuW8 div.tuileCarree:hover, #divMenuW8 div.tuileRectangulaire:hover {
-	background-color: #005f24;
+	background-color: #d52b1e;
 }
 
 #divMenuW8 div.tuileFermer {
@@ -369,7 +369,7 @@ table.lignes tbody tr td {
 }
 
 #divMenuW8 div.tuileFermer label.fermer:hover {
-	color: #005f24;
+	color: #d52b1e;
 }
 
 #divMenuW8 div.tuileProfil {
@@ -381,7 +381,7 @@ table.lignes tbody tr td {
 }
 
 #divMenuW8 div.tuileProfil div.zoneTexte label.deconnecter:hover {
-	color: #005f24;
+	color: #d52b1e;
 }
 
 #divMenuW8 div.tuileProfil div.zoneTexte {
@@ -476,7 +476,7 @@ table.lignes tbody tr td {
 }
 
 #divConnexion div.validation:hover {
-	color: #005f24;
+	color: #d52b1e;
 }
 
 #divConnexion input {
@@ -490,8 +490,8 @@ table.lignes tbody tr td {
 
 #divConnexion input:focus {
 	color: #fff;
-	background-color: #005f24;
-	border: 1px solid #005f24;
+	background-color: #d52b1e;
+	border: 1px solid #d52b1e;
 	outline: none;
 }
 
@@ -566,7 +566,7 @@ table.lignes tbody tr td {
 }
 
 #divPronosticsPoules table.classementPoule tbody tr.fondVert {
-	background-color: #005f24;
+	background-color: #0039a6;
 }
 
 #divPronosticsPoules table.classementPoule tbody tr.fondOrange {
@@ -574,12 +574,12 @@ table.lignes tbody tr td {
 }
 
 #divPronosticsPoules .ui-button .ui-button-text {
-	color: #fedf00;
+	color: #0039a6;
 	background-image: url('../../images/fond_transparent.png');
 }
 
 #divPronosticsPoules .ui-button .ui-button-text:hover {
-	background-color: #005f24;
+	background-color: #d52b1e;
 }
 
 ul.listeTriee li {
@@ -618,8 +618,8 @@ ul.listeTriee li {
 
 #divEntetePhaseFinale {
 	font-size: 1.2em;
-	color: #fedf00;
-	background-image: url('../../images/fond_transparent.png');
+	color: #fff;
+	background: #0039a6;
 	width: 900px;
 	height: 40px;
 	line-height: 40px;
@@ -753,8 +753,8 @@ ul.listeTriee li {
 #divMeilleurButeur {
 	width: 900px;
 	height: 50px;
-	color: #fedf00;
-	background-image: url('../../images/fond_transparent.png');
+	color: #fff;
+	background: #0039a6;
 	text-align: center;
 	padding-top: 10px;
 	position: relative;
@@ -787,12 +787,12 @@ ul.listeTriee li {
 #divMeilleurButeur div.listeJoueurs table {
 	border: 1px solid #ccc;
 	width: 200px;
-	background-color: #333;
-	color: #fedf00;
+	background-color: #0039a6;
+	color: #fff;
 }
 
 #divMeilleurButeur div.listeJoueurs table tbody tr:hover td {
-	background-color: #005f24;
+	background-color: #d52b1e;
 	cursor: pointer;
 }
 

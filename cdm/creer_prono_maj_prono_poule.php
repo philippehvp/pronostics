@@ -1,16 +1,16 @@
 <?php
 	include('commun.php');
 
-	// Mise à jour d'un pronostic de poule
+	// Mise Ã  jour d'un pronostic de poule
 	
-	// Lecture des paramètres passés à la page
+	// Lecture des paramï¿½tres passï¿½s ï¿½ la page
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
 	$equipe = isset($_POST["equipe"]) ? $_POST["equipe"] : 0;
 	$score = isset($_POST["score"]) ? $_POST["score"] : 0;
 
-	// Le paramètre equipe indique s'il s'agit du score de l'équipe A ou celui de l'équipe B
-	// On vérifie avant tout qu'il n'est pas trop tard pour faire la modification
-	if($_SESSION["pronostiqueur"] != 1) {
+	// Le paramÃ¨tre equipe indique s'il s'agit du score de l'Ã©quipe A ou celui de l'Ã©quipe B
+	// On vÃ©rifie avant tout qu'il n'est pas trop tard pour faire la modification
+	if($_SESSION["pronostiqueur"] != 1 && time() > 1528977600) {
 		echo 'DEPASSE';
 		exit();
 	}
@@ -19,9 +19,9 @@
 	$texte = $ordreSQL;
 	$bdd->exec($ordreSQL);
 	
-	// Arrivé ici, on cherche à savoir si des cas d'égalité ont été trouvés (uniquement si tous les pronostics de la poule ont été effectués)
+	// ArrivÃ© ici, on cherche Ã  savoir si des cas d'Ã©galitÃ© ont ï¿½tï¿½ trouvÃ©s (uniquement si tous les pronostics de la poule ont Ã©tÃ© effectuÃ©s)
 	
-	// On vérifie que tous les pronostics ont été saisis pour la poule
+	// On vÃ©rifie que tous les pronostics ont Ã©tÃ© saisis pour la poule
 	$ordreSQL =		'	SELECT		COUNT(*) AS NombreEgalites' .
 					'	FROM		cdm_pronostics_poule_egalites' .
 					'	JOIN		cdm_matches_poule' .

@@ -17,40 +17,40 @@
 	// Fonction d'affichage du tableau des 1/8, 1/4 et 1/2 finale
 	function afficherTableau($bdd, $nomDivTableau, $numeroMatchMin, $numeroMatchMax, $nomDiv, $classeEquipe, $classeEspacement, $classeEspacementVertical, $finale) {
 		$ordreSQL =		'	SELECT		cdm_equipes.Matches_Match, Equipe, Equipes_Nom, Pronostics_Score, Pronostics_ScoreAP, Pronostics_Vainqueur, Equipes_Fanion, Ordre' .
-						'				,CASE' .
-						'					WHEN	cdm_pronostics_sequencement.Equipes_EquipeA IS NOT NULL AND cdm_pronostics_sequencement.Equipes_EquipeB IS NOT NULL' .
-						'					THEN	1' .
-						'					ELSE	0' .
-						'				END AS Pronostiquable' .
-						'	FROM		(' .
-						'					SELECT		cdm_pronostics_sequencement.Matches_Match, Equipe, Equipes_NomCourt AS Equipes_Nom, Equipes_Fanion, PronosticsSequencement_EquipeAB, 1 AS Ordre' .
-						'								,Pronostics_ScoreEquipeA AS Pronostics_Score, Pronostics_ScoreAPEquipeA AS Pronostics_ScoreAP, Pronostics_Vainqueur' .
-						'					FROM		cdm_pronostics_sequencement' .
-						'					LEFT JOIN	cdm_equipes' .
-						'								ON		cdm_pronostics_sequencement.Equipes_EquipeA = cdm_equipes.Equipe' .
-						'					LEFT JOIN	cdm_pronostics_phase_finale' .
-						'								ON		cdm_pronostics_sequencement.Pronostiqueurs_Pronostiqueur = cdm_pronostics_phase_finale.Pronostiqueurs_Pronostiqueur' .
-						'										AND		cdm_pronostics_sequencement.Matches_Match = cdm_pronostics_phase_finale.Matches_Match' .
-						'					WHERE		cdm_pronostics_sequencement.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
-						'								AND		cdm_pronostics_sequencement.Matches_Match >= ' . $numeroMatchMin .
-						'								AND		cdm_pronostics_sequencement.Matches_Match <= ' . $numeroMatchMax .
-						'					UNION ALL' .
-						'					SELECT		cdm_pronostics_sequencement.Matches_Match, Equipe, Equipes_NomCourt AS Equipes_Nom, Equipes_Fanion, PronosticsSequencement_EquipeAB, 2 AS Ordre' .
-						'								,Pronostics_ScoreEquipeB AS Pronostics_Score, Pronostics_ScoreAPEquipeB AS Pronostics_ScoreAP, Pronostics_Vainqueur' .
-						'					FROM		cdm_pronostics_sequencement' .
-						'					LEFT JOIN	cdm_equipes' .
-						'								ON		cdm_pronostics_sequencement.Equipes_EquipeB = cdm_equipes.Equipe' .
-						'					LEFT JOIN	cdm_pronostics_phase_finale' .
-						'								ON		cdm_pronostics_sequencement.Pronostiqueurs_Pronostiqueur = cdm_pronostics_phase_finale.Pronostiqueurs_Pronostiqueur' .
-						'										AND		cdm_pronostics_sequencement.Matches_Match = cdm_pronostics_phase_finale.Matches_Match' .
-						'					WHERE		cdm_pronostics_sequencement.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
-						'								AND		cdm_pronostics_sequencement.Matches_Match >= ' . $numeroMatchMin .
-						'								AND		cdm_pronostics_sequencement.Matches_Match <= ' . $numeroMatchMax .
-						'				) cdm_equipes' .
-						'	LEFT JOIN	cdm_pronostics_sequencement' .
-						'				ON		cdm_pronostics_sequencement.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
-						'						AND		cdm_equipes.Matches_Match = cdm_pronostics_sequencement.Matches_Match' .
-						'	ORDER BY	Matches_Match, Ordre';
+									'				,CASE' .
+									'					WHEN	cdm_pronostics_sequencement.Equipes_EquipeA IS NOT NULL AND cdm_pronostics_sequencement.Equipes_EquipeB IS NOT NULL' .
+									'					THEN	1' .
+									'					ELSE	0' .
+									'				END AS Pronostiquable' .
+									'	FROM		(' .
+									'					SELECT		cdm_pronostics_sequencement.Matches_Match, Equipe, Equipes_NomCourt AS Equipes_Nom, Equipes_Fanion, PronosticsSequencement_EquipeAB, 1 AS Ordre' .
+									'								,Pronostics_ScoreEquipeA AS Pronostics_Score, Pronostics_ScoreAPEquipeA AS Pronostics_ScoreAP, Pronostics_Vainqueur' .
+									'					FROM		cdm_pronostics_sequencement' .
+									'					LEFT JOIN	cdm_equipes' .
+									'								ON		cdm_pronostics_sequencement.Equipes_EquipeA = cdm_equipes.Equipe' .
+									'					LEFT JOIN	cdm_pronostics_phase_finale' .
+									'								ON		cdm_pronostics_sequencement.Pronostiqueurs_Pronostiqueur = cdm_pronostics_phase_finale.Pronostiqueurs_Pronostiqueur' .
+									'										AND		cdm_pronostics_sequencement.Matches_Match = cdm_pronostics_phase_finale.Matches_Match' .
+									'					WHERE		cdm_pronostics_sequencement.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+									'								AND		cdm_pronostics_sequencement.Matches_Match >= ' . $numeroMatchMin .
+									'								AND		cdm_pronostics_sequencement.Matches_Match <= ' . $numeroMatchMax .
+									'					UNION ALL' .
+									'					SELECT		cdm_pronostics_sequencement.Matches_Match, Equipe, Equipes_NomCourt AS Equipes_Nom, Equipes_Fanion, PronosticsSequencement_EquipeAB, 2 AS Ordre' .
+									'								,Pronostics_ScoreEquipeB AS Pronostics_Score, Pronostics_ScoreAPEquipeB AS Pronostics_ScoreAP, Pronostics_Vainqueur' .
+									'					FROM		cdm_pronostics_sequencement' .
+									'					LEFT JOIN	cdm_equipes' .
+									'								ON		cdm_pronostics_sequencement.Equipes_EquipeB = cdm_equipes.Equipe' .
+									'					LEFT JOIN	cdm_pronostics_phase_finale' .
+									'								ON		cdm_pronostics_sequencement.Pronostiqueurs_Pronostiqueur = cdm_pronostics_phase_finale.Pronostiqueurs_Pronostiqueur' .
+									'										AND		cdm_pronostics_sequencement.Matches_Match = cdm_pronostics_phase_finale.Matches_Match' .
+									'					WHERE		cdm_pronostics_sequencement.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+									'								AND		cdm_pronostics_sequencement.Matches_Match >= ' . $numeroMatchMin .
+									'								AND		cdm_pronostics_sequencement.Matches_Match <= ' . $numeroMatchMax .
+									'				) cdm_equipes' .
+									'	LEFT JOIN	cdm_pronostics_sequencement' .
+									'				ON		cdm_pronostics_sequencement.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+									'						AND		cdm_equipes.Matches_Match = cdm_pronostics_sequencement.Matches_Match' .
+									'	ORDER BY	Matches_Match, Ordre';
 
 		$req = $bdd->query($ordreSQL);
 		$tableau = $req->fetchAll();

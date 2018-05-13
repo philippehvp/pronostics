@@ -5,6 +5,12 @@
 	
 	// Lecture des paramètres passés à la page
 	$joueur = isset($_POST["joueur"]) ? $_POST["joueur"] : 0;
+
+	if($_SESSION["pronostiqueur"] != 1 && time() > 1528977600) {
+		echo 'Heure de pronostic dépassée';
+		exit();
+	}
+
 	
 	// Création de la ligne si elle n'existe pas encore en base
 	$ordreSQL =		'	INSERT INTO	cdm_pronostics_buteur(Pronostiqueurs_Pronostiqueur)' .

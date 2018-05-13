@@ -28,7 +28,7 @@
 	//$frontiere = '-----='.md5(rand());
 	 
 	// Sujet du message
-	$sujetCourrier = 'Coupe du Monde 2014 : compte-rendu de journée';
+	$sujetCourrier = 'Coupe du Monde 2018 : compte-rendu de journée';
 	 
 	// En-tête du courrier
 	$enteteCourrier = 'MIME-Version: 1.0' . $retourLigne;

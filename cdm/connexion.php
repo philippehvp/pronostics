@@ -3,11 +3,16 @@
 	
 	// Connexion à la base de données
 	try {
-		//$bdd = new PDO('mysql:host=mysql51-119.perso;dbname=lepoulpeg', 'lepoulpeg', 'xCYHSjfXcadD', array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
-		$bdd = new PDO('mysql:host=localhost;dbname=cdm2014', 'root', '', array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
+		if($_SERVER['HTTP_HOST'] == 'localhost') {
+			$_SESSION["local"] = 1;
+			$bdd = new PDO('mysql:host=localhost;dbname=lepoulpeg', 'root', '', array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
+		} else {
+			$_SESSION["local"] = 0;
+			$bdd = new PDO('mysql:host=mysql51-119.perso;dbname=lepoulpeg', 'lepoulpeg', 'Allezlom2014', array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
+		}
 	}
 	catch(Exception $e) {
-		die('Erreur : ' . $e->getMessage());
+		die('Erreur de base de données : ' . $e->getMessage());
 	}
 	
 	// Vérification dans la table des utilisateurs (données envoyées par le formulaire)
