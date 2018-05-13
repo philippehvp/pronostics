@@ -105,7 +105,7 @@
 	}
 
 	
-	if($_SESSION["pronostiqueur"] != 1 && $_SESSION["pronostiqueur"] != 102 && $_SESSION["pronostiqueur"] != 118) {
+	if($_SESSION["pronostiqueur"] != 1) {
 		echo 'Désolé, il n\'est plus possible d\'effectuer de pronostic';
 		exit();
 	}

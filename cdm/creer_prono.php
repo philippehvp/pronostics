@@ -216,7 +216,7 @@
 														}
 													);
 			<?php
-				if($_SESSION["pronostiqueur"] != 1) {
+				if($_SESSION["pronostiqueur"] != 1 && time() > 1528977600) {
 			?>
 					$('#nomMeilleurButeur').keyup(function(event) {
 						// Lecture de la taille de la zone de texte

@@ -17,7 +17,7 @@
 	
 	// Affichage des scores de l'équipe
 	function afficherScoreEquipe($unMatch, $equipeAB) {
-		if($_SESSION["pronostiqueur"] != 1)
+		if($_SESSION["pronostiqueur"] != 1 && time() > 1528977600)
 			$disabled = ' disabled';
 		else
 			$disabled = '';
@@ -38,7 +38,7 @@
 	// Affichage des scores AP de l'équipe
 	function afficherScoreAPEquipe($unMatch, $equipeAB) {
 		$style = ' style="visibility: hidden;"';
-		if($_SESSION["pronostiqueur"] != 1)
+		if($_SESSION["pronostiqueur"] != 1 && time() > 1528977600)
 			$disabled = ' disabled';
 		else
 			$disabled = '';
@@ -70,7 +70,7 @@
 	function afficherTAB($unMatch) {
 		// TAB
 		$style = ' style="visibility: hidden;"';
-		if($_SESSION["pronostiqueur"] != 1)
+		if($_SESSION["pronostiqueur"] != 1 && time() > 1528977600)
 			$disabled = ' disabled';
 		else
 			$disabled = '';
@@ -101,7 +101,7 @@
 	}
 
 	
-	if($_SESSION["pronostiqueur"] != 1 && $_SESSION["pronostiqueur"] != 102 && $_SESSION["pronostiqueur"] != 118) {
+	if($_SESSION["pronostiqueur"] != 1 && time() > 1528977600) {
 		echo 'Désolé, il n\'est plus possible d\'effectuer de pronostic';
 		exit();
 	}

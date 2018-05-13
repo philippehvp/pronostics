@@ -1,7 +1,7 @@
 <?php
 	include('commun.php');
 
-	if($_SESSION["pronostiqueur"] != 1) {
+	if($_SESSION["pronostiqueur"] != 1 && time() > 1528977600) {
 		exit();
 	}
 	
