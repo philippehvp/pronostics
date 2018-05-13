@@ -244,9 +244,8 @@ table.lignes tbody tr td {
 /* Page bandeau.php */
 #divBandeau {
 	width: 100%;
-	height: 69px;
+	height: 70px;
 	color: #fff;
-	border-bottom: 1px solid #888;
 	background-image: url('../../images/fond_bandeau.png');
 }
 
@@ -666,7 +665,7 @@ ul.listeTriee li {
 	width: 120px;
 	height: 24px;
 	line-height: 24px;
-	background-image: url('../../images/fond_equipe.png');
+	background: #d52b1e;
 }
 
 #divTableau div.equipe1_8 span.score, #divTableau div.equipe1_4 span.score, #divTableau div.equipe1_2 span.score, #divTableau div.equipe1_1 span.score {
