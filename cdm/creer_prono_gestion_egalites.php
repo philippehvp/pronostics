@@ -10,7 +10,7 @@
 	// Nombre de cas d'égalités
 	$ordreSQL =		'	SELECT		COUNT(*) AS NombreEgalites' .
 					'	FROM		cdm_pronostics_poule_egalites' .
-					'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+					'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
 					'				AND		Poules_Poule = ' . $poule .
 					'	GROUP BY	Pronostiqueurs_Pronostiqueur, Poules_Poule';
 	$req = $bdd->query($ordreSQL);
@@ -39,14 +39,14 @@
 						'					JOIN		(' .
 						'									SELECT		@curRow := 0' .
 						'								) r' .
-						'					WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+						'					WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
 						'								AND		Poules_Poule = ' . $poule .
 						'					ORDER BY	PronosticsPouleEgalites_Points DESC, PronosticsPouleEgalites_Diff DESC, PronosticsPouleEgalites_BP DESC' .
 						'				) cdm_pronostics_poule_egalites' .
 						'				ON		cdm_pronostics_poule_stats.PronosticsPouleStats_Points = cdm_pronostics_poule_egalites.PronosticsPouleEgalites_Points' .
 						'						AND		cdm_pronostics_poule_stats.PronosticsPouleStats_Diff = cdm_pronostics_poule_egalites.PronosticsPouleEgalites_Diff' .
 						'						AND		cdm_pronostics_poule_stats.PronosticsPouleStats_BP = cdm_pronostics_poule_egalites.PronosticsPouleEgalites_BP' .
-						'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+						'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
 						'				AND		Poules_Poule = ' . $poule .
 						'	GROUP BY	CasEgalite' .
 						'	ORDER BY	CasEgalite';
@@ -71,7 +71,7 @@
 								'	JOIN		cdm_pronostics_poule_classements' .
 								'				ON		cdm_pronostics_poule_stats.Equipes_Equipe = cdm_pronostics_poule_classements.Equipes_Equipe' .
 								'						AND		cdm_pronostics_poule_stats.Pronostiqueurs_Pronostiqueur = cdm_pronostics_poule_classements.Pronostiqueurs_Pronostiqueur' .
-								'	WHERE		cdm_pronostics_poule_stats.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+								'	WHERE		cdm_pronostics_poule_stats.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
 								'				AND		cdm_pronostics_poule_stats.Poules_Poule = ' . $poule .
 								'				AND		PronosticsPouleStats_Points = ' . $casEgalite[$i]["PronosticsPouleEgalites_Points"] .
 								'				AND		PronosticsPouleStats_Diff = ' . $casEgalite[$i]["PronosticsPouleEgalites_Diff"] .

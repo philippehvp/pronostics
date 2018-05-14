@@ -14,7 +14,7 @@
 		$nomPage = 'consulter_prono.php';
 		include('bandeau.php');
 
-		$pronostiqueurConsulte = isset($_GET["pronostiqueurConsulte"]) ? $_GET["pronostiqueurConsulte"] : $_SESSION["pronostiqueur"];
+		$pronostiqueurConsulte = isset($_GET["pronostiqueurConsulte"]) ? $_GET["pronostiqueurConsulte"] : $_SESSION["cdm_pronostiqueur"];
 		
 		// Nom du pronostiqueur consulté
 		$ordreSQL =		'	SELECT		Pronostiqueurs_Nom' .
@@ -218,7 +218,7 @@
 		$(function() {
 			var nomPronostiqueurConsulte = '<?php echo $nomPronostiqueurConsulte; ?>';
 			<?php
-				if($pronostiqueurConsulte == $_SESSION["pronostiqueur"]) {
+				if($pronostiqueurConsulte == $_SESSION["cdm_pronostiqueur"]) {
 				
 			?>
 				afficherTitrePage('divReinitialisation', 'Vos pronostics');

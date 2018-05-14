@@ -46,12 +46,12 @@
 		
 	// Tous les pronostics
 	$ordreSQL =		'	SELECT		CASE' .
-					'					WHEN	pronostiqueurs_equipes.Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+					'					WHEN	pronostiqueurs_equipes.Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
 					'					THEN	1' .
 					'					ELSE	2' .
 					'				END AS Ordre' .
 					'				,CASE' .
-					'					WHEN	Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+					'					WHEN	Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
 					'					THEN	\'Moi\'' .
 					'					ELSE	Pronostiqueurs_Nom' .
 					'				END AS Pronostiqueurs_Nom' .
@@ -82,7 +82,7 @@
 	
 	// Points des classements des poules
 	$ordreSQL	=	'	SELECT		CASE' .
-					'					WHEN	cdm_pronostiqueurs.Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+					'					WHEN	cdm_pronostiqueurs.Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
 					'					THEN	1' .
 					'					ELSE	2' .
 					'				END AS Ordre' .

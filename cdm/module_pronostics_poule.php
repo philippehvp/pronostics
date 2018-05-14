@@ -73,12 +73,12 @@
 		
 	// Tous les pronostics
 	$ordreSQL =		'	SELECT		CASE' .
-					'					WHEN	equipesA.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+					'					WHEN	equipesA.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
 					'					THEN	1' .
 					'					ELSE	2' .
 					'				END AS Ordre' .
 					'				,CASE' .
-					'					WHEN	Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+					'					WHEN	Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
 					'					THEN	\'Moi\'' .
 					'					ELSE	Pronostiqueurs_Nom' .
 					'				END AS Pronostiqueurs_Nom' .

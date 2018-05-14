@@ -26,25 +26,25 @@
 	$req = $bdd->prepare('SELECT Pronostiqueur, Pronostiqueurs_Nom, Pronostiqueurs_Administrateur, IFNULL(Pronostiqueurs_Photo, \'_inconnu.png\') AS Pronostiqueurs_Photo FROM cdm_pronostiqueurs WHERE Pronostiqueurs_Nom = ? AND Pronostiqueurs_MotDePasse = ? LIMIT 1');
 	$req->execute(array($login, $mdp));
 	
-	$_SESSION["pronostiqueur"] = 0;
+	$_SESSION["cdm_pronostiqueur"] = 0;
 	$_SESSION["administrateur"] = 0;
 	
 	$donnees = $req->fetch();
-	$_SESSION["pronostiqueur"] = $donnees["Pronostiqueur"];
+	$_SESSION["cdm_pronostiqueur"] = $donnees["Pronostiqueur"];
 	$_SESSION["nomPronostiqueur"] = $donnees["Pronostiqueurs_Nom"];
 	$_SESSION["administrateur"] = $donnees["Pronostiqueurs_Administrateur"];
 	$_SESSION["photo_pronostiqueur"] = $donnees["Pronostiqueurs_Photo"];
 	
 	$req->closeCursor();
 	
-	if($_SESSION["pronostiqueur"] <> 0) {
+	if($_SESSION["cdm_pronostiqueur"] <> 0) {
 		$_SESSION["erreurLogin"] = 0;
 		
 		header('Location: accueil.php');
 	}
 
 	else {
-		$_SESSION["pronostiqueur"] = 0;
+		$_SESSION["cdm_pronostiqueur"] = 0;
 		$_SESSION["administrateur"] = 0;
 		$_SESSION["erreurLogin"] = 1;
 		header('Location: index.php');

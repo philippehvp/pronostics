@@ -9,8 +9,8 @@
 
 				echo '<li onclick="window.open(\'creer_prono.php\', \'_self\');"><img src="images/pronostics.png" alt="" /><br />Pronostics</li>';
 
-				// if($_SESSION["pronostiqueur"] != 1)
-				// 	echo '<li onclick="window.open(\'consulter_prono.php?pronostiqueurConsulte=' . $_SESSION["pronostiqueur"] . '\', \'_self\');"><img src="images/pronostics.png" alt="" /><br />Pronostics</li>';
+				// if($_SESSION["cdm_pronostiqueur"] != 1)
+				// 	echo '<li onclick="window.open(\'consulter_prono.php?pronostiqueurConsulte=' . $_SESSION["cdm_pronostiqueur"] . '\', \'_self\');"><img src="images/pronostics.png" alt="" /><br />Pronostics</li>';
 				// else
 				// 	echo '<li onclick="window.open(\'creer_prono.php\', \'_self\');"><img src="images/pronostics.png" alt="" /><br />Pronostics</li>';
 
@@ -30,7 +30,7 @@
 				// 	echo '</ul>';
 				// echo '</li>';
 				
-				if($_SESSION["pronostiqueur"] == 1) {
+				if($_SESSION["cdm_pronostiqueur"] == 1) {
 					echo '<li><img src="images/live.png" alt="" /><br />En direct';
 						include('matches_direct.php');
 					echo '</li>';

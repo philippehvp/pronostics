@@ -72,7 +72,7 @@
 					'				END AS Evolution_Points' .
 					'				,cdm_classements.Pronostiqueurs_Pronostiqueur' .
 					'				,CASE' .
-					'					WHEN	Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+					'					WHEN	Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
 					'					THEN	\'Moi\'' .
 					'					ELSE	Pronostiqueurs_Nom' .
 					'				END AS Pronostiqueurs_Nom' .
@@ -131,7 +131,7 @@
 					
 					$classementsPrecedent = $unClassement["Classements_Classement"];
 
-					if($unClassement["Pronostiqueurs_Pronostiqueur"] == $_SESSION["pronostiqueur"])
+					if($unClassement["Pronostiqueurs_Pronostiqueur"] == $_SESSION["cdm_pronostiqueur"])
 						echo '<tr class="surbrillance">';
 					else
 						echo '<tr>';

@@ -17,7 +17,7 @@
 	
 	// Affichage des scores de l'équipe
 	function afficherScoreEquipe($unMatch, $equipeAB) {
-		if($_SESSION["pronostiqueur"] != 1 && time() > 1528977600)
+		if($_SESSION["cdm_pronostiqueur"] != 1 && time() > 1528977600)
 			$disabled = ' disabled';
 		else
 			$disabled = '';
@@ -38,7 +38,7 @@
 	// Affichage des scores AP de l'équipe
 	function afficherScoreAPEquipe($unMatch, $equipeAB) {
 		$style = ' style="visibility: hidden;"';
-		if($_SESSION["pronostiqueur"] != 1 && time() > 1528977600)
+		if($_SESSION["cdm_pronostiqueur"] != 1 && time() > 1528977600)
 			$disabled = ' disabled';
 		else
 			$disabled = '';
@@ -70,7 +70,7 @@
 	function afficherTAB($unMatch) {
 		// TAB
 		$style = ' style="visibility: hidden;"';
-		if($_SESSION["pronostiqueur"] != 1 && time() > 1528977600)
+		if($_SESSION["cdm_pronostiqueur"] != 1 && time() > 1528977600)
 			$disabled = ' disabled';
 		else
 			$disabled = '';
@@ -101,7 +101,7 @@
 	}
 
 	
-	if($_SESSION["pronostiqueur"] != 1 && time() > 1528977600) {
+	if($_SESSION["cdm_pronostiqueur"] != 1 && time() > 1528977600) {
 		echo 'Désolé, il n\'est plus possible d\'effectuer de pronostic';
 		exit();
 	}
@@ -130,7 +130,7 @@
 					'	LEFT JOIN	cdm_pronostics_phase_finale' .
 					'				ON		cdm_pronostics_sequencement.Pronostiqueurs_Pronostiqueur = cdm_pronostics_phase_finale.Pronostiqueurs_Pronostiqueur' .
 					'						AND		cdm_pronostics_sequencement.Matches_Match = cdm_pronostics_phase_finale.Matches_Match' .
-					'	WHERE		cdm_pronostics_sequencement.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+					'	WHERE		cdm_pronostics_sequencement.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
 					'				AND		cdm_pronostics_sequencement.Matches_Match = ' . $match .
 					'	LIMIT		1';
 

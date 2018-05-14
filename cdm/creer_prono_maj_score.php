@@ -2,7 +2,7 @@
 	include('commun.php');
 
 	// Mise à jour d'un score de pronostic
-	$pronostiqueur = $_SESSION["pronostiqueur"];
+	$pronostiqueur = $_SESSION["cdm_pronostiqueur"];
 
 	// Lecture des paramètres passés à la page
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
@@ -15,7 +15,7 @@
 	// - vainqueur : l'utilisateur a choisi l'équipe vainqueur du match
 	$type = isset($_POST["type"]) ? $_POST["type"] : '';
 	
-	if($_SESSION["pronostiqueur"] != 1 && time() > 1528977600) {
+	if($_SESSION["cdm_pronostiqueur"] != 1 && time() > 1528977600) {
 		echo 'DEPASSE';
 		exit();
 	}

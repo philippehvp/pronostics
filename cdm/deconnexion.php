@@ -1,7 +1,7 @@
 ﻿<?php
 	session_start();
 	
-	$_SESSION["pronostiqueur"] = 0;
+	$_SESSION["cdm_pronostiqueur"] = 0;
 	$_SESSION["nomPronostiqueur"] = NULL;
 	$_SESSION["erreurLogin"] = 0;
 	$_SESSION["administrateur"] = 0;

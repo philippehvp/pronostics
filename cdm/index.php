@@ -2,7 +2,7 @@
 	session_start();
 	
 	// Vérification de l'état de la connexion de l'utilisateur
-	$pronostiqueur = isset($_SESSION["pronostiqueur"]) ? $_SESSION["pronostiqueur"] : 0;
+	$pronostiqueur = isset($_SESSION["cdm_pronostiqueur"]) ? $_SESSION["cdm_pronostiqueur"] : 0;
 	
 	if($pronostiqueur <> 0)
 		header('Location: accueil.php');

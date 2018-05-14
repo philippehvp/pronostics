@@ -31,7 +31,7 @@
 									'					LEFT JOIN	cdm_pronostics_phase_finale' .
 									'								ON		cdm_pronostics_sequencement.Pronostiqueurs_Pronostiqueur = cdm_pronostics_phase_finale.Pronostiqueurs_Pronostiqueur' .
 									'										AND		cdm_pronostics_sequencement.Matches_Match = cdm_pronostics_phase_finale.Matches_Match' .
-									'					WHERE		cdm_pronostics_sequencement.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+									'					WHERE		cdm_pronostics_sequencement.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
 									'								AND		cdm_pronostics_sequencement.Matches_Match >= ' . $numeroMatchMin .
 									'								AND		cdm_pronostics_sequencement.Matches_Match <= ' . $numeroMatchMax .
 									'					UNION ALL' .
@@ -43,12 +43,12 @@
 									'					LEFT JOIN	cdm_pronostics_phase_finale' .
 									'								ON		cdm_pronostics_sequencement.Pronostiqueurs_Pronostiqueur = cdm_pronostics_phase_finale.Pronostiqueurs_Pronostiqueur' .
 									'										AND		cdm_pronostics_sequencement.Matches_Match = cdm_pronostics_phase_finale.Matches_Match' .
-									'					WHERE		cdm_pronostics_sequencement.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+									'					WHERE		cdm_pronostics_sequencement.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
 									'								AND		cdm_pronostics_sequencement.Matches_Match >= ' . $numeroMatchMin .
 									'								AND		cdm_pronostics_sequencement.Matches_Match <= ' . $numeroMatchMax .
 									'				) cdm_equipes' .
 									'	LEFT JOIN	cdm_pronostics_sequencement' .
-									'				ON		cdm_pronostics_sequencement.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+									'				ON		cdm_pronostics_sequencement.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
 									'						AND		cdm_equipes.Matches_Match = cdm_pronostics_sequencement.Matches_Match' .
 									'	ORDER BY	Matches_Match, Ordre';
 
@@ -151,9 +151,9 @@
 						'				,equipe_perdant_finale.Equipes_Nom AS Perdant_Finale' .
 						'				,equipe_vainqueur_petite_finale.Equipes_Nom AS Vainqueur_Petite_Finale' .
 						'	FROM		(' .
-						'					SELECT		DISTINCT cdm_fn_vainqueur(' . $_SESSION["pronostiqueur"] . ', ' . $numeroMatchMin . ') AS Vainqueur_Finale' .
-						'								,cdm_fn_perdant(' . $_SESSION["pronostiqueur"] . ', ' . $numeroMatchMin . ') AS Perdant_Finale' .
-						'								,cdm_fn_vainqueur(' . $_SESSION["pronostiqueur"] . ', ' . $numeroMatchMax . ') AS Vainqueur_Petite_Finale' .
+						'					SELECT		DISTINCT cdm_fn_vainqueur(' . $_SESSION["cdm_pronostiqueur"] . ', ' . $numeroMatchMin . ') AS Vainqueur_Finale' .
+						'								,cdm_fn_perdant(' . $_SESSION["cdm_pronostiqueur"] . ', ' . $numeroMatchMin . ') AS Perdant_Finale' .
+						'								,cdm_fn_vainqueur(' . $_SESSION["cdm_pronostiqueur"] . ', ' . $numeroMatchMax . ') AS Vainqueur_Petite_Finale' .
 						'				) podium' .
 						'	LEFT JOIN	cdm_equipes equipe_vainqueur_finale' .
 						'				ON		podium.Vainqueur_Finale = equipe_vainqueur_finale.Equipe' .

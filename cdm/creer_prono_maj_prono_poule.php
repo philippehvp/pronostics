@@ -10,12 +10,12 @@
 
 	// Le paramètre equipe indique s'il s'agit du score de l'équipe A ou celui de l'équipe B
 	// On vérifie avant tout qu'il n'est pas trop tard pour faire la modification
-	if($_SESSION["pronostiqueur"] != 1 && time() > 1528977600) {
+	if($_SESSION["cdm_pronostiqueur"] != 1 && time() > 1528977600) {
 		echo 'DEPASSE';
 		exit();
 	}
 
-	$ordreSQL = 'CALL cdm_sp_calcul_poule(' . $_SESSION["pronostiqueur"] . ', ' . $match . ', ' . $equipe . ', ' . $score . ')';
+	$ordreSQL = 'CALL cdm_sp_calcul_poule(' . $_SESSION["cdm_pronostiqueur"] . ', ' . $match . ', ' . $equipe . ', ' . $score . ')';
 	$texte = $ordreSQL;
 	$bdd->exec($ordreSQL);
 	
@@ -26,8 +26,8 @@
 					'	FROM		cdm_pronostics_poule_egalites' .
 					'	JOIN		cdm_matches_poule' .
 					'				ON		cdm_pronostics_poule_egalites.Poules_Poule = cdm_matches_poule.Poules_Poule' .
-					'	WHERE		cdm_pronostics_poule_egalites.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
-					'				AND		cdm_fn_nombre_matches_incomplets(' . $_SESSION["pronostiqueur"] . ', ' . $match . ') = 0' .
+					'	WHERE		cdm_pronostics_poule_egalites.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
+					'				AND		cdm_fn_nombre_matches_incomplets(' . $_SESSION["cdm_pronostiqueur"] . ', ' . $match . ') = 0' .
 					'				AND		cdm_matches_poule.Match = ' . $match;
 	$req = $bdd->query($ordreSQL);
 	$donnees = $req->fetchAll();

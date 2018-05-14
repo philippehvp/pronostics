@@ -8,7 +8,7 @@
 	
 	$ordreSQL =		'	UPDATE		cdm_pronostiqueurs_modules' .
 					'	SET			PronostiqueursModules_Actif = ' . $etat .
-					'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+					'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
 					'				AND		Modules_Module = ' . $module;
 					
 	$bdd->exec($ordreSQL);

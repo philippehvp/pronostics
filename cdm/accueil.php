@@ -55,7 +55,7 @@
 	<script>
 		$(function() {
 			<?php
-				if($_SESSION["pronostiqueur"] != 1) {
+				if($_SESSION["cdm_pronostiqueur"] != 1) {
 			?>		
 					var intervalRafraichissement = setInterval(module_direct_rafraichirZone, 20000);
 					$('#txtDirect').val(intervalRafraichissement);

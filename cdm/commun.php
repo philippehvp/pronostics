@@ -3,10 +3,10 @@
 		session_start();
 	}
 	
-	if(!isset($_SESSION["pronostiqueur"]))
+	if(!isset($_SESSION["cdm_pronostiqueur"]))
 		header('Location: index.php');
 		
-	$pronostiqueur = $_SESSION["pronostiqueur"];
+	$pronostiqueur = $_SESSION["cdm_pronostiqueur"];
 	if($pronostiqueur == 0)
 		header('Location: index.php');
 		

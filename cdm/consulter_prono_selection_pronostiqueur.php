@@ -7,7 +7,7 @@
 	// Un traitement spécial est fait pour le pronostiqueur 1, qui représente les résultats finaux
 	$ordreSQL =		'	SELECT		Pronostiqueur, Pronostiqueurs_Nom' .
 					'	FROM		cdm_pronostiqueurs' .
-					'	WHERE		Pronostiqueur <> ' . $_SESSION["pronostiqueur"] .
+					'	WHERE		Pronostiqueur <> ' . $_SESSION["cdm_pronostiqueur"] .
 					'	ORDER BY	Pronostiqueurs_Nom';
 	$req = $bdd->query($ordreSQL);
 	$pronostiqueursConsultables = $req->fetchAll();

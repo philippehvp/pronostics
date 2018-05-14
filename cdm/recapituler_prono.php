@@ -18,7 +18,7 @@
 		// Nom du pronostiqueur consulté
 		$ordreSQL =		'	SELECT		Pronostiqueurs_Nom' .
 						'	FROM		cdm_pronostiqueurs' .
-						'	WHERE		Pronostiqueur = ' . $_SESSION["pronostiqueur"];
+						'	WHERE		Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"];
 						
 		$req = $bdd->query($ordreSQL);
 		$donnees = $req->fetch();
@@ -62,7 +62,7 @@
 							'	FROM		cdm_pronostics_buteur' .
 							'	JOIN		cdm_joueurs' .
 							'				ON		cdm_pronostics_buteur.Joueurs_Joueur = cdm_joueurs.Joueur' .
-							'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"];
+							'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"];
 
 			$req = $bdd->query($ordreSQL);
 			$buteur = $req->fetchAll();
@@ -120,8 +120,8 @@
 						'	JOIN		cdm_equipes equipe_b' .
 						'				ON		cdm_matches_poule.Equipes_EquipeB = equipe_b.Equipe' .
 						'						AND		equipe_b.Equipe = pronostics_pouleB.Equipes_Equipe' .
-						'	WHERE		pronostics_pouleA.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
-						'				AND		pronostics_pouleB.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+						'	WHERE		pronostics_pouleA.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
+						'				AND		pronostics_pouleB.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
 						'	ORDER BY	cdm_matches_poule.Poules_Poule, cdm_matches_poule.Match';
 
 		$req = $bdd->query($ordreSQL);
@@ -132,7 +132,7 @@
 						'	FROM		cdm_pronostics_poule_classements' .
 						'	JOIN		cdm_equipes' .
 						'				ON		cdm_pronostics_poule_classements.Equipes_Equipe = cdm_equipes.Equipe' .
-						'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+						'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
 						'	ORDER BY	cdm_pronostics_poule_classements.Poules_Poule, IFNULL(PronosticsPouleClassements_ClassementTirage, PronosticsPouleClassements_Classement)';
 		
 		$req = $bdd->query($ordreSQL);
@@ -186,7 +186,7 @@
 		echo '<div id="divPronosticsPhaseFinale">';
 			afficherEntetePhaseFinale();
 			echo '<div id="divTableau">';
-				afficherTableaux($bdd, 'divTableau', $_SESSION["pronostiqueur"]);
+				afficherTableaux($bdd, 'divTableau', $_SESSION["cdm_pronostiqueur"]);
 			echo '</div>';
 			
 			afficherMeilleurButeur($bdd, 'divMeilleurButeur');
