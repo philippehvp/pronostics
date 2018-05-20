@@ -7,11 +7,11 @@
 	if($pronostiqueur <> 0)
 		header('Location: accueil.php');
 	else {
-		$_SESSION["nomPronostiqueur"] = NULL;
-		$_SESSION["administrateur"] = 0;
+		$_SESSION["cdm_nom_pronostiqueur"] = NULL;
+		$_SESSION["cdm_administrateur"] = 0;
 	}
 	
-	$erreurLogin = isset($_SESSION["erreurLogin"]) ? $_SESSION["erreurLogin"] : 0;
+	$erreurLogin = isset($_SESSION["cdm_erreur_login"]) ? $_SESSION["cdm_erreur_login"] : 0;
 	$login = isset($_COOKIE["cdm_login"]) ? $_COOKIE["cdm_login"] : '';
 	$mdp = isset($_COOKIE["cdm_mdp"]) ? $_COOKIE["cdm_mdp"] : '';
 
@@ -20,14 +20,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-<?php
-	include('commun_entete.php');
-?>
-	<style>
-	</style>
-
+	<?php
+		include('commun_entete.php');
+	?>
 </head>
-
 
 <body>
 	<?php
@@ -41,12 +37,12 @@
 				echo '<label>Nom</label>';
 				echo '<br />';
 				echo '<input type="text" name="login" id="login" value="' . $login . '">';
-				echo '<br />';echo '<br />';
+				echo '<br /><br />';
 				
 				echo '<label>Mot de passe</label>';
 				echo '<br />';
 				echo '<input class="gauche" type="password" name="mdp" id="mdp" value="' . $mdp . '">';
-				echo '<div class="validation"><label>&raquo;</div>';
+				echo '<div class="validation"><label>&raquo;</label></div>';
 			
 			echo '</form>';
 		echo '</div>';
@@ -54,7 +50,7 @@
 
 	<script>
 		$(function() {
-			$('.validation').on('click', function(event) {	connexion_connecter();	});
+			$('.validation').click(function(event) {	connexion_connecter();	});
 			
 			$('body').keypress(function(event) {
 				if(event.which == 13) {

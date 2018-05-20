@@ -7,7 +7,7 @@
 	if($pronostiqueur <> 0)
 		header('Location: accueil.php');
 	else {
-		$_SESSION["nomPronostiqueur"] = NULL;
+		$_SESSION["nom_pronostiqueur"] = NULL;
 		$_SESSION["administrateur"] = 0;
 	}
 	

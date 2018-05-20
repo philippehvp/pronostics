@@ -8,6 +8,13 @@ function afficherTitrePage(element, titrePage) {
 	retournerHautPage();
 }
 
+// Première connexion - Soumission de formulaire
+function premiereConnexion_validerMotDePasse() {
+	var elt = document.forms['formModificationMotDePasse'];
+	if (elt != null)
+		elt.submit();
+}
+
 // Affichage du bouton "retour haut de page"
 function retournerHautPage() {
 	$('html body').prepend('<a href="#" class="retourHautPage">&nbsp;</a>');

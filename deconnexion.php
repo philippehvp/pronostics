@@ -11,11 +11,11 @@
 	$req = $bdd->exec($ordreSQL);
 	
 	unset($_SESSION["pronostiqueur"]);
-	unset($_SESSION["nom_utilisateur"]);
-	unset($_SESSION["prenom"]);
+	unset($_SESSION["nom_pronostiqueur"]);
+	unset($_SESSION["prenom_pronostiqueur"]);
 	unset($_SESSION["administrateur"]);
 	unset($_SESSION["photo_pronostiqueur"]);
-	unset($_SESSION["theme"]);
+	unset($_SESSION["theme_pronostiqueur"]);
 	
 	header('Location: index.php');
 

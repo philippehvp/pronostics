@@ -17,6 +17,6 @@
 					'	WHERE		Theme = ' . $theme;
 	$req = $bdd->query($ordreSQL);
 	$themes = $req->fetchAll();
-	$_SESSION["theme"] = $themes[0]["Themes_NomCourt"];
+	$_SESSION["theme_pronostiqueur"] = $themes[0]["Themes_NomCourt"];
 	
 ?>	

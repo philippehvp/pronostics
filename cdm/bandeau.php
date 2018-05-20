@@ -38,7 +38,7 @@
 				}
 
 				echo '<li onclick="window.open(\'reglement.php\', \'_self\');"><img src="images/reglement.png" alt="" /><br />Règlement</li>';
-				echo '<li onclick="window.open(\'deconnexion.php\', \'_self\');"><img src="images/pronostiqueurs/' . $_SESSION["photo_pronostiqueur"] . '" width="32px" height="32px" style="border: 1px solid #ccc;" /><br /><label class="deconnecter">Déconnecter</label></li>';
+				echo '<li onclick="window.open(\'deconnexion.php\', \'_self\');"><img src="images/pronostiqueurs/_inconnu.png" width="32px" height="32px" /><label class="deconnecter"><br /><label class="deconnecter">Déconnecter</label></li>';
 				
 			echo '</ul>';
 		echo '</div>';

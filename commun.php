@@ -10,7 +10,7 @@
 	if($pronostiqueur == 0)
 		header('Location: index.php');
 
-	$nomPronostiqueur = isset($_SESSION["nomPronostiqueur"]) ? $_SESSION["nomPronostiqueur"] : 'Nom inconnu';
+	$nomPronostiqueur = isset($_SESSION["nom_pronostiqueur"]) ? $_SESSION["nom_pronostiqueur"] : 'Nom inconnu';
 	$administrateur = isset($_SESSION["administrateur"]) ? $_SESSION["administrateur"] : 0;
 
 	// Connexion à la base de données
