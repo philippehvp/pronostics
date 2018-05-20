@@ -3,24 +3,31 @@
 	
 	include_once('commun.php');
 	
-	if($_SESSION["administrateur"] == 1)
-		// Nombre de championnats différents
-		$ordreSQL =		'	SELECT		DISTINCT Championnat, Championnats_NomCourt, ModulesGroupes_Actif' .
-						'	FROM		championnats' .
-						'	LEFT JOIN	modules_groupes' .
-						'				ON		championnats.Championnat = modules_groupes.ModulesGroupes_Parametre' .
-						'						AND		modules_groupes.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"];
+	// if($_SESSION["administrateur"] == 1)
+	// 	// Nombre de championnats différents
+	// 	$ordreSQL =		'	SELECT		DISTINCT Championnat, Championnats_NomCourt, ModulesGroupes_Actif' .
+	// 					'	FROM		championnats' .
+	// 					'	LEFT JOIN	modules_groupes' .
+	// 					'				ON		championnats.Championnat = modules_groupes.ModulesGroupes_Parametre' .
+	// 					'						AND		modules_groupes.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"];
 
-	else
-		// Nombre de championnats différents auxquels le pronostiqueur est inscrit
-		$ordreSQL =		'	SELECT		DISTINCT Championnat, Championnats_NomCourt, ModulesGroupes_Actif' .
-						'	FROM		inscriptions' .
-						'	JOIN		championnats' .
-						'				ON		inscriptions.Championnats_Championnat = championnats.Championnat' .
-						'	LEFT JOIN	modules_groupes' .
-						'				ON		championnats.Championnat = modules_groupes.ModulesGroupes_Parametre' .
-						'						AND		modules_groupes.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
-						'	WHERE		inscriptions.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"];
+	// else
+	// 	// Nombre de championnats différents auxquels le pronostiqueur est inscrit
+	// 	$ordreSQL =		'	SELECT			DISTINCT championnats.Championnat, championnats.Championnats_NomCourt, modules_groupes.ModulesGroupes_Actif' .
+	// 								'	FROM				championnats' .
+	// 								'	LEFT JOIN		inscriptions' .
+	// 								'							ON		inscriptions.Championnats_Championnat = championnats.Championnat' .
+	// 								'										AND		inscriptions.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+	// 								'	LEFT JOIN		modules_groupes' .
+	// 								'							ON		championnats.Championnat = modules_groupes.ModulesGroupes_Parametre' .
+	// 								'										AND		modules_groupes.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+	// 								'	WHERE				championnats.Championnat <> 4';
+
+	$ordreSQL =		'	SELECT		DISTINCT Championnat, Championnats_NomCourt, ModulesGroupes_Actif' .
+								'	FROM		championnats' .
+								'	LEFT JOIN	modules_groupes' .
+								'				ON		championnats.Championnat = modules_groupes.ModulesGroupes_Parametre' .
+								'						AND		modules_groupes.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"];
 
 	$req = $bdd->query($ordreSQL);
 	$championnats = $req->fetchAll();
