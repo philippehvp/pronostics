@@ -414,7 +414,7 @@ function module_directPhaseFinale_sauvegarderScoreMatch(el, type, numeroMatch, e
 // Module direct - Rafraîchissement automatique (match de poule ou de phase finale)
 function module_direct_rafraichirZone() {
 	$.ajax(	{
-				url: 'module_direct_phase_finale.php',
+				url: 'module_direct_poule.php',
 				type: 'POST',
 				data: { appelAjax: 1 }
 			}

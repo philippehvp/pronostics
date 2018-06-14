@@ -9,7 +9,7 @@
 ?>
 </head>
 
-<body style="background: url('images/fond/fond_principal.jpg') repeat 0% 0%;">
+<body style="background: url('images/fond/fond_principal_russie.jpg') repeat 0% 0%;">
 	<?php
 		$nomPage = 'premiere_connexion.php';
 		

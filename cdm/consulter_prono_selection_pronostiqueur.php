@@ -26,7 +26,7 @@
 						else
 							$nomPronostiqueur = $pronostiqueursConsultables[$i * $nombrePronostiqueursParColonne + $j]["Pronostiqueurs_Nom"];
 						
-						echo '<label class="lien" onclick="window.open(\'consulter_prono.php?pronostiqueurConsulte=' . $pronostiqueursConsultables[$i * $nombrePronostiqueursParColonne + $j]["Pronostiqueur"] . '\', \'_self\');">' . $nomPronostiqueur . '</label>';
+						echo '<label class="lien" onclick="window.open(\'recapituler_prono.php?pronostiqueurConsulte=' . $pronostiqueursConsultables[$i * $nombrePronostiqueursParColonne + $j]["Pronostiqueur"] . '\', \'_self\');">' . $nomPronostiqueur . '</label>';
 						echo '<br />';
 					}
 				echo '</div>';

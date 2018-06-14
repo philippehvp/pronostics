@@ -76,7 +76,6 @@
 					'					THEN	\'Moi\'' .
 					'					ELSE	Pronostiqueurs_Nom' .
 					'				END AS Pronostiqueurs_Nom' .
-					'				,Pronostiqueurs_Photo' .
 					'				,cdm_classements.Classements_Points' .
 					'	FROM		cdm_classements' .
 					'	JOIN		cdm_pronostiqueurs' .

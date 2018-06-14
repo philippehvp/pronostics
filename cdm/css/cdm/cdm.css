@@ -29,12 +29,12 @@
 }
 
 .ui-dialog .ui-dialog-content {
-	background-image: url('../../images/fond_transparent.png');
+	background-color: #0039a6;
 }
 
 .ui-dialog .ui-dialog-buttonpane {
 	margin: 0;
-	background-image: url('../../images/fond_transparent.png');
+	background-color: #0039a6;
 }
 
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
@@ -49,7 +49,7 @@
 /* Boutons */
 .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited {
 	color: #fff;
-	background-image: url('../../images/fond_transparent.png');
+	background-color: #0039a6;
 	text-decoration: none;
 }
 
@@ -70,7 +70,7 @@ li.ui-tabs-active .ui-tabs-anchor, .ui-tabs .ui-tabs-nav li.ui-state-disabled .u
 
 .ui-button, .ui-dialog .ui-dialog-buttonpane button {
 	color: #fff;
-	background-image: url('../../images/fond_transparent.png');
+	background-color: #0039a6;
 }
 
 .ui-button:hover, .ui-dialog .ui-dialog-buttonpane button:hover {
@@ -96,11 +96,11 @@ html {
 }
 
 body {
-	color: #fff;
-	background-color: #000;
+	color: #ffffff;
+	background-color: #cccccc;
 	font: 0.9em Verdana,Helvetica,Arial,sans-serif;
 	height: 100%;
-	background-image: url('../../images/fond/fond_principal.jpg');
+	background-image: url('../../images/fond/fond_principal_russie.jpg');
 	background-repeat: repeat;
 	background-position: center top;
 }
@@ -119,6 +119,7 @@ h1 {
 	font-size: 2em;
 	text-transform: uppercase;
 	margin-bottom: 10px;
+	color: #ffffff;
 }
 
 .colle-gauche {
@@ -147,7 +148,7 @@ h1 {
 
 .blanc {
 	background-color: #fff;
-	color: #333;
+	color: #0039a6;
 }
 
 .vert {
@@ -169,7 +170,7 @@ h1 {
 }
 
 .pair {
-	background-color: #333;
+	background-color: #0039a6;
 }
 
 .impair {
@@ -181,14 +182,12 @@ table tbody tr.bordureHaut td {
 }
 
 table {
-	color: #fff;
-	
 	border-spacing: 0;
 }
 
 table thead th {
 	background-color: #fff;
-	color: #333;
+	color: #0039a6;
 	font-size: 0.9em;
 	font-weight: normal;
 }
@@ -206,10 +205,6 @@ table tbody tr.surbrillance {
 	color: #fff;
 }
 
-table.lignes thead tr th {
-	/*min-width: 100px;*/
-}
-
 table.lignes tbody tr td {
 	min-width: 100px;
 }
@@ -224,7 +219,7 @@ table.lignes tbody tr td {
 	height: 20px;
 	padding: 10px; 
 	text-align: center; 
-	background: #333;
+	background: #0039a6;
 	color: #fff;
 	text-decoration: none;
 	position: fixed;
@@ -244,9 +239,9 @@ table.lignes tbody tr td {
 /* Page bandeau.php */
 #divBandeau {
 	width: 100%;
-	height: 70px;
-	color: #fff;
-	background-image: url('../../images/fond_bandeau.png');
+	height: 64px;
+	color: #ffffff;
+	border-bottom: 1px solid #ffffff;
 }
 
 #divBandeau div.icones {
@@ -265,7 +260,11 @@ table.lignes tbody tr td {
 	height: 65px;
 }
 
-#divBandeau ul li:hover {
+#divBandeau ul li span {
+	padding: 2px 5px;
+}
+
+#divBandeau ul li span:hover {
 	text-decoration: underline;
 }
 
@@ -295,7 +294,7 @@ table.lignes tbody tr td {
 	position: absolute;
 	width: 615px;
 	top: 180px;
-	left: 205px;
+	left: 80px;
 }
 
 #divBandeau div.nomPronostiqueurs {
@@ -340,7 +339,7 @@ table.lignes tbody tr td {
 
 #divMenuW8 div {
 	margin: 0 8px 8px 0;
-	background-color: #333;
+	background-color: #0039a6;
 	float: left;
 	height: 20px;
 	padding: 100px 0 0 7px;
@@ -517,7 +516,7 @@ table.lignes tbody tr td {
 	height: 35px;
 	line-height: 35px;
 	font-size: 1em;
-	color: #fff;
+	color: #0039a6;
 }
 
 #divPronosticsPoules div.matchPoule span {
@@ -537,11 +536,17 @@ table.lignes tbody tr td {
 #divPronosticsPoules div.matchPoule span.nomEquipeGauche {
 	margin-right: 5px;
 	text-align: right;
+	font-size: 0.7em;
+	text-transform: uppercase;
+	color: #ffffff;
 }
 
 #divPronosticsPoules div.matchPoule span.nomEquipeDroite {
 	margin-left: 5px;
 	text-align: left;
+	font-size: 0.7em;
+	text-transform: uppercase;
+	color: #ffffff;
 }
 
 #divPronosticsPoules div.matches {
@@ -569,7 +574,7 @@ table.lignes tbody tr td {
 }
 
 #divPronosticsPoules table.classementPoule tbody tr.fondOrange {
-	background-color: #d85a0e;
+	background-color: #d52b1e;
 }
 
 #divPronosticsPoules .ui-button .ui-button-text {
@@ -753,7 +758,7 @@ ul.listeTriee li {
 	width: 900px;
 	height: 50px;
 	color: #fff;
-	background: #0039a6;
+	background-color: #0039a6;
 	text-align: center;
 	padding-top: 10px;
 	position: relative;
@@ -816,8 +821,6 @@ ul.listeTriee li {
 	height: 1050px;
 	margin: 0 auto;
 	padding-left: 10px;
-	background-color: #333;
-	
 }
 
 #divReglement ul {
@@ -937,7 +940,7 @@ ul.listeTriee li {
 ,#tblStatistiques tr:nth-child(even)
 ,#tblStatistiquesEvolution tr:nth-child(even)
 ,#tblPoints tr:nth-child(even) {
-	background-color: #333;
+	background-color: #0039a6;
 }
 
 #tblPronosticsPoule tr:nth-child(odd)
@@ -1075,7 +1078,7 @@ ul.listeTriee li {
 }
 
 #divStatistiques table tr:nth-child(even) {
-	background-color: #333;
+	background-color: #0039a6;
 }
 
 #divStatistiques table tr:nth-child(odd) {
@@ -1103,7 +1106,7 @@ ul.listeTriee li {
 
 #divEnteteJournees div.nomModule, #divEnteteClassements div.nomModule {
 	background-color: #fff;
-	color: #333;
+	color: #0039a6;
 	width: 150px;
 	height: 25px;
 	font-size: 0.8em;
@@ -1185,6 +1188,10 @@ ul.listeTriee li {
 	margin-bottom: 10px;
 }
 
+#divDirect div.matchEnDirect {
+	background-color: #578657;
+}
+
 #divDirect div.match div.drapeau {
 	width: 60px;
 	height: 44px;
@@ -1203,7 +1210,7 @@ ul.listeTriee li {
 	text-transform: uppercase;
 	text-align: center;
 	font-weight: bold;
-	font-size: 1.5em;
+	font-size: 1.0em;
 }
 
 #divDirect div.score {

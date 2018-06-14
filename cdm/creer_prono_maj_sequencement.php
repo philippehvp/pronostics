@@ -1,7 +1,7 @@
 <?php
 	include('commun.php');
 
-	if($_SESSION["cdm_pronostiqueur"] != 1 && time() > 1528977600) {
+	if($_SESSION["cdm_pronostiqueur"] != 1 && time() > 1528988400) {
 		exit();
 	}
 	

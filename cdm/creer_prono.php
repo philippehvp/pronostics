@@ -83,11 +83,11 @@
 			}
 			else {
 					$ordreSQL =		'	SELECT		Joueurs_Joueur, Joueurs_Nom' .
-									'	FROM		cdm_pronostics_buteur' .
-									'	JOIN		cdm_joueurs' .
-									'				ON		cdm_pronostics_buteur.Joueurs_Joueur = cdm_joueurs.Joueur' .
-									'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"];
-				
+												'	FROM		cdm_pronostics_buteur' .
+												'	JOIN		cdm_joueurs' .
+												'				ON		cdm_pronostics_buteur.Joueurs_Joueur = cdm_joueurs.Joueur' .
+												'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"];
+
 					$req = $bdd->query($ordreSQL);
 					$buteur = $req->fetchAll();
 
@@ -216,7 +216,7 @@
 														}
 													);
 			<?php
-				if($_SESSION["cdm_pronostiqueur"] != 1 && time() > 1528977600) {
+				if($_SESSION["cdm_pronostiqueur"] != 1 && time() < 1528988400) {
 			?>
 					$('#nomMeilleurButeur').keyup(function(event) {
 						// Lecture de la taille de la zone de texte

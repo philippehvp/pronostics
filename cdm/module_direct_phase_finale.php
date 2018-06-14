@@ -93,8 +93,8 @@
 						$scoreAPEquipeB = $unMatch["Pronostics_ScoreAPEquipeB"];
 						$vainqueur = $unMatch["Pronostics_Vainqueur"];
 
-						/*	En priorité, on affiche :
-							- le vainqueur des TAB (mention TAB à côté du score)
+						/*	En prioritï¿½, on affiche :
+							- le vainqueur des TAB (mention TAB ï¿½ cï¿½tï¿½ du score)
 							- le perdant des TAB
 							- le score AP
 							- le score

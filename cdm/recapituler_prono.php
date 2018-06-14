@@ -15,10 +15,13 @@
 		$nomPage = 'recapituler_prono.php';
 		include('bandeau.php');
 
+		$pronostiqueurConsulte = isset($_GET["pronostiqueurConsulte"]) ? $_GET["pronostiqueurConsulte"] : $_SESSION["cdm_pronostiqueur"];
+
+
 		// Nom du pronostiqueur consulté
 		$ordreSQL =		'	SELECT		Pronostiqueurs_Nom' .
-						'	FROM		cdm_pronostiqueurs' .
-						'	WHERE		Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"];
+									'	FROM		cdm_pronostiqueurs' .
+									'	WHERE		Pronostiqueur = ' . $pronostiqueurConsulte;
 						
 		$req = $bdd->query($ordreSQL);
 		$donnees = $req->fetch();
@@ -56,13 +59,13 @@
 		}
 
 		// Fonction d'affichage de la zone de sélection du meilleur buteur
-		function afficherMeilleurButeur($bdd, $nomDiv) {
+		function afficherMeilleurButeur($bdd, $pronostiqueurConsulte, $nomDiv) {
 			// Lecture des données déjà saisies par le pronostiqueur consulté
 			$ordreSQL =		'	SELECT		Joueurs_Joueur, Joueurs_Nom' .
 							'	FROM		cdm_pronostics_buteur' .
 							'	JOIN		cdm_joueurs' .
 							'				ON		cdm_pronostics_buteur.Joueurs_Joueur = cdm_joueurs.Joueur' .
-							'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"];
+							'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $pronostiqueurConsulte;
 
 			$req = $bdd->query($ordreSQL);
 			$buteur = $req->fetchAll();
@@ -120,8 +123,8 @@
 						'	JOIN		cdm_equipes equipe_b' .
 						'				ON		cdm_matches_poule.Equipes_EquipeB = equipe_b.Equipe' .
 						'						AND		equipe_b.Equipe = pronostics_pouleB.Equipes_Equipe' .
-						'	WHERE		pronostics_pouleA.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
-						'				AND		pronostics_pouleB.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
+						'	WHERE		pronostics_pouleA.Pronostiqueurs_Pronostiqueur = ' . $pronostiqueurConsulte .
+						'				AND		pronostics_pouleB.Pronostiqueurs_Pronostiqueur = ' . $pronostiqueurConsulte .
 						'	ORDER BY	cdm_matches_poule.Poules_Poule, cdm_matches_poule.Match';
 
 		$req = $bdd->query($ordreSQL);
@@ -132,7 +135,7 @@
 						'	FROM		cdm_pronostics_poule_classements' .
 						'	JOIN		cdm_equipes' .
 						'				ON		cdm_pronostics_poule_classements.Equipes_Equipe = cdm_equipes.Equipe' .
-						'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
+						'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $pronostiqueurConsulte .
 						'	ORDER BY	cdm_pronostics_poule_classements.Poules_Poule, IFNULL(PronosticsPouleClassements_ClassementTirage, PronosticsPouleClassements_Classement)';
 		
 		$req = $bdd->query($ordreSQL);
@@ -186,10 +189,10 @@
 		echo '<div id="divPronosticsPhaseFinale">';
 			afficherEntetePhaseFinale();
 			echo '<div id="divTableau">';
-				afficherTableaux($bdd, 'divTableau', $_SESSION["cdm_pronostiqueur"]);
+				afficherTableaux($bdd, 'divTableau', $pronostiqueurConsulte);
 			echo '</div>';
 			
-			afficherMeilleurButeur($bdd, 'divMeilleurButeur');
+			afficherMeilleurButeur($bdd, $pronostiqueurConsulte, 'divMeilleurButeur');
 		echo '</div>';
 
 
@@ -197,7 +200,19 @@
 	
 	<script>
 		$(function() {
-			afficherTitrePage('divReinitialisation', 'Résumé de vos pronostics');
+			var nomPronostiqueurConsulte = '<?php echo $nomPronostiqueur; ?>';
+			<?php
+				if($pronostiqueurConsulte == $_SESSION["cdm_pronostiqueur"]) {
+			?>
+					afficherTitrePage('divReinitialisation', 'Vos pronostics');
+			<?php
+				}
+				else {
+			?>
+					afficherTitrePage('divReinitialisation', 'Pronostics de ' + nomPronostiqueurConsulte);
+			<?php
+				}
+			?>
 		});
 
 	</script>

@@ -50,22 +50,24 @@
 						'								AND		equipesA.Pronostiqueurs_Pronostiqueur <> 1' .
 						'								AND		equipesA.PronosticsPoule_Score = equipesB.PronosticsPoule_Score' .
 						'				) AS Match_Nul' .
-						'	FROM		cdm_matches_direct' .
-						'	JOIN		cdm_matches_poule' .
-						'				ON		Matches_Match = cdm_matches_poule.Match' .
-						'	JOIN		cdm_equipes equipesA' .
-						'				ON		cdm_matches_poule.Equipes_EquipeA = equipesA.Equipe' .
-						'	JOIN		cdm_equipes equipesB' .
-						'				ON		cdm_matches_poule.Equipes_EquipeB = equipesB.Equipe' .
-						'	LEFT JOIN	cdm_pronostics_poule pronosticsA' .
-						'				ON		cdm_matches_direct.Matches_Match = pronosticsA.Matches_Match' .
-						'						AND		cdm_matches_poule.Equipes_EquipeA = pronosticsA.Equipes_Equipe' .
-						'						AND		pronosticsA.Pronostiqueurs_Pronostiqueur = 1' .
-						'	LEFT JOIN	cdm_pronostics_poule pronosticsB' .
-						'				ON		cdm_matches_direct.Matches_Match = pronosticsB.Matches_Match' .
-						'						AND		cdm_matches_poule.Equipes_EquipeB = pronosticsB.Equipes_Equipe' .
-						'	WHERE		pronosticsA.Pronostiqueurs_Pronostiqueur = 1' .
-						'				AND		pronosticsB.Pronostiqueurs_Pronostiqueur = 1';
+						'				,CASE WHEN cdm_matches_direct.Matches_Match IS NOT NULL THEN 1 ELSE 0 END AS Match_Direct' .
+						'	FROM				cdm_matches_poule' .
+						'	LEFT JOIN		cdm_matches_direct' .
+						'							ON		cdm_matches_poule.Match = cdm_matches_direct.Matches_Match' .
+						'	JOIN				cdm_equipes equipesA' .
+						'							ON		cdm_matches_poule.Equipes_EquipeA = equipesA.Equipe' .
+						'	JOIN				cdm_equipes equipesB' .
+						'							ON		cdm_matches_poule.Equipes_EquipeB = equipesB.Equipe' .
+						'	LEFT JOIN		cdm_pronostics_poule pronosticsA' .
+						'							ON		cdm_matches_poule.Match = pronosticsA.Matches_Match' .
+						'										AND		cdm_matches_poule.Equipes_EquipeA = pronosticsA.Equipes_Equipe' .
+						'										AND		pronosticsA.Pronostiqueurs_Pronostiqueur = 1' .
+						'	LEFT JOIN		cdm_pronostics_poule pronosticsB' .
+						'							ON		cdm_matches_poule.Match = pronosticsB.Matches_Match' .
+						'										AND		cdm_matches_poule.Equipes_EquipeB = pronosticsB.Equipes_Equipe' .
+						'	WHERE				cdm_matches_poule.Matches_JourneeEnCours IN (cdm_fn_journee_en_cours() - 1, cdm_fn_journee_en_cours(), cdm_fn_journee_en_cours() + 1)' .
+						'							AND		pronosticsA.Pronostiqueurs_Pronostiqueur = 1' .
+						'							AND		pronosticsB.Pronostiqueurs_Pronostiqueur = 1';
 
 		$req = $bdd->query($ordreSQL);
 		if($req) {
@@ -79,7 +81,11 @@
 						echo '<div class="gauche matchNul">Nul : ' . $unMatch["Match_Nul"] . '</div>';
 						echo '<div class="gauche equipeB">Victoire : ' . $unMatch["Victoires_EquipeB"] . '</div>';
 					echo '</div>';
-					echo '<div class="match">';
+					if($unMatch["Match_Direct"] == 1) {
+						echo '<div class="match matchEnDirect">';	
+					} else {
+						echo '<div class="match">';
+					}
 						echo '<div class="colle-gauche gauche drapeau"><img src="images/equipes/' . $unMatch["EquipesA_Fanion"] . '" alt="" /></div>';
 						echo '<div class="gauche equipe"><label>' . $unMatch["EquipeA_Nom"] . '</label></div>';
 						

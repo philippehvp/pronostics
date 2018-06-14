@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	include('commun.php');
 
 	// Sauvegarde du pronostic de meilleur buteur
@@ -6,7 +6,7 @@
 	// Lecture des paramètres passés à la page
 	$joueur = isset($_POST["joueur"]) ? $_POST["joueur"] : 0;
 
-	if($_SESSION["cdm_pronostiqueur"] != 1 && time() > 1528977600) {
+	if($_SESSION["cdm_pronostiqueur"] != 1 && time() > 1528988400) {
 		echo 'Heure de pronostic dépassée';
 		exit();
 	}

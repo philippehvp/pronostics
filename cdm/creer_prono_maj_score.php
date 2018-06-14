@@ -15,7 +15,7 @@
 	// - vainqueur : l'utilisateur a choisi l'équipe vainqueur du match
 	$type = isset($_POST["type"]) ? $_POST["type"] : '';
 	
-	if($_SESSION["cdm_pronostiqueur"] != 1 && time() > 1528977600) {
+	if($_SESSION["cdm_pronostiqueur"] != 1 && time() > 1528988400) {
 		echo 'DEPASSE';
 		exit();
 	}
