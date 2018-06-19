@@ -21,7 +21,7 @@
 				 		echo '<li onclick="window.open(\'classements_poule.php\', \'_self\');">Classements de poule</li>';
 				 		echo '<li onclick="window.open(\'meilleur_buteur.php\', \'_self\');">Meilleurs buteurs</li>';
 				 		echo '<li onclick="window.open(\'podium.php\', \'_self\');">Podium</li>';
-				 		//echo '<li onclick="window.open(\'voir_statistiques.php\', \'_self\');">Statistiques</li>';
+				 		echo '<li onclick="window.open(\'voir_statistiques.php\', \'_self\');">Statistiques</li>';
 				 		echo '<li onclick="window.open(\'recapituler_prono.php\', \'_self\');">Résumé de mes pronostics</li>';
 				 		echo '<li>Pronostics de...';
 				 			include('consulter_prono_selection_pronostiqueur.php');

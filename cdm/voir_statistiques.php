@@ -20,7 +20,7 @@
 				echo '<table>';
 					echo '<thead>';
 						echo '<tr>';
-							echo '<th>Podiums</th>';
+							echo '<th>Equipes</th>';
 							echo '<th>Vainqueur</th>';
 							echo '<th>Finaliste</th>';
 							echo '<th>Troisième</th>';
@@ -28,31 +28,31 @@
 					echo '</thead>';
 					echo '<tbody>';
 						echo '<tr>';
-							echo '<td>Brésil</td><td>30</td><td>13</td><td>22</td>';
+							echo '<td>Brésil</td><td>24</td><td>13</td><td>24</td>';
 						echo '</tr>';
 						echo '<tr>';
-							echo '<td>Argentine</td><td>13</td><td>27</td><td>3</td>';
+							echo '<td>France</td><td>31</td><td>4</td><td>23</td>';
 						echo '</tr>';
 						echo '<tr>';
-							echo '<td>Allemagne</td><td>12</td><td>6</td><td>22</td>';
+							echo '<td>Allemagne</td><td>6</td><td>26</td><td>11</td>';
 						echo '</tr>';
 						echo '<tr>';
-							echo '<td>France</td><td>7</td><td>2</td><td>12</td>';
+							echo '<td>Espagne</td><td>7</td><td>19</td><td>10</td>';
 						echo '</tr>';
 						echo '<tr>';
-							echo '<td>Espagne</td><td>4</td><td>11</td><td>4</td>';
+							echo '<td>Argentine</td><td>7</td><td>8</td><td>3</td>';
 						echo '</tr>';
 						echo '<tr>';
-							echo '<td>Italie</td><td>3</td><td>4</td><td>3</td>';
+							echo '<td>Belgique</td><td>2</td><td>3</td><td>3</td>';
 						echo '</tr>';
 						echo '<tr>';
-							echo '<td>Belgique</td><td>0</td><td>3</td><td>2</td>';
+							echo '<td>Angleterre</td><td>1</td><td>3</td><td>2</td>';
 						echo '</tr>';
 						echo '<tr>';
-							echo '<td>Portugal</td><td>0</td><td>2</td><td>1</td>';
+							echo '<td>Portugal</td><td>0</td><td>3</td><td>1</td>';
 						echo '</tr>';
 						echo '<tr>';
-							echo '<td>Uruguay</td><td>0</td><td>1</td><td>0</td>';
+							echo '<td>Uruguay</td><td>1</td><td>0</td><td>2</td>';
 						echo '</tr>';
 					echo '</tbody>';
 				echo '</table>';
@@ -60,7 +60,17 @@
 		}
 		
 		// Meilleurs buteurs pronostiqués par les joueurs
-		function meilleursButeurs() {
+		function meilleursButeurs($bdd) {
+			$ordreSQL =	'	SELECT		cdm_joueurs.Joueurs_Nom, COUNT(*) AS Nombre' .
+									'	FROM			cdm_pronostics_buteur' .
+									'	JOIN			cdm_joueurs' .
+									'						ON		cdm_pronostics_buteur.Joueurs_Joueur = cdm_joueurs.Joueur' .
+									'	GROUP BY	cdm_pronostics_buteur.Joueurs_Joueur' .
+									'	ORDER BY	Nombre DESC';
+
+			$req = $bdd->query($ordreSQL);
+			$meilleursButeurs = $req->fetchAll();
+
 			echo '<div>';
 				echo '<table>';
 					echo '<thead>';
@@ -70,45 +80,11 @@
 						echo '</tr>';
 					echo '</thead>';
 					echo '<tbody>';
-						echo '<tr>';
-							echo '<td>Lionel Messi</td><td>30</td>';
-						echo '</tr>';
-						echo '<tr>';
-							echo '<td>Neymar</td><td>13</td>';
-						echo '</tr>';
-						echo '<tr>';
-							echo '<td>Cristiano Ronaldo</td><td>6</td>';
-						echo '</tr>';
-						echo '<tr>';
-							echo '<td>Fred</td><td>5</td>';
-						echo '</tr>';
-						echo '<tr>';
-							echo '<td>Thomas Muller</td><td>3</td>';
-						echo '</tr>';
-						echo '<tr>';
-							echo '<td>Karim Benzema</td><td>3</td>';
-						echo '</tr>';
-						echo '<tr>';
-							echo '<td>Sergio Agüero</td><td>2</td>';
-						echo '</tr>';
-						echo '<tr>';
-							echo '<td>Romelu Lukaku</td><td>1</td>';
-						echo '</tr>';
-						echo '<tr>';
-							echo '<td>Miroslav Klose</td><td>1</td>';
-						echo '</tr>';
-						echo '<tr>';
-							echo '<td>Mario Balotelli</td><td>1</td>';
-						echo '</tr>';
-						echo '<tr>';
-							echo '<td>Edinson Cavani</td><td>1</td>';
-						echo '</tr>';
-						echo '<tr>';
-							echo '<td>Arjen Roben</td><td>1</td>';
-						echo '</tr>';
-						echo '<tr>';
-							echo '<td>Luis Suarez</td><td>1</td>';
-						echo '</tr>';
+						foreach($meilleursButeurs as $unMeilleurButeur) {
+							echo '<tr>';
+								echo '<td>' . $unMeilleurButeur["Joueurs_Nom"] . ' </td><td>' . $unMeilleurButeur["Nombre"] . '</td>';
+							echo '</tr>';
+						}
 					echo '</tbody>';
 				echo '</table>';
 			echo '</div>';
@@ -724,7 +700,7 @@
 			echo '</ul>';
 			echo '<div id="divStatistiques-1">';
 				podiumsEquipes();
-				meilleursButeurs();
+				meilleursButeurs($bdd);
 			echo '</div>';
 			
 			echo '<div id="divStatistiques-2">';

@@ -9,6 +9,14 @@
 		}
 
 		// Lecture des matches de poule en direct
+		// Règle : afficher les matches de la journée en cours + les matches de la journée précédente si le premier match de la journée en cours n'a pas encore commencé
+		$ordreSQL =		'	SELECT		MIN(cdm_matches_poule.Matches_Date) AS Matches_Date' .
+									'	FROM			cdm_matches_poule' .
+									'	WHERE			DATE(cdm_matches_poule.Matches_Date) = DATE(NOW())';
+		$req = $bdd->query($ordreSQL);
+		$match = $req->fetchAll();
+		$datePremierMatch = $match[0]["Matches_Date"];
+
 		$ordreSQL =		'	SELECT		cdm_matches_poule.Match, cdm_matches_poule.Poules_Poule' .
 						'				,equipesA.Equipe AS EquipeA, equipesB.Equipe AS EquipeB' .
 						'				,equipesA.Equipes_Nom AS EquipeA_Nom, equipesB.Equipes_Nom AS EquipeB_Nom' .
@@ -65,7 +73,13 @@
 						'	LEFT JOIN		cdm_pronostics_poule pronosticsB' .
 						'							ON		cdm_matches_poule.Match = pronosticsB.Matches_Match' .
 						'										AND		cdm_matches_poule.Equipes_EquipeB = pronosticsB.Equipes_Equipe' .
-						'	WHERE				cdm_matches_poule.Matches_JourneeEnCours IN (cdm_fn_journee_en_cours() - 1, cdm_fn_journee_en_cours(), cdm_fn_journee_en_cours() + 1)' .
+						'	WHERE				(' .
+						'								DATE(cdm_matches_poule.Matches_Date) = DATE(NOW())' .
+						'								OR	(' .
+						'											cdm_matches_poule.Matches_JourneeEnCours = cdm_fn_journee_en_cours()' .
+						'											AND		NOW() <= \'' . $datePremierMatch . '\'' .
+						'										)' .
+						'							)' .
 						'							AND		pronosticsA.Pronostiqueurs_Pronostiqueur = 1' .
 						'							AND		pronosticsB.Pronostiqueurs_Pronostiqueur = 1';
 
