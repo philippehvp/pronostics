@@ -132,6 +132,20 @@ function module_pronosticsPoule_afficherJournee(journee) {
 	});
 }
 
+// Module des pronostics de poule - Lancement du calcul des points
+function module_pronosticsPoule_lancerCalcul(journee) {
+	$.ajax({
+		url: 'module_classements_poule_lancement_calcul.php',
+		type: 'POST',
+		data: {
+			journee: journee
+		}
+	}
+	).done(function (html) {
+		alert('Calcul effectué');
+	});
+}
+
 // Module des pronostics de phase finale - Fonction Javascript appelée à l'initialisation du module
 function module_pronosticsPhaseFinale(module, nomConteneur, x, y) {
 	/*MODULES_POSITION_X[module] = x;
