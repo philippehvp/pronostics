@@ -2,6 +2,18 @@
 
 	$nomPage = isset($nomPage) ? $nomPage : '';
 	
+	// Dans un premier temps on détermine dans quelle phase on se trouve :
+	// - avant le premier match de poule : phase de pronostics
+	// - après le premier match de poule et une heure avant le premier 1/8 de finale : phase de poule
+	// - après la phase de poule on se trouve en phase finale
+	if(time() < 1528988400) {
+		$phase = 0;
+	} else if(time() >= 1528988400 && time() < 1530363600) {
+		$phase = 1;
+	} else {
+		$phase = 2;
+	}
+
 	echo '<div id="divBandeau">';
 		echo '<div class="icones">';
 			echo '<ul>';

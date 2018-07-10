@@ -150,6 +150,9 @@
 			echo '<label class="bouton" onclick="module_pronosticsPhaseFinale_afficherJournee(' . $JOURNEE_MIN . ');">&gt;</label>';
 		
 		echo '<label class="legende" onclick="module_pronosticsPhaseFinale_afficherLegende();">Légende</label>';
+
+		if($_SESSION["cdm_administrateur"] == 1)
+			echo '&nbsp;<label class="legende" onclick="module_pronostics_lancerCalcul(' . $journeeEnCours . ');">Calculer</label>';
 	echo '</div>';
 	
 	// Affichage des matches dans l'en-tête de la table

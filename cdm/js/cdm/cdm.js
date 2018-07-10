@@ -97,6 +97,20 @@ function modules_sauvegarderPositionModule(module, nomConteneur) {
 	}
 }
 
+// Module des pronostics de poule et de phase finale - Lancement du calcul des points
+function module_pronostics_lancerCalcul(journee) {
+	$.ajax({
+		url: 'module_classements_lancement_calcul.php',
+		type: 'POST',
+		data: {
+			journee: journee
+		}
+	}
+	).done(function (html) {
+		alert('Calcul effectué');
+	});
+}
+
 // Module des pronostics de poule - Fonction Javascript appelée à l'initialisation du module
 function module_pronosticsPoule(module, nomConteneur, x, y) {
 	// Sauvegarde des positions du module dans une variable globale
@@ -129,20 +143,6 @@ function module_pronosticsPoule_afficherJournee(journee) {
 		$('#divModulePronosticsPoule').draggable().resizable({});*/
 		$('#divVisuPronosticsPoule').empty().append(html);
 		$('#divAccueilPronosticsPoule').empty().append(html);
-	});
-}
-
-// Module des pronostics de poule - Lancement du calcul des points
-function module_pronosticsPoule_lancerCalcul(journee) {
-	$.ajax({
-		url: 'module_classements_poule_lancement_calcul.php',
-		type: 'POST',
-		data: {
-			journee: journee
-		}
-	}
-	).done(function (html) {
-		alert('Calcul effectué');
 	});
 }
 

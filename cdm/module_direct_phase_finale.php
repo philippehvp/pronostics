@@ -42,8 +42,7 @@
 									'							WHERE				resultats.Pronostiqueurs_Pronostiqueur = 1' .
 									'													AND		pronostics.Pronostiqueurs_Pronostiqueur <> 1' .
 									'													AND		cdm_matches_phase_finale.Match = IFNULL(cdm_affiches_inversees.Pronostiqueurs_Matches_Match, pronostics.Matches_Match)' .
-									'													AND		cdm_matches_phase_finale.Match = IFNULL(cdm_affiches_inversees.Pronostiqueurs_Matches_Match, pronostics.Matches_Match)' .
-									'													AND		cdm_fn_vainqueur(pronostics.Pronostiqueurs_Pronostiqueur, pronostics.Matches_Match) = resultats.Equipes_EquipeA' .
+									'													AND		cdm_fn_vainqueur(pronostics.Pronostiqueurs_Pronostiqueur, pronostics.Matches_Match) = equipesA.Equipe' .
 									'						) AS Victoires_EquipeA' .
 									'						,(' .
 									'							SELECT			COUNT(*) AS NombreVictoires' .
@@ -58,11 +57,11 @@
 									'																	resultats.Equipes_EquipeA = pronostics.Equipes_EquipeB' .
 									'																	AND		resultats.Equipes_EquipeB = pronostics.Equipes_EquipeA' .
 									'																)' .
+									'							LEFT JOIN		cdm_affiches_inversees ON pronostics.Pronostiqueurs_Pronostiqueur = cdm_affiches_inversees.Pronostiqueurs_Pronostiqueur' .
 									'							WHERE				resultats.Pronostiqueurs_Pronostiqueur = 1' .
 									'													AND		pronostics.Pronostiqueurs_Pronostiqueur <> 1' .
-									'													AND		cdm_matches_phase_finale.Match IN (resultats.Matches_Match, cdm_fn_match_lie(resultats.Matches_Match))' .
-									'													AND		cdm_matches_phase_finale.Match IN (pronostics.Matches_Match, cdm_fn_match_lie(pronostics.Matches_Match))' .
-									'													AND		cdm_fn_vainqueur(pronostics.Pronostiqueurs_Pronostiqueur, pronostics.Matches_Match) = resultats.Equipes_EquipeB' .
+									'													AND		cdm_matches_phase_finale.Match = IFNULL(cdm_affiches_inversees.Pronostiqueurs_Matches_Match, pronostics.Matches_Match)' .
+									'													AND		cdm_fn_vainqueur(pronostics.Pronostiqueurs_Pronostiqueur, pronostics.Matches_Match) = equipesB.Equipe' .
 									'							) AS Victoires_EquipeB' .
 									'							,CASE WHEN cdm_matches_direct.Matches_Match IS NOT NULL THEN 1 ELSE 0 END AS Match_Direct' .
 									'	FROM				cdm_matches_phase_finale' .
