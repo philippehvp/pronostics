@@ -38,7 +38,7 @@
                     echo '</li>';
 
 
-                    echo '<li class="menu--lien"><span class="profil"><img src="images/pronostiqueurs/' . $_SESSION["photo_pronostiqueur"] . '" alt=""/></span><label class="menu-complementaire-lien">Compte (' . $_SESSION["prenom_utilisateur"] . ')</label>';
+                    echo '<li class="menu--lien"><span class="profil"><img src="images/pronostiqueurs/' . $_SESSION["photo_pronostiqueur"] . '" alt=""/></span><label class="menu-complementaire-lien">' . $_SESSION["nom_pronostiqueur"] . '</label>';
                         echo '<div class="sous-menu-flottant" style="background-image: url(\'images/fond_menu_profil.png\'); background-repeat: no-repeat; background-position: 50% 0;">';
                             echo '<div>';
                                 echo '<div class="groupe-menu colle-gauche gauche">';

@@ -27,9 +27,9 @@
 	// - du classement général buteur
 
 	$ordreSQL =		'	SELECT		Championnat, Championnats_Nom' .
-					'	FROM		championnats' .
-					'	WHERE		championnats.Championnat NOT IN (5)' .
-					'	ORDER BY	Championnat';
+								'	FROM		championnats' .
+								'	WHERE		championnats.Championnat NOT IN (5)' .
+								'	ORDER BY	Championnat';
 
 	$req = $bdd->query($ordreSQL);
 	$championnats = $req->fetchAll();
@@ -66,12 +66,12 @@
 						echo '<div id="divClassements-' . $indiceChampionnat . '" class="championnat" title="' . $unChampionnat["Championnats_Nom"] . '">';
 							// Liste des journées du championnat
 							$ordreSQL =		'	SELECT		DISTINCT journees.Journee, classements.Classements_DateReference, IFNULL(journees.Journees_NomCourt, journees.Journees_Nom) AS Journees_Nom' .
-											'	FROM		journees' .
-											'	LEFT JOIN	classements' .
-											'				ON		journees.Journee = classements.Journees_Journee' .
-											'	WHERE		journees.Championnats_Championnat = ' . $unChampionnat["Championnat"] .
-											'				AND		journees.Journee <= ' . $journee .
-											'	ORDER BY	classements.Classements_DateReference DESC';
+														'	FROM		journees' .
+														'	LEFT JOIN	classements' .
+														'				ON		journees.Journee = classements.Journees_Journee' .
+														'	WHERE		journees.Championnats_Championnat = ' . $unChampionnat["Championnat"] .
+														'				AND		journees.Journee <= ' . $journee .
+														'	ORDER BY	classements.Classements_DateReference DESC';
 							$req = $bdd->query($ordreSQL);
 							if(empty($req))
 								break;

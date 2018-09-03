@@ -64,9 +64,9 @@
 			echo '<label class="cc--nom-sous-onglet" onclick="concoursCentre_afficherPronostiqueurDetail(0, \'cc--pronostiqueurs-detail\', 1);">FICHE D\'IDENTITE</label>';
 		
 		if($sousOnglet == 2)
-			echo '<label class="cc--nom-sous-onglet cc--selectionne" onclick="concoursCentre_afficherPronostiqueurDetail(0, \'cc--pronostiqueurs-detail\', 2);">PALMARES 2016</label>';
+			echo '<label class="cc--nom-sous-onglet cc--selectionne" onclick="concoursCentre_afficherPronostiqueurDetail(0, \'cc--pronostiqueurs-detail\', 2);">PALMARES</label>';
 		else
-			echo '<label class="cc--nom-sous-onglet" onclick="concoursCentre_afficherPronostiqueurDetail(0, \'cc--pronostiqueurs-detail\', 2);">PALMARES 2016</label>';
+			echo '<label class="cc--nom-sous-onglet" onclick="concoursCentre_afficherPronostiqueurDetail(0, \'cc--pronostiqueurs-detail\', 2);">PALMARES</label>';
 		echo '<label class="cc--nom-sous-onglet" onclick="concoursCentre_afficherPronostiqueurDetail(0, \'cc--pronostiqueurs-detail\', 3);">STATISTIQUES</label>';
 		echo '<label class="cc--nom-sous-onglet" onclick="concoursCentre_afficherPronostiqueurDetail(0, \'cc--pronostiqueurs-detail\', 4);">CLASSEMENT GENERAL</label>';
 		echo '<label class="cc--nom-sous-onglet" onclick="concoursCentre_afficherPronostiqueurDetail(0, \'cc--pronostiqueurs-detail\', 5);">CLASSEMENT JOURNEE</label>';

@@ -1418,7 +1418,7 @@ function creerMatch_rechercherJoueur(joueur, equipe) {
 	});
 }
 
-// Gestion de match - Passage d'un match en mode direct
+// Gestion de match - Passage d'un match en direct
 function creerMatch_passerEnDirect(match) {
 	$.ajax(	{
 				url: 'creer_match_ajout_direct.php',
