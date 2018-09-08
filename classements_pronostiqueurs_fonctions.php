@@ -122,9 +122,8 @@
 	}
 
 	// Affichage du classement général
-	function afficherClassementGeneral($bdd, $championnat, $journee, $dateReference, $dtDateMAJ, $journeeNom, $journeeSuivanteActive, $modeModule, $modeRival, $modeConcurrentDirect) {
+	function afficherClassementGeneral($bdd, $championnat, $journee, $dateReference, $dtDateMAJ, $journeeNom, $journeeSuivanteActive, $modeModule, $modeRival, $modeConcurrentDirect, $sansButeur) {
 		// Classement général du championnat
-
 		$nombrePlaces = 5;
 
 		// Si le mode concurrent direct est activé, il est nécessaire de lire d'abord le classement du joueur pour ensuite savoir quelles sont les places à afficher
@@ -133,7 +132,7 @@
 		$borneSuperieure = 1000;
 		if($modeConcurrentDirect == 1) {
 			$ordreSQL =		'		SELECT		Classements_ClassementGeneralMatch' .
-							'		FROM		classements' .
+							'		FROM		' . ($sansButeur == 0 ? 'classements' : 'classements_sb classements') .
 							'		WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
 							'					AND		Journees_Journee = ' . $journee .
 							'					AND		Classements_DateReference = \'' . $dateReference . '\'';
@@ -183,7 +182,7 @@
 						'				,pronostiqueurs.Pronostiqueurs_NomUtilisateur' .
 						'				,IFNULL(pronostiqueurs.Pronostiqueurs_Photo, \'_inconnu.png\') AS Pronostiqueurs_Photo' .
 						'				,classements.Classements_PointsGeneralMatch' .
-						'				,classements.Classements_PointsGeneralButeur' .
+						($sansButeur == 0 ? '				,classements.Classements_PointsGeneralButeur' : '	,0 AS Classements_PointsGeneralButeur') .
 						'				,IFNULL(matches_pronostiques.Nombre_MatchesPronostiques, 0) AS Nombre_MatchesPronostiques' .
 						'				,IFNULL(matches_theoriques.NombreMatchesTheoriques, 0) AS NombreMatchesTheoriques' .
 						'				,CASE' .
@@ -212,18 +211,18 @@
 			$ordreSQL .=	'			pronostiqueurs';
 
 
-		$ordreSQL .=	'	LEFT JOIN	classements' .
+		$ordreSQL .=	'	LEFT JOIN	' . ($sansButeur == 0 ? 'classements' : 'classements_sb classements') .
 						'				ON		pronostiqueurs.Pronostiqueur = classements.Pronostiqueurs_Pronostiqueur' .
 						'	LEFT JOIN	(' .
 
 						'					SELECT		Pronostiqueurs_Pronostiqueur, classements.Journees_Journee, Classements_ClassementGeneralMatch, Classements_PointsGeneralMatch' .
-						'					FROM		classements' .
+						'					FROM		' . ($sansButeur == 0 ? 'classements' : 'classements_sb classements') .
 						'					JOIN		(' .
 						'									SELECT		MAX(Journees_Journee) AS Journee, journees.Classements_DateReference' .
-						'									FROM		classements' .
+						'									FROM		' . ($sansButeur == 0 ? 'classements' : 'classements_sb classements') .
 						'									JOIN		(' .
 						'													SELECT		MAX(Classements_DateReference) AS Classements_DateReference' .
-						'													FROM		classements' .
+						'													FROM		' . ($sansButeur == 0 ? 'classements' : 'classements_sb classements') .
 						'													JOIN		journees' .
 						'																ON		classements.Journees_Journee = journees.Journee' .
 						'													WHERE		Classements_DateReference < \'' . $dateReference . '\'' .
@@ -307,7 +306,6 @@
 						'				AND		pronostiqueurs.Pronostiqueurs_DateDebutPresence <= \'' . $dateReference . '\'' .
 						'				AND		(pronostiqueurs.Pronostiqueurs_DateFinPresence IS NULL OR pronostiqueurs.Pronostiqueurs_DateFinPresence > \'' . $dateReference . '\')' .
 						'	ORDER BY	Classements_PointsGeneralMatch DESC, Classements_PointsGeneralButeur ASC, Pronostiqueurs_NomUtilisateur';
-
 		$req = $bdd->query($ordreSQL);
 		$classementGeneral = $req->fetchAll();
 
@@ -703,7 +701,7 @@
 	}
 
 	// Affichage du classement d'une journée
-	function afficherClassementJournee($bdd, $championnat, $journee, $dateReference, $dtDateMAJ, $journeeNom, $modeModule, $modeRival, $modeConcurrentDirect) {
+	function afficherClassementJournee($bdd, $championnat, $journee, $dateReference, $dtDateMAJ, $journeeNom, $modeModule, $modeRival, $modeConcurrentDirect, $sansButeur) {
 		// Classement d'une journée du championnat
 
 		// Si le mode concurrent direct est activé, il est nécessaire de lire d'abord le classement du joueur pour ensuite savoir quelles sont les places à afficher
@@ -712,7 +710,7 @@
 		$borneSuperieure = 1000;
 		if($modeConcurrentDirect == 1) {
 			$ordreSQL =		'		SELECT		Classements_ClassementJourneeMatch' .
-							'		FROM		classements' .
+							'		FROM		' . ($sansButeur == 0 ? 'classements' : 'classements_sb classements') .
 							'		WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
 							'					AND		Journees_Journee = ' . $journee;
 			if($dateReference != 0)
@@ -733,7 +731,7 @@
 						'				,Pronostiqueurs_NomUtilisateur' .
 						'				,IFNULL(Pronostiqueurs_Photo, \'_inconnu.png\') AS Pronostiqueurs_Photo' .
 						'				,classements.Classements_PointsJourneeMatch' .
-						'				,classements.Classements_PointsJourneeButeur' .
+						($sansButeur == 0 ? '				,classements.Classements_PointsJourneeButeur' : '	,0 AS Classements_PointsJourneeButeur') .
 						'				,IFNULL(matches_pronostiques.Nombre_MatchesPronostiques, 0) AS Nombre_MatchesPronostiques' .
 						'				,journees_rattrapage.JourneesRattrapage_Points' .
 						'	FROM';
@@ -751,7 +749,7 @@
 		else
 			$ordreSQL .=	'			pronostiqueurs';
 
-		$ordreSQL .=	'	LEFT JOIN	classements' .
+		$ordreSQL .=	'	LEFT JOIN	' . ($sansButeur == 0 ? 'classements' : 'classements_sb classements') .
 						'				ON		pronostiqueurs.Pronostiqueur = classements.Pronostiqueurs_Pronostiqueur' .
 						'	LEFT JOIN	(' .
 						'					SELECT		Pronostiqueurs_Pronostiqueur, COUNT(*) AS Nombre_MatchesPronostiques' .
@@ -956,8 +954,7 @@
 	}
 
 	// Affichage des trois classements pour un championnat donné et une journée donnée
-	function afficherClassements($bdd, $championnat, $journee, $dateReference, $dtDateMAJ, $journeeNom, $affichageClassementButeur, $affichageJourneeSuivante) {
-
+	function afficherClassements($bdd, $championnat, $journee, $dateReference, $dtDateMAJ, $journeeNom, $affichageClassementButeur, $affichageJourneeSuivante, $sansButeur) {
 		// Dans le cas où l'on demande à voir le nombre de pronostics remplis de la journée suivante, il est nécessaire de voir si cette journée suivante est active ou non
 		// Sinon, on ne fait pas cette lecture
 		if($affichageJourneeSuivante == 1) {
@@ -977,14 +974,14 @@
 		$modeConcurrentDirect = 0;
 
 		echo '<div class="colle-gauche gauche">';
-			afficherClassementGeneral($bdd, $championnat, $journee, $dateReference, $dtDateMAJ, $journeeNom, $journeeSuivanteActive, $modeModule, $modeRival, $modeConcurrentDirect);
+			afficherClassementGeneral($bdd, $championnat, $journee, $dateReference, $dtDateMAJ, $journeeNom, $journeeSuivanteActive, $modeModule, $modeRival, $modeConcurrentDirect, $sansButeur);
 		echo '</div>';
 		echo '<div class="gauche">';
-			afficherClassementJournee($bdd, $championnat, $journee, $dateReference, $dtDateMAJ, $journeeNom, $modeModule, $modeRival, $modeConcurrentDirect);
+			afficherClassementJournee($bdd, $championnat, $journee, $dateReference, $dtDateMAJ, $journeeNom, $modeModule, $modeRival, $modeConcurrentDirect, $sansButeur);
 		echo '</div>';
 
 		// Classement général buteur du championnat
-		if($affichageClassementButeur == 1) {
+		if($affichageClassementButeur == 1 && $sansButeur == 0) {
 			echo '<div class="gauche">';
 				afficherClassementGeneralButeur($bdd, $championnat, $journee, $dateReference, $dtDateMAJ, $journeeNom);
 			echo '</div>';

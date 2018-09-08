@@ -2401,13 +2401,14 @@ function gererPoules_creerPoules(championnat, nombreGroupes, numeroPremierGroupe
 }
 
 // Classements pronostiqueurs - Affichage d'une journée
-function classementsPronostiqueurs_afficherJournee(championnat, journee, dateReference, nomDiv, affichageNeutre) {
+function classementsPronostiqueurs_afficherJournee(championnat, journee, dateReference, nomDiv, affichageNeutre, sansButeur) {
     $.ajax( {
                 url: 'classements_pronostiqueurs_affichage_journee.php',
                 type: 'POST',
                 data:   {   journee: journee
 							,date_reference: dateReference
-                            ,championnat: championnat
+							,championnat: championnat
+							,sans_buteur: sansButeur
                         }
             }
     ).done(function(html) {
