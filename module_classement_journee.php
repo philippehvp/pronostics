@@ -40,11 +40,12 @@
 	$dateMAJJournee = $donnees["Journees_DateMAJ"];
 	$dtDateMAJ = new DateTime($dateMAJJournee);
 	$req->closeCursor();
+	$sansButeur = 0;
 
 	$modeModule = 1;
 	
 	echo '<div style="margin-left: 8px;">';
-		afficherClassementJournee($bdd, $championnat, $journee, $dateReference, $dtDateMAJ, $journeeNom, $modeModule, $modeRival, $modeConcurrentDirect);
+		afficherClassementJournee($bdd, $championnat, $journee, $dateReference, $dtDateMAJ, $journeeNom, $modeModule, $modeRival, $modeConcurrentDirect, $sansButeur);
 	echo '</div>';
 		
 ?>
