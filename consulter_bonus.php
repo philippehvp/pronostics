@@ -29,8 +29,8 @@
                         '               ,CASE WHEN  Bonus_Date_Max <= NOW() OR Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] . ' THEN IFNULL(equipesReleguees1.Equipes_NomCourt, \'-\') ELSE \'-\' END AS PronosticsBonus_EquipeReleguee1' .
                         '               ,CASE WHEN  Bonus_Date_Max <= NOW() OR Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] . ' THEN IFNULL(equipesReleguees2.Equipes_NomCourt, \'-\') ELSE \'-\' END AS PronosticsBonus_EquipeReleguee2' .
                         '               ,CASE WHEN  Bonus_Date_Max <= NOW() OR Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] . ' THEN IFNULL(equipesReleguees3.Equipes_NomCourt, \'-\') ELSE \'-\' END AS PronosticsBonus_EquipeReleguee3' .
-                        '               ,CASE WHEN  Bonus_Date_Max <= NOW() OR Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] . ' THEN buteurs.Joueurs_NomCourt ELSE \'-\' END AS PronosticsBonus_MeilleurButeur' .
-                        '               ,CASE WHEN  Bonus_Date_Max <= NOW() OR Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] . ' THEN passeurs.Joueurs_NomCourt ELSE \'-\' END AS PronosticsBonus_MeilleurPasseur' .
+                        '               ,CASE WHEN  Bonus_Date_Max <= NOW() OR Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] . ' THEN IFNULL(buteurs.Joueurs_NomCourt, buteurs.Joueurs_NomFamille) ELSE \'-\' END AS PronosticsBonus_MeilleurButeur' .
+                        '               ,CASE WHEN  Bonus_Date_Max <= NOW() OR Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] . ' THEN IFNULL(passeurs.Joueurs_NomCourt, passeurs.Joueurs_NomFamille) ELSE \'-\' END AS PronosticsBonus_MeilleurPasseur' .
                         '               ,CASE WHEN  pronostics_bonus.PronosticsBonus_JoueurMeilleurButeur IS NULL' .
                         '                           OR      pronostics_bonus.PronosticsBonus_JoueurMeilleurPasseur IS NULL' .
                         '                           OR      pronostics_bonus.PronosticsBonus_EquipeChampionne IS NULL' .
