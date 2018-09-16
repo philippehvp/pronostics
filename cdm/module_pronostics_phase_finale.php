@@ -62,13 +62,13 @@
 	
 	// Tous les pronostics
 	$ordreSQL =		'	SELECT		CASE' .
-					'					WHEN	cdm_pronostiqueurs.Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+					'					WHEN	cdm_pronostiqueurs.Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
 					'					THEN	1' .
 					'					ELSE	2' .
 					'				END AS Ordre' .
 					'				,sequencement.Matches_Match' .
 					'				,CASE' .
-					'					WHEN	Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+					'					WHEN	Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
 					'					THEN	\'Moi\'' .
 					'					ELSE	Pronostiqueurs_Nom' .
 					'				END AS Pronostiqueurs_Nom' .
@@ -150,6 +150,9 @@
 			echo '<label class="bouton" onclick="module_pronosticsPhaseFinale_afficherJournee(' . $JOURNEE_MIN . ');">&gt;</label>';
 		
 		echo '<label class="legende" onclick="module_pronosticsPhaseFinale_afficherLegende();">Légende</label>';
+
+		if($_SESSION["cdm_administrateur"] == 1)
+			echo '&nbsp;<label class="legende" onclick="module_pronostics_lancerCalcul(' . $journeeEnCours . ');">Calculer</label>';
 	echo '</div>';
 	
 	// Affichage des matches dans l'en-tête de la table

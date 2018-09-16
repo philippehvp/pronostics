@@ -13,31 +13,31 @@
 		// Lecture des paramètres passés à la page
 		$match = isset($_POST["match"]) ? $_POST["match"] : 0;
 
-		$ordreSQL =		'	SELECT				vue_matches.Match' .
-						'						,EquipeDomicile, EquipesDomicile_Nom' .
-						'						,EquipeVisiteur, EquipesVisiteur_Nom' .
-						'						,Matches_CoteEquipeDomicile, Matches_CoteNul, Matches_CoteEquipeVisiteur' .
-						'						,Matches_Date' .
-						'						,HOUR(Matches_Date) AS Matches_Heure' .
-						'						,MINUTE(Matches_Date) AS Matches_Minute' .
-						'						,Matches_ScoreEquipeDomicile, Matches_ScoreEquipeVisiteur' .
-						'						,Matches_ScoreAPEquipeDomicile, Matches_ScoreAPEquipeVisiteur' .
-						'						,Matches_Vainqueur' .
-						'						,Matches_MatchCS' .
-						'						,Matches_Coefficient' .
-						'						,Matches_Report' .
-						'						,Matches_AvecProlongation' .
-						'						,Matches_L1Europe' .
-						'						,Matches_L1EuropeNom' .
-						'						,Matches_MatchLie' .
-						'						,Matches_PointsQualificationEquipeDomicile, Matches_PointsQualificationEquipeVisiteur' .
-						'						,IFNULL(Matches_Direct, 0) AS Matches_Direct' .
-						'						,Matches_LienPage' .
-						'						,Matches_LienPageComplementaire' .
-						'						,Matches_MatchIgnore' .
-						'						,Mathches_MatchHorsPronostic' .
-						'	FROM				vue_matches' .
-						'	WHERE				vue_matches.Match = ' . $match;
+		$ordreSQL =		'	SELECT		vue_matches.Match' .
+									'						,EquipeDomicile, EquipesDomicile_Nom' .
+									'						,EquipeVisiteur, EquipesVisiteur_Nom' .
+									'						,Matches_CoteEquipeDomicile, Matches_CoteNul, Matches_CoteEquipeVisiteur' .
+									'						,Matches_Date' .
+									'						,HOUR(Matches_Date) AS Matches_Heure' .
+									'						,MINUTE(Matches_Date) AS Matches_Minute' .
+									'						,Matches_ScoreEquipeDomicile, Matches_ScoreEquipeVisiteur' .
+									'						,Matches_ScoreAPEquipeDomicile, Matches_ScoreAPEquipeVisiteur' .
+									'						,Matches_Vainqueur' .
+									'						,Matches_MatchCS' .
+									'						,Matches_Coefficient' .
+									'						,Matches_Report' .
+									'						,Matches_AvecProlongation' .
+									'						,Matches_L1Europe' .
+									'						,Matches_L1EuropeNom' .
+									'						,Matches_MatchLie' .
+									'						,Matches_PointsQualificationEquipeDomicile, Matches_PointsQualificationEquipeVisiteur' .
+									'						,IFNULL(Matches_Direct, 0) AS Matches_Direct' .
+									'						,Matches_LienPage' .
+									'						,Matches_LienPageComplementaire' .
+									'						,Matches_MatchIgnore' .
+									'						,Mathches_MatchHorsPronostic' .
+									'	FROM			vue_matches' .
+									'	WHERE			vue_matches.Match = ' . $match;
 
 		$req = $bdd->query($ordreSQL);
 		$matches = $req->fetchAll();
@@ -279,7 +279,7 @@
 
 				echo '<tr>';
 					if($matchDirect == 1)			echo '<td id="libelleMatchDirect_match_' . $numeroMatch . '" class="colonne-theme vert">Direct</td>';
-					else							echo '<td id="libelleMatchDirect_match_' . $numeroMatch . '" class="colonne-theme">Direct</td>';
+					else											echo '<td id="libelleMatchDirect_match_' . $numeroMatch . '" class="colonne-theme">Direct</td>';
 					$checked = $matchDirect == 1 ? ' checked' : '';
 					echo '<td colspan="2">';
 						echo '<input type="checkbox" id="matchDirect_match_' . $numeroMatch . '" onclick="matchEnDirect($(this), ' . $numeroMatch . ', \'libelleMatchDirect_match_' . $numeroMatch . '\', \'lien_match_' . $numeroMatch . '\'); creerMatch_sauvegarderMatch(1, \'\', ' . $numeroMatch . ');"' . $checked . ' />';
@@ -313,12 +313,6 @@
 	// Passe un match en direct ou non
 	function matchEnDirect(elt, match, libelle, lienPage) {
 		if(elt.is(':checked') == true) {
-			/*if($('#' + lienPage).val() == '') {
-				elt.prop('checked', false);
-				alert('Veuillez saisir un lien de page pour le match');
-				return;
-			}*/
-
 			// Ajout du match dans la liste des matches en direct
 			creerMatch_passerEnDirect(match);
 		}
@@ -332,11 +326,11 @@
 			$('#' + libelle).addClass('vert');
 	}
 
-    // Le lien pour le site Flash Résultats doit être modifié à la main
-    function corrigerLien_FlashResultats(elt) {
-        var nouvelleValeur = elt.value;
-        nouvelleValeur = nouvelleValeur.replace("#resume-du-match", "#compositions;1");
-        elt.value = nouvelleValeur;
-    }
+	// Le lien pour le site Flash Résultats doit être modifié à la main
+	function corrigerLien_FlashResultats(elt) {
+			var nouvelleValeur = elt.value;
+			nouvelleValeur = nouvelleValeur.replace("#resume-du-match", "#compositions;1");
+			elt.value = nouvelleValeur;
+	}
 
 </script>

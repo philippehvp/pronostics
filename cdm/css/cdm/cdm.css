@@ -29,12 +29,12 @@
 }
 
 .ui-dialog .ui-dialog-content {
-	background-image: url('../../images/fond_transparent.png');
+	background-color: #0039a6;
 }
 
 .ui-dialog .ui-dialog-buttonpane {
 	margin: 0;
-	background-image: url('../../images/fond_transparent.png');
+	background-color: #0039a6;
 }
 
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
@@ -48,18 +48,18 @@
 
 /* Boutons */
 .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited {
-	color: #fedf00;
-	background-image: url('../../images/fond_transparent.png');
+	color: #fff;
+	background-color: #0039a6;
 	text-decoration: none;
 }
 
 .ui-state-default a:hover, .ui-state-default a:active {
-	background-color: #005f24;
+	background-color: #d52b1e;
 	background-image: none;
 }
 
 li.ui-tabs-active .ui-tabs-anchor, .ui-tabs .ui-tabs-nav li.ui-state-disabled .ui-tabs-anchor, .ui-tabs .ui-tabs-nav li.ui-tabs-loading .ui-tabs-anchor {
-	background-color: #005f24;
+	background-color: #d52b1e;
 	background-image: none;
 }
 
@@ -69,12 +69,12 @@ li.ui-tabs-active .ui-tabs-anchor, .ui-tabs .ui-tabs-nav li.ui-state-disabled .u
 }
 
 .ui-button, .ui-dialog .ui-dialog-buttonpane button {
-	color: #fedf00;
-	background-image: url('../../images/fond_transparent.png');
+	color: #fff;
+	background-color: #0039a6;
 }
 
 .ui-button:hover, .ui-dialog .ui-dialog-buttonpane button:hover {
-	background-color: #005f24;
+	background-color: #d52b1e;
 }
 
 .ui-tabs .ui-tabs-panel {
@@ -96,11 +96,11 @@ html {
 }
 
 body {
-	color: #fff;
-	background-color: #a0a220;
+	color: #ffffff;
+	background-color: #cccccc;
 	font: 0.9em Verdana,Helvetica,Arial,sans-serif;
 	height: 100%;
-	background-image: url('../../images/fond/fond_principal.jpg');
+	background-image: url('../../images/fond/fond_principal_russie.jpg');
 	background-repeat: repeat;
 	background-position: center top;
 }
@@ -111,7 +111,7 @@ ul {
 
 select, select option {
 	color: #fff;
-	background-color: #005f24;
+	background-color: #0039a6;
 	border: 1px solid #fff;
 }
 
@@ -119,6 +119,7 @@ h1 {
 	font-size: 2em;
 	text-transform: uppercase;
 	margin-bottom: 10px;
+	color: #ffffff;
 }
 
 .colle-gauche {
@@ -147,7 +148,7 @@ h1 {
 
 .blanc {
 	background-color: #fff;
-	color: #333;
+	color: #0039a6;
 }
 
 .vert {
@@ -169,7 +170,7 @@ h1 {
 }
 
 .pair {
-	background-color: #333;
+	background-color: #0039a6;
 }
 
 .impair {
@@ -181,14 +182,12 @@ table tbody tr.bordureHaut td {
 }
 
 table {
-	color: #fff;
-	
 	border-spacing: 0;
 }
 
 table thead th {
 	background-color: #fff;
-	color: #333;
+	color: #0039a6;
 	font-size: 0.9em;
 	font-weight: normal;
 }
@@ -206,10 +205,6 @@ table tbody tr.surbrillance {
 	color: #fff;
 }
 
-table.lignes thead tr th {
-	/*min-width: 100px;*/
-}
-
 table.lignes tbody tr td {
 	min-width: 100px;
 }
@@ -224,7 +219,7 @@ table.lignes tbody tr td {
 	height: 20px;
 	padding: 10px; 
 	text-align: center; 
-	background: #333;
+	background: #0039a6;
 	color: #fff;
 	text-decoration: none;
 	position: fixed;
@@ -244,10 +239,9 @@ table.lignes tbody tr td {
 /* Page bandeau.php */
 #divBandeau {
 	width: 100%;
-	height: 69px;
-	color: #fff;
-	border-bottom: 1px solid #888;
-	background-image: url('../../images/fond_bandeau.png');
+	height: 64px;
+	color: #ffffff;
+	border-bottom: 1px solid #ffffff;
 }
 
 #divBandeau div.icones {
@@ -266,7 +260,11 @@ table.lignes tbody tr td {
 	height: 65px;
 }
 
-#divBandeau ul li:hover {
+#divBandeau ul li span {
+	padding: 2px 5px;
+}
+
+#divBandeau ul li span:hover {
 	text-decoration: underline;
 }
 
@@ -284,7 +282,7 @@ table.lignes tbody tr td {
 	display: none;
 	padding: 5px 0 5px 5px;
 	margin-left: 30px;
-	background-color: #7d825a;
+	background-color: #872a2b;
 	position: absolute;
 	top: 70px;
 }
@@ -296,7 +294,7 @@ table.lignes tbody tr td {
 	position: absolute;
 	width: 615px;
 	top: 180px;
-	left: 205px;
+	left: 80px;
 }
 
 #divBandeau div.nomPronostiqueurs {
@@ -341,7 +339,7 @@ table.lignes tbody tr td {
 
 #divMenuW8 div {
 	margin: 0 8px 8px 0;
-	background-color: #333;
+	background-color: #0039a6;
 	float: left;
 	height: 20px;
 	padding: 100px 0 0 7px;
@@ -356,7 +354,7 @@ table.lignes tbody tr td {
 }
 
 #divMenuW8 div.tuileCarree:hover, #divMenuW8 div.tuileRectangulaire:hover {
-	background-color: #005f24;
+	background-color: #d52b1e;
 }
 
 #divMenuW8 div.tuileFermer {
@@ -369,7 +367,7 @@ table.lignes tbody tr td {
 }
 
 #divMenuW8 div.tuileFermer label.fermer:hover {
-	color: #005f24;
+	color: #d52b1e;
 }
 
 #divMenuW8 div.tuileProfil {
@@ -381,7 +379,7 @@ table.lignes tbody tr td {
 }
 
 #divMenuW8 div.tuileProfil div.zoneTexte label.deconnecter:hover {
-	color: #005f24;
+	color: #d52b1e;
 }
 
 #divMenuW8 div.tuileProfil div.zoneTexte {
@@ -476,7 +474,7 @@ table.lignes tbody tr td {
 }
 
 #divConnexion div.validation:hover {
-	color: #005f24;
+	color: #d52b1e;
 }
 
 #divConnexion input {
@@ -490,8 +488,8 @@ table.lignes tbody tr td {
 
 #divConnexion input:focus {
 	color: #fff;
-	background-color: #005f24;
-	border: 1px solid #005f24;
+	background-color: #d52b1e;
+	border: 1px solid #d52b1e;
 	outline: none;
 }
 
@@ -518,7 +516,7 @@ table.lignes tbody tr td {
 	height: 35px;
 	line-height: 35px;
 	font-size: 1em;
-	color: #fff;
+	color: #0039a6;
 }
 
 #divPronosticsPoules div.matchPoule span {
@@ -538,11 +536,17 @@ table.lignes tbody tr td {
 #divPronosticsPoules div.matchPoule span.nomEquipeGauche {
 	margin-right: 5px;
 	text-align: right;
+	font-size: 0.7em;
+	text-transform: uppercase;
+	color: #ffffff;
 }
 
 #divPronosticsPoules div.matchPoule span.nomEquipeDroite {
 	margin-left: 5px;
 	text-align: left;
+	font-size: 0.7em;
+	text-transform: uppercase;
+	color: #ffffff;
 }
 
 #divPronosticsPoules div.matches {
@@ -566,20 +570,20 @@ table.lignes tbody tr td {
 }
 
 #divPronosticsPoules table.classementPoule tbody tr.fondVert {
-	background-color: #005f24;
+	background-color: #0039a6;
 }
 
 #divPronosticsPoules table.classementPoule tbody tr.fondOrange {
-	background-color: #d85a0e;
+	background-color: #d52b1e;
 }
 
 #divPronosticsPoules .ui-button .ui-button-text {
-	color: #fedf00;
+	color: #0039a6;
 	background-image: url('../../images/fond_transparent.png');
 }
 
 #divPronosticsPoules .ui-button .ui-button-text:hover {
-	background-color: #005f24;
+	background-color: #d52b1e;
 }
 
 ul.listeTriee li {
@@ -618,8 +622,8 @@ ul.listeTriee li {
 
 #divEntetePhaseFinale {
 	font-size: 1.2em;
-	color: #fedf00;
-	background-image: url('../../images/fond_transparent.png');
+	color: #fff;
+	background: #0039a6;
 	width: 900px;
 	height: 40px;
 	line-height: 40px;
@@ -666,7 +670,7 @@ ul.listeTriee li {
 	width: 120px;
 	height: 24px;
 	line-height: 24px;
-	background-image: url('../../images/fond_equipe.png');
+	background: #d52b1e;
 }
 
 #divTableau div.equipe1_8 span.score, #divTableau div.equipe1_4 span.score, #divTableau div.equipe1_2 span.score, #divTableau div.equipe1_1 span.score {
@@ -753,8 +757,8 @@ ul.listeTriee li {
 #divMeilleurButeur {
 	width: 900px;
 	height: 50px;
-	color: #fedf00;
-	background-image: url('../../images/fond_transparent.png');
+	color: #fff;
+	background-color: #0039a6;
 	text-align: center;
 	padding-top: 10px;
 	position: relative;
@@ -787,12 +791,12 @@ ul.listeTriee li {
 #divMeilleurButeur div.listeJoueurs table {
 	border: 1px solid #ccc;
 	width: 200px;
-	background-color: #333;
-	color: #fedf00;
+	background-color: #0039a6;
+	color: #fff;
 }
 
 #divMeilleurButeur div.listeJoueurs table tbody tr:hover td {
-	background-color: #005f24;
+	background-color: #d52b1e;
 	cursor: pointer;
 }
 
@@ -817,8 +821,6 @@ ul.listeTriee li {
 	height: 1050px;
 	margin: 0 auto;
 	padding-left: 10px;
-	background-color: #333;
-	
 }
 
 #divReglement ul {
@@ -938,7 +940,7 @@ ul.listeTriee li {
 ,#tblStatistiques tr:nth-child(even)
 ,#tblStatistiquesEvolution tr:nth-child(even)
 ,#tblPoints tr:nth-child(even) {
-	background-color: #333;
+	background-color: #0039a6;
 }
 
 #tblPronosticsPoule tr:nth-child(odd)
@@ -1076,7 +1078,7 @@ ul.listeTriee li {
 }
 
 #divStatistiques table tr:nth-child(even) {
-	background-color: #333;
+	background-color: #0039a6;
 }
 
 #divStatistiques table tr:nth-child(odd) {
@@ -1092,7 +1094,7 @@ ul.listeTriee li {
 }
 
 #divEnteteJournees, #divEnteteClassements, #divEnteteClassementGeneral {
-	width: 340px;
+	width: 430px;
 	height: 25px;
 	line-height: 25px;
 	padding-left: 10px;
@@ -1104,7 +1106,7 @@ ul.listeTriee li {
 
 #divEnteteJournees div.nomModule, #divEnteteClassements div.nomModule {
 	background-color: #fff;
-	color: #333;
+	color: #0039a6;
 	width: 150px;
 	height: 25px;
 	font-size: 0.8em;
@@ -1186,6 +1188,10 @@ ul.listeTriee li {
 	margin-bottom: 10px;
 }
 
+#divDirect div.matchEnDirect {
+	background-color: #578657;
+}
+
 #divDirect div.match div.drapeau {
 	width: 60px;
 	height: 44px;
@@ -1204,7 +1210,7 @@ ul.listeTriee li {
 	text-transform: uppercase;
 	text-align: center;
 	font-weight: bold;
-	font-size: 1.5em;
+	font-size: 1.0em;
 }
 
 #divDirect div.score {
@@ -1226,7 +1232,7 @@ ul.listeTriee li {
 #divDirect div.butInactif {
 	width: 50px;
 	height: 50px;
-	background-image: url('../../images/live_direct.png');
+	/*background-image: url('../../images/live_direct.png');*/
 }
 
 #tblStatistiques th, #tblStatistiques td

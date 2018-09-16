@@ -8,6 +8,13 @@ function afficherTitrePage(element, titrePage) {
 	retournerHautPage();
 }
 
+// Première connexion - Soumission de formulaire
+function premiereConnexion_validerMotDePasse() {
+	var elt = document.forms['formModificationMotDePasse'];
+	if (elt != null)
+		elt.submit();
+}
+
 // Affichage du bouton "retour haut de page"
 function retournerHautPage() {
 	$('html body').prepend('<a href="#" class="retourHautPage">&nbsp;</a>');
@@ -88,6 +95,20 @@ function modules_sauvegarderPositionModule(module, nomConteneur) {
 		).done(	function(html) {
 		});
 	}
+}
+
+// Module des pronostics de poule et de phase finale - Lancement du calcul des points
+function module_pronostics_lancerCalcul(journee) {
+	$.ajax({
+		url: 'module_classements_lancement_calcul.php',
+		type: 'POST',
+		data: {
+			journee: journee
+		}
+	}
+	).done(function (html) {
+		alert('Calcul effectué');
+	});
 }
 
 // Module des pronostics de poule - Fonction Javascript appelée à l'initialisation du module
@@ -407,7 +428,7 @@ function module_directPhaseFinale_sauvegarderScoreMatch(el, type, numeroMatch, e
 // Module direct - Rafraîchissement automatique (match de poule ou de phase finale)
 function module_direct_rafraichirZone() {
 	$.ajax(	{
-				url: 'module_direct_phase_finale.php',
+				url: 'module_direct_poule.php',
 				type: 'POST',
 				data: { appelAjax: 1 }
 			}

@@ -1,10 +1,10 @@
 ﻿<?php
 	session_start();
 	
-	$_SESSION['pronostiqueur'] = 0;
-	$_SESSION['nomPronostiqueur'] = NULL;
-	$_SESSION['erreurLogin'] = 0;
-	$_SESSION['administrateur'] = 0;
+	$_SESSION["cdm_pronostiqueur"] = 0;
+	$_SESSION["cdm_nom_pronostiqueur"] = NULL;
+	$_SESSION["cdm_erreur_login"] = 0;
+	$_SESSION["cdm_administrateur"] = 0;
 	
 	header('Location: index.php');
 

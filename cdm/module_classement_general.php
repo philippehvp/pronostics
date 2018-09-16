@@ -26,18 +26,21 @@
 
 	if($journeeEnCours > $journeeMax || $journeeEnCours > $JOURNEE_MAX)
 		$journeeEnCours = $JOURNEE_MIN;
+
+	if(!$journeeEnCours)
+		$journeeEnCours = 1;
 	
 	// Meilleure progression, plus grosse chute (en terme de place) et idem pour le nombre de points (points max et points min)
 	$ordreSQL =		'		SELECT		MAX(classements_veille.Classements_Classement - cdm_classements.Classements_Classement) AS Progression_Max' .
-					'					,MIN(classements_veille.Classements_Classement - cdm_classements.Classements_Classement) AS Progression_Min' .
-					'					,MAX(cdm_classements.Classements_Points - classements_veille.Classements_Points) AS Points_Max' .
-					'					,MIN(cdm_classements.Classements_Points - classements_veille.Classements_Points) AS Points_Min' .
-					'		FROM		cdm_classements' .
-					'		LEFT JOIN	cdm_classements classements_veille' .
-					'					ON		cdm_classements.Pronostiqueurs_Pronostiqueur = classements_veille.Pronostiqueurs_Pronostiqueur' .
-					'							AND		cdm_classements.Classements_JourneeEnCours = classements_veille.Classements_JourneeEnCours + 1' .
-					'		WHERE		cdm_classements.Classements_JourneeEnCours = ' . $journeeEnCours .
-					'		GROUP BY	cdm_classements.Classements_JourneeEnCours';
+								'							,MIN(classements_veille.Classements_Classement - cdm_classements.Classements_Classement) AS Progression_Min' .
+								'							,MAX(cdm_classements.Classements_Points - classements_veille.Classements_Points) AS Points_Max' .
+								'							,MIN(cdm_classements.Classements_Points - classements_veille.Classements_Points) AS Points_Min' .
+								'		FROM			cdm_classements' .
+								'		LEFT JOIN	cdm_classements classements_veille' .
+								'							ON		cdm_classements.Pronostiqueurs_Pronostiqueur = classements_veille.Pronostiqueurs_Pronostiqueur' .
+								'										AND		cdm_classements.Classements_JourneeEnCours = classements_veille.Classements_JourneeEnCours + 1' .
+								'		WHERE			cdm_classements.Classements_JourneeEnCours = ' . $journeeEnCours .
+								'		GROUP BY	cdm_classements.Classements_JourneeEnCours';
 
 	$req = $bdd->query($ordreSQL);
 	$stats = $req->fetchAll();
@@ -69,11 +72,10 @@
 					'				END AS Evolution_Points' .
 					'				,cdm_classements.Pronostiqueurs_Pronostiqueur' .
 					'				,CASE' .
-					'					WHEN	Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+					'					WHEN	Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
 					'					THEN	\'Moi\'' .
 					'					ELSE	Pronostiqueurs_Nom' .
 					'				END AS Pronostiqueurs_Nom' .
-					'				,Pronostiqueurs_Photo' .
 					'				,cdm_classements.Classements_Points' .
 					'	FROM		cdm_classements' .
 					'	JOIN		cdm_pronostiqueurs' .
@@ -128,7 +130,7 @@
 					
 					$classementsPrecedent = $unClassement["Classements_Classement"];
 
-					if($unClassement["Pronostiqueurs_Pronostiqueur"] == $_SESSION["pronostiqueur"])
+					if($unClassement["Pronostiqueurs_Pronostiqueur"] == $_SESSION["cdm_pronostiqueur"])
 						echo '<tr class="surbrillance">';
 					else
 						echo '<tr>';

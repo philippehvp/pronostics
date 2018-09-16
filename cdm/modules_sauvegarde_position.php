@@ -10,7 +10,7 @@
 	$ordreSQL =		'	UPDATE		cdm_pronostiqueurs_modules' .
 					'	SET			PronostiqueursModules_X = ' . $x .
 					'				,PronostiqueursModules_Y = ' . $y .
-					'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+					'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
 					'				AND		Modules_Module = ' . $module;
 					
 	$bdd->exec($ordreSQL);

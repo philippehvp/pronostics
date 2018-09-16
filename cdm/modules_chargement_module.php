@@ -12,7 +12,7 @@
 					'	FROM		cdm_pronostiqueurs_modules' .
 					'	JOIN		cdm_modules' .
 					'				ON		Modules_Module = Module' .
-					'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+					'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
 					'				AND		Module = ' . $module;
 					
 	$req = $bdd->query($ordreSQL);

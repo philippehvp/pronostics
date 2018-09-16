@@ -12,37 +12,57 @@
 <body>
 	<?php
 		$nomPage = 'accueil.php';
+
+		// Dans un premier temps on détermine dans quelle phase on se trouve :
+		// - avant le premier match de poule : phase de pronostics
+		// - après le premier match de poule et une heure avant le premier 1/8 de finale : phase de poule
+		// - après la phase de poule on se trouve en phase finale
+		if(time() < 1528988400) {
+			$phase = 0;
+		} else if(time() >= 1528988400 && time() < 1530363600) {
+			$phase = 1;
+		} else {
+			$phase = 2;
+		}
+
 		include('bandeau.php');
 		
 		echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
 		
-		/*if($administrateur != 1) {
+		/*if($_SESSION["cdm_pronostiqueur"] != 1) {
 			include('site_maintenance.php');
 			return;
 		}*/
 
+
 		echo '<div id="divAccueil">';
-		
 			// Affichage des matches en direct
-			echo '<div id="divDirect">';
-				//include('module_direct_poule.php');
-				include('module_direct_phase_finale.php');
-			echo '</div>';
+			if($phase != 0) {
+				echo '<div id="divDirect">';
+					if($phase == 1) {
+						include('module_direct_poule.php');
+					} else if($phase == 2) {
+						include('module_direct_phase_finale.php');
+					}
+				echo '</div>';
+			}
 		
 			// Affichage du classement général
 			echo '<div id="divClassementGeneral" class="colle-gauche gauche">';
 				include('module_classement_general.php');
 			echo '</div>';
-		
-			// Pronostics de poule
-			/*echo '<div id="divAccueilPronosticsPoule" class="gauche">';
-				include('module_pronostics_poule.php');
-			echo '</div>';*/
 			
-			// Pronostics de phase finale
-			echo '<div id="divAccueilPronosticsPhaseFinale" class="gauche">';
-				include('module_pronostics_phase_finale.php');
-			echo '</div>';
+			// Pronostics de poule
+			if($phase == 1) {
+				echo '<div id="divAccueilPronosticsPoule" class="gauche">';
+					include('module_pronostics_poule.php');
+				echo '</div>';
+			} else if($phase == 2) {
+				// Pronostics de phase finale
+				echo '<div id="divAccueilPronosticsPhaseFinale" class="gauche">';
+					include('module_pronostics_phase_finale.php');
+				echo '</div>';
+			}
 
 		echo '</div>';	// divAccueil
 
@@ -54,7 +74,7 @@
 	<script>
 		$(function() {
 			<?php
-				if($_SESSION["pronostiqueur"] != 1) {
+				if($_SESSION["cdm_pronostiqueur"] != 1) {
 			?>		
 					var intervalRafraichissement = setInterval(module_direct_rafraichirZone, 20000);
 					$('#txtDirect').val(intervalRafraichissement);

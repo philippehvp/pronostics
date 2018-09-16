@@ -9,8 +9,8 @@
 
 	// Le numéro de la colonne contenant la cote utile est contenu dans une table de configuration
 	$ordreSQL =		'	SELECT		Configurations_ColonneCote' .
-					'	FROM		configurations' .
-					'	WHERE		Configuration = 1';
+								'	FROM			configurations' .
+								'	WHERE			Configuration = 1';
 	$req = $bdd->query($ordreSQL);
 	$colonneCote = $req->fetchAll();
 

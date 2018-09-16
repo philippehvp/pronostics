@@ -3,7 +3,7 @@
 	// Lecture des effectifs des deux équipes d'un match
 	
 	include_once('creer_match_fonctions.php');
-	$tableauErreurs = array();
+	$tableauErreurs['joueurs'] = array();
 	
 	// Lecture des paramètres passés à la page
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
@@ -35,42 +35,36 @@
 		$tableauComposition = $xpath->query('div[@class="panel-body"]/table/tbody/tr/td', $divComposition->item(0));
 
 		// Equipe domicile
-		$htmlEquipeDomicile = remplacerCaracteres(my_utf8_decode($local, trim($document->saveHTML($tableauComposition->item(0)))));
+		$htmlEquipeDomicile = remplacerCaracteres(my_utf8_decode(trim($document->saveHTML($tableauComposition->item(0)))));
 		$htmlEquipeDomicile = preg_replace('/<[^>]*>/', ',', $htmlEquipeDomicile);
 		$joueursEquipeDomicile = explode(",", $htmlEquipeDomicile);
 
 		// Equipe visiteur
-		$htmlEquipeVisiteur = remplacerCaracteres(my_utf8_decode($local, trim($document->saveHTML($tableauComposition->item(1)))));
+		$htmlEquipeVisiteur = remplacerCaracteres(my_utf8_decode(trim($document->saveHTML($tableauComposition->item(1)))));
 		$htmlEquipeVisiteur = preg_replace('/<[^>]*>/', ',', $htmlEquipeVisiteur);
 		$joueursEquipeVisiteur = explode(",", $htmlEquipeVisiteur);
 
 		// Lecture des joueurs de l'équipe domicile
 		foreach($joueursEquipeDomicile as $unJoueur) {
 			if($unJoueur && trim($unJoueur) != "") {
-				$nomJoueurModifie = remplacerCaracteres(trim($unJoueur));
-				
+				$nomJoueurModifie = trim($unJoueur);
 				$retour = rechercherJoueur($bdd, $nomJoueurModifie, $equipeDomicile, $dateMatch, 1);
 				if($retour == -1)
 					$retour = rechercherJoueurInitialePrenom($bdd, $nomJoueurModifie, $equipeDomicile, $dateMatch, 1);
-				if($retour == -1)
-					array_push($tableauErreurs, array('equipe'=>$equipeDomicile, 'joueur'=>$nomJoueurModifie));
-				else if($retour == 0)
-					array_push($tableauErreurs, array('equipe'=>$equipeDomicile, 'joueur'=>$nomJoueurModifie));
+				if($retour == -1 || $retour == 0)
+					array_push($tableauErreurs['joueurs'], array('equipe'=>$equipeDomicile, 'joueur'=>$nomJoueurModifie));
 			}
 		}
 
 		// Lecture des joueurs de l'équipe visiteur
 		foreach($joueursEquipeVisiteur as $unJoueur) {
 			if($unJoueur && trim($unJoueur) != "") {
-				$nomJoueurModifie = remplacerCaracteres(trim($unJoueur));
-
+				$nomJoueurModifie = trim($unJoueur);
 				$retour = rechercherJoueur($bdd, $nomJoueurModifie, $equipeVisiteur, $dateMatch, 1);
 				if($retour <= 0)
 					$retour = rechercherJoueurInitialePrenom($bdd, $nomJoueurModifie, $equipeVisiteur, $dateMatch, 1);
-				if($retour == -1)
-					array_push($tableauErreurs, array('equipe'=>$equipeVisiteur, 'joueur'=>$nomJoueurModifie));
-				else if($retour == 0)
-					array_push($tableauErreurs, array('equipe'=>$equipeVisiteur, 'joueur'=>$nomJoueurModifie));
+				if($retour == -1 || $retour == 0)
+					array_push($tableauErreurs['joueurs'], array('equipe'=>$equipeVisiteur, 'joueur'=>$nomJoueurModifie));
 			}
 		}
 	}

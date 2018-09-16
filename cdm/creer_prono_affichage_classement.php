@@ -33,7 +33,7 @@
 						'				ON		cdm_pronostics_poule_classements.Equipes_Equipe = cdm_pronostics_poule_stats.Equipes_Equipe' .
 						'						AND		cdm_pronostics_poule_classements.Pronostiqueurs_Pronostiqueur = cdm_pronostics_poule_stats.Pronostiqueurs_Pronostiqueur' .
 						'						AND		cdm_pronostics_poule_classements.Poules_Poule = cdm_pronostics_poule_stats.Poules_Poule' .
-						'	WHERE		cdm_pronostics_poule_stats.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+						'	WHERE		cdm_pronostics_poule_stats.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
 						'				AND		cdm_pronostics_poule_stats.Poules_Poule = ' . $poule .
 						'	ORDER BY	IFNULL(PronosticsPouleClassements_ClassementTirage, PronosticsPouleClassements_Classement)';
 
@@ -96,9 +96,9 @@
 		// Pour déterminer s'il faut afficher ou non le bouton de réglage des égalités, il est nécessaire d'effectuer une requête en base
 		$ordreSQL =		'	SELECT		COUNT(*) AS NombreEgalites' .
 						'	FROM		cdm_pronostics_poule_egalites' .
-						'	WHERE		cdm_pronostics_poule_egalites.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+						'	WHERE		cdm_pronostics_poule_egalites.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
 						'				AND		cdm_pronostics_poule_egalites.Poules_Poule = ' . $poule .
-						'				AND		cdm_fn_nombre_matches_incomplets_poule(' . $_SESSION["pronostiqueur"] . ', ' . $poule . ') = 0';
+						'				AND		cdm_fn_nombre_matches_incomplets_poule(' . $_SESSION["cdm_pronostiqueur"] . ', ' . $poule . ') = 0';
 
 		$req = $bdd->query($ordreSQL);
 		$donnees = $req->fetchAll();

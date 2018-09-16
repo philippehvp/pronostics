@@ -13,7 +13,7 @@
 	$req->closeCursor();
 	
 	if($journeeEnCours) {
-		if(/*$journeeEnCours >= 16*/1) {
+		if($journeeEnCours >= 16) {
 			/* Matches en direct de la phase finale */
 			$ordreSQL =		'	SELECT		cdm_matches_phase_finale.Match, equipesA.Equipes_NomCourt AS EquipesA_NomCourt, equipesB.Equipes_NomCourt AS EquipesB_NomCourt' .
 							'				,CASE' .

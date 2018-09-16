@@ -58,7 +58,7 @@
 			// Dans le premier cas, il faut accéder à la table cdm_meilleur_buteur car c'est elle qui contient le ou les meilleur(s) buteur(s)
 			
 			// Lecture des données déjà saisies par le pronostiqueur
-			if($_SESSION["pronostiqueur"] == 1) {
+			if($_SESSION["cdm_pronostiqueur"] == 1) {
 				$ordreSQL =		'	SELECT		GROUP_CONCAT(Joueurs_Nom SEPARATOR \', \') AS Joueurs_Nom' .
 								'	FROM		cdm_meilleur_buteur' .
 								'	JOIN		cdm_joueurs' .
@@ -83,11 +83,11 @@
 			}
 			else {
 					$ordreSQL =		'	SELECT		Joueurs_Joueur, Joueurs_Nom' .
-									'	FROM		cdm_pronostics_buteur' .
-									'	JOIN		cdm_joueurs' .
-									'				ON		cdm_pronostics_buteur.Joueurs_Joueur = cdm_joueurs.Joueur' .
-									'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"];
-				
+												'	FROM		cdm_pronostics_buteur' .
+												'	JOIN		cdm_joueurs' .
+												'				ON		cdm_pronostics_buteur.Joueurs_Joueur = cdm_joueurs.Joueur' .
+												'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"];
+
 					$req = $bdd->query($ordreSQL);
 					$buteur = $req->fetchAll();
 
@@ -144,8 +144,8 @@
 						'	JOIN		cdm_equipes equipe_b' .
 						'				ON		cdm_matches_poule.Equipes_EquipeB = equipe_b.Equipe' .
 						'						AND		equipe_b.Equipe = pronostics_pouleB.Equipes_Equipe' .
-						'	WHERE		pronostics_pouleA.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
-						'				AND		pronostics_pouleB.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+						'	WHERE		pronostics_pouleA.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
+						'				AND		pronostics_pouleB.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
 						'	ORDER BY	cdm_matches_poule.Poules_Poule, cdm_matches_poule.Match';
 
 		$req = $bdd->query($ordreSQL);
@@ -216,7 +216,7 @@
 														}
 													);
 			<?php
-				if($_SESSION["pronostiqueur"] != 1) {
+				if($_SESSION["cdm_pronostiqueur"] == 1 || time() < 1528988400) {
 			?>
 					$('#nomMeilleurButeur').keyup(function(event) {
 						// Lecture de la taille de la zone de texte

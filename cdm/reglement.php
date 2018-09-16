@@ -78,33 +78,38 @@
 		<b>Bonus obtenu si l'une des équipes ci-dessous sort des poules :</b>
 		<table id="tableBonus">
 			<tr>
-				<td>Mexique, 20 pts</td>
-				<td>Cameroun, 40 pts</td>
-				<td>Croatie, 20 pts</td>
+				<td>Russie, 10 pts</td>
+				<td>Arabie Saoudite, 50 pts</td>
+				<td>Egypte, 10 pts</td>
 			</tr>
 			<tr>
-				<td>Chili, 10 pts</td>
-				<td>Australie, 50 pts</td>
-				<td>Côte d'Ivoire, 10 pts</td>
-			</tr>
-			<tr>
-				<td>Japon, 10 pts</td>
-				<td>Grèce, 20 pts</td>
-				<td>Costa Rica, 50 pts</td>
-			</tr>
-			<tr>
-				<td>Equateur, 10 pts</td>
-				<td>Honduras, 50 pts</td>
-				<td>Nigéria, 20 pts</td>
-			</tr>
-			<tr>
+				<td>Maroc, 30 pts</td>
 				<td>Iran, 50 pts</td>
-				<td>Ghana, 30 pts</td>
-				<td>Etats-Unis, 40 pts</td>
+				<td>Australie, 40 pts</td>
 			</tr>
 			<tr>
-				<td>Corée du Sud, 20 pts</td>
-				<td colspan="2">Algérie, 40 pts</td>
+				<td>Pérou, 10 pts</td>
+				<td>Danemark, 10 pts</td>
+				<td>Islande, 20 pts</td>
+			</tr>
+			<tr>
+				<td>Nigeria, 20 pts</td>
+				<td>Suisse, 10 pts</td>
+				<td>Costa Rica, 40 pts</td>
+			</tr>
+			<tr>
+				<td>Serbie, 10 pts</td>
+				<td>Suède, 10 pts</td>
+				<td>Corée du Sud, 40 pts</td>
+			</tr>
+			<tr>
+				<td>Panama, 50 pts</td>
+				<td>Tunisie, 20 pts</td>
+				<td>Pologne, 10</td>
+			</tr>
+			<tr>
+				<td>Sénégal, 10 pts</td>
+				<td colspan="2">Japon, 30</td>
 			</tr>
 		</table>
 		

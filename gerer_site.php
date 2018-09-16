@@ -22,8 +22,9 @@
     echo '<div id="divSauvegarde" class="contenu-page">';
         // Sauvegarde de la base de données
         // Réinitialisation de la saison
+        $annee = date("Y");
         echo '<label>Saison à sauvegarder : </label>';
-        echo '<input type="text" id="txtSaison">';
+        echo '<input type="text" id="txtSaison" value="' . $annee . '">';
         echo '<br />';
         echo '<label class="bouton" onclick="gererSite_sauvegarderDonnees();">Sauvegarder</label>';
 

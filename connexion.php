@@ -21,27 +21,27 @@
 	setcookie('lepoulpeg_mdp', $mdp, time() + (7 * 24 * 3600), null, null, false, true);
 
 	$ordreSQL =		'	SELECT		Pronostiqueur, Pronostiqueurs_NomUtilisateur, Pronostiqueurs_Prenom, Pronostiqueurs_Administrateur' .
-					'				,IFNULL(Pronostiqueurs_Photo, \'_inconnu.png\') AS Pronostiqueurs_Photo' .
-					'				,IFNULL(Pronostiqueurs_PremiereConnexion, 1) AS Pronostiqueurs_PremiereConnexion' .
-					'				,Pronostiqueurs_AfficherTropheesChampionnat' .
-					'				,IFNULL(themes.Themes_NomCourt, \'defaut\') AS Pronostiqueurs_Theme' .
-					'	FROM		pronostiqueurs' .
-					'	LEFT JOIN	themes' .
-					'				ON		pronostiqueurs.Themes_Theme = themes.Theme' .
-					'	WHERE		Pronostiqueurs_NomUtilisateur = ?' .
-					'				AND		Pronostiqueurs_MotDePasse = ?' .
-					'	LIMIT		1';
+								'				,IFNULL(Pronostiqueurs_Photo, \'_inconnu.png\') AS Pronostiqueurs_Photo' .
+								'				,IFNULL(Pronostiqueurs_PremiereConnexion, 1) AS Pronostiqueurs_PremiereConnexion' .
+								'				,Pronostiqueurs_AfficherTropheesChampionnat' .
+								'				,IFNULL(themes.Themes_NomCourt, \'defaut\') AS Pronostiqueurs_Theme' .
+								'	FROM		pronostiqueurs' .
+								'	LEFT JOIN	themes' .
+								'				ON		pronostiqueurs.Themes_Theme = themes.Theme' .
+								'	WHERE		Pronostiqueurs_NomUtilisateur = ?' .
+								'				AND		Pronostiqueurs_MotDePasse = ?' .
+								'	LIMIT		1';
 
 	$req = $bdd->prepare($ordreSQL);
 	$req->execute(array($login, $mdp));
 
 	$donnees = $req->fetch();
 	$_SESSION["pronostiqueur"] = $donnees["Pronostiqueur"];
-	$_SESSION["nom_utilisateur"] = $donnees["Pronostiqueurs_NomUtilisateur"];
-	$_SESSION["prenom"] = $donnees["Pronostiqueurs_Prenom"];
+	$_SESSION["nom_pronostiqueur"] = $donnees["Pronostiqueurs_NomUtilisateur"];
+	$_SESSION["prenom_pronostiqueur"] = $donnees["Pronostiqueurs_Prenom"];
 	$_SESSION["administrateur"] = $donnees["Pronostiqueurs_Administrateur"];
 	$_SESSION["photo_pronostiqueur"] = $donnees["Pronostiqueurs_Photo"];
-	$_SESSION["theme"] = $donnees["Pronostiqueurs_Theme"];
+	$_SESSION["theme_pronostiqueur"] = $donnees["Pronostiqueurs_Theme"];
 	$premiereConnexion = $donnees["Pronostiqueurs_PremiereConnexion"];
 	$afficherTropheesChampionnat = $donnees["Pronostiqueurs_AfficherTropheesChampionnat"];
 
@@ -65,8 +65,8 @@
 
 	else {
 		$_SESSION["pronostiqueur"] = 0;
-		$_SESSION["nom_utilisateur"] = '';
-		$_SESSION["prenom"] = '';
+		$_SESSION["nom_pronostiqueur"] = '';
+		$_SESSION["prenom_pronostiqueur"] = '';
 		$_SESSION["administrateur"] = 0;
 		$_SESSION["photo_pronostiqueur"] = '';
 		$_SESSION["erreur_login"] = 1;

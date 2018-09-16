@@ -18,8 +18,8 @@
 <link rel="stylesheet" href="css/pronostics/mc.css" />
 <link rel="stylesheet" href="css/pronostics/menu.css" />
 <link rel="stylesheet" href="css/pronostics/tableaux.css" />
-<link rel="stylesheet" href="css/pronostics/themes/<?php echo (isset($_SESSION["theme"]) ? $_SESSION["theme"] : 'defaut');?>/tableaux.css" />
-<link rel="stylesheet" href="css/pronostics/themes/<?php echo (isset($_SESSION["theme"]) ? $_SESSION["theme"] : 'defaut');?>/style.css" />
+<link rel="stylesheet" href="css/pronostics/themes/<?php echo (isset($_SESSION["theme_pronostiqueur"]) ? $_SESSION["theme_pronostiqueur"] : 'defaut');?>/tableaux.css" />
+<link rel="stylesheet" href="css/pronostics/themes/<?php echo (isset($_SESSION["theme_pronostiqueur"]) ? $_SESSION["theme_pronostiqueur"] : 'defaut');?>/style.css" />
 
 <link href="css/cssemoticons/jquery.cssemoticons.css" media="screen" rel="stylesheet" type="text/css" />
 <script src="js/cssemoticons/jquery.cssemoticons.min.js" type="text/javascript"></script>

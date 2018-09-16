@@ -7,7 +7,7 @@
 	// Un traitement spécial est fait pour le pronostiqueur 1, qui représente les résultats finaux
 	$ordreSQL =		'	SELECT		Pronostiqueur, Pronostiqueurs_Nom' .
 					'	FROM		cdm_pronostiqueurs' .
-					'	WHERE		Pronostiqueur <> ' . $_SESSION["pronostiqueur"] .
+					'	WHERE		Pronostiqueur <> ' . $_SESSION["cdm_pronostiqueur"] .
 					'	ORDER BY	Pronostiqueurs_Nom';
 	$req = $bdd->query($ordreSQL);
 	$pronostiqueursConsultables = $req->fetchAll();
@@ -26,7 +26,7 @@
 						else
 							$nomPronostiqueur = $pronostiqueursConsultables[$i * $nombrePronostiqueursParColonne + $j]["Pronostiqueurs_Nom"];
 						
-						echo '<label class="lien" onclick="window.open(\'consulter_prono.php?pronostiqueurConsulte=' . $pronostiqueursConsultables[$i * $nombrePronostiqueursParColonne + $j]["Pronostiqueur"] . '\', \'_self\');">' . $nomPronostiqueur . '</label>';
+						echo '<label class="lien" onclick="window.open(\'recapituler_prono.php?pronostiqueurConsulte=' . $pronostiqueursConsultables[$i * $nombrePronostiqueursParColonne + $j]["Pronostiqueur"] . '\', \'_self\');">' . $nomPronostiqueur . '</label>';
 						echo '<br />';
 					}
 				echo '</div>';

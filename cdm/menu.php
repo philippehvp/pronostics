@@ -17,10 +17,10 @@
 				echo '<div class="tuileFermer"><label class="fermer">X</label></div>';
 				echo '<div class="tuileProfil">';
 					echo '<div class="zoneTexte">';
-						echo '<label class="nomPronostiqueur">' . $_SESSION["nomPronostiqueur"] . '</label><br />';
+						echo '<label class="nomPronostiqueur">' . $_SESSION["cdm_nom_pronostiqueur"] . '</label><br />';
 						echo '<label class="deconnecter" onclick="window.open(\'deconnexion.php\', \'_self\');">Déconnecter</label>';
 					echo '</div>';
-					echo '<img src="images/pronostiqueurs/' . $_SESSION["photoPronostiqueur"] . '" />';
+					// echo '<img src="images/pronostiqueurs/' . $_SESSION["cdm_photo_pronostiqueur"] . '" />';
 				echo '</div>';
 				echo '<div id="divTuilePronostics" class="colle-gauche tuileRectangulaire" onclick="window.open(\'creer_prono.php\', \'_self\');"><label>Pronostics</label></div>';
 				echo '<div id="divTuileQualifications" class="tuileRectangulaire" onclick="window.open(\'creer_qualification.php\', \'_self\');"><label>Qualifications</label></div>';

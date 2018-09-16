@@ -12,13 +12,13 @@
 
 	// Tous les pronostics de meilleur buteur
 	$ordreSQL =		'	SELECT		CASE' .
-					'					WHEN	Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+					'					WHEN	Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
 					'					THEN	1' .
 					'					ELSE	2' .
 					'				END AS Ordre' .
 					'				,Pronostiqueur' .
 					'				,CASE' .
-					'					WHEN	Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+					'					WHEN	Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
 					'					THEN	\'Moi\'' .
 					'					ELSE	Pronostiqueurs_Nom' .
 					'				END AS Pronostiqueurs_Nom' .
@@ -38,7 +38,7 @@
 	
 	// Points pour le meilleur buteur
 	$ordreSQL	=	'	SELECT		CASE' .
-					'					WHEN	Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+					'					WHEN	Pronostiqueur = ' . $_SESSION["cdm_pronostiqueur"] .
 					'					THEN	1' .
 					'					ELSE	2' .
 					'				END AS Ordre' .

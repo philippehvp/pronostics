@@ -30,12 +30,12 @@
 		$tableauComposition = $xpath->query('div[@class="panel-body"]/table/tbody/tr/td', $divComposition->item(0));
 
 		// Equipe domicile
-		$htmlEquipeDomicile = remplacerCaracteres(my_utf8_decode($local, trim($document->saveHTML($tableauComposition->item(0)))));
+		$htmlEquipeDomicile = remplacerCaracteres(my_utf8_decode(trim($document->saveHTML($tableauComposition->item(0)))));
 		$htmlEquipeDomicile = preg_replace('/<[^>]*>/', ',', $htmlEquipeDomicile);
 		$joueursEquipeDomicile = explode(",", $htmlEquipeDomicile);
 
 		// Equipe visiteur
-		$htmlEquipeVisiteur = remplacerCaracteres(my_utf8_decode($local, trim($document->saveHTML($tableauComposition->item(1)))));
+		$htmlEquipeVisiteur = remplacerCaracteres(my_utf8_decode(trim($document->saveHTML($tableauComposition->item(1)))));
 		$htmlEquipeVisiteur = preg_replace('/<[^>]*>/', ',', $htmlEquipeVisiteur);
 		$joueursEquipeVisiteur = explode(",", $htmlEquipeVisiteur);
 
@@ -43,7 +43,7 @@
 		$i = 0;
 		foreach($joueursEquipeDomicile as $unJoueur) {
 			if($unJoueur && trim($unJoueur) != "") {
-				$nomJoueurModifie = remplacerCaracteres(trim($unJoueur));
+				$nomJoueurModifie = trim($unJoueur);
 				$retour = ajouterJoueur($bdd, $nomJoueurModifie, $equipeDomicile, $match, $dateMatch, 1);
 				if($retour == -1)
 					array_push($tableauErreurs, array('equipe'=>$equipeDomicile, 'joueur'=>$nomJoueurModifie));
@@ -58,7 +58,7 @@
 		$i = 0;
 		foreach($joueursEquipeVisiteur as $unJoueur) {
 			if($unJoueur && trim($unJoueur) != "") {
-				$nomJoueurModifie = remplacerCaracteres(trim($unJoueur));
+				$nomJoueurModifie = trim($unJoueur);
 				$retour = ajouterJoueur($bdd, $nomJoueurModifie, $equipeVisiteur, $match, $dateMatch, 1);
 				if($retour == -1)
 					array_push($tableauErreurs, array('equipe'=>$equipeVisiteur, 'joueur'=>$nomJoueurModifie));

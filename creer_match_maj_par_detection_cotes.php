@@ -76,7 +76,5 @@
         $tableau['joueurs_inconnus_equipe_domicile'] = $tableauJoueursInconnusEquipeDomicile;
         $tableau['joueurs_inconnus_equipe_visiteur'] = $tableauJoueursInconnusEquipeVisiteur;
     }
-
     echo json_encode($tableau);
-
 ?>
