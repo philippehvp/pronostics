@@ -5,6 +5,7 @@
 	$journee = isset($_POST["journee"]) ? $_POST["journee"] : 0;
 	$dateReference = isset($_POST["date_reference"]) ? $_POST["date_reference"] : 0;
 	$championnat = isset($_POST["championnat"]) ? $_POST["championnat"] : 0;
+	$sansButeur = isset($_POST["sans_buteur"]) ? $_POST["sans_buteur"] : 0; 
 
 	// Affichage des classements pour une journée en particulier
 	
@@ -20,6 +21,6 @@
 	$affichageClassementButeur = 1;
 	$affichageNeutre = 0;
 	$affichageJourneeSuivante = 0;		// On ne doit jamais afficher la journée suivante
-	afficherClassements($bdd, $championnat, $journee, $dateReference, $dtDateMAJ, $journeeNom, $affichageClassementButeur, $affichageNeutre, $affichageJourneeSuivante);
+	afficherClassements($bdd, $championnat, $journee, $dateReference, $dtDateMAJ, $journeeNom, $affichageClassementButeur, $affichageNeutre, $affichageJourneeSuivante, $sansButeur);
 
 ?>

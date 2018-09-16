@@ -42,9 +42,10 @@
 	$req->closeCursor();
 
 	$modeModule = 1;
+	$sansButeur = 1;
 	
 	echo '<div style="margin-left: 8px;">';
-		afficherClassementJourneeSansButeur($bdd, $championnat, $journee, $dateReference, $dtDateMAJ, $journeeNom, $modeModule, $modeRival, $modeConcurrentDirect);
+		afficherClassementJournee($bdd, $championnat, $journee, $dateReference, $dtDateMAJ, $journeeNom, $modeModule, $modeRival, $modeConcurrentDirect, $sansButeur);
 	echo '</div>';
 		
 ?>

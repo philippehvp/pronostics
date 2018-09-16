@@ -632,6 +632,7 @@ function creerMatch_detecterCotesV1(numeroMatch) {
                                     dataType: 'json'
                                 }
                         ).done(function(html) {
+                            //console.log(html);
                             if(html.nombre_cotes_detectees == 0) {
                                 alert('Aucune cote détectée');
                                 return;
@@ -737,7 +738,7 @@ function creerMatch_detecterCotesV2(numeroMatch) {
                                                 equipe_visiteur: numeroEquipeVisiteur,
                                                 date_debut_match: dateDebutMatch,
                                                 liste_cotes_joueurs: listeCotesJoueurs
-									},
+                                            },
                                     dataType: 'json'
                                 }
                         ).done(function(html) {
@@ -1122,6 +1123,8 @@ function creerMatch_lireLiensMatches(journee) {
 						}
 			}
 	).done(function(html) {
+		//console.log(html.replace(/<br\s*\/?>/mg,"\n"));
+
 		// Rechargement de la page
 		location.reload();
 	});
@@ -1137,6 +1140,8 @@ function creerMatch_lireLiensMatchesScoresPro(journee) {
 						}
 			}
 	).done(function(html) {
+		//console.log(html.replace(/<br\s*\/?>/mg,"\n"));
+
 		// Rechargement de la page
 		location.reload();
 	});
@@ -1156,19 +1161,21 @@ function creerMatch_lireEffectif(match, champLienPage, origine) {
 	else
 		page = 'creer_match_lecture_effectif_equipes_scorespro.php';
 	$.ajax(	{
-				url: page
-				,type: 'POST'
-				,data: { match: match }
-				,dataType: 'json'
+				url: page,
+				type: 'POST',
+				data: {
+					match: match
+				},
+				dataType: 'json'
 			}
 	).done(function(html) {
-		if(html.joueurs && html.joueurs.length > 0) {
+		if(html.length > 0) {
 			// Affichage d'une fenêtre de mise à jour des données des joueurs pour lesquels la recherche a été infructueuse
 			$.ajax(	{
 						url: 'creer_match_correction_effectif.php',
 						type: 'POST',
 						data:	{	match: match,
-									joueurs: html.joueurs,
+									joueurs: html,
 									origine: origine
 								}
 			}).done(function(html) {
@@ -1209,10 +1216,12 @@ function creerMatch_lireComposition(match, champLienPage, origine) {
 		page = 'creer_match_lecture_composition_equipes_scorespro.php';
 
 	$.ajax(	{
-				url: page
-				,type: 'POST'
-				,data:	{ match: match }
-				,dataType: 'json'
+				url: page,
+				type: 'POST',
+				data:	{
+							match: match
+						},
+				dataType: 'json'
 			}
 	).done(function(html) {
 		if(html.length > 0) {
@@ -1247,7 +1256,7 @@ function creerMatch_lireComposition(match, champLienPage, origine) {
 		else
 			afficherMessageInformationBandeau('Composition remplie avec succès', 2000, '');
 	}).fail(function(html) {
-		console.log('Fonction creerMatch_lireComposition : dans le fail', html);
+		console.log('Fonction creerMatch_lireComposition : dans le fail');
 	});
 }
 
@@ -1418,7 +1427,7 @@ function creerMatch_rechercherJoueur(joueur, equipe) {
 	});
 }
 
-// Gestion de match - Passage d'un match en direct
+// Gestion de match - Passage d'un match en mode direct
 function creerMatch_passerEnDirect(match) {
 	$.ajax(	{
 				url: 'creer_match_ajout_direct.php',
@@ -2392,13 +2401,14 @@ function gererPoules_creerPoules(championnat, nombreGroupes, numeroPremierGroupe
 }
 
 // Classements pronostiqueurs - Affichage d'une journée
-function classementsPronostiqueurs_afficherJournee(championnat, journee, dateReference, nomDiv, affichageNeutre) {
+function classementsPronostiqueurs_afficherJournee(championnat, journee, dateReference, nomDiv, affichageNeutre, sansButeur) {
     $.ajax( {
                 url: 'classements_pronostiqueurs_affichage_journee.php',
                 type: 'POST',
                 data:   {   journee: journee
 							,date_reference: dateReference
-                            ,championnat: championnat
+							,championnat: championnat
+							,sans_buteur: sansButeur
                         }
             }
     ).done(function(html) {

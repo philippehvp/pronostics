@@ -44,9 +44,10 @@
 	$journeeSuivanteActive = $donnees["Journees_Active"];
 	$req->closeCursor();
 	$modeModule = 1;
+	$sansButeur = 1;
 	
 	echo '<div style="margin-left: 8px;">';
-		afficherClassementGeneralSansButeur($bdd, $championnat, $journee, $dateReference, $dtDateMAJ, $journeeNom, $journeeSuivanteActive, $modeModule, $modeRival, $modeConcurrentDirect);
+		afficherClassementGeneral($bdd, $championnat, $journee, $dateReference, $dtDateMAJ, $journeeNom, $journeeSuivanteActive, $modeModule, $modeRival, $modeConcurrentDirect, $sansButeur);
 	echo '</div>';
 ?>
 
