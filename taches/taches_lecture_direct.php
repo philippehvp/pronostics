@@ -17,10 +17,10 @@
 	}
 
 	$ordreSQL =		'	SELECT		matches.Match, Journees_Journee, Matches_Date, Matches_LienPage' .
-					'				,Equipes_EquipeDomicile, Equipes_EquipeVisiteur, matches.Matches_SansButeur, IFNULL(matches.Matches_MatchIgnore, 0) AS Matches_MatchIgnore' .
-					'	FROM		matches' .
-					'	JOIN		matches_direct' .
-					'				ON		matches.Match = matches_direct.Matches_Match';
+								'						,Equipes_EquipeDomicile, Equipes_EquipeVisiteur, matches.Matches_SansButeur, IFNULL(matches.Matches_MatchIgnore, 0) AS Matches_MatchIgnore' .
+								'	FROM			matches' .
+								'	JOIN			matches_direct' .
+								'						ON		matches.Match = matches_direct.Matches_Match';
 
 	$req = $bdd->query($ordreSQL);
 	$matches = $req->fetchAll();
