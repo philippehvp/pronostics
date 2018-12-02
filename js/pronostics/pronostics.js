@@ -1201,9 +1201,8 @@ function creerMatch_lireEffectif(match, champLienPage, origine) {
 		else
 			afficherMessageInformationBandeau('Vérification des effectifs effectuée avec succès', 2000, '');
 	}).fail(function(html) {
-		console.log('Fonction creerMatch_lireEffectif : dans le fail');
+		console.log('Fonction creerMatch_lireEffectif : dans le fail', html);
 	});
-
 }
 
 // Gestion de match - Lecture de la composition des deux équipes d'un match
