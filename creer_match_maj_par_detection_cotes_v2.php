@@ -1,5 +1,5 @@
 <?php
-	include('commun_administrateur.php');
+	include_once('commun_administrateur.php');
 	include_once('creer_match_fonctions.php');
 
 	// Sauvegarde de la liste des cotes des joueurs

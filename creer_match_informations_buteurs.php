@@ -1,5 +1,5 @@
 <?php
-	include('commun_administrateur.php');
+	include_once('commun_administrateur.php');
 
 	// Demande d'informations complémentaires concernant un buteur (cote dans le cas où ce buteur n'a pas encore été ajouté)
 

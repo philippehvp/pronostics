@@ -1,5 +1,5 @@
 <?php
-	include('commun_administrateur.php');
+	include_once('commun_administrateur.php');
 
 	// Mise à jour du bonus anticipé d'une équipe (championne, podium ou relégation)
 	

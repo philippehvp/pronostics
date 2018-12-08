@@ -1,4 +1,5 @@
 <?php
+
     // Lecture des options de menu pour savoir s'il faut les afficher ou non
     $ordreSQL =     '   SELECT      (SELECT Menus_Visible FROM menus WHERE Menu = 100) AS Menu100' .
                     '               ,(SELECT Menus_Visible FROM menus WHERE Menu = 110) AS Menu110' .
@@ -59,7 +60,6 @@
                                                     '               ON      Theme = Themes_Theme' .
                                                     '   WHERE       Themes_Actif = 1' .
                                                     '   ORDER BY    Ordre, Theme';
-
                                     $req = $bdd->query($ordreSQL);
                                     $themes = $req->fetchAll();
 
@@ -97,6 +97,7 @@
                                         '               ,fn_recherchejourneeencours(2) AS Journee_LDC' .
                                         '               ,fn_recherchejourneeencours(3) AS Journee_EL' .
                                         '               ,fn_recherchejourneeencours(5) AS Journee_CDF';
+                                        echo $ordreSQL;
                         $req = $bdd->query($ordreSQL);
                         $journeesActives = $req->fetchAll();
                         $journeeL1 = $journeesActives[0]["Journee_L1"];
@@ -177,7 +178,6 @@
                         echo '</li>';
                     }
 
-
                     echo '<li class="menu--lien" onclick="window.open(\'accueil.php\', \'_self\');">Accueil</li>';
 
                     echo '<li class="menu--lien">Pronostics+';
@@ -239,8 +239,7 @@
         echo '</div>';
     echo '</div>';
 
-
-    include('modules.php');
+    include_once('modules.php');
 ?>
 
 <script>

@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 	
 	// Retourne la liste des modules actifs du groupe de modules pour un pronostiqueur
 	

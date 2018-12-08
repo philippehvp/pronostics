@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 
 	echo '<div>';
 		echo '<label class="titre">Tchat public</label>';

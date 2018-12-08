@@ -1,5 +1,5 @@
 <?php
-	include('commun_administrateur.php');
+	include_once('commun_administrateur.php');
 
 	// Suppression d'un pronostiqueur de la table des pronostiqueurs
 	

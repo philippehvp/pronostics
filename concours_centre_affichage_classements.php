@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 	
 	// Affichage des classements comparés pour un championnat
 
@@ -152,7 +152,7 @@
 			unlink($f);
 		}
 		
-		include('concours_centre_affichage_classements_creation_graphique_principal.php');
+		include_once('concours_centre_affichage_classements_creation_graphique_principal.php');
 		echo '<img src="' . $nomFichier . '" alt="" />';
 	echo '</div>';
 	echo '<div class="cc--classements-graphique-secondaire" style="position: absolute;"></div>';

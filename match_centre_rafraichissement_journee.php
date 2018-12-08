@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 	
 	// Page de vérification de la date d'événement ou de mise à jour de la dernière journée d'un championnat
 	

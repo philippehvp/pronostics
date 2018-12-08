@@ -1,5 +1,5 @@
 ﻿<?php
-	include('commun_administrateur.php');
+	include_once('commun_administrateur.php');
 
 	// Lecture des journées du championnat dont le numéro a été passé en paramètre
 

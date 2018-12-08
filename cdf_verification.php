@@ -3,7 +3,7 @@
 	// Vérification de la nécessité de faire le rafraîchissement ou non
 	
 	// La page est forcément appelée par de l'Ajax
-	include('commun.php');
+	include_once('commun.php');
 	
 	// Lecture des paramètres passés à la page
 	$critereRafraichissement = isset($_POST["critereRafraichissement"]) ? $_POST["critereRafraichissement"] : '';

@@ -10,7 +10,7 @@
 	$poule = isset($_POST["poule"]) ? $_POST["poule"] : 0;
 
 	if($appelAjax == 1) {
-		include('commun.php');
+		include_once('commun.php');
 	}
 	
 	// Fonction d'affichage du classement d'une poule

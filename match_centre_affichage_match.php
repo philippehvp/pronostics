@@ -1,6 +1,6 @@
 <?php
 
-	include('commun.php');
+	include_once('commun.php');
 	include_once('fonctions.php');
 	
 	// Lecture des paramètres passés à la page

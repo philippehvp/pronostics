@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 	
 	// Affichage des pronostiqueurs et des points marqués du match Canal
 	

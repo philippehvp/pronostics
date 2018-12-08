@@ -1,11 +1,11 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
 <?php
-	include('commun_entete.php');
+	include_once('commun_entete.php');
 	echo '<script src="js/jquery/jquery.ui.touch-punch.min.js"></script>';
 ?>
 
@@ -19,7 +19,7 @@
 	echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
 
 	echo '<div class="conteneur">';
-		include('bandeau.php');
+		include_once('bandeau.php');
 		
 		// Lecture des données de la table des points du panthéon des pronostiqueurs du top 3 (actuels et anciens)
 		// Attention, compte tenu des égalités, le fait de ramener les joueurs ayant un classement inférieur ou égal à 3 peut ramener plus de 3 joueurs
@@ -170,7 +170,7 @@
 			echo '<div class="colle-gauche"></div>';
 			echo '<div class="pantheon--detail"></div>';
 		echo '</div>';
-		//include('pied.php');
+		//include_once('pied.php');
 	echo '</div>';
 
 ?>

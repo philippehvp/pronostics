@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 	
 	// Création d'un nouveau groupe de tchat ou d'une conversation avec un interlocuteur unique
 	// La liste des pronostiqueurs contient en fait le champ nom utilisateur des pronostiqueurs séparés par le caractère ;

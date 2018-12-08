@@ -1,11 +1,11 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
 <?php
-	include('commun_entete.php');
+	include_once('commun_entete.php');
 ?>
 
 </head>
@@ -22,7 +22,7 @@
 		// Le numéro de championnat dépend du pronostiqueur connecté
 		
 		echo '<div class="conteneur">';
-			include('bandeau.php');
+			include_once('bandeau.php');
 			
 			echo '<div id="divClassementGroupes" class="contenu-page">';
 				// Lecture du nombre de pronostiqueurs
@@ -104,7 +104,7 @@
 					}
 				}
 			echo '</div>';
-			//include('pied.php');
+			//include_once('pied.php');
 		echo '</div>';
 	?>
 

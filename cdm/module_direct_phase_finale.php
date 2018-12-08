@@ -5,7 +5,7 @@
 		$appelAjax = isset($_POST["appelAjax"]) ? 1 : 0;
 
 		if($appelAjax == 1) {
-			include('commun.php');
+			include_once('commun.php');
 		}
 
 		// Lecture des matches de phase finale en direct

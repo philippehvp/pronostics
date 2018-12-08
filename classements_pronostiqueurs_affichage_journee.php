@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 	include_once('classements_pronostiqueurs_fonctions.php');
 	
 	$journee = isset($_POST["journee"]) ? $_POST["journee"] : 0;

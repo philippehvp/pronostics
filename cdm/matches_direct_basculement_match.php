@@ -1,5 +1,5 @@
 <?php
-	include('commun_administrateur.php');
+	include_once('commun_administrateur.php');
 	
 	// Mise à jour d'un match qui passe du mode en direct ou non
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;

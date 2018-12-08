@@ -1,5 +1,5 @@
 ﻿<?php
-	include('commun.php');
+	include_once('commun.php');
 
 	// Page de création de la liste des buteurs dans un match
 	

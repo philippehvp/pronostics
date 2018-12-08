@@ -10,7 +10,7 @@
 	
 	$appelAjax = isset($_POST["appelAjax"]) ? $_POST["appelAjax"] : 0;
 	if($appelAjax == 1) {
-		include('commun.php');
+		include_once('commun.php');
 	}
 	
 	// Avec un rafraîchissement de la page, certains paramètres permettent de savoir quelle journée afficher, s'il s'agit d'une journée de poule ou de phase finale

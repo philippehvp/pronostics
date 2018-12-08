@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 	
 	// Affichage des détails d'une équipe du concours
 	// Si l'équipe fait partie de la ligue 1 et que l'on est sur le sous-onglet de ligue 1, alors on affiche aussi les résultats de ses précédentes journées de ligue 1

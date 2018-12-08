@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 	
 	$nomMenu = isset($_POST["nomMenu"]) ? $_POST["nomMenu"] : '';
 

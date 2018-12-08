@@ -1,5 +1,5 @@
 <?php
-	include('commun_administrateur.php');
+	include_once('commun_administrateur.php');
 	
 	// Transfert d'un joueur d'une équipe
 	// Soit le joueur va dans un autre championnat, soit il va dans une autre équipe

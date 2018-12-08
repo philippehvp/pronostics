@@ -23,7 +23,7 @@
 	$nomConteneurSimple = '';
 	
 	if($appelAjax) {
-		include('commun.php');
+		include_once('commun.php');
 		
 		$nomPage = isset($_POST["nomPage"]) ? $_POST["nomPage"] : '';
 	}
@@ -107,7 +107,6 @@
 			
 			// Le module comporte-t-il une zone d'options ?
 			if($zoneOptions == 1) {
-			
 				// La difficulté est de savoir, lorsque l'on veut ajouter une option, si d'autres options ont été ajoutées avant ou non
 				// Si c'est le cas, il faut alors ajouter de l'espace à gauche
 				$nombreOptions = 0;
@@ -122,7 +121,6 @@
 						echo '</span>';
 					}
 					
-
 					// Le module comporte-t-il le mode concurrent direct ?
 					if($contientModeConcurrentDirect == 1) {
 						$nombreOptions++;
@@ -158,13 +156,14 @@
 							echo '<br />';
 						
 						// Ajout de la page d'options
-						include($pageOptions);
+						include_once($pageOptions);
 					}
 				echo '</div>';
 			}
 
 			echo '<div class="module--contenu">';
-				include($page);
+				if ($page == 'module_classement_journee.php' || $page == 'module_classement_general.php' || $page == 'module_classement_general_sans_buteur.php' || $page == 'module_affichage_pronostics.php' || $page == 'module_classement_journee_sans_buteur.php')
+					include_once($page);
 			echo '</div>';
 			
 		echo '</div>';
@@ -290,7 +289,6 @@
 		$ordreSQL .=	'				) modules' .
 						'	WHERE		Modules_PagesAutorisees = \'toutes\'' .
 						'				OR		INSTR(Modules_PagesAutorisees, \'' . $nomPage . '\') > 0';
-
 		$req = $bdd->query($ordreSQL);
 		$modules = $req->fetchAll();
 		
@@ -298,7 +296,7 @@
 			if($parametreAppel != '')
 				$parametreAUtiliser = $parametreAppel;
 			else
-				$parametreAUtiliser = $unModule["Modules_Parametre"]; 
+				$parametreAUtiliser = $unModule["Modules_Parametre"];
 			initialiserModule	(	$bdd
 									,$unModule["Module"], $unModule["Modules_Nom"]
 									,$nomConteneurComplet
@@ -642,8 +640,6 @@
 			
 			$(this).find('.module--contenu').niceScroll({cursorcolor: "#333", cursorborder: "#333"});
 		});
-		
-		
 	});
 	
 	// Modification de la taille de la fenêtre faite par l'utilisateur

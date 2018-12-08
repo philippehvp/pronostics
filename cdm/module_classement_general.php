@@ -6,7 +6,7 @@
 
 	$appelAjax = isset($_POST["appelAjax"]) ? $_POST["appelAjax"] : 0;
 	if($appelAjax == 1) {
-		include('commun.php');
+		include_once('commun.php');
 	}
 
 	// Lecture du numéro de journée en cours et de la phase en cours (phase de poule ou phase finale)

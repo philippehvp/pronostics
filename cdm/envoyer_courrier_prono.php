@@ -1,11 +1,11 @@
 <?php
-	include('commun_administrateur.php');
+	include_once('commun_administrateur.php');
 ?>
 <!--!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"-->
 <html>
 <head>
 <?php
-	include('commun_entete.php');
+	include_once('commun_entete.php');
 ?>
 	<link rel="stylesheet" href="css/cdm/recap.css" />
 </head>

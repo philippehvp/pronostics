@@ -1,5 +1,5 @@
 <?php
-	include('commun_administrateur.php');
+	include_once('commun_administrateur.php');
 
 	// Vérification de l'existence d'un nom d'utilisateur dans le processus de création d'un nouveau pronostiqueur
 	

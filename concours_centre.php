@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 ?>
 
 	<script type="text/javascript" src="js/datatables/jquery.dataTables.js"></script>

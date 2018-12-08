@@ -9,7 +9,7 @@
 	$rafraichissement = isset($_POST["rafraichissement"]) ? $_POST["rafraichissement"] : 0;
 	if($rafraichissement == 1) {
 		// Rafraîchissement de la page
-		include('commun_administrateur.php');
+		include_once('commun_administrateur.php');
 		
 		// Lecture des paramètres passés à la page
 		$nomEquipe = isset($_POST["nom_equipe"]) ? $_POST["nom_equipe"] : '';

@@ -1,10 +1,10 @@
 <?php
 	// Affichage des détails d'un match
-	include('commun.php');
+	include_once('commun.php');
 	
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
 	
-	include('fonctions.php');
+	include_once('fonctions.php');
 	// Affichage des informations de l'équipe (nom, fanion, etc.)
 	// Le paramètre domicileVisiteur indique s'il s'agit de l'équipe domicile ou visiteur
 	function afficherEquipe($unMatch, $domicileVisiteur) {

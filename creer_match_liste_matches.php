@@ -133,7 +133,7 @@
 		$matchHorsPronostic = $unMatch["Matches_MatchHorsPronostic"] != null ? $unMatch["Matches_MatchHorsPronostic"] : 0;
 
 		echo '<div id="divMatch_match_' . $numeroMatch . '" class="match">';
-			include('creer_match_affichage_match.php');
+			include_once('creer_match_affichage_match.php');
 
 		echo '</div>';
 

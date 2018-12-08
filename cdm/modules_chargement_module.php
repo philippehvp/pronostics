@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 
 	// Chargement d'un module
 	$module = isset($_POST["module"]) ? $_POST["module"] : 0;
@@ -21,7 +21,7 @@
 	foreach($modules as $unModule) {
 		// Création du conteneur dans la page en cours pour chaque module activé
 		echo '<div id="' . $unModule["Modules_Conteneur"] . '">';
-			include($unModule["Modules_Page"]);
+			include_once($unModule["Modules_Page"]);
 			
 			// Appel d'une fonction Javascript si celle-ci a été spécifiée
 			if($unModule["Modules_Javascript"]) {

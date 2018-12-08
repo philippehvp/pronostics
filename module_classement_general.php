@@ -10,7 +10,7 @@
 	$rafraichissementModule = isset($_POST["rafraichissementModule"]) ? $_POST["rafraichissementModule"] : 0;
 	if($rafraichissementModule == 1) {
 		// Rafraîchissement automatique du module
-		include('commun.php');
+		include_once('commun.php');
 		
 		// Lecture des paramètres passés à la page
 		$championnat = isset($_POST["parametre"]) ? $_POST["parametre"] : 0;
@@ -45,7 +45,6 @@
 	$req->closeCursor();
 	$modeModule = 1;
 	$sansButeur = 0;
-	
 	echo '<div style="margin-left: 8px;">';
 		afficherClassementGeneral($bdd, $championnat, $journee, $dateReference, $dtDateMAJ, $journeeNom, $journeeSuivanteActive, $modeModule, $modeRival, $modeConcurrentDirect, $sansButeur);
 	echo '</div>';

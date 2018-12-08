@@ -11,7 +11,7 @@
 	$tableau = isset($_POST["tableau"]) ? $_POST["tableau"] : '';
 
 	if($appelAjax == 1) {
-		include('commun.php');
+		include_once('commun.php');
 	}
 	
 	// Fonction d'affichage du tableau des 1/8, 1/4 et 1/2 finale

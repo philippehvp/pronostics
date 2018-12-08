@@ -7,7 +7,7 @@
         
         // Lecture des paramètres passés à la page
         if(isset($_POST["journee"])) {
-                include('commun.php');
+                include_once('commun.php');
                 $journee = $_POST["journee"];
         }
 

@@ -1,6 +1,6 @@
 <?php
 	// Consultation des pronostiqueurs
-	include('commun.php');
+	include_once('commun.php');
 	
 	// Lecture des pronostiqueurs éventuellement déjà sélectionnés
 	$pronostiqueursSelectionnes = isset($_POST["pronostiqueursSelectionnes"]) ? (';' . $_POST["pronostiqueursSelectionnes"]) : '';

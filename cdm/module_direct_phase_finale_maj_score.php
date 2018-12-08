@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 
 	// Mise à jour d'un score de pronostic
 	$pronostiqueur = $_SESSION["cdm_pronostiqueur"];

@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 	
 	// Affichage des classements comparés pour un championnat
 	// Affichage du classement secondaire
@@ -111,7 +111,7 @@
 		unlink($f);
 	}
 
-	include('concours_centre_affichage_classements_creation_graphique_secondaire.php');
+	include_once('concours_centre_affichage_classements_creation_graphique_secondaire.php');
 	echo '<img src="' . $nomFichier . '" alt="" />';
 
 ?>

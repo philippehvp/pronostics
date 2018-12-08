@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 
 	// Mise à jour du mode incrustation pour un module et un pronostiqueur
 	$module = isset($_POST["module"]) ? $_POST["module"] : 0;

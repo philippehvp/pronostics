@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 	include_once('fonctions.php');
 
 	// Affichage des résultats et des pronostics d'un match

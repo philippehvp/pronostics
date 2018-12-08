@@ -3,7 +3,7 @@
 	// Vérification de la nécessité de faire le rafraîchissement ou non
 	
 	// La page est forcément appelée par de l'Ajax
-	include('commun.php');
+	include_once('commun.php');
 	include_once('classements_pronostiqueurs_fonctions.php');
 		
 	// Lecture des paramètres passés à la page

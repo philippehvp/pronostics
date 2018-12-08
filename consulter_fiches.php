@@ -1,13 +1,13 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 	
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
 <?php
-	include('commun_entete.php');
-	include('consulter_fiches_fonctions.php');
+	include_once('commun_entete.php');
+	include_once('consulter_fiches_fonctions.php');
 ?>
 </head>
 
@@ -32,7 +32,7 @@
 		$nombrePronostiqueursParColonne = ceil($nombrePronostiqueurs / $NOMBRE_COLONNES);
 		
 		echo '<div class="conteneur">';
-			include('bandeau.php');
+			include_once('bandeau.php');
 			echo '<div id="divConsultationFicheIdentite" class="contenu-page">';
 				if($nombrePronostiqueurs) {
 					echo '<div>';
@@ -55,7 +55,7 @@
 					consulterFiche($bdd, $_SESSION["pronostiqueur"], 0);
 				echo '</div>';
 			echo '</div>';
-			//include('pied.php');
+			//include_once('pied.php');
 		echo '</div>';
 	?>
 	

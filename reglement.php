@@ -1,11 +1,11 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
 <?php
-	include('commun_entete.php');
+	include_once('commun_entete.php');
 ?>
 </head>
 
@@ -16,7 +16,7 @@
 		echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
 
 		echo '<div class="conteneur">';
-			include('bandeau.php');
+			include_once('bandeau.php');
 			echo '<div id="divEnteteReglement" class="contenu-page"></div>';
 
 			echo '<div id="divReglement">';
@@ -27,22 +27,22 @@
 					echo '<li class="onglet"><a href="#divReglement-4">Règlement Coupe de France</a></li>';
 				echo '</ul>';
 				echo '<div id="divReglement-1">';
-					include('reglement_general.php');
+					include_once('reglement_general.php');
 				echo '</div>';
 				
 				echo '<div id="divReglement-2">';
-					include('reglement_ldc.php');
+					include_once('reglement_ldc.php');
 				echo '</div>';
 				
 				echo '<div id="divReglement-3">';
-					include('reglement_el.php');
+					include_once('reglement_el.php');
 				echo '</div>';
 				
 				echo '<div id="divReglement-4">';
-					include('reglement_cdf.php');
+					include_once('reglement_cdf.php');
 				echo '</div>';
 			echo '</div>';
-			//include('pied.php');
+			//include_once('pied.php');
 		echo '</div>';
 ?>
 	

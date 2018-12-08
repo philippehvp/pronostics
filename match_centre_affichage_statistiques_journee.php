@@ -8,7 +8,7 @@
 	$rafraichissementSection = isset($_POST["rafraichissementSection"]) ? $_POST["rafraichissementSection"] : 0;
 	if($rafraichissementSection == 1) {
 		// Rafraîchissement automatique de la section
-		include('commun.php');
+		include_once('commun.php');
 		
 		// Lecture des paramètres passés à la page
 		$journee = isset($_POST["journee"]) ? $_POST["journee"] : 0;

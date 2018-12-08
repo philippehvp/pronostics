@@ -1,5 +1,5 @@
 <?php
-	include('commun_administrateur.php');
+	include_once('commun_administrateur.php');
 
 	// Suppression d'un joueur dans la liste des meilleurs buteurs
 	

@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 
 	// Page d'affichage des derniers résultats des équipes d'une rencontre
 

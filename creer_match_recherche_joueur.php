@@ -1,6 +1,6 @@
 <?php
 	// Recherche d'un joueur sur Google
-	include('commun_administrateur.php');
+	include_once('commun_administrateur.php');
 	
 	
 	// Lecture de paramètres passés à la page

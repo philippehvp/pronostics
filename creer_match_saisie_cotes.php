@@ -1,5 +1,5 @@
 <?php
-	include('commun_administrateur.php');
+	include_once('commun_administrateur.php');
 
 	// Page de saisie des cotes des joueurs
 	// La page affiche l'effectif avec les cotes, connues ou non

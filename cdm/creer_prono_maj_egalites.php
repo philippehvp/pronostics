@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 	
 	// Mise à jour des équipes à égalité (le pronostiqueur choisit un classement basé sur un tirage au sort)
 	

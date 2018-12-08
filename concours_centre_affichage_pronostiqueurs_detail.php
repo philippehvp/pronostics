@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 	
 	// Affichage des détails d'un pronostiqueur du concours
 	// Lecture des paramètres passés à la page
@@ -538,7 +538,7 @@
 					unlink($f);
 				}
 				
-				include('concours_centre_affichage_pronostiqueurs_classement.php');
+				include_once('concours_centre_affichage_pronostiqueurs_classement.php');
 				echo '<img src="' . $nomFichier . '" alt="" />';
 			}
 		}
@@ -613,7 +613,7 @@
 						unlink($f);
 					}					
 					
-					include('concours_centre_affichage_pronostiqueurs_classement.php');
+					include_once('concours_centre_affichage_pronostiqueurs_classement.php');
 					echo '<img src="' . $nomFichier . '" alt="" />';
 				}
 			
