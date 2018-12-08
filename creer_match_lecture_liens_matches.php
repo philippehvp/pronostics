@@ -56,7 +56,6 @@
 					'								AND		LOCATE(IFNULL(equipes_visiteur.Equipes_NomCorrespondance, equipes_visiteur.Equipes_NomCourt), ' . $bdd->quote($unMatch) . ') > 0';
 								}
 	$ordreSQL .=	'				) matches';
-echo $ordreSQL;
 	$req = $bdd->query($ordreSQL);
 	$matches = $req->fetchAll();
 	

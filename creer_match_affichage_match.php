@@ -6,6 +6,7 @@
 	// - par un appel Ajax (cas du rafraîchissement)
 
 	$rafraichissement = isset($_POST["rafraichissement"]) ? $_POST["rafraichissement"] : 0;
+
 	if($rafraichissement == 1) {
 		// Rafraîchissement
 		include_once('commun_administrateur.php');

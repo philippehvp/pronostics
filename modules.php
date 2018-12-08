@@ -162,7 +162,13 @@
 			}
 
 			echo '<div class="module--contenu">';
-				if ($page == 'module_classement_journee.php' || $page == 'module_classement_general.php' || $page == 'module_classement_general_sans_buteur.php' || $page == 'module_affichage_pronostics.php' || $page == 'module_classement_journee_sans_buteur.php')
+				if (	$page == 'module_classement_journee.php' ||
+						$page == 'module_classement_journee_sans_buteur.php' ||
+						$page == 'module_classement_general.php' ||
+						$page == 'module_classement_general_sans_buteur.php' ||
+						$page == 'module_affichage_pronostics.php' ||
+						$page == 'module_classement_general_virtuel.php'
+					)
 					include_once($page);
 			echo '</div>';
 			

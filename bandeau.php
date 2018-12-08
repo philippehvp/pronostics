@@ -97,7 +97,7 @@
                                         '               ,fn_recherchejourneeencours(2) AS Journee_LDC' .
                                         '               ,fn_recherchejourneeencours(3) AS Journee_EL' .
                                         '               ,fn_recherchejourneeencours(5) AS Journee_CDF';
-                                        echo $ordreSQL;
+                                        
                         $req = $bdd->query($ordreSQL);
                         $journeesActives = $req->fetchAll();
                         $journeeL1 = $journeesActives[0]["Journee_L1"];

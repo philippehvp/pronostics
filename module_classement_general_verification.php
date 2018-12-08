@@ -11,14 +11,14 @@
 	// Lecture des paramètres passés à la page
 	$championnat = isset($_POST["parametre"]) ? $_POST["parametre"] : 0;
 	$critereRafraichissement = isset($_POST["critereRafraichissement"]) ? $_POST["critereRafraichissement"] : '';
-	echo "AVANT";
+	
 	// Lecture des informations de la journée en cours
 	$ordreSQL = lireJournee($championnat);
 	$req = $bdd->query($ordreSQL);
 	$donnees = $req->fetch();
 	$dateMAJJournee = $donnees["Journees_DateMAJ"];
 	$req->closeCursor();
-	echo "APRES";
+	
 	$tableau = array();
 	// Le crtitère de rafraîchissement indique la même date que celle de la mise à jour des données
 	// Il n'est donc pas nécessaire de continuer le traitement
