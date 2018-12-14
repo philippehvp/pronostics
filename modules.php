@@ -156,13 +156,13 @@
 							echo '<br />';
 						
 						// Ajout de la page d'options
-						include_once($pageOptions);
+						include($pageOptions);
 					}
 				echo '</div>';
 			}
 
 			echo '<div class="module--contenu">';
-					include_once($page);
+					include($page);
 			echo '</div>';
 			
 		echo '</div>';

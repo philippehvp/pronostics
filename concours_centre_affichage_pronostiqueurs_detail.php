@@ -538,7 +538,7 @@
 					unlink($f);
 				}
 				
-				include_once('concours_centre_affichage_pronostiqueurs_classement.php');
+				include('concours_centre_affichage_pronostiqueurs_classement.php');
 				echo '<img src="' . $nomFichier . '" alt="" />';
 			}
 		}
@@ -613,7 +613,7 @@
 						unlink($f);
 					}					
 					
-					include_once('concours_centre_affichage_pronostiqueurs_classement.php');
+					include('concours_centre_affichage_pronostiqueurs_classement.php');
 					echo '<img src="' . $nomFichier . '" alt="" />';
 				}
 			
