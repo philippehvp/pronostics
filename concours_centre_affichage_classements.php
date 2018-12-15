@@ -152,7 +152,7 @@
 			unlink($f);
 		}
 		
-		include_once('concours_centre_affichage_classements_creation_graphique_principal.php');
+		include('concours_centre_affichage_classements_creation_graphique_principal.php');
 		echo '<img src="' . $nomFichier . '" alt="" />';
 	echo '</div>';
 	echo '<div class="cc--classements-graphique-secondaire" style="position: absolute;"></div>';

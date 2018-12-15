@@ -111,7 +111,7 @@
 		unlink($f);
 	}
 
-	include_once('concours_centre_affichage_classements_creation_graphique_secondaire.php');
+	include('concours_centre_affichage_classements_creation_graphique_secondaire.php');
 	echo '<img src="' . $nomFichier . '" alt="" />';
 
 ?>
