@@ -167,6 +167,7 @@
 		if($journeeSuivante == null)
 			$journeeSuivante = $journee;
 
+
 		$ordreSQL =		'	SELECT		pronostiqueurs.Pronostiqueur' .
 						'				,classements.Classements_ClassementGeneralMatch' .
 						'				,CASE' .
@@ -218,7 +219,7 @@
 						'					SELECT		Pronostiqueurs_Pronostiqueur, classements.Journees_Journee, Classements_ClassementGeneralMatch, Classements_PointsGeneralMatch' .
 						'					FROM		' . ($sansButeur == 0 ? 'classements' : 'classements_sb classements') .
 						'					JOIN		(' .
-						'									SELECT		MAX(Journees_Journee) AS Journee, journees.Classements_DateReference' .
+						'									SELECT		MAX(Journees_Journee) AS Journee, journees_reference.Classements_DateReference' .
 						'									FROM		' . ($sansButeur == 0 ? 'classements' : 'classements_sb classements') .
 						'									JOIN		(' .
 						'													SELECT		MAX(Classements_DateReference) AS Classements_DateReference' .
@@ -227,9 +228,12 @@
 						'																ON		classements.Journees_Journee = journees.Journee' .
 						'													WHERE		Classements_DateReference < \'' . $dateReference . '\'' .
 						'																AND		journees.Championnats_Championnat = ' . $championnat .
-						'												) journees' .
-						'												ON		classements.Classements_DateReference = journees.Classements_DateReference' .
-						'									GROUP BY	journees.Classements_DateReference' .
+						'												) journees_reference' .
+						'												ON		classements.Classements_DateReference = journees_reference.Classements_DateReference' .
+						'									JOIN        journees' .
+						'												ON      classements.Journees_Journee = journees.Journee' .
+						'									WHERE       journees.Championnats_Championnat = ' . $championnat .
+						'									GROUP BY	journees_reference.Classements_DateReference' .
 						'								) journees' .
 						'								ON		classements.Journees_Journee = journees.Journee' .
 						'										AND		classements.Classements_DateReference = journees.Classements_DateReference' .
@@ -865,7 +869,7 @@
 						'					SELECT		Pronostiqueurs_Pronostiqueur, classements.Journees_Journee, Classements_ClassementGeneralButeur, Classements_PointsGeneralButeur' .
 						'					FROM		classements' .
 						'					JOIN		(' .
-						'									SELECT		MAX(Journees_Journee) AS Journee, journees.Classements_DateReference' .
+						'									SELECT		MAX(Journees_Journee) AS Journee, journees_reference.Classements_DateReference' .
 						'									FROM		classements' .
 						'									JOIN		(' .
 						'													SELECT		MAX(Classements_DateReference) AS Classements_DateReference' .
@@ -874,8 +878,11 @@
 						'																ON		classements.Journees_Journee = journees.Journee' .
 						'													WHERE		Classements_DateReference < \'' . $dateReference . '\'' .
 						'																AND		journees.Championnats_Championnat = ' . $championnat .
-						'												) journees' .
-						'												ON		classements.Classements_DateReference = journees.Classements_DateReference' .
+						'												) journees_reference' .
+						'												ON		classements.Classements_DateReference = journees_reference.Classements_DateReference' .
+						'									JOIN		journees' .
+						'												ON		classements.Journees_Journee = journees.Journee' .
+						'									WHERE		journees.Championnats_Championnat = ' . $championnat .
 						'								) journees' .
 						'								ON		classements.Journees_Journee = journees.Journee' .
 						'										AND		classements.Classements_DateReference = journees.Classements_DateReference' .
