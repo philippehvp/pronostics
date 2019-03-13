@@ -31,8 +31,6 @@
 				'	WHERE				vue_resultatsjournees.Match = ' . $match .
 				'	ORDER BY			vue_resultatsjournees.Match';
 
-				
-
 	$req = $bdd->query($ordreSQL);
 	$resultats = $req->fetchAll();
 	
@@ -142,25 +140,25 @@
 					'								ELSE		-1' .
 					'							END AS PronosticsCarreFinal_Coefficient' .
 					'		FROM';
-	if($modeRival == 1)
-		$ordreSQL .=	'			(' .
-						'				SELECT		PronostiqueursRivaux_Pronostiqueur' .
-						'				FROM		vue_pronostiqueursrivaux' .
-						'				WHERE		vue_pronostiqueursrivaux.Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
-						'				UNION ALL' .
-						'				SELECT		' . $_SESSION["pronostiqueur"] . ' AS PronostiqueursRivaux_Pronostiqueur' .
-						'			) vue_pronostiqueursrivaux' .
-						'	JOIN	pronostiqueurs' .
-						'			ON		vue_pronostiqueursrivaux.PronostiqueursRivaux_Pronostiqueur = pronostiqueurs.Pronostiqueur';
-	else
-		$ordreSQL .=	'			pronostiqueurs';
-
-
-	$ordreSQL .=	'		JOIN				matches' .
-					'		LEFT JOIN			equipes equipes_equipedomicile' .
-					'							ON		matches.Equipes_EquipeDomicile = equipes_equipedomicile.Equipe' .
-					'		LEFT JOIN			equipes equipes_equipevisiteur' .
-					'							ON		matches.Equipes_EquipeVisiteur = equipes_equipevisiteur.Equipe' .
+					if($modeRival == 1)
+					$ordreSQL .=	'			(' .
+					'				SELECT		PronostiqueursRivaux_Pronostiqueur' .
+					'				FROM		vue_pronostiqueursrivaux' .
+					'				WHERE		vue_pronostiqueursrivaux.Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+					'				UNION ALL' .
+					'				SELECT		' . $_SESSION["pronostiqueur"] . ' AS PronostiqueursRivaux_Pronostiqueur' .
+					'			) vue_pronostiqueursrivaux' .
+					'	JOIN	pronostiqueurs' .
+					'			ON		vue_pronostiqueursrivaux.PronostiqueursRivaux_Pronostiqueur = pronostiqueurs.Pronostiqueur';
+					else
+					$ordreSQL .=	'			pronostiqueurs';
+					
+					
+					$ordreSQL .=	'		JOIN				(' .
+					'								SELECT	*' .
+					'								FROM	matches' .
+					'								WHERE	matches.Match = ' . $match .
+					'							) matches' .
 					'		LEFT JOIN			pronostics' .
 					'							ON pronostics.Pronostiqueurs_Pronostiqueur = pronostiqueurs.Pronostiqueur' .
 					'							AND		matches.Match = pronostics.Matches_Match' .
@@ -172,8 +170,11 @@
 					'		JOIN				journees' .
 					'							ON		matches.Journees_Journee = journees.Journee' .
 					'							AND		inscriptions.Championnats_Championnat = journees.Championnats_Championnat' .
+					'		JOIN				classements' .
+					'							ON		journees.Journee = classements.Journees_Journee' .
+					'									AND		pronostiqueurs.Pronostiqueur = classements.Pronostiqueurs_Pronostiqueur' .
 					'		LEFT JOIN			(	SELECT		pronostics_buteurs.Pronostiqueurs_Pronostiqueur' .
-					'											,pronostics_buteurs.Equipes_Equipe' .
+					//'											,pronostics_buteurs.Equipes_Equipe' .
 					'											,GROUP_CONCAT(IFNULL(joueurs.Joueurs_NomCourt, joueurs.Joueurs_NomFamille) SEPARATOR \', \') AS Buteurs' .
 					'								FROM		(' .
 					'												SELECT		Pronostiqueurs_Pronostiqueur' .
@@ -201,7 +202,10 @@
 					'																ELSE	(@indiceMatches := 1) AND (@joueur := Joueurs_Joueur) AND (@equipe := Equipes_Equipe)' .
 					'															END AS Matches_Indice' .
 					'												FROM		matches_buteurs' .
-					'												JOIN		(	SELECT		@indiceMatches := 0, @joueur := NULL, @equipe := NULL	) r' .
+                    '												JOIN		(	SELECT		@indiceMatches := 0, @joueur := NULL, @equipe := NULL	) r' .
+                    '                                               JOIN        matches' .
+                    '                                                           ON      matches_buteurs.Matches_Match = matches.Match' .
+                    '                                                                   AND     matches_buteurs.Equipes_Equipe = matches.Equipes_EquipeDomicile' .
 					'												WHERE		matches_buteurs.Matches_Match = ' . $match .
 					'															AND		matches_buteurs.Buteurs_CSC = 0' .
 					'												ORDER BY	Joueurs_Joueur, Equipes_Equipe' .
@@ -209,177 +213,178 @@
 					'											ON		pronostics_buteurs.Joueurs_Joueur = matches_buteurs.Joueurs_Joueur' .
 					'													AND		pronostics_buteurs.Equipes_Equipe = matches_buteurs.Equipes_Equipe' .
 					'													AND		pronostics_buteurs.Pronostics_Indice = matches_buteurs.Matches_Indice' .
-					'								JOIN		joueurs' .
-					'											ON		pronostics_buteurs.Joueurs_Joueur = joueurs.Joueur' .
-					'								GROUP BY	pronostics_buteurs.Pronostiqueurs_Pronostiqueur, pronostics_buteurs.Equipes_Equipe' .
-					'							) AS Buteurs_Domicile' .
-					'							ON		Buteurs_Domicile.Pronostiqueurs_Pronostiqueur = pronostiqueurs.Pronostiqueur' .
-					'									AND		Buteurs_Domicile.Equipes_Equipe = equipes_equipedomicile.Equipe' .
-					'		LEFT JOIN			(	SELECT		pronostics_buteurs.Pronostiqueurs_Pronostiqueur' .
-					'											,pronostics_buteurs.Equipes_Equipe' .
-					'											,GROUP_CONCAT(IFNULL(joueurs.Joueurs_NomCourt, joueurs.Joueurs_NomFamille) SEPARATOR \', \') AS Buteurs' .
-					'								FROM		(' .
-					'												SELECT		Pronostiqueurs_Pronostiqueur' .
-					'															,Joueurs_Joueur' .
-					'															,Equipes_Equipe' .
-					'															,CASE' .
-					'																WHEN	@pronostiqueur = Pronostiqueurs_Pronostiqueur' .
-					'																		AND		@joueur = Joueurs_Joueur' .
-					'																		AND		@equipe = Equipes_Equipe' .
-					'																THEN	@indicePronostics := @indicePronostics + 1' .
-					'																ELSE	(@indicePronostics := 1) AND (@pronostiqueur := Pronostiqueurs_Pronostiqueur) AND (@joueur := Joueurs_Joueur) AND (@equipe := Equipes_Equipe)' .
-					'															END AS Pronostics_Indice' .
-					'												FROM		pronostics_buteurs' .
-					'												JOIN		(	SELECT		@indicePronostics := 0, @pronostiqueur := NULL, @joueur := NULL, @equipe := NULL	) r' .
-					'												WHERE		pronostics_buteurs.Matches_Match = ' . $match .
-					'												ORDER BY	pronostics_buteurs.Pronostiqueurs_Pronostiqueur, pronostics_buteurs.Joueurs_Joueur, pronostics_buteurs.Equipes_Equipe' .
-					'											) pronostics_buteurs' .
-					'								JOIN		(' .
-					'												SELECT		Joueurs_Joueur' .
-					'															,Equipes_Equipe' .
-					'															,CASE' .
-					'																WHEN	@joueur = Joueurs_Joueur' .
-					'																		AND		@equipe = Equipes_Equipe' .
-					'																THEN	@indiceMatches := @indiceMatches + 1' .
-					'																ELSE	(@indiceMatches := 1) AND (@joueur := Joueurs_Joueur) AND (@equipe := Equipes_Equipe)' .
-					'															END AS Matches_Indice' .
-					'												FROM		matches_buteurs' .
-					'												JOIN		(	SELECT		@indiceMatches := 0, @joueur := NULL, @equipe := NULL	) r' .
-					'												WHERE		matches_buteurs.Matches_Match = ' . $match .
-					'															AND		matches_buteurs.Buteurs_CSC = 0' .
-					'												ORDER BY	Joueurs_Joueur, Equipes_Equipe' .
-					'											) matches_buteurs' .
-					'											ON		pronostics_buteurs.Joueurs_Joueur = matches_buteurs.Joueurs_Joueur' .
-					'													AND		pronostics_buteurs.Equipes_Equipe = matches_buteurs.Equipes_Equipe' .
-					'													AND		pronostics_buteurs.Pronostics_Indice = matches_buteurs.Matches_Indice' .
-					'								JOIN		joueurs' .
-					'											ON		pronostics_buteurs.Joueurs_Joueur = joueurs.Joueur' .
-					'								GROUP BY	pronostics_buteurs.Pronostiqueurs_Pronostiqueur, pronostics_buteurs.Equipes_Equipe' .
-					'							) AS Buteurs_Visiteur' .
-					'							ON		Buteurs_Visiteur.Pronostiqueurs_Pronostiqueur = pronostiqueurs.Pronostiqueur' .
-					'									AND		Buteurs_Visiteur.Equipes_Equipe = equipes_equipevisiteur.Equipe' .
-					'		LEFT JOIN			(	SELECT		pronostics_buteurs.Pronostiqueurs_Pronostiqueur' .
-					'											,pronostics_buteurs.Equipes_Equipe' .
-					'											,GROUP_CONCAT(IFNULL(joueurs.Joueurs_NomCourt, joueurs.Joueurs_NomFamille) SEPARATOR \', \') AS Buteurs' .
-					'								FROM		(' .
-					'												SELECT		pronostics_buteurs.Pronostiqueurs_Pronostiqueur' .
-					'															,pronostics_buteurs.Joueurs_Joueur' .
-					'															,pronostics_buteurs.Equipes_Equipe' .
-					'															,CASE' .
-					'																WHEN	@pronostiqueur = pronostics_buteurs.Pronostiqueurs_Pronostiqueur' .
-					'																		AND		@joueur = pronostics_buteurs.Joueurs_Joueur' .
-					'																		AND		@equipe = pronostics_buteurs.Equipes_Equipe' .
-					'																THEN	@indicePronostics := @indicePronostics + 1' .
-					'																ELSE	(@indicePronostics := 1) AND (@pronostiqueur := pronostics_buteurs.Pronostiqueurs_Pronostiqueur) AND (@joueur := pronostics_buteurs.Joueurs_Joueur) AND (@equipe := pronostics_buteurs.Equipes_Equipe)' .
-					'															END AS Pronostics_Indice' .
-					'												FROM		pronostics_buteurs' .
-					'												JOIN		matches_participants' .
-					'															ON		pronostics_buteurs.Matches_Match = matches_participants.Matches_Match' .
-					'																	AND		pronostics_buteurs.Joueurs_Joueur = matches_participants.Joueurs_Joueur' .
-					'																	AND		pronostics_buteurs.Equipes_Equipe = matches_participants.Equipes_Equipe' .
-					'												JOIN		(	SELECT		@indicePronostics := 0, @pronostiqueur := NULL, @joueur := NULL, @equipe := NULL	) r' .
-					'												WHERE		pronostics_buteurs.Matches_Match = ' . $match .
-					'												ORDER BY	pronostics_buteurs.Pronostiqueurs_Pronostiqueur, pronostics_buteurs.Joueurs_Joueur, pronostics_buteurs.Equipes_Equipe' .
-					'											) pronostics_buteurs' .
-					'								LEFT JOIN	(' .
-					'												SELECT		Joueurs_Joueur' .
-					'															,Equipes_Equipe' .
-					'															,CASE' .
-					'																WHEN	@joueur = Joueurs_Joueur' .
-					'																		AND		@equipe = Equipes_Equipe' .
-					'																THEN	@indiceMatches := @indiceMatches + 1' .
-					'																ELSE	(@indiceMatches := 1) AND (@joueur := Joueurs_Joueur) AND (@equipe := Equipes_Equipe)' .
-					'															END AS Matches_Indice' .
-					'												FROM		matches_buteurs' .
-					'												JOIN		(	SELECT		@indiceMatches := 0, @joueur :=  NULL, @equipe := NULL	) r' .
-					'												WHERE		matches_buteurs.Matches_Match = ' . $match .
-					'															AND		matches_buteurs.Buteurs_CSC = 0' .
-					'												ORDER BY	Joueurs_Joueur, Equipes_Equipe' .
-					'											) matches_buteurs' .
-					'											ON		pronostics_buteurs.Joueurs_Joueur = matches_buteurs.Joueurs_Joueur' .
-					'													AND		pronostics_buteurs.Pronostics_Indice = matches_buteurs.Matches_Indice' .
-					'								JOIN		joueurs' .
-					'											ON		pronostics_buteurs.Joueurs_Joueur = joueurs.Joueur' .
-					'								WHERE		matches_buteurs.Joueurs_Joueur IS NULL' .
-					'								GROUP BY	pronostics_buteurs.Pronostiqueurs_Pronostiqueur, pronostics_buteurs.Equipes_Equipe' .
-					'							) AS ButeursInvalides_Domicile' .
-					'							ON		ButeursInvalides_Domicile.Pronostiqueurs_Pronostiqueur = pronostiqueurs.Pronostiqueur' .
-					'									AND		ButeursInvalides_Domicile.Equipes_Equipe = equipes_equipedomicile.Equipe' .
-					'		LEFT JOIN			(	SELECT		pronostics_buteurs.Pronostiqueurs_Pronostiqueur' .
-					'											,pronostics_buteurs.Equipes_Equipe' .
-					'											,GROUP_CONCAT(IFNULL(joueurs.Joueurs_NomCourt, joueurs.Joueurs_NomFamille) SEPARATOR \', \') AS Buteurs' .
-					'								FROM		(' .
-					'												SELECT		pronostics_buteurs.Pronostiqueurs_Pronostiqueur' .
-					'															,pronostics_buteurs.Joueurs_Joueur' .
-					'															,pronostics_buteurs.Equipes_Equipe' .
-					'															,CASE' .
-					'																WHEN	@pronostiqueur = pronostics_buteurs.Pronostiqueurs_Pronostiqueur' .
-					'																		AND		@joueur = pronostics_buteurs.Joueurs_Joueur' .
-					'																		AND		@equipe = pronostics_buteurs.Equipes_Equipe' .
-					'																THEN	@indicePronostics := @indicePronostics + 1' .
-					'																ELSE	(@indicePronostics := 1) AND (@pronostiqueur := pronostics_buteurs.Pronostiqueurs_Pronostiqueur) AND (@joueur := pronostics_buteurs.Joueurs_Joueur) AND (@equipe := pronostics_buteurs.Equipes_Equipe)' .
-					'															END AS Pronostics_Indice' .
-					'												FROM		pronostics_buteurs' .
-					'												JOIN		matches_participants' .
-					'															ON		pronostics_buteurs.Matches_Match = matches_participants.Matches_Match' .
-					'																	AND		pronostics_buteurs.Joueurs_Joueur = matches_participants.Joueurs_Joueur' .
-					'																	AND		pronostics_buteurs.Equipes_Equipe = matches_participants.Equipes_Equipe' .
-					'												JOIN		(	SELECT		@indicePronostics := 0, @pronostiqueur := NULL, @joueur := NULL, @equipe := NULL	) r' .
-					'												WHERE		pronostics_buteurs.Matches_Match = ' . $match .
-					'												ORDER BY	pronostics_buteurs.Pronostiqueurs_Pronostiqueur, pronostics_buteurs.Joueurs_Joueur, pronostics_buteurs.Equipes_Equipe' .
-					'											) pronostics_buteurs' .
-					'								LEFT JOIN	(' .
-					'												SELECT		Joueurs_Joueur' .
-					'															,Equipes_Equipe' .
-					'															,CASE	Joueurs_Joueur' .
-					'																WHEN	@joueur' .
-					'																		AND		@equipe = Equipes_Equipe' .
-					'																THEN	@indiceMatches := @indiceMatches + 1' .
-					'																ELSE	@indiceMatches := 1 AND @joueur := Joueurs_Joueur' .
-					'															END AS Matches_Indice' .
-					'												FROM		matches_buteurs' .
-					'												JOIN		(	SELECT		@indiceMatches := 0, @joueur := NULL, @equipe := NULL	) r' .
-					'												WHERE		matches_buteurs.Matches_Match = ' . $match .
-					'															AND		matches_buteurs.Buteurs_CSC = 0' .
-					'												ORDER BY	Joueurs_Joueur, Equipes_Equipe' .
-					'											) matches_buteurs' .
-					'											ON		pronostics_buteurs.Joueurs_Joueur = matches_buteurs.Joueurs_Joueur' .
-					'													AND		pronostics_buteurs.Pronostics_Indice = matches_buteurs.Matches_Indice' .
-					'								JOIN		joueurs' .
-					'											ON		pronostics_buteurs.Joueurs_Joueur = joueurs.Joueur' .
-					'								WHERE		matches_buteurs.Joueurs_Joueur IS NULL' .
-					'								GROUP BY	pronostics_buteurs.Pronostiqueurs_Pronostiqueur, pronostics_buteurs.Equipes_Equipe' .
-					'							) AS ButeursInvalides_Visiteur' .
-					'							ON		ButeursInvalides_Visiteur.Pronostiqueurs_Pronostiqueur = pronostiqueurs.Pronostiqueur' .
-					'									AND		ButeursInvalides_Visiteur.Equipes_Equipe = equipes_equipevisiteur.Equipe' .
-					'		LEFT JOIN			(' .
-					'								SELECT		pronostics_buteurs.Pronostiqueurs_Pronostiqueur' .
-					'											,Equipes_Equipe' .
-					'											,GROUP_CONCAT(IFNULL(joueurs.Joueurs_NomCourt, joueurs.Joueurs_NomFamille) SEPARATOR \', \') AS Buteurs' .
-					'								FROM		(' .
-					'												SELECT		pronostics_buteurs.Pronostiqueurs_Pronostiqueur, pronostics_buteurs.Joueurs_Joueur, pronostics_buteurs.Equipes_Equipe' .
-					'												FROM		pronostics_buteurs' .
-					'												LEFT JOIN	matches_participants' .
-					'															ON		pronostics_buteurs.Matches_Match = matches_participants.Matches_Match' .
-					'																	AND		pronostics_buteurs.Joueurs_Joueur = matches_participants.Joueurs_Joueur' .
-					'																	AND		pronostics_buteurs.Equipes_Equipe = matches_participants.Equipes_Equipe' .
-					'												WHERE		pronostics_buteurs.Matches_Match = ' . $match .
-					'															AND		matches_participants.Joueurs_Joueur IS NULL' .
-					'											) pronostics_buteurs' .
 					'								JOIN		joueurs' .
 					'											ON		pronostics_buteurs.Joueurs_Joueur = joueurs.Joueur' .
 					'								GROUP BY	pronostics_buteurs.Pronostiqueurs_Pronostiqueur' .
-					'											,pronostics_buteurs.Equipes_Equipe' .
-					'							) AS ButeursAbsents_Domicile' .
-					'							ON		ButeursAbsents_Domicile.Pronostiqueurs_Pronostiqueur = pronostiqueurs.Pronostiqueur' .
-					'									AND		ButeursAbsents_Domicile.Equipes_Equipe = equipes_equipedomicile.Equipe' .
+					//'											,pronostics_buteurs.Equipes_Equipe' .
+					'							) AS Buteurs_Domicile' .
+					'							ON		Buteurs_Domicile.Pronostiqueurs_Pronostiqueur = pronostiqueurs.Pronostiqueur' .
+					//'									AND		Buteurs_Domicile.Equipes_Equipe = matches.Equipes_EquipeDomicile' .
+					'		LEFT JOIN			(	SELECT		pronostics_buteurs.Pronostiqueurs_Pronostiqueur' .
+					//'											,pronostics_buteurs.Equipes_Equipe' .
+					'											,GROUP_CONCAT(IFNULL(joueurs.Joueurs_NomCourt, joueurs.Joueurs_NomFamille) SEPARATOR \', \') AS Buteurs' .
+					'								FROM		(' .
+					'												SELECT		Pronostiqueurs_Pronostiqueur' .
+					'															,Joueurs_Joueur' .
+					'															,Equipes_Equipe' .
+					'															,CASE' .
+					'																WHEN	@pronostiqueur = Pronostiqueurs_Pronostiqueur' .
+					'																		AND		@joueur = Joueurs_Joueur' .
+					'																		AND		@equipe = Equipes_Equipe' .
+					'																THEN	@indicePronostics := @indicePronostics + 1' .
+					'																ELSE	(@indicePronostics := 1) AND (@pronostiqueur := Pronostiqueurs_Pronostiqueur) AND (@joueur := Joueurs_Joueur) AND (@equipe := Equipes_Equipe)' .
+					'															END AS Pronostics_Indice' .
+					'												FROM		pronostics_buteurs' .
+					'												JOIN		(	SELECT		@indicePronostics := 0, @pronostiqueur := NULL, @joueur := NULL, @equipe := NULL	) r' .
+					'												WHERE		pronostics_buteurs.Matches_Match = ' . $match .
+					'												ORDER BY	pronostics_buteurs.Pronostiqueurs_Pronostiqueur, pronostics_buteurs.Joueurs_Joueur, pronostics_buteurs.Equipes_Equipe' .
+					'											) pronostics_buteurs' .
+					'								JOIN		(' .
+					'												SELECT		Joueurs_Joueur' .
+					'															,Equipes_Equipe' .
+					'															,CASE' .
+					'																WHEN	@joueur = Joueurs_Joueur' .
+					'																		AND		@equipe = Equipes_Equipe' .
+					'																THEN	@indiceMatches := @indiceMatches + 1' .
+					'																ELSE	(@indiceMatches := 1) AND (@joueur := Joueurs_Joueur) AND (@equipe := Equipes_Equipe)' .
+					'															END AS Matches_Indice' .
+					'												FROM		matches_buteurs' .
+                    '												JOIN		(	SELECT		@indiceMatches := 0, @joueur := NULL, @equipe := NULL	) r' .
+                    '                                               JOIN        matches' .
+                    '                                                           ON      matches_buteurs.Matches_Match = matches.Match' .
+                    '                                                                   AND     matches_buteurs.Equipes_Equipe = matches.Equipes_EquipeVisiteur' .
+					'												WHERE		matches_buteurs.Matches_Match = ' . $match .
+					'															AND		matches_buteurs.Buteurs_CSC = 0' .
+					'												ORDER BY	Joueurs_Joueur, Equipes_Equipe' .
+					'											) matches_buteurs' .
+					'											ON		pronostics_buteurs.Joueurs_Joueur = matches_buteurs.Joueurs_Joueur' .
+					'													AND		pronostics_buteurs.Equipes_Equipe = matches_buteurs.Equipes_Equipe' .
+					'													AND		pronostics_buteurs.Pronostics_Indice = matches_buteurs.Matches_Indice' .
+					'								JOIN		joueurs' .
+					'											ON		pronostics_buteurs.Joueurs_Joueur = joueurs.Joueur' .
+					'								GROUP BY	pronostics_buteurs.Pronostiqueurs_Pronostiqueur' .
+					//'											,pronostics_buteurs.Equipes_Equipe' .
+					'							) AS Buteurs_Visiteur' .
+					'							ON		Buteurs_Visiteur.Pronostiqueurs_Pronostiqueur = pronostiqueurs.Pronostiqueur' .
+					//'									AND		Buteurs_Visiteur.Equipes_Equipe = matches.Equipes_EquipeVisiteur' .
+					'		LEFT JOIN			(	SELECT		pronostics_buteurs.Pronostiqueurs_Pronostiqueur' .
+					//'											,pronostics_buteurs.Equipes_Equipe' .
+					'											,GROUP_CONCAT(IFNULL(joueurs.Joueurs_NomCourt, joueurs.Joueurs_NomFamille) SEPARATOR \', \') AS Buteurs' .
+					'								FROM		(' .
+					'												SELECT		pronostics_buteurs.Pronostiqueurs_Pronostiqueur' .
+					'															,pronostics_buteurs.Joueurs_Joueur' .
+					'															,pronostics_buteurs.Equipes_Equipe' .
+					'															,CASE' .
+					'																WHEN	@pronostiqueur = pronostics_buteurs.Pronostiqueurs_Pronostiqueur' .
+					'																		AND		@joueur = pronostics_buteurs.Joueurs_Joueur' .
+					'																		AND		@equipe = pronostics_buteurs.Equipes_Equipe' .
+					'																THEN	@indicePronostics := @indicePronostics + 1' .
+					'																ELSE	(@indicePronostics := 1) AND (@pronostiqueur := pronostics_buteurs.Pronostiqueurs_Pronostiqueur) AND (@joueur := pronostics_buteurs.Joueurs_Joueur) AND (@equipe := pronostics_buteurs.Equipes_Equipe)' .
+					'															END AS Pronostics_Indice' .
+					'												FROM		pronostics_buteurs' .
+					'												JOIN		matches_participants' .
+					'															ON		pronostics_buteurs.Matches_Match = matches_participants.Matches_Match' .
+					'																	AND		pronostics_buteurs.Joueurs_Joueur = matches_participants.Joueurs_Joueur' .
+					'																	AND		pronostics_buteurs.Equipes_Equipe = matches_participants.Equipes_Equipe' .
+                    '												JOIN		(	SELECT		@indicePronostics := 0, @pronostiqueur := NULL, @joueur := NULL, @equipe := NULL	) r' .
+                    '                                               JOIN        matches' .
+                    '                                                           ON       pronostics_buteurs.Matches_Match = matches.Match' .
+                    '                                                                    AND      pronostics_buteurs.Equipes_Equipe = matches.Equipes_EquipeDomicile' .
+					'												WHERE		pronostics_buteurs.Matches_Match = ' . $match .
+					'												ORDER BY	pronostics_buteurs.Pronostiqueurs_Pronostiqueur, pronostics_buteurs.Joueurs_Joueur, pronostics_buteurs.Equipes_Equipe' .
+					'											) pronostics_buteurs' .
+					'								LEFT JOIN	(' .
+					'												SELECT		Joueurs_Joueur' .
+					'															,Equipes_Equipe' .
+					'															,CASE' .
+					'																WHEN	@joueur = Joueurs_Joueur' .
+					'																		AND		@equipe = Equipes_Equipe' .
+					'																THEN	@indiceMatches := @indiceMatches + 1' .
+					'																ELSE	(@indiceMatches := 1) AND (@joueur := Joueurs_Joueur) AND (@equipe := Equipes_Equipe)' .
+					'															END AS Matches_Indice' .
+					'												FROM		matches_buteurs' .
+                    '												JOIN		(	SELECT		@indiceMatches := 0, @joueur :=  NULL, @equipe := NULL	) r' .
+                    '                                               JOIN        matches' .
+                    '                                                           ON      matches_buteurs.Matches_Match = matches.Match' .
+                    '                                                                   AND     matches_buteurs.Equipes_Equipe = matches.Equipes_EquipeDomicile' .
+					'												WHERE		matches_buteurs.Matches_Match = ' . $match .
+					'															AND		matches_buteurs.Buteurs_CSC = 0' .
+					'												ORDER BY	Joueurs_Joueur, Equipes_Equipe' .
+					'											) matches_buteurs' .
+					'											ON		pronostics_buteurs.Joueurs_Joueur = matches_buteurs.Joueurs_Joueur' .
+					'													AND		pronostics_buteurs.Pronostics_Indice = matches_buteurs.Matches_Indice' .
+					'								JOIN		joueurs' .
+					'											ON		pronostics_buteurs.Joueurs_Joueur = joueurs.Joueur' .
+					'								WHERE		matches_buteurs.Joueurs_Joueur IS NULL' .
+					'								GROUP BY	pronostics_buteurs.Pronostiqueurs_Pronostiqueur' .
+					//'											,pronostics_buteurs.Equipes_Equipe' .
+					'							) AS ButeursInvalides_Domicile' .
+					'							ON		ButeursInvalides_Domicile.Pronostiqueurs_Pronostiqueur = pronostiqueurs.Pronostiqueur' .
+					//'									AND		ButeursInvalides_Domicile.Equipes_Equipe = matches.Equipes_EquipeDomicile' .
+					'		LEFT JOIN			(	SELECT		pronostics_buteurs.Pronostiqueurs_Pronostiqueur' .
+					//'											,pronostics_buteurs.Equipes_Equipe' .
+					'											,GROUP_CONCAT(IFNULL(joueurs.Joueurs_NomCourt, joueurs.Joueurs_NomFamille) SEPARATOR \', \') AS Buteurs' .
+					'								FROM		(' .
+					'												SELECT		pronostics_buteurs.Pronostiqueurs_Pronostiqueur' .
+					'															,pronostics_buteurs.Joueurs_Joueur' .
+					'															,pronostics_buteurs.Equipes_Equipe' .
+					'															,CASE' .
+					'																WHEN	@pronostiqueur = pronostics_buteurs.Pronostiqueurs_Pronostiqueur' .
+					'																		AND		@joueur = pronostics_buteurs.Joueurs_Joueur' .
+					'																		AND		@equipe = pronostics_buteurs.Equipes_Equipe' .
+					'																THEN	@indicePronostics := @indicePronostics + 1' .
+					'																ELSE	(@indicePronostics := 1) AND (@pronostiqueur := pronostics_buteurs.Pronostiqueurs_Pronostiqueur) AND (@joueur := pronostics_buteurs.Joueurs_Joueur) AND (@equipe := pronostics_buteurs.Equipes_Equipe)' .
+					'															END AS Pronostics_Indice' .
+					'												FROM		pronostics_buteurs' .
+					'												JOIN		matches_participants' .
+					'															ON		pronostics_buteurs.Matches_Match = matches_participants.Matches_Match' .
+					'																	AND		pronostics_buteurs.Joueurs_Joueur = matches_participants.Joueurs_Joueur' .
+					'																	AND		pronostics_buteurs.Equipes_Equipe = matches_participants.Equipes_Equipe' .
+                    '												JOIN		(	SELECT		@indicePronostics := 0, @pronostiqueur := NULL, @joueur := NULL, @equipe := NULL	) r' .
+                    '                                               JOIN        matches' .
+                    '                                                           ON       pronostics_buteurs.Matches_Match = matches.Match' .
+                    '                                                                    AND      pronostics_buteurs.Equipes_Equipe = matches.Equipes_EquipeVisiteur' .
+					'												WHERE		pronostics_buteurs.Matches_Match = ' . $match .
+					'												ORDER BY	pronostics_buteurs.Pronostiqueurs_Pronostiqueur, pronostics_buteurs.Joueurs_Joueur, pronostics_buteurs.Equipes_Equipe' .
+					'											) pronostics_buteurs' .
+					'								LEFT JOIN	(' .
+					'												SELECT		Joueurs_Joueur' .
+					'															,Equipes_Equipe' .
+					'															,CASE' .
+					'																WHEN	@joueur = Joueurs_Joueur' .
+					'																		AND		@equipe = Equipes_Equipe' .
+					'																THEN	@indiceMatches := @indiceMatches + 1' .
+					'																ELSE	(@indiceMatches := 1) AND (@joueur := Joueurs_Joueur) AND (@equipe := Equipes_Equipe)' .
+					'															END AS Matches_Indice' .
+					'												FROM		matches_buteurs' .
+                    '												JOIN		(	SELECT		@indiceMatches := 0, @joueur := NULL, @equipe := NULL	) r' .
+                    '                                               JOIN        matches' .
+                    '                                                           ON      matches_buteurs.Matches_Match = matches.Match' .
+                    '                                                                   AND     matches_buteurs.Equipes_Equipe = matches.Equipes_EquipeVisiteur' .
+					'												WHERE		matches_buteurs.Matches_Match = ' . $match .
+					'															AND		matches_buteurs.Buteurs_CSC = 0' .
+					'												ORDER BY	Joueurs_Joueur, Equipes_Equipe' .
+					'											) matches_buteurs' .
+					'											ON		pronostics_buteurs.Joueurs_Joueur = matches_buteurs.Joueurs_Joueur' .
+					'													AND		pronostics_buteurs.Pronostics_Indice = matches_buteurs.Matches_Indice' .
+					'								JOIN		joueurs' .
+					'											ON		pronostics_buteurs.Joueurs_Joueur = joueurs.Joueur' .
+					'								WHERE		matches_buteurs.Joueurs_Joueur IS NULL' .
+					'								GROUP BY	pronostics_buteurs.Pronostiqueurs_Pronostiqueur' .
+					//'											,pronostics_buteurs.Equipes_Equipe' .
+					'							) AS ButeursInvalides_Visiteur' .
+					'							ON		ButeursInvalides_Visiteur.Pronostiqueurs_Pronostiqueur = pronostiqueurs.Pronostiqueur' .
+					//'									AND		ButeursInvalides_Visiteur.Equipes_Equipe = matches.Equipes_EquipeVisiteur' .
 					'		LEFT JOIN			(' .
 					'								SELECT		pronostics_buteurs.Pronostiqueurs_Pronostiqueur' .
-					'											,Equipes_Equipe' .
+					//'											,pronostics_buteurs.Equipes_Equipe' .
 					'											,GROUP_CONCAT(IFNULL(joueurs.Joueurs_NomCourt, joueurs.Joueurs_NomFamille) SEPARATOR \', \') AS Buteurs' .
 					'								FROM		(' .
 					'												SELECT		pronostics_buteurs.Pronostiqueurs_Pronostiqueur, pronostics_buteurs.Joueurs_Joueur, pronostics_buteurs.Equipes_Equipe' .
-					'												FROM		pronostics_buteurs' .
+                    '												FROM		pronostics_buteurs' .
+                    '                                               JOIN        matches' .
+                    '                                                           ON      pronostics_buteurs.Matches_Match = matches.Match' .
+                    '                                                                   AND     pronostics_buteurs.Equipes_Equipe = matches.Equipes_EquipeDomicile' .
 					'												LEFT JOIN	matches_participants' .
 					'															ON		pronostics_buteurs.Matches_Match = matches_participants.Matches_Match' .
 					'																	AND		pronostics_buteurs.Joueurs_Joueur = matches_participants.Joueurs_Joueur' .
@@ -392,21 +397,43 @@
 					'								JOIN		joueurs' .
 					'											ON		pronostics_buteurs.Joueurs_Joueur = joueurs.Joueur' .
 					'								GROUP BY	pronostics_buteurs.Pronostiqueurs_Pronostiqueur' .
-					'											,pronostics_buteurs.Equipes_Equipe' .
+					//'											,pronostics_buteurs.Equipes_Equipe' .
+					'							) AS ButeursAbsents_Domicile' .
+					'							ON		ButeursAbsents_Domicile.Pronostiqueurs_Pronostiqueur = pronostiqueurs.Pronostiqueur' .
+					//'									AND		ButeursAbsents_Domicile.Equipes_Equipe = matches.Equipes_EquipeDomicile' .
+					'		LEFT JOIN			(' .
+					'								SELECT		pronostics_buteurs.Pronostiqueurs_Pronostiqueur' .
+					//'											,pronostics_buteurs.Equipes_Equipe' .
+					'											,GROUP_CONCAT(IFNULL(joueurs.Joueurs_NomCourt, joueurs.Joueurs_NomFamille) SEPARATOR \', \') AS Buteurs' .
+					'								FROM		(' .
+					'												SELECT		pronostics_buteurs.Pronostiqueurs_Pronostiqueur, pronostics_buteurs.Joueurs_Joueur, pronostics_buteurs.Equipes_Equipe' .
+                    '												FROM		pronostics_buteurs' .
+                    '                                               JOIN        matches' .
+                    '                                                           ON      pronostics_buteurs.Matches_Match = matches.Match' .
+                    '                                                                   AND     pronostics_buteurs.Equipes_Equipe = matches.Equipes_EquipeVisiteur' .
+					'												LEFT JOIN	matches_participants' .
+					'															ON		pronostics_buteurs.Matches_Match = matches_participants.Matches_Match' .
+					'																	AND		pronostics_buteurs.Joueurs_Joueur = matches_participants.Joueurs_Joueur' .
+					'																	AND		pronostics_buteurs.Equipes_Equipe = matches_participants.Equipes_Equipe' .
+					'												JOIN		joueurs' .
+					'															ON	pronostics_buteurs.Joueurs_Joueur = joueurs.Joueur' .
+					'												WHERE		pronostics_buteurs.Matches_Match = ' . $match .
+					'															AND		matches_participants.Joueurs_Joueur IS NULL' .
+					'											) pronostics_buteurs' .
+					'								JOIN		joueurs' .
+					'											ON		pronostics_buteurs.Joueurs_Joueur = joueurs.Joueur' .
+					'								GROUP BY	pronostics_buteurs.Pronostiqueurs_Pronostiqueur' .
+					//'											,pronostics_buteurs.Equipes_Equipe' .
 					'							) AS ButeursAbsents_Visiteur' .
 					'							ON		ButeursAbsents_Visiteur.Pronostiqueurs_Pronostiqueur = pronostiqueurs.Pronostiqueur' .
-					'									AND		ButeursAbsents_Visiteur.Equipes_Equipe = equipes_equipevisiteur.Equipe' .
-					'		JOIN				classements' .
-					'							ON		journees.Journee = classements.Journees_Journee' .
-					'									AND		pronostiqueurs.Pronostiqueur = classements.Pronostiqueurs_Pronostiqueur' .
+					//'									AND		ButeursAbsents_Visiteur.Equipes_Equipe = matches.Equipes_EquipeVisiteur' .
 					'		LEFT JOIN			pronostics_carrefinal' .
 					'							ON		pronostiqueurs.Pronostiqueur = pronostics_carrefinal.Pronostiqueurs_Pronostiqueur' .
 					'									AND		matches.Match = pronostics_carrefinal.Matches_Match' .
-					'		WHERE				matches.Match = ' . $match .
-					'							AND		classements.Classements_ClassementJourneeMatch >= ' . $borneInferieure .
+					'		WHERE				classements.Classements_ClassementJourneeMatch >= ' . $borneInferieure .
 					'							AND		classements.Classements_ClassementJourneeMatch <= ' . $borneSuperieure .
-					'		ORDER BY			pronostiqueurs.Pronostiqueur';
-
+                    '		ORDER BY			pronostiqueurs.Pronostiqueur';
+                    
 	$req = $bdd->query($ordreSQL);
 	$pronostics = $req->fetchAll();
 	$nombrePronostiqueurs = sizeof($pronostics) / $nombreMatches;
