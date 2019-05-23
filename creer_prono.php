@@ -68,7 +68,9 @@
 				else if($nulDomicileVisiteur == 2)
 					$cote = $unMatch["Matches_PointsQualificationEquipeVisiteur"];
 				
-				echo '<label>Points qualification : ' . $cote . '</label>';
+					if($cote != 0) {
+						echo '<label>Points qualification : ' . $cote . '</label>';
+					}
 			}
 			else {
 				if($nulDomicileVisiteur == 0)
