@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 	
 	// Lecture des paramètres passés à la page
 	$motDePasseActuel = isset($_POST["motDePasseActuel"]) ? $_POST["motDePasseActuel"] : null;

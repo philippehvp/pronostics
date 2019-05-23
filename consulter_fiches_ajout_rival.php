@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 
 	// Ajout ou suppression d'un pronostiqueur dans la liste des rivaux
 	$pronostiqueurConsulte = isset($_POST["pronostiqueurConsulte"]) ? $_POST["pronostiqueurConsulte"] : 0;

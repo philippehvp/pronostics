@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 	
 	// Affichage des statistiques de Ligue 1
 	$championnat = isset($_POST["championnat"]) ? $_POST["championnat"] : 0;

@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 
 	// Sauvegarde de l'état d'un groupe de modules
 	$parametre = isset($_POST["parametre"]) ? $_POST["parametre"] : 0;

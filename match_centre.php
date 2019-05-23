@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 
 	echo '<link rel="stylesheet" href="css/jquery.jscrollpane/jquery.jscrollpane.css" />';
 	

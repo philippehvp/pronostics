@@ -1,6 +1,6 @@
 <?php
 	// Affichage des buteurs d'un match d'une équipe
-	include('commun.php');
+	include_once('commun.php');
 	
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
 	$equipe = isset($_POST["equipe"]) ? $_POST["equipe"] : 0;

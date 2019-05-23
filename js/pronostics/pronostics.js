@@ -1169,13 +1169,13 @@ function creerMatch_lireEffectif(match, champLienPage, origine) {
 				dataType: 'json'
 			}
 	).done(function(html) {
-		if(html.length > 0) {
+		if(html.joueurs && html.joueurs.length > 0) {
 			// Affichage d'une fenêtre de mise à jour des données des joueurs pour lesquels la recherche a été infructueuse
 			$.ajax(	{
 						url: 'creer_match_correction_effectif.php',
 						type: 'POST',
 						data:	{	match: match,
-									joueurs: html,
+									joueurs: html.joueurs,
 									origine: origine
 								}
 			}).done(function(html) {
@@ -1201,9 +1201,8 @@ function creerMatch_lireEffectif(match, champLienPage, origine) {
 		else
 			afficherMessageInformationBandeau('Vérification des effectifs effectuée avec succès', 2000, '');
 	}).fail(function(html) {
-		console.log('Fonction creerMatch_lireEffectif : dans le fail');
+		console.log('Fonction creerMatch_lireEffectif : dans le fail', html);
 	});
-
 }
 
 // Gestion de match - Lecture de la composition des deux équipes d'un match

@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 	
 	// Recherche d'un joueur dont on a saisi le nom
 	

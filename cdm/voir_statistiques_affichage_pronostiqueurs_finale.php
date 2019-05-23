@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 	
 	$equipe = isset($_POST["equipe"]) ? $_POST["equipe"] : 0;
 	

@@ -1,20 +1,20 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 
-	// Mise à jour d'un pronostic
+	// Mise ï¿½ jour d'un pronostic
 
-	// Lecture des paramètres passés à la page
+	// Lecture des paramï¿½tres passï¿½s ï¿½ la page
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
 
-	// Le paramètre "type" permet de savoir quelle modification est demandée :
-	// - score : le score de l'une des équipes a été modifié et dans ce cas, pour savoir quelle équipe est concernée, on regarde l'existence du paramètre "equipe"
-	//   * D : équipe domicile
-	//   * V : équipe visiteur
-	// - scoreAP : le score AP de l'une des équipes a été modifié et dans ce cas, le paramètre equipe détermine laquelle des deux
-	// - vainqueur : l'utilisateur a choisi l'équipe vainqueur du match
+	// Le paramï¿½tre "type" permet de savoir quelle modification est demandï¿½e :
+	// - score : le score de l'une des ï¿½quipes a ï¿½tï¿½ modifiï¿½ et dans ce cas, pour savoir quelle ï¿½quipe est concernï¿½e, on regarde l'existence du paramï¿½tre "equipe"
+	//   * D : ï¿½quipe domicile
+	//   * V : ï¿½quipe visiteur
+	// - scoreAP : le score AP de l'une des ï¿½quipes a ï¿½tï¿½ modifiï¿½ et dans ce cas, le paramï¿½tre equipe dï¿½termine laquelle des deux
+	// - vainqueur : l'utilisateur a choisi l'ï¿½quipe vainqueur du match
 	$type = isset($_POST["type"]) ? $_POST["type"] : '';
 	
-	// On vérifie avant tout qu'il n'est pas trop tard pour faire la modification
+	// On vï¿½rifie avant tout qu'il n'est pas trop tard pour faire la modification
 	$ordreSQL =		'	SELECT		fn_matchpronostiquable(matches.Match, ' . $pronostiqueur . ') AS Matches_Pronostiquable' .
 						'	FROM		matches' .
 						'	JOIN		journees' .
@@ -33,7 +33,7 @@
 		exit();
 	}
 
-	// Vérification de l'existence du pronostic et création de celui-ci si nécessaire
+	// Vï¿½rification de l'existence du pronostic et crï¿½ation de celui-ci si nï¿½cessaire
 	$ordreSQL =		'	INSERT INTO		pronostics	(	Pronostiqueurs_Pronostiqueur, Matches_Match)' .
 					'					SELECT		*' .
 					'					FROM		(SELECT ' . $_SESSION["pronostiqueur"] . ' AS Pronostiqueurs_Pronostiqueur, ' . $match . ' AS Matches_Match) AS tmp' .
@@ -41,14 +41,14 @@
 
 	$bdd->exec($ordreSQL);
 
-	// Dans un premier temps, on écrit les données dans la table
+	// Dans un premier temps, on ï¿½crit les donnï¿½es dans la table
 	switch($type) {
 		case 'score':
 			// Changement du score
 			$equipe = isset($_POST["equipe"]) ? $_POST["equipe"] : '';
 			$score = isset($_POST["score"]) ? $_POST["score"] : 0;
 			
-			// Cas particulier, si le pronostiqueur indique -1 en score (réinitialisation de son score), il est nécessaire de nettoyer les scores AP
+			// Cas particulier, si le pronostiqueur indique -1 en score (rï¿½initialisation de son score), il est nï¿½cessaire de nettoyer les scores AP
 			if($score == -1) {
 				$score = 'NULL';
 				$ajoutOrdreSQL = ', Pronostics_ScoreAPEquipeDomicile = NULL, Pronostics_ScoreAPEquipeVisiteur = NULL, Pronostics_Vainqueur = NULL';
@@ -56,7 +56,7 @@
 			}
 
 			if($equipe == 'D') {
-				// Mise à jour du score de l'équipe domicile
+				// Mise ï¿½ jour du score de l'ï¿½quipe domicile
 				$ordreSQL =		'	UPDATE			pronostics' .
 								'	SET				Pronostics_ScoreEquipeDomicile = ' . $score .
 								'					,Pronostics_DateMAJ = NOW()' .
@@ -65,7 +65,7 @@
 								'					AND		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"];
 			}
 			else if($equipe == 'V') {
-				// Mise à jour du score de l'équipe visiteur
+				// Mise ï¿½ jour du score de l'ï¿½quipe visiteur
 				$ordreSQL =		'	UPDATE			pronostics' .
 								'	SET				Pronostics_ScoreEquipeVisiteur = ' . $score .
 								'					,Pronostics_DateMAJ = NOW()' .
@@ -84,7 +84,7 @@
 				$score = 'NULL';
 
 			if($equipe == 'D') {
-				// Mise à jour du score de l'équipe domicile
+				// Mise ï¿½ jour du score de l'ï¿½quipe domicile
 				$ordreSQL =		'	UPDATE			pronostics' .
 								'	SET				Pronostics_ScoreAPEquipeDomicile = ' . $score .
 								'					,Pronostics_DateMAJ = NOW()' .
@@ -92,7 +92,7 @@
 								'					AND		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"];
 			}
 			else if($equipe == 'V') {
-				// Mise à jour du score de l'équipe visiteur
+				// Mise ï¿½ jour du score de l'ï¿½quipe visiteur
 				$ordreSQL =		'	UPDATE			pronostics' .
 								'	SET				Pronostics_ScoreAPEquipeVisiteur = ' . $score .
 								'					,Pronostics_DateMAJ = NOW()' .
@@ -115,12 +115,12 @@
 	$texte = $ordreSQL;
 
 	/*
-		-- Ensuite, on détermine quel est le type de match :
-		-- - 1 : match régulier (pas de prolongation, pas de match lié)
-		-- - 2 : match aller (pas de prolongation, match lié)
-		-- - 3 : match retour (prolongation, match lié)
-		-- - 4 : match de coupe (prolongation, pas de match lié)
-		-- - 5 : match de la CS (pas de prolongation, pas de match lié) --> TAB en cas d'égalité à la 90ème
+		-- Ensuite, on dï¿½termine quel est le type de match :
+		-- - 1 : match rï¿½gulier (pas de prolongation, pas de match liï¿½)
+		-- - 2 : match aller (pas de prolongation, match liï¿½)
+		-- - 3 : match retour (prolongation, match liï¿½)
+		-- - 4 : match de coupe (prolongation, pas de match liï¿½)
+		-- - 5 : match de la CS (pas de prolongation, pas de match liï¿½) --> TAB en cas d'ï¿½galitï¿½ ï¿½ la 90ï¿½me
 	*/
 	$ordreSQL =		'	SELECT		Matches_AvecProlongation, Matches_MatchLie, Matches_MatchCS' .
 					'	FROM		matches' .
@@ -147,7 +147,7 @@
 
 	$retour = '';
 
-	// Maintenant, selon la modification effectuée et le type de match...
+	// Maintenant, selon la modification effectuï¿½e et le type de match...
 	if($type == 'score') {
 		switch($typeMatch) {
 			case 2:
@@ -188,7 +188,7 @@
 						$bdd->exec($ordreSQL);
 					}
 					else {
-						// S'il n'y a pas prolongation et TAB, on efface les pronostics AP et le nom du vainqueur car ils ont pu avoir été écrits à un moment
+						// S'il n'y a pas prolongation et TAB, on efface les pronostics AP et le nom du vainqueur car ils ont pu avoir ï¿½tï¿½ ï¿½crits ï¿½ un moment
 						$ordreSQL =		'	UPDATE			pronostics' .
 										'	SET				Pronostics_Vainqueur = NULL' .
 										'					,Pronostics_ScoreAPEquipeDomicile = NULL' .
@@ -227,7 +227,7 @@
 						$bdd->exec($ordreSQL);
 					}
 					else {
-						// S'il n'y a pas prolongation et TAB, on efface les pronostics AP et le nom du vainqueur car ils ont pu avoir été écrits à un moment
+						// S'il n'y a pas prolongation et TAB, on efface les pronostics AP et le nom du vainqueur car ils ont pu avoir ï¿½tï¿½ ï¿½crits ï¿½ un moment
 						$ordreSQL =		'	UPDATE			pronostics' .
 										'	SET				Pronostics_Vainqueur = NULL' .
 										'					,Pronostics_ScoreAPEquipeDomicile = NULL' .
@@ -257,7 +257,7 @@
 				if($match_ScoreEquipeDomicile == $match_ScoreEquipeVisiteur)
 					$retour = 'TAB';
 				else {
-					// S'il n'y a pas TAB, on efface le nom du vainqueur car il a pu avoir été écrit à un moment
+					// S'il n'y a pas TAB, on efface le nom du vainqueur car il a pu avoir ï¿½tï¿½ ï¿½crit ï¿½ un moment
 					$ordreSQL =		'	UPDATE			pronostics' .
 									'	SET				Pronostics_Vainqueur = NULL' .
 									'					,Pronostics_DateMAJ = NOW()' .
@@ -293,7 +293,7 @@
 					$retour = 'PROLONGATION|TAB|score AP 3';
 				}
 				else {
-					// S'il n'y a pas TAB, on efface le nom du vainqueur car il a pu avoir été écrit à un moment
+					// S'il n'y a pas TAB, on efface le nom du vainqueur car il a pu avoir ï¿½tï¿½ ï¿½crit ï¿½ un moment
 					$ordreSQL =		'	UPDATE			pronostics' .
 									'	SET				Pronostics_Vainqueur = NULL' .
 									'					,Pronostics_DateMAJ = NOW()' .
@@ -321,7 +321,7 @@
 					$retour = 'PROLONGATION|TAB|scoreAP 4';
 				}
 				else {
-					// S'il n'y a pas TAB, on efface le nom du vainqueur car il a pu avoir été écrit à un moment
+					// S'il n'y a pas TAB, on efface le nom du vainqueur car il a pu avoir ï¿½tï¿½ ï¿½crit ï¿½ un moment
 					$ordreSQL =		'	UPDATE			pronostics' .
 									'	SET				Pronostics_Vainqueur = NULL' .
 									'					,Pronostics_DateMAJ = NOW()' .

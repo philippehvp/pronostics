@@ -7,7 +7,7 @@
 	// - tchats de groupe auxquels il participe
 	
 	// Rafraîchissement automatique du module
-	include('commun.php');
+	include_once('commun.php');
 	
 	// Conversations non lues
 	function lireConversationsNonConsultees($bdd) {

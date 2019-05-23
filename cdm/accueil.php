@@ -1,11 +1,11 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
 <?php
-	include('commun_entete.php');
+	include_once('commun_entete.php');
 ?>
 </head>
 
@@ -25,12 +25,12 @@
 			$phase = 2;
 		}
 
-		include('bandeau.php');
+		include_once('bandeau.php');
 		
 		echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
 		
 		/*if($_SESSION["cdm_pronostiqueur"] != 1) {
-			include('site_maintenance.php');
+			include_once('site_maintenance.php');
 			return;
 		}*/
 
@@ -40,27 +40,27 @@
 			if($phase != 0) {
 				echo '<div id="divDirect">';
 					if($phase == 1) {
-						include('module_direct_poule.php');
+						include_once('module_direct_poule.php');
 					} else if($phase == 2) {
-						include('module_direct_phase_finale.php');
+						include_once('module_direct_phase_finale.php');
 					}
 				echo '</div>';
 			}
 		
 			// Affichage du classement général
 			echo '<div id="divClassementGeneral" class="colle-gauche gauche">';
-				include('module_classement_general.php');
+				include_once('module_classement_general.php');
 			echo '</div>';
 			
 			// Pronostics de poule
 			if($phase == 1) {
 				echo '<div id="divAccueilPronosticsPoule" class="gauche">';
-					include('module_pronostics_poule.php');
+					include_once('module_pronostics_poule.php');
 				echo '</div>';
 			} else if($phase == 2) {
 				// Pronostics de phase finale
 				echo '<div id="divAccueilPronosticsPhaseFinale" class="gauche">';
-					include('module_pronostics_phase_finale.php');
+					include_once('module_pronostics_phase_finale.php');
 				echo '</div>';
 			}
 

@@ -1,6 +1,6 @@
 <?php
-	include('commun.php');
-	include('consulter_trophees_fonctions.php');
+	include_once('commun.php');
+	include_once('consulter_trophees_fonctions.php');
 	
 	$journee = isset($_POST["journee"]) ? $_POST["journee"] : 0;
 	$championnat = isset($_POST["championnat"]) ? $_POST["championnat"] : 0;

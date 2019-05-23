@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 	
 	// Affichage des classements comparés pour un championnat
 	// Affichage du classement secondaire

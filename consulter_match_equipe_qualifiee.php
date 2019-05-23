@@ -1,6 +1,6 @@
 <?php
 	// Affichage de la répartition des pronostics d'équipes qualifiées pour le tour suivant en confrontation directe
-	include('commun.php');
+	include_once('commun.php');
 	
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
 

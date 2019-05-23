@@ -1,12 +1,12 @@
 <?php
-	include('commun.php');
-	include('fonctions.php');
+	include_once('commun.php');
+	include_once('fonctions.php');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
 <?php
-	include('commun_entete.php');
+	include_once('commun_entete.php');
 ?>
 	<script type="text/javascript" src="js/datatables/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="js/datatables/extensions/dataTables.fixedColumns.min.js"></script>
@@ -20,7 +20,7 @@
 		echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
 
 		echo '<div class="conteneur">';
-			include('bandeau.php');
+			include_once('bandeau.php');
 			// Page d'affichage des pronostics et des résultats de tous les joueurs
 			echo '<div id="divResultats" class="marge-haute">';
 				// Lecture des paramètres passés à la page
@@ -92,11 +92,11 @@
 					echo '</select>';
 					
 					echo '<div id="divResultatsPronostics">';
-						include('consulter_resultats_resultats_pronostics.php');
+						include_once('consulter_resultats_resultats_pronostics.php');
 					echo '</div>';
 				}
 			echo '</div>';
-			//include('pied.php');
+			//include_once('pied.php');
 		echo '</div>';
 	?>
 	

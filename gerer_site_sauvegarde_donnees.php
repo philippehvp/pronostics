@@ -1,5 +1,5 @@
 <?php
-	include('commun_administrateur.php');
+	include_once('commun_administrateur.php');
 
 	// Sauvegarde des données de la saison vers les tables d'archive
 	

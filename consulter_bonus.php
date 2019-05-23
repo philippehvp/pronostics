@@ -1,11 +1,11 @@
 <?php
-    include('commun.php');
+    include_once('commun.php');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
 <?php
-    include('commun_entete.php');
+    include_once('commun_entete.php');
 ?>
     <script type="text/javascript" src="js/datatables/jquery.dataTables.js"></script>
     <script type="text/javascript" src="js/datatables/extensions/dataTables.fixedColumns.min.js"></script>
@@ -70,7 +70,7 @@
         $pronostics_bonus = $req->fetchAll();
         $nombrePronostiqueurs = sizeof($pronostics_bonus);
         echo '<div class="conteneur">';
-            include('bandeau.php');
+            include_once('bandeau.php');
             echo '<div id="divBonus" class="contenu-page">';
                 if(sizeof($pronostics_bonus) == 0) {
                     echo 'Aucune donnée n\'est disponible';
@@ -112,7 +112,7 @@
                     echo '</tbody>';
                 echo '</table>';
             echo '</div>';
-            //include('pied.php');
+            //include_once('pied.php');
         echo '</div>';
             
         

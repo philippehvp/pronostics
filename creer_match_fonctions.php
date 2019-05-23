@@ -9,7 +9,8 @@
 		if($local == 1)
 			return $chaine;
 
-		return utf8_decode($chaine);
+		//return utf8_decode($chaine);
+		return $chaine;
 	}
 
 	// Ajout d'un événement dans la table des événements d'un match (mouvement de joueur, but, etc.)
@@ -71,24 +72,26 @@
 
 	// Fonction de remplacement de certains caractères d'un nom passé en paramètre
 	function remplacerCaracteres($chaine) {
-		$retour = $chaine;
-    $retour = str_replace('ä', 'a', str_replace('á', 'a', str_replace('ă', 'a', str_replace('ã', 'a', str_replace('æ', 'a', str_replace('ą', 'a', $retour))))));
-		$retour = str_replace('Ä', 'A', str_replace('á', 'a', str_replace('ă', 'a', str_replace('ã', 'a', str_replace('Á', 'A', $retour)))));
-		$retour = str_replace('č', 'c', str_replace('Ç', 'C', str_replace('Č', 'C', str_replace('ć', 'c', str_replace('Ć', 'C', $retour)))));
-		$retour = str_replace('Đ', 'D', str_replace('đ', 'd', str_replace('Ď', 'D', $retour)));
-		$retour = str_replace('ę', 'e', str_replace('ě', 'e', $retour));
-		$retour = str_replace('ğ', 'g', $retour);
-		$retour = str_replace('İ', 'I', str_replace('İ', 'I', str_replace('ı', 'i', str_replace('í', 'i', $retour))));
-		$retour = str_replace('ł', 'l', str_replace('Ł', 'L', $retour));
-		$retour = str_replace('ñ', 'n', str_replace('ń', 'n', $retour));
-		$retour = str_replace('ö', 'o', str_replace('Ö', 'O', str_replace('ø', 'o', str_replace('ó', 'o', $retour))));
-    $retour = str_replace('ř', 'r', str_replace('Ř', 'R', $retour));
-		$retour = str_replace('š', 's', str_replace('ş', 's', str_replace('Ş', 'S', str_replace('Š', 'S', str_replace('ș', 's', $retour)))));
-		$retour = str_replace('ţ', 't', str_replace('ț', 't', $retour));
-		$retour = str_replace('ü', 'u', str_replace('ú', 'u', str_replace('ů', 'u', $retour)));
-    $retour = str_replace('ý', 'y', $retour);
-		$retour = str_replace('ž', 'z', str_replace('ź', 'z', $retour));
-		return $retour;
+		$tableauCaracteres = array(
+			'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'á'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ă'=>'a', 'ą'=>'a',
+			'þ'=>'b', 'Þ'=>'B', 'đ'=>'d',
+			'Ç'=>'C', 'Ć'=>'C', 'Č'=>'C', 'ć'=>'c', 'č'=>'c',
+			'Đ'=>'D', 'Ď'=>'D', 
+			'ę'=>'e', 'ě'=>'e',
+			'ğ'=>'g',
+			'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'İ'=>'I', 'Ï'=>'I', 'ı'=>'i', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i',
+			'Ł'=>'L', 'ł'=>'l',
+			'Ñ'=>'N', 'ñ'=>'n', 'ń'=>'n',
+			'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'ð'=>'o', 'ò'=>'o', 'ó'=>'o', 'õ'=>'o', 'ö'=>'o', 'ø'=>'o',
+			'Ř'=>'R', 'ř'=>'r',
+			'Š'=>'S', 'Ş'=>'S', 'š'=>'s', 'ş'=>'s', 'ș'=>'s',
+			'ţ'=>'t', 'ț'=>'t',
+			'ß'=>'ss',
+			'Ù'=>'U', 'Ú'=>'U', 'Û'=>'U', 'Ü'=>'U', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ü'=>'u', 'ů'=>'u',
+			'Ý'=>'Y', 'ý'=>'y', 'ÿ'=>'y',
+			'Ž'=>'Z', 'ž'=>'z', 'ź'
+		);
+		return strtr($chaine, $tableauCaracteres);
 	}
 
 	// Recherche d'un joueur dans une équipe
@@ -104,31 +107,38 @@
 		if($champ == '')
 			return -2;
 
+		//echo "AVANT:" . $joueurNomComplet . PHP_EOL;
 		$joueurNomModifie = remplacerCaracteres($joueurNomComplet);
+		//echo "APRES:" . $joueurNomModifie . PHP_EOL;
 		$ordreSQL =		'	SELECT		Joueur' .
-									'	FROM			joueurs' .
-									'	JOIN			joueurs_equipes' .
-									'						ON		joueurs.Joueur = joueurs_equipes.Joueurs_Joueur' .
-									'	WHERE			joueurs_equipes.Equipes_Equipe = ' . $equipe .
-									'						AND		(	CASE' .
-									'											WHEN	joueurs.' . $champ . ' IS NOT NULL' .
-									'											THEN	joueurs.' . $champ .
-									'											WHEN	joueurs.Joueurs_Prenom IS NOT NULL AND joueurs.Joueurs_Prenom <> \'\'' .
-									'											THEN	CONCAT(joueurs.Joueurs_Prenom, \' \', joueurs.Joueurs_NomFamille)' .
-									'											ELSE	joueurs.Joueurs_NomFamille' .
-									'										END = ' . $bdd->quote($joueurNomModifie) .
-									'										OR' .
-									'										CASE' .
-									'											WHEN	joueurs.' . $champ . ' IS NOT NULL' .
-									'											THEN	joueurs.' . $champ .
-									'											WHEN	joueurs.Joueurs_Prenom IS NOT NULL AND joueurs.Joueurs_Prenom <> \'\'' .
-									'											THEN	CONCAT(joueurs.Joueurs_NomFamille, \' \', joueurs.Joueurs_Prenom)' .
-									'											ELSE	joueurs.Joueurs_NomFamille' .
-									'										END = ' . $bdd->quote($joueurNomModifie) .
-									'									)' .
-									'						AND		JoueursEquipes_Debut <= \'' . $date . '\'' .
-									'						AND		(JoueursEquipes_Fin IS NULL OR JoueursEquipes_Fin > \'' . $date . '\')';
-		$req = $bdd->query($ordreSQL);
+						'	FROM			joueurs' .
+						'	JOIN			joueurs_equipes' .
+						'					ON		joueurs.Joueur = joueurs_equipes.Joueurs_Joueur' .
+						'	WHERE			joueurs_equipes.Equipes_Equipe = ' . $equipe .
+						'					AND		(	CASE' .
+						'											WHEN	joueurs.' . $champ . ' IS NOT NULL' .
+						'											THEN	joueurs.' . $champ .
+						'											WHEN	joueurs.Joueurs_Prenom IS NOT NULL AND joueurs.Joueurs_Prenom <> \'\'' .
+						'											THEN	CONCAT(joueurs.Joueurs_Prenom, \' \', joueurs.Joueurs_NomFamille)' .
+						'											ELSE	joueurs.Joueurs_NomFamille' .
+						'										END = ' . $bdd->quote($joueurNomModifie) .
+						'										OR' .
+						'										CASE' .
+						'											WHEN	joueurs.' . $champ . ' IS NOT NULL' .
+						'											THEN	joueurs.' . $champ .
+						'											WHEN	joueurs.Joueurs_Prenom IS NOT NULL AND joueurs.Joueurs_Prenom <> \'\'' .
+						'											THEN	CONCAT(joueurs.Joueurs_NomFamille, \' \', joueurs.Joueurs_Prenom)' .
+						'											ELSE	joueurs.Joueurs_NomFamille' .
+						'										END = ' . $bdd->quote($joueurNomModifie) .
+						'									)' .
+						'					AND		JoueursEquipes_Debut <= \'' . $date . '\'' .
+						'					AND		(JoueursEquipes_Fin IS NULL OR JoueursEquipes_Fin > \'' . $date . '\')';
+		try {
+			$req = $bdd->query($ordreSQL);
+		} catch(Exception $e) {
+			echo $e->getMessage() . PHP_EOL;
+			return 0;
+		}
 		$joueurs = $req->fetchAll();
 
 		if(sizeof($joueurs) == 1)

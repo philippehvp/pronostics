@@ -1,5 +1,5 @@
 <?php
-	include('commun_administrateur.php');
+	include_once('commun_administrateur.php');
 	
 	$championnat = isset($_POST["championnat"]) ? $_POST["championnat"] : 0;
 	

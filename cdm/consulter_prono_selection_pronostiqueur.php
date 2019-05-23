@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 	
 	$NOMBRE_COLONNES = 3;
 	

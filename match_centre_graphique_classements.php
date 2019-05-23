@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 	
 	$championnat = isset($_GET["championnat"]) ? $_GET["championnat"] : 0;
 	$pronostiqueur = isset($_GET["pronostiqueur"]) ? $_GET["pronostiqueur"] : $_SESSION["pronostiqueur"];

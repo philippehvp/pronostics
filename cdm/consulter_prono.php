@@ -1,18 +1,18 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
 <?php
-	include('commun_entete.php');
+	include_once('commun_entete.php');
 ?>
 </head>
 
 <body>
 	<?php
 		$nomPage = 'consulter_prono.php';
-		include('bandeau.php');
+		include_once('bandeau.php');
 
 		$pronostiqueurConsulte = isset($_GET["pronostiqueurConsulte"]) ? $_GET["pronostiqueurConsulte"] : $_SESSION["cdm_pronostiqueur"];
 		

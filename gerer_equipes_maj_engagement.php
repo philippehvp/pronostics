@@ -1,5 +1,5 @@
 <?php
-	include('commun_administrateur.php');
+	include_once('commun_administrateur.php');
 
 	// Engagement / désengagement d'une équipe à un championnat ou ajout / suppression de l'équipe dans le match européen de ligue 1
 	

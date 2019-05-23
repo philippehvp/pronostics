@@ -1,11 +1,11 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
 <?php
-	include('commun_entete.php');
+	include_once('commun_entete.php');
 	echo '<script src="js/jquery/jquery.ui.touch-punch.min.js"></script>';
 ?>
 </head>
@@ -16,9 +16,9 @@
 		enregistrerConsultationPage($bdd, $nomPage);
 		echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
 		echo '<div class="conteneur">';
-			include('bandeau.php');
+			include_once('bandeau.php');
 			echo '<div class="confrontations"></div>';
-			//include('pied.php');
+			//include_once('pied.php');
 		echo '</div>';
 		
 	?>

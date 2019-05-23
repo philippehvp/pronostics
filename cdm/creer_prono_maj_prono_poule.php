@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 
 	// Mise à jour d'un pronostic de poule
 	

@@ -7,7 +7,6 @@
 	
 	// Lecture des paramètres passés à la page
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
-	
 	$ordreSQL =		'	SELECT		Matches_Date, Equipes_EquipeDomicile, Equipes_EquipeVisiteur, IFNULL(Matches_LienPage, \'\') AS Matches_LienPage' .
 					'	FROM		matches' .
 					'	JOIN		equipes equipes_domicile' .
@@ -17,8 +16,8 @@
 					'	WHERE		matches.Match = ' . $match;
 
 	$req = $bdd->query($ordreSQL);
-    $matches = $req->fetchAll();
-    
+	$matches = $req->fetchAll();
+	
 	if(strlen($matches[0]["Matches_LienPage"]) > 0) {
 		$document = new DOMDocument();
 		@$document->loadHTMLFile($matches[0]["Matches_LienPage"]);
@@ -51,8 +50,11 @@
 				$retour = rechercherJoueur($bdd, $nomJoueurModifie, $equipeDomicile, $dateMatch, 1);
 				if($retour == -1)
 					$retour = rechercherJoueurInitialePrenom($bdd, $nomJoueurModifie, $equipeDomicile, $dateMatch, 1);
-				if($retour == -1 || $retour == 0)
-					array_push($tableauErreurs['joueurs'], array('equipe'=>$equipeDomicile, 'joueur'=>$nomJoueurModifie));
+				if($retour == -1) {
+					if(strlen($nomJoueurModifie) > 0) {
+						array_push($tableauErreurs['joueurs'], array('equipe'=>$equipeDomicile, 'joueur'=>$nomJoueurModifie));
+					}
+				}
 			}
 		}
 
@@ -61,10 +63,13 @@
 			if($unJoueur && trim($unJoueur) != "") {
 				$nomJoueurModifie = trim($unJoueur);
 				$retour = rechercherJoueur($bdd, $nomJoueurModifie, $equipeVisiteur, $dateMatch, 1);
-				if($retour <= 0)
+				if($retour == -1)
 					$retour = rechercherJoueurInitialePrenom($bdd, $nomJoueurModifie, $equipeVisiteur, $dateMatch, 1);
-				if($retour == -1 || $retour == 0)
-					array_push($tableauErreurs['joueurs'], array('equipe'=>$equipeVisiteur, 'joueur'=>$nomJoueurModifie));
+				if($retour == -1) {
+					if(strlen($nomJoueurModifie) > 0) {
+						array_push($tableauErreurs['joueurs'], array('equipe'=>$equipeVisiteur, 'joueur'=>$nomJoueurModifie));
+					}
+				}
 			}
 		}
 	}

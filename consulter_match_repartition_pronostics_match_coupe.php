@@ -1,6 +1,6 @@
 <?php
 	// Affichage de la répartition des pronostics de vainqueur (victoire, match nul, défaite)
-	include('commun.php');
+	include_once('commun.php');
 	
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
 

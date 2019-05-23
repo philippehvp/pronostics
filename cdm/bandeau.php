@@ -36,7 +36,7 @@
 							echo '<li onclick="window.open(\'voir_statistiques.php\', \'_self\');">Statistiques</li>';
 							echo '<li onclick="window.open(\'recapituler_prono.php\', \'_self\');">Résumé de mes pronostics</li>';
 							echo '<li>Pronostics de...';
-								include('consulter_prono_selection_pronostiqueur.php');
+								include_once('consulter_prono_selection_pronostiqueur.php');
 							echo '</li>';
 							
 						echo '</ul>';
@@ -45,7 +45,7 @@
 				
 				if($_SESSION["cdm_pronostiqueur"] == 1) {
 					echo '<li><img src="images/live.png" alt="" /><br /><span>En direct</span>';
-						include('matches_direct.php');
+						include_once('matches_direct.php');
 					echo '</li>';
 				}
 

@@ -1,29 +1,29 @@
 <?php
-	include('commun_administrateur.php');
+	include_once('commun_administrateur.php');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
 <?php
-	include('commun_entete.php');
+	include_once('commun_entete.php');
 ?>
 </head>
 
 <body>
 	<?php
 		$nomPage = 'creer_match_surveillance_direct.php';
-		include('bandeau.php');
+		include_once('bandeau.php');
 
 		echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
 		
 		echo '<div id="divSurveillanceEntete" class="contenu-page"></div>';
 
 		echo '<div id="divSurveillanceComposition" class="contenu-page">';
-			include('taches/taches_lecture_composition_equipes_scorespro.php');
+			include_once('taches/taches_lecture_composition_equipes_scorespro.php');
 		echo '</div>';
 		
 		echo '<div id="divSurveillanceDirect" class="contenu-page">';
-			include('taches/taches_lecture_direct_scorespro.php');
+			include_once('taches/taches_lecture_direct_scorespro.php');
 		echo '</div>';
 
 

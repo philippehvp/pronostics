@@ -1,5 +1,5 @@
 <?php
-	include('commun_administrateur.php');
+	include_once('commun_administrateur.php');
 ?>
 <!DOCTYPE html>
 <html lang="en" ng-app="poulpeApp">

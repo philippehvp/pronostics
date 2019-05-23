@@ -1,7 +1,7 @@
 <?php
 	// Lecture des liens vers les matches d'une journée
 	
-	include('commun_administrateur.php');
+	include_once('commun_administrateur.php');
 	
 	// Lecture des paramètres passés à la page
 	$journee = isset($_POST["journee"]) ? $_POST["journee"] : 0;

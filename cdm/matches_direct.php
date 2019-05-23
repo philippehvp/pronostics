@@ -1,5 +1,5 @@
 <?php
-	include('commun_administrateur.php');
+	include_once('commun_administrateur.php');
 	
 	// Cette page affiche la liste des matches de la journée en cours
 	// Ce qui permet de basculer un match en direct

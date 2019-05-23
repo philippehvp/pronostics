@@ -1,5 +1,5 @@
 <?php
-	include('commun_administrateur.php');
+	include_once('commun_administrateur.php');
 	
 	// Mise à jour des équipes dans les poules
 	// Lecture des paramètres passés à la page

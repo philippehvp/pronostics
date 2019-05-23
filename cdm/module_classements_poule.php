@@ -10,7 +10,7 @@
 	
 	$appelAjax = isset($_POST["appelAjax"]) ? $_POST["appelAjax"] : 0;
 	if($appelAjax == 1) {
-		include('commun.php');
+		include_once('commun.php');
 	}
 
 	// Avec un rafraîchissement de la page, on peut recevoir en paramètre le numéro de poule à afficher

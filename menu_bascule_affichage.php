@@ -1,5 +1,5 @@
 <?php
-	include('commun_administrateur.php');
+	include_once('commun_administrateur.php');
 	
 	// Affichage / masquage d'une option de menu
 	$menu = isset($_POST["menu"]) ? $_POST["menu"] : 0;

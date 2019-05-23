@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 	
 	// Cette page affiche les différents cas d'égalité détectés dans une poule et permet de les régler en spécifiant les classements des équipes
 	// à égalité par un tirage au sort (choix de l'utilisateur)

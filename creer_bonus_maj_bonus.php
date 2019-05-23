@@ -1,5 +1,5 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 
 	// Sauvegarde des pronostics de bonus
 	

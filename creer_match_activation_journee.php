@@ -1,5 +1,5 @@
 <?php
-	include('commun_administrateur.php');
+	include_once('commun_administrateur.php');
 	
 	// Activation / désactivation d'une journée
 	// La requête va basculer l'état d'activation comme un interrupteur

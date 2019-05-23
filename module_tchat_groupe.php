@@ -13,7 +13,7 @@
 	$rafraichissementModule = isset($_POST["rafraichissementModule"]) ? $_POST["rafraichissementModule"] : 0;
 	if($rafraichissementModule == 1) {
 		// Rafraîchissement automatique du module
-		include('commun.php');
+		include_once('commun.php');
 		
 		$module = isset($_POST["module"]) ? $_POST["module"] : 0;
 		$nomConteneurSimple = isset($_POST["nomConteneurSimple"]) ? $_POST["nomConteneurSimple"] : 0;

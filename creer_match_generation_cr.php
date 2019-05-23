@@ -1,5 +1,5 @@
 <?php
-	include('commun_administrateur.php');
+	include_once('commun_administrateur.php');
 
 	$journee = isset($_POST["journee"]) ? $_POST["journee"] : 0;
 

@@ -6,9 +6,10 @@
 	// - par un appel Ajax (cas du rafraîchissement)
 
 	$rafraichissement = isset($_POST["rafraichissement"]) ? $_POST["rafraichissement"] : 0;
+
 	if($rafraichissement == 1) {
 		// Rafraîchissement
-		include('commun_administrateur.php');
+		include_once('commun_administrateur.php');
 
 		// Lecture des paramètres passés à la page
 		$match = isset($_POST["match"]) ? $_POST["match"] : 0;

@@ -1,11 +1,11 @@
 <?php
-	include('commun_administrateur.php');
+	include_once('commun_administrateur.php');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
 <?php
-	include('commun_entete.php');
+	include_once('commun_entete.php');
 	echo '<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>';
 ?>
 </head>
@@ -13,7 +13,7 @@
 <body>
 	<?php
 		$nomPage = 'envoyer_courrier.php';
-		include('bandeau.php');
+		include_once('bandeau.php');
 		
 		// Lecture de toutes les journées de la table des courriers
 		$ordreSQL =		'	SELECT		DISTINCT Courriers_JourneeEnCours, Courriers_DateLocale' .

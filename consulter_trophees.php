@@ -1,12 +1,12 @@
 <?php
-	include('commun.php');
+	include_once('commun.php');
 	include_once('classements_pronostiqueurs_fonctions.php');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
 <?php
-	include('commun_entete.php');
+	include_once('commun_entete.php');
 	
 ?>
 
@@ -30,10 +30,10 @@
 
 	// Championnat à afficher
 	$championnat = isset($_GET["championnat"]) ? $_GET["championnat"] : 0;
-	include('consulter_trophees_fonctions.php');
+	include_once('consulter_trophees_fonctions.php');
 
 	echo '<div class="conteneur">';
-		include('bandeau.php');
+		include_once('bandeau.php');
 		// Les championnats sont mis dans des onglets différents pour une meilleure visibilité
 		echo '<div class="contenu-page">';
 			// Affichage des trophées du championnat demandé
@@ -78,7 +78,7 @@
 				}
 			}
 		echo '</div>';
-		//include('pied.php');
+		//include_once('pied.php');
 	echo '</div>';
 ?>
 

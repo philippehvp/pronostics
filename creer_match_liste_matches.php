@@ -28,7 +28,6 @@
 					'	WHERE		journees.Journee = ' . $journee .
 					'	ORDER BY	Equipes_Nom';
 
-
 	$req = $bdd->query($ordreSQL);
 	$equipes = $req->fetchAll();
 
@@ -71,7 +70,6 @@
 					'	FROM				vue_matches' .
 					'	WHERE				Journees_Journee = ' . $journee .
 					'	ORDER BY			vue_matches.Match';
-
 
 	$req = $bdd->query($ordreSQL);
 	$matches = $req->fetchAll();

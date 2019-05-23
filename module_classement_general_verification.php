@@ -6,7 +6,7 @@
 	
 	include_once('classements_pronostiqueurs_fonctions.php');
 	
-	include('commun.php');
+	include_once('commun.php');
 		
 	// Lecture des paramètres passés à la page
 	$championnat = isset($_POST["parametre"]) ? $_POST["parametre"] : 0;
