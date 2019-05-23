@@ -57,11 +57,20 @@
 		}
 		
 		// Affichage des cotes de l'équipe (et du nul)
-		// On affiche les points de qualification et non les cotes dans les deux cas spécifiques suivants :
+		// On affiche les points de qualification et non les cotes dans les trois cas spécifiques suivants :
 		// - Coupe de France (championnat numéro 5)
 		// - en finale de coupe européenne
+		// - en Ligue 1, match européen, avec prolongation
 		function afficherCote($unMatch, $nulDomicileVisiteur, $finaleEuropeenne) {
-			if($unMatch["Championnats_Championnat"] != 5 && $finaleEuropeenne == 0) {
+			if($unMatch["Championnats_Championnat"] == 5 || $finaleEuropeenne == 1 || ($unMatch["Championnats_Championnat"] == 1 && $unMatch["Matches_L1Europe"] == 1 && $unMatch["Matches_AvecProlongation"] == 1)) {
+				if($nulDomicileVisiteur == 1)
+					$cote = $unMatch["Matches_PointsQualificationEquipeDomicile"];
+				else if($nulDomicileVisiteur == 2)
+					$cote = $unMatch["Matches_PointsQualificationEquipeVisiteur"];
+				
+				echo '<label>Points qualification : ' . $cote . '</label>';
+			}
+			else {
 				if($nulDomicileVisiteur == 0)
 					$cote = calculerCote($unMatch["Matches_CoteNul"]);
 				else if($nulDomicileVisiteur == 1)
@@ -73,15 +82,6 @@
 					echo '<label>Cote du nul : ' . $cote . '</label>';
 				else
 					echo '<label>Cote victoire : ' . $cote . '</label>';
-			}
-			else {
-				// Uniquement pour la Coupe de France
-				if($nulDomicileVisiteur == 1)
-					$cote = $unMatch["Matches_PointsQualificationEquipeDomicile"];
-				else if($nulDomicileVisiteur == 2)
-					$cote = $unMatch["Matches_PointsQualificationEquipeVisiteur"];
-				
-				echo '<label>Points qualification : ' . $cote . '</label>';
 			}
 		}
 
