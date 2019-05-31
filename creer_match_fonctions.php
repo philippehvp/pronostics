@@ -347,7 +347,7 @@
 						'				ON		matches_direct.Matches_Match = matches_evenements.Matches_Match' .
 						'	WHERE		matches_direct.Matches_Match = ' . $match .
 						'				AND		matches_evenements.MatchesEvenements_Evenement = 9' .
-						'				AND		NOW() > DATE_ADD(matches_evenements.MatchesEvenements_DateEvenement, INTERVAL 30 MINUTE)';
+						'				AND		NOW() > DATE_ADD(matches_evenements.MatchesEvenements_DateEvenement, INTERVAL 60 MINUTE)';
 		$bdd->exec($ordreSQL);
 
 		$ordreSQL =		'	UPDATE		matches' .
