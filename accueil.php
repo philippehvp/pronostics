@@ -21,9 +21,9 @@
 	?>
 	<script>
 		$(function() {
-			/*retournerHautPage();
+			retournerHautPage();
 			activitePronostiqueur();
-			verificationMessage();*/			
+			verificationMessage();			
 		});
 	
 	</script>

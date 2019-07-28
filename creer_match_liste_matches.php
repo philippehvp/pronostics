@@ -79,6 +79,12 @@
 		echo '<label class="bouton" onclick="creerMatch_lireLiensMatches(' . $journee . ');">Page des matches MeD</label> - <label class="bouton" onclick="creerMatch_lireLiensMatchesScoresPro(' . $journee . ');">Page des matches SP</label>';
 		echo '<br />';
 
+		if($championnat == 1) {
+			echo '<label class="detail">Initialiser match Canal</label>';
+			echo '<label class="bouton" onclick="creerMatch_initialiserMatchCanal(' . $journee . ');">Initialiser match Canal</label>';
+		echo '<br />';
+		}
+
 		if($active == 1)			echo '<label class="detail vert" id="labelEtatJournee">Journée active</label>';
 		else						echo '<label class="detail rouge" id="labelEtatJournee">Journée inactive</label>';
 

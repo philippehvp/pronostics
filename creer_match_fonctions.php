@@ -82,7 +82,7 @@
 			'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'İ'=>'I', 'Ï'=>'I', 'ı'=>'i', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i',
 			'Ł'=>'L', 'ł'=>'l',
 			'Ñ'=>'N', 'ñ'=>'n', 'ń'=>'n',
-			'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'ð'=>'o', 'ò'=>'o', 'ó'=>'o', 'õ'=>'o', 'ö'=>'o', 'ø'=>'o',
+			'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'ð'=>'o', 'ò'=>'o', 'ó'=>'o', 'õ'=>'o', 'ö'=>'o', 'ø'=>'o', 'ō'=>'o',
 			'Ř'=>'R', 'ř'=>'r',
 			'Š'=>'S', 'Ş'=>'S', 'š'=>'s', 'ş'=>'s', 'ș'=>'s',
 			'ţ'=>'t', 'ț'=>'t',
@@ -347,7 +347,7 @@
 						'				ON		matches_direct.Matches_Match = matches_evenements.Matches_Match' .
 						'	WHERE		matches_direct.Matches_Match = ' . $match .
 						'				AND		matches_evenements.MatchesEvenements_Evenement = 9' .
-						'				AND		NOW() > DATE_ADD(matches_evenements.MatchesEvenements_DateEvenement, INTERVAL 60 MINUTE)';
+						'				AND		NOW() > DATE_ADD(matches_evenements.MatchesEvenements_DateEvenement, INTERVAL 30 MINUTE)';
 		$bdd->exec($ordreSQL);
 
 		$ordreSQL =		'	UPDATE		matches' .

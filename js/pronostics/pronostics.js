@@ -34,7 +34,7 @@ function activitePronostiqueur_rafraichissement() {
 }
 
 // Mise en place de la vérification de message
-var timerMessage = 0;
+var timerMessage = 1;
 var intervalleMessage = 5000;
 function verificationMessage() {
 	if(timerMessage == 0) {
@@ -316,6 +316,23 @@ function creerMatch_changerJournee() {
                 $('#divListeMatches').html(html);
             }
     );
+}
+
+// Gestion de match - Initialisation du match Canal
+function creerMatch_initialiserMatchCanal(numeroJournee) {
+    if(numeroJournee == 0 || numeroJournee > 38)
+		return;
+		
+	// Appel de la page d'initialisation des matches Canal pour les pronostiqueurs
+	$.ajax( {
+		url: 'creer_match_initialisation_canal.php',
+		type: 'POST',
+		data:	{
+					journee: numeroJournee
+				}
+	}).done(function(html) {
+		afficherMessageInformationBandeau('Initialisation du match Canal effectuée avec succès', 2000, '');
+	});
 }
 
 // Gestion de match - Activation / désactivation d'une journée

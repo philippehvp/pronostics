@@ -63,14 +63,15 @@
 		// - en Ligue 1, match européen, avec prolongation
 		function afficherCote($unMatch, $nulDomicileVisiteur, $finaleEuropeenne) {
 			if($unMatch["Championnats_Championnat"] == 5 || $finaleEuropeenne == 1 || ($unMatch["Championnats_Championnat"] == 1 && $unMatch["Matches_L1Europe"] == 1 && $unMatch["Matches_AvecProlongation"] == 1)) {
+				$cote = 0;
 				if($nulDomicileVisiteur == 1)
 					$cote = $unMatch["Matches_PointsQualificationEquipeDomicile"];
 				else if($nulDomicileVisiteur == 2)
 					$cote = $unMatch["Matches_PointsQualificationEquipeVisiteur"];
 				
-					if($cote != 0) {
-						echo '<label>Points qualification : ' . $cote . '</label>';
-					}
+				if($cote != 0) {
+					echo '<label>Points qualification : ' . $cote . '</label>';
+				}
 			}
 			else {
 				if($nulDomicileVisiteur == 0)
