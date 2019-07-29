@@ -1766,6 +1766,40 @@ function creerProno_afficherDerniersResultats(match) {
 	});
 }
 
+// Création d'un pronostic - Sélection du match Canal
+function creerProno_selectionnerMatchCanal(numeroJournee, numeroMatch) {
+	$.ajax(	{
+		url: 'creer_prono_selection_match_canal.php',
+		type: 'POST',
+		data:	{	journee: numeroJournee, match: numeroMatch	}
+	}
+	).done(function(html) {
+		if(html.indexOf('DEPASSE') != -1) {
+			if($('.info').length == 0)
+				$('body').append('<div class="info" style="z-index: 20000;"></div>');
+
+			$('.info').html('<label>Désolé, il n\'est plus possible de sélectionner ce match en match Canal\'</label>');
+			$('.info').dialog({
+				autoOpen: false
+				,width: 'auto'
+				,height: 'auto'
+				,modal: true
+				,title: 'Heure de pronostic dépassée'
+				,position: 'center'
+				,buttons: {
+					'Fermer':   function() {
+									$(this).dialog('close');
+								}
+				}
+
+			});
+
+			$('.info').dialog('open');
+			return;
+		}
+	});
+}
+
 // Affichage de résultats - Changement de journée
 function consulterResultats_changerJournee() {
     var journee = $('#selectJournee').val();

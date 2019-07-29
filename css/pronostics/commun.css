@@ -413,6 +413,29 @@ a.lien:link, a.lien:visited {
 	background-position: 50% 50%;
 }
 
+#divPronostics div.zoneMatchCanal {
+	width: 1200px;
+	height: 23px;
+	text-align: center;
+}
+
+#divPronostics div.zoneMatchCanal button.selectionMatchCanal {
+	background-color: none;
+	width: 68px;
+	height: 23px;
+	margin: 0 auto;
+}
+
+#divPronostics div.zoneMatchCanal button.matchCanal {
+	background-image: url('../../images/canal_actif.png');
+	background-repeat: no-repeat;
+}
+
+#divPronostics div.zoneMatchCanal button.matchNonCanal {
+	background-image: url('../../images/canal_inactif.png');
+	background-repeat: no-repeat;
+}
+
 #divPronostics div.pronosticEquipe {
 	width: 500px;
 	height: 120px;
@@ -433,7 +456,7 @@ a.lien:link, a.lien:visited {
 
 #divPronostics div.pronosticZoneScore {
 	width: 200px;
-	height: 120px;
+	height: 130px;
 	text-align: center;
 }
 

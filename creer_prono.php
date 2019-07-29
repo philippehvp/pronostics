@@ -55,6 +55,20 @@
 			if($unMatch["Matches_L1EuropeNom"] != null)
 				echo '<br /><label class="matchEuropeen">' . $unMatch["Matches_L1EuropeNom"] . '</label>';
 		}
+
+		// Affichage de la zone de sélection du match Canal
+		function afficherZoneMatchCanal($unMatch) {
+			$disabled = ($unMatch["Matches_Pronostiquable"] == 0) ? ' ' : '';
+			if($unMatch["Matches_Coefficient"] == 1) {
+				// Match normal
+				//echo '<label id="btnCanal_match_' . $unMatch["Match"] . '" class="selectionMatchCanal matchNonCanal" onclick="creerProno_selectionnerMatchCanal(' . $unMatch["Journee"] . ', ' . $unMatch["Match"] . ');"></label>';
+				echo '<button id="btnCanal_match_' . $unMatch["Match"] . '" class="selectionMatchCanal matchNonCanal" onclick="creerProno_selectionnerMatchCanal(' . $unMatch["Journee"] . ', ' . $unMatch["Match"] . ');"' . $disabled . '></button>';
+			} else {
+				// Match Canal
+				//echo '<label id="btnCanal_match_' . $unMatch["Match"] . '" class="selectionMatchCanal matchCanal" onclick="creerProno_selectionnerMatchCanal(' . $unMatch["Journee"] . ', ' . $unMatch["Match"] . ');"></label>';
+				echo '<button id="btnCanal_match_' . $unMatch["Match"] . '" class="selectionMatchCanal matchCanal" onclick="creerProno_selectionnerMatchCanal(' . $unMatch["Journee"] . ', ' . $unMatch["Match"] . ');"' . $disabled . '></button>';
+			}
+		}
 		
 		// Affichage des cotes de l'équipe (et du nul)
 		// On affiche les points de qualification et non les cotes dans les trois cas spécifiques suivants :
@@ -99,7 +113,6 @@
 			echo '<label>Points qualification : ' . $coteQualification . '</label>';
 		}
 
-		
 		// Affichage des scores de l'équipe (ainsi que les buteurs)
 		function afficherScoreEquipe($unMatch, $domicileVisiteur, $matchLie) {
 			$disabled = $unMatch["Matches_Pronostiquable"] == 0 ? ' disabled' : '';
@@ -357,7 +370,11 @@
 						'							END AS Matches_SansButeur' .
 						'							,matches.Matches_L1EuropeNom' .
 						'							,matches.Matches_L1Europe' .
-						'							,matches.Matches_Coefficient' .
+						'							,CASE' .
+						'								WHEN	matches.Match = journees_pronostiqueurs_canal.Matches_Match' .
+						'								THEN	2' .
+						'								ELSE	1' .
+						'							END AS Matches_Coefficient' .
 						'							,CASE' .
 						'								WHEN	matches.Matches_DemiFinaleEuropeenne = 1 OR matches.Matches_FinaleEuropeenne = 1' .
 						'								THEN	1' .
@@ -382,6 +399,9 @@
 						'	LEFT JOIN				pronostics_carrefinal' .
 						'							ON		matches.Match = pronostics_carrefinal.Matches_Match' .
 						'									AND		inscriptions.Pronostiqueurs_Pronostiqueur = pronostics_carrefinal.Pronostiqueurs_Pronostiqueur' .
+						'	LEFT JOIN				journees_pronostiqueurs_canal' .
+						'							ON		journees.Journee = journees_pronostiqueurs_canal.Journees_Journee' .
+						'									AND		journees_pronostiqueurs_canal.Pronostiqueurs_Pronostiqueur = ' . $pronostiqueur .
 						'	WHERE					journees.Journees_Active = 1' .
 						'							AND		inscriptions.Pronostiqueurs_Pronostiqueur = ' . $pronostiqueur .
 						'							AND		matches.Equipes_EquipeDomicile IS NOT NULL' .
@@ -455,8 +475,7 @@
 							if($typeMatch != 3)
 								$classe = $classe == 'pair' ? 'impair' : 'pair';
 							
-							if($unMatch["Matches_Coefficient"] == 2)	echo '<div id="match' . $match . '" class="' . $classe . ' tuile match-canal">';
-							else										echo '<div id="match' . $match . '" class="' . $classe . ' tuile">';
+							echo '<div id="match' . $match . '" class="' . $classe . ' tuile">';
 								// Informations sur le match (nom du match, horaires, etc.)
 								echo '<div id="divInformations_match_' . $match . '" class="pronosticLogistique">';
 									afficherLogistique($unMatch);
@@ -516,6 +535,14 @@
 								echo '<div id="divEquipeVisiteur_match_' . $match . '" class="pronosticEquipe gauche">';
 									afficherEquipe($unMatch, 2);
 								echo '</div>';
+
+								// Pour la ligue 1, il est possible de choisir le match Canal
+								// Sur toutes les journées, à part la journée de barrage (journée 39)
+								if($journee["Championnats_Championnat"] == 1 && $journee["Journee"] <= 38) {
+									echo '<div class="zoneMatchCanal gauche">';
+										afficherZoneMatchCanal($unMatch);
+									echo '</div>';
+								}
 
 								// Cote de l'équipe domicile
 								echo '<div id="divCoteEquipeDomicile_match_' . $match . '" class="pronosticCoteEquipe gauche">';
@@ -582,7 +609,7 @@
 	<script>
 		$(function() {
 			afficherTitrePage('divPronostics', 'Saisie de pronostics');
-			$('button').button().click	(	function( event ) {
+			$('button').button().click	(	function(event) {
 												event.preventDefault();
 											}
 										);
@@ -601,9 +628,23 @@
 			$('.matchRetour').each(	function() {	$(this).html("RETOUR");	});
 			$('.matchCoupe').each(	function() {	$(this).html("COUPE");	});
 			
-			
+			// Ajout d'une indication si le vainqueur des TAB n'a pas été sélectionné
 			if($('.liste-vainqueur-tab').val() == 0)
 				$('.liste-vainqueur-tab').addClass('blanc-fond-rouge');
+
+			// Pour la Ligue 1, présence d'un bouton permettant de sélectionner le match Canal
+			$('.selectionMatchCanal').click( function(event) {
+				// Le match sur lequel on a cliqué devient le match Canal
+				// L'ancien match perd donc ce statut
+				// On teste tout de même le statut actuel du match cliqué pour le cas où il est déjà match Canal
+				if($(this).hasClass('matchCanal')) {
+					return;
+				}
+				$('.selectionMatchCanal').removeClass('matchCanal');
+				$('.selectionMatchCanal').addClass('matchNonCanal');
+				$(this).removeClass('matchNonCanal');
+				$(this).addClass('matchCanal');
+			});
 
 			// Lecture d'une éventuelle ancre (anchor) passée dans l'URL
 			var ancre = $.trim(window.location.hash);

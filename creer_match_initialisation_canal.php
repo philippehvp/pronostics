@@ -19,15 +19,5 @@
 					'							AND		pronostiqueurs.Pronostiqueur = journees_pronostiqueurs_canal.Pronostiqueurs_Pronostiqueur' .
 					'	WHERE			journees_pronostiqueurs_canal.Journees_Journee IS NULL';
 	$bdd->exec($ordreSQL);
-
-	/*
-	replace into journees_pronostiqueurs_canal(Journees_Journee, Pronostiqueurs_Pronostiqueur, Matches_Match)
-select 1, pronostiqueurs.Pronostiqueur, (select matches.Match from matches where matches.Journees_Journee = 1 and matches.Matches_Coefficient = 2) as Matches_Match
-from pronostiqueurs
-left join journees_pronostiqueurs_canal
-on journees_pronostiqueurs_canal.Journees_Journee = 1
-and pronostiqueurs.Pronostiqueur = journees_pronostiqueurs_canal.Pronostiqueurs_Pronostiqueur
-where journees_pronostiqueurs_canal.Journees_Journee is null;
-	*/
 ?>
 
