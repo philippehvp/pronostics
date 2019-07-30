@@ -292,7 +292,7 @@
                                         // Pour chaque ligne de résultat, on affiche le score final, les buteurs
                                         $equipeDomicileButeurs = $resultat["EquipesDomicile_Buteurs"] != null ? $resultat["EquipesDomicile_Buteurs"] : 'Aucun';
                                         $equipeVisiteurButeurs = $resultat["EquipesVisiteur_Buteurs"] != null ? $resultat["EquipesVisiteur_Buteurs"] : 'Aucun';
-                                        echo '<th class="curseur-main" title="' . $resultat["EquipesDomicile_Nom"] . ' : ' . $equipeDomicileButeurs . '&#13' . $resultat["EquipesVisiteur_Nom"] . ' : ' . $equipeVisiteurButeurs . '" onclick="consulterResultats_afficherMatch(' . $resultat["Match] . ', \'' . $resultat["EquipesDomicile_Nom"] . '\', \'' . $resultat["EquipesVisiteur_Nom"] . '\', 0, 0);">';
+                                        echo '<th class="curseur-main" title="' . $resultat["EquipesDomicile_Nom"] . ' : ' . $equipeDomicileButeurs . '&#13' . $resultat["EquipesVisiteur_Nom"] . ' : ' . $equipeVisiteurButeurs . '" onclick="consulterResultats_afficherMatch(' . $resultat["Match"] . ', \'' . $resultat["EquipesDomicile_Nom"] . '\', \'' . $resultat["EquipesVisiteur_Nom"] . '\', 0, 0);">';
                                                 echo $resultat["EquipesDomicile_NomCourt"] . '<br />' . $resultat["EquipesVisiteur_NomCourt"] . '<br />';
                                                 
                                                 // Appel de la fonction d'affichage du score du match
@@ -347,14 +347,18 @@
                                                                 $nomButeursVisiteur = 'Aucun';
                                                         else
                                                                 $nomButeursVisiteur = $pronostics[$indice][9];
-                                                                
+                                                        
                                                         $coefficient = $pronostics[$indice][13];
-                                                        if($scoreMatch / $coefficient < 5)
+                                                        if($scoreMatch != '?') {
+                                                                if($scoreMatch / $coefficient < 5)
+                                                                        $style = 'blanc';
+                                                                else if($scoreMatch / $coefficient >= 5 && $scoreMatch / $coefficient < 10)
+                                                                        $style = 'orange';
+                                                                else
+                                                                        $style = 'vert';
+                                                        } else {
                                                                 $style = 'blanc';
-                                                        else if($scoreMatch / $coefficient >= 5 && $scoreMatch / $coefficient < 10)
-                                                                $style = 'orange';
-                                                        else
-                                                                $style = 'vert';
+                                                        }
                                                                 
                                                         $pronosticsScoreEquipeDomicile = $pronostics[$indice][3];
                                                         $pronosticsScoreEquipeVisiteur = $pronostics[$indice][4];
