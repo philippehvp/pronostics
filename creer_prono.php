@@ -58,14 +58,12 @@
 
 		// Affichage de la zone de sélection du match Canal
 		function afficherZoneMatchCanal($unMatch) {
-			$disabled = ($unMatch["Matches_Pronostiquable"] == 0) ? ' ' : '';
+			$disabled = ($unMatch["Matches_Pronostiquable"] == 0) ? ' disabled' : '';
 			if($unMatch["Matches_Coefficient"] == 1) {
 				// Match normal
-				//echo '<label id="btnCanal_match_' . $unMatch["Match"] . '" class="selectionMatchCanal matchNonCanal" onclick="creerProno_selectionnerMatchCanal(' . $unMatch["Journee"] . ', ' . $unMatch["Match"] . ');"></label>';
 				echo '<button id="btnCanal_match_' . $unMatch["Match"] . '" class="selectionMatchCanal matchNonCanal" onclick="creerProno_selectionnerMatchCanal(' . $unMatch["Journee"] . ', ' . $unMatch["Match"] . ');"' . $disabled . '></button>';
 			} else {
 				// Match Canal
-				//echo '<label id="btnCanal_match_' . $unMatch["Match"] . '" class="selectionMatchCanal matchCanal" onclick="creerProno_selectionnerMatchCanal(' . $unMatch["Journee"] . ', ' . $unMatch["Match"] . ');"></label>';
 				echo '<button id="btnCanal_match_' . $unMatch["Match"] . '" class="selectionMatchCanal matchCanal" onclick="creerProno_selectionnerMatchCanal(' . $unMatch["Journee"] . ', ' . $unMatch["Match"] . ');"' . $disabled . '></button>';
 			}
 		}

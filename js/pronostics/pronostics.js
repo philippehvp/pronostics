@@ -1778,7 +1778,7 @@ function creerProno_selectionnerMatchCanal(numeroJournee, numeroMatch) {
 			if($('.info').length == 0)
 				$('body').append('<div class="info" style="z-index: 20000;"></div>');
 
-			$('.info').html('<label>Désolé, il n\'est plus possible de sélectionner ce match en match Canal\'</label>');
+			$('.info').html('<label>Désolé, il n\'est plus possible de sélectionner ce match en match Canal</label>');
 			$('.info').dialog({
 				autoOpen: false
 				,width: 'auto'

@@ -8,7 +8,7 @@ table.dataTable tbody th, table.dataTable tbody td {
 }
 
 
-/* Commun à tous les tableaux */
+/* Commun ï¿½ tous les tableaux */
 table {
 	font-family: pronostics,Verdana,Helvetica,Arial,sans-serif;
 	text-align: center;
@@ -39,7 +39,7 @@ table {
     width: 35px;
 }
 
-/* Tableau des trophées */
+/* Tableau des trophï¿½es */
 .tableau--trophees thead {
 	font-size: 0.9em;
 }
@@ -110,7 +110,7 @@ table {
 	max-width: 400px;
 }
 
-/* Tableau des résultats de journée */
+/* Tableau des rï¿½sultats de journï¿½e */
 .tableau--resultat-journee {
 	width: 100%;
 	margin-left: 0!important;
@@ -136,11 +136,11 @@ table {
 	background-color: rgba(207, 35, 35, 0.7);
 }
 
-.match-non-en-direct {
+/*.match-non-en-direct {
 	
-}
+}*/
 
-/* Tableau des résultats */
+/* Tableau des rï¿½sultats */
 .tableau--resultat {
 	font-size: 0.7em;
 	color: #333;
@@ -152,6 +152,20 @@ table {
 	border-bottom: 1px solid #999;
 	min-width: 130px;
 	white-space: nowrap;
+}
+
+.tableau--resultat td.colonneMatchCanal, .tableau--resultat th.colonneMatchCanal {
+	min-width: 22px;
+}
+
+.tableau--resultat td.matchCanal {
+	background-image: url('../../images/canal_pastille.png');
+	background-repeat: no-repeat;
+}
+
+.tableau--resultat td.matchCanalBadge {
+	background-image: url('../../images/canal_badge.png');
+	background-repeat: no-repeat;
 }
 
 .tableau--resultat th {

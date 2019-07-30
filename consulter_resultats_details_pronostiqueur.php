@@ -126,7 +126,11 @@
 					'							THEN	scores.Scores_ScoreQualification' .
 					'							ELSE	\'?\'' .
 					'						END AS Scores_ScoreQualification' .
-					'						,Matches_Coefficient' .
+					'						,CASE' .
+					'							WHEN	matches.Match = journees_pronostiqueurs_canal.Matches_Match' .
+					'							THEN	2' .
+					'							ELSE	1' .
+					'						END AS Matches_Coefficient' .
 					'						,CASE' .
 					'							WHEN		matches.Matches_DemiFinaleEuropeenne = 1 OR matches.Matches_FinaleEuropeenne = 1' .
 					'							THEN		pronostics_carrefinal.PronosticsCarreFinal_Coefficient' .
@@ -412,6 +416,9 @@
 					'	LEFT JOIN			pronostics_carrefinal' .
 					'						ON		pronostiqueurs.Pronostiqueur = pronostics_carrefinal.Pronostiqueurs_Pronostiqueur' .
 					'								AND		matches.Match = pronostics_carrefinal.Matches_Match' .
+					'	LEFT JOIN			journees_pronostiqueurs_canal' .
+					'						ON		journees_pronostiqueurs_canal.Journees_Journee = ' . $journee .
+					'								AND		journees_pronostiqueurs_canal.Pronostiqueurs_Pronostiqueur = ' . $pronostiqueurDetail .
 					'	WHERE				pronostiqueurs.Pronostiqueur = ' . $pronostiqueurDetail .
 					'						AND		matches.Journees_Journee = ' . $journee .
 					'	ORDER BY			matches.Match';
@@ -423,6 +430,9 @@
 	echo '<table class="tableau--resultat" id="tablePronostics">';
 		echo '<thead>';
 			echo '<tr>';
+				if($journee >= 1 && $journee <= 38) {
+					echo '<th class="colonneMatchCanal">&nbsp;</th>';	
+				}
 				echo '<th>Matches</th>';
 				echo '<th>Score final et buteurs</th>';
 				echo '<th>Pronostics</th>';
@@ -455,6 +465,11 @@
 					$pointsQualificationEquipeVisiteur = $resultats[$i]["Matches_PointsQualificationEquipeVisiteur"];
 					$pronosticsCarreFinalCoefficient = $pronostics[$i]["PronosticsCarreFinal_Coefficient"];
 					
+					if($journee >= 1 && $journee <= 38) {
+						$matchCanal = $pronostics[$i]["Matches_Coefficient"] == 2 ? 'matchCanal' : '';
+						echo '<td class="colonneMatchCanal ' . $matchCanal . '">&nbsp;</td>';
+					}
+
 					echo '<td title="' . $equipeDomicileNom . ' - ' . $equipeVisiteurNom . '">';
 						echo '<label>' . $equipeDomicileNomCourt . ' - ' . $equipeVisiteurNomCourt;
 						if($pronosticsCarreFinalCoefficient != -1)

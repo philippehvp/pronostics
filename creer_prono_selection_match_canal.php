@@ -19,10 +19,10 @@
 	$matchPronostiquable = $donnees["Matches_Pronostiquable"];
 	$req->closeCursor();
 
-	/*if($matchPronostiquable == 0) {
+	if($matchPronostiquable == 0) {
 		echo 'DEPASSE';
 		exit();
-	}*/
+	}
 
 	$ordreSQL =		'	REPLACE INTO	journees_pronostiqueurs_canal' .
 					'	SELECT			' . $journee . ', ' . $_SESSION["pronostiqueur"] . ', ' . $match;

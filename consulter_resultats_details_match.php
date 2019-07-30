@@ -12,6 +12,7 @@
 
 	// Bons résultats des matches d'une journée donnée
 	$ordreSQL = '	SELECT DISTINCT		vue_resultatsjournees.Match' .
+				'						,Journees_Journee' .
 				'						,EquipesDomicile_NomCourt' .
 				'						,EquipesVisiteur_NomCourt' .
 				'						,EquipesDomicile_Nom' .
@@ -133,7 +134,11 @@
 					'								THEN	scores.Scores_ScoreBonus' .
 					'								ELSE	\'?\'' .
 					'							END Scores_ScoreBonus' .
-					'							,Matches_Coefficient' .
+					'							,CASE' .
+					'								WHEN	matches.Match = journees_pronostiqueurs_canal.Matches_Match' .
+					'								THEN	2' .
+					'								ELSE	1' .
+					'							END AS Matches_Coefficient' .
 					'							,CASE' .
 					'								WHEN		matches.Matches_DemiFinaleEuropeenne = 1 OR matches.Matches_FinaleEuropeenne = 1' .
 					'								THEN		pronostics_carrefinal.PronosticsCarreFinal_Coefficient' .
@@ -418,10 +423,12 @@
 					'		LEFT JOIN			pronostics_carrefinal' .
 					'							ON		pronostiqueurs.Pronostiqueur = pronostics_carrefinal.Pronostiqueurs_Pronostiqueur' .
 					'									AND		matches.Match = pronostics_carrefinal.Matches_Match' .
+					'		LEFT JOIN			journees_pronostiqueurs_canal' .
+					'							ON		journees_pronostiqueurs_canal.Matches_Match = ' . $match .
+					'									AND		pronostics.Pronostiqueurs_Pronostiqueur = journees_pronostiqueurs_canal.Pronostiqueurs_Pronostiqueur' .
 					'		WHERE				classements.Classements_ClassementJourneeMatch >= ' . $borneInferieure .
 					'							AND		classements.Classements_ClassementJourneeMatch <= ' . $borneSuperieure .
                     '		ORDER BY			pronostiqueurs.Pronostiqueur';
-
 	$req = $bdd->query($ordreSQL);
 	$pronostics = $req->fetchAll();
 	$nombrePronostiqueurs = sizeof($pronostics) / $nombreMatches;
@@ -430,25 +437,31 @@
 	echo '<table class="tableau--resultat" id="tablePronostics">';
 		echo '<thead>';
 			echo '<tr>';
-				echo '<th>Résultats</th>';
 				foreach($resultats as $resultat) {
-					// Pour chaque ligne de résultat, on affiche le score final, les buteurs
-					$equipeDomicileButeurs = $resultat["EquipesDomicile_Buteurs"] != null ? $resultat["EquipesDomicile_Buteurs"] : 'Aucun';
-					$equipeVisiteurButeurs = $resultat["EquipesVisiteur_Buteurs"] != null ? $resultat["EquipesVisiteur_Buteurs"] : 'Aucun';
-					$coteEquipeDomicile = $resultat["Matches_CoteEquipeDomicile"] != null ? $resultat["Matches_CoteEquipeDomicile"] : '?';
-					$coteEquipeNul = $resultat["Matches_CoteNul"] != null ? $resultat["Matches_CoteNul"] : '?';
-					$coteEquipeVisiteur = $resultat["Matches_CoteEquipeVisiteur"] != null ? $resultat["Matches_CoteEquipeVisiteur"] : '?';
-					echo '<th title="' . $resultat["EquipesDomicile_Nom"] . ' : ' . $equipeDomicileButeurs . '&#13' . $resultat["EquipesVisiteur_Nom"] . ' : ' . $equipeVisiteurButeurs . '">';
-						$scoreAffiche = formaterScoreMatch($resultat["Matches_ScoreEquipeDomicile"], $resultat["Matches_ScoreAPEquipeDomicile"], $resultat["Matches_ScoreEquipeVisiteur"], $resultat["Matches_ScoreAPEquipeVisiteur"], $resultat["Matches_Vainqueur"]);
-						echo 'Score final ' . $scoreAffiche;
-					echo '</th>';
-					echo '<th colspan="3">';
-						echo $resultat["EquipesDomicile_Nom"] . ' : ' . $equipeDomicileButeurs . '<br />';
-						echo $resultat["EquipesVisiteur_Nom"] . ' : ' . $equipeVisiteurButeurs;
+					if($resultat["Journees_Journee"] >= 1 && $resultat["Journees_Journee"] <= 38) {
+						echo '<th class="colonneMatchCanal">&nbsp;</th>';	
+					}
+					echo '<th>Résultats</th>';
+						// Pour chaque ligne de résultat, on affiche le score final, les buteurs
+						$equipeDomicileButeurs = $resultat["EquipesDomicile_Buteurs"] != null ? $resultat["EquipesDomicile_Buteurs"] : 'Aucun';
+						$equipeVisiteurButeurs = $resultat["EquipesVisiteur_Buteurs"] != null ? $resultat["EquipesVisiteur_Buteurs"] : 'Aucun';
+						$coteEquipeDomicile = $resultat["Matches_CoteEquipeDomicile"] != null ? $resultat["Matches_CoteEquipeDomicile"] : '?';
+						$coteEquipeNul = $resultat["Matches_CoteNul"] != null ? $resultat["Matches_CoteNul"] : '?';
+						$coteEquipeVisiteur = $resultat["Matches_CoteEquipeVisiteur"] != null ? $resultat["Matches_CoteEquipeVisiteur"] : '?';
+						echo '<th title="' . $resultat["EquipesDomicile_Nom"] . ' : ' . $equipeDomicileButeurs . '&#13' . $resultat["EquipesVisiteur_Nom"] . ' : ' . $equipeVisiteurButeurs . '">';
+							$scoreAffiche = formaterScoreMatch($resultat["Matches_ScoreEquipeDomicile"], $resultat["Matches_ScoreAPEquipeDomicile"], $resultat["Matches_ScoreEquipeVisiteur"], $resultat["Matches_ScoreAPEquipeVisiteur"], $resultat["Matches_Vainqueur"]);
+							echo 'Score final ' . $scoreAffiche;
+						echo '</th>';
+						echo '<th colspan="3">';
+							echo $resultat["EquipesDomicile_Nom"] . ' : ' . $equipeDomicileButeurs . '<br />';
+							echo $resultat["EquipesVisiteur_Nom"] . ' : ' . $equipeVisiteurButeurs;
 					echo '</th>';
 				}
 			echo '</tr>';
 			echo '<tr>';
+				if($resultat["Journees_Journee"] >= 1 && $resultat["Journees_Journee"] <= 38) {
+					echo '<th class="colonneMatchCanal">&nbsp;</th>';	
+				}
 				echo '<th>&nbsp;</th>';
 				echo '<th>Cotes : ' . $coteEquipeDomicile . '-' . $coteEquipeNul . '-' . $coteEquipeVisiteur . '</th>';
 				echo '<th>Ont marqué</th>';
@@ -459,59 +472,62 @@
 		echo '<tbody>';
 			for($i = 0; $i < $nombrePronostiqueurs; $i++) {
 				echo '<tr>';
-					for($j = 0; $j < $nombreMatches + 1; $j++) {
-						if($j == 0) {
-							echo '<td>';
-							echo $pronostics[($i * $nombreMatches) + $j]["Pronostiqueurs_NomUtilisateur"];
+					for($j = 0; $j < $nombreMatches; $j++) {
+						if($resultat["Journees_Journee"] >= 1 && $resultat["Journees_Journee"] <= 38) {
+							$matchCanal = $pronostics[($i * $nombreMatches) + $j]["Matches_Coefficient"] == 2 ? 'matchCanalBadge' : '';
+							echo '<td class="colonneMatchCanal ' . $matchCanal . '">&nbsp;</td>';
+						}
+						$indice = ($i * $nombreMatches) + $j;
+						$buteursDomicile = $pronostics[$indice]["EquipesDomicile_Buteurs"];
+						$buteursVisiteur = $pronostics[$indice]["EquipesVisiteur_Buteurs"];
+						$buteursInvalidesDomicile = $pronostics[$indice]["EquipesDomicile_ButeursInvalides"];
+						$buteursInvalidesVisiteur = $pronostics[$indice]["EquipesVisiteur_ButeursInvalides"];
+						$buteursAbsentsDomicile = $pronostics[$indice]["EquipesDomicile_ButeursAbsents"];
+						$buteursAbsentsVisiteur = $pronostics[$indice]["EquipesVisiteur_ButeursAbsents"];
+						$scoreMatch = $pronostics[$indice]["Scores_ScoreMatch"] != null ? $pronostics[$indice]["Scores_ScoreMatch"] : '?';
+						$scoreMatch == -1 ? '?' : $scoreMatch;
+						$scoreButeur = $pronostics[$indice]["Scores_ScoreButeur"] != null ? $pronostics[$indice]["Scores_ScoreButeur"] : '?';
+						$scoreButeur == -1 ? '?' : $scoreButeur;
+						$scoreBonus = $pronostics[$indice]["Scores_ScoreBonus"] != null ? $pronostics[$indice]["Scores_ScoreBonus"] : '?';
+						$scoreBonus == -1 ? '?' : $scoreBonus;
+						$pronosticScoreEquipeDomicile = $pronostics[$indice]["Pronostics_ScoreEquipeDomicile"];
+						$pronosticScoreAPEquipeDomicile = $pronostics[$indice]["Pronostics_ScoreAPEquipeDomicile"];
+						$pronosticScoreEquipeVisiteur = $pronostics[$indice]["Pronostics_ScoreEquipeVisiteur"];
+						$pronosticScoreAPEquipeVisiteur = $pronostics[$indice]["Pronostics_ScoreAPEquipeVisiteur"];
+						$pronosticVainqueur = $pronostics[$indice]["Pronostics_Vainqueur"];
+						
+						echo '<td>';
+							echo $pronostics[$indice]["Pronostiqueurs_NomUtilisateur"];
 							$pronosticsCarreFinalCoefficient = $pronostics[($i * $nombreMatches) + $j]["PronosticsCarreFinal_Coefficient"];
 							if($pronosticsCarreFinalCoefficient != -1)
-								echo ' (x' . $pronosticsCarreFinalCoefficient . ')';
-						}
-						else {
-							$indice = ($i * $nombreMatches) + $j - 1;
-							$buteursDomicile = $pronostics[$indice]["EquipesDomicile_Buteurs"];
-							$buteursVisiteur = $pronostics[$indice]["EquipesVisiteur_Buteurs"];
-							$buteursInvalidesDomicile = $pronostics[$indice]["EquipesDomicile_ButeursInvalides"];
-							$buteursInvalidesVisiteur = $pronostics[$indice]["EquipesVisiteur_ButeursInvalides"];
-							$buteursAbsentsDomicile = $pronostics[$indice]["EquipesDomicile_ButeursAbsents"];
-							$buteursAbsentsVisiteur = $pronostics[$indice]["EquipesVisiteur_ButeursAbsents"];
-							$scoreMatch = $pronostics[$indice]["Scores_ScoreMatch"] != null ? $pronostics[$indice]["Scores_ScoreMatch"] : '?';
-							$scoreMatch == -1 ? '?' : $scoreMatch;
-							$scoreButeur = $pronostics[$indice]["Scores_ScoreButeur"] != null ? $pronostics[$indice]["Scores_ScoreButeur"] : '?';
-							$scoreButeur == -1 ? '?' : $scoreButeur;
-							$scoreBonus = $pronostics[$indice]["Scores_ScoreBonus"] != null ? $pronostics[$indice]["Scores_ScoreBonus"] : '?';
-							$scoreBonus == -1 ? '?' : $scoreBonus;
-							$pronosticScoreEquipeDomicile = $pronostics[$indice]["Pronostics_ScoreEquipeDomicile"];
-							$pronosticScoreAPEquipeDomicile = $pronostics[$indice]["Pronostics_ScoreAPEquipeDomicile"];
-							$pronosticScoreEquipeVisiteur = $pronostics[$indice]["Pronostics_ScoreEquipeVisiteur"];
-							$pronosticScoreAPEquipeVisiteur = $pronostics[$indice]["Pronostics_ScoreAPEquipeVisiteur"];
-							$pronosticVainqueur = $pronostics[$indice]["Pronostics_Vainqueur"];
-							
-							$coefficient = $pronostics[$indice]["Matches_Coefficient"];
+							echo ' (x' . $pronosticsCarreFinalCoefficient . ')';
+						echo '</td>';
+						
+						$coefficient = $pronostics[$indice]["Matches_Coefficient"];
+						if($scoreMatch!= '?') {
 							if($scoreMatch / $coefficient < 5)
-								$style = 'blanc';
+							$style = 'blanc';
 							else if($scoreMatch / $coefficient >= 5 && $scoreMatch / $coefficient < 10)
-								$style = 'orange';
+							$style = 'orange';
 							else
-								$style = 'vert';
-								
-							
-							
-							echo '<td class="' . $style . '">';
-								echo '<div>' . $scoreMatch . ' | ' . $scoreButeur . ' | ' . $scoreBonus . '</div>';
-								$scoreAffiche = formaterScoreMatch($pronosticScoreEquipeDomicile, $pronosticScoreAPEquipeDomicile, $pronosticScoreEquipeVisiteur, $pronosticScoreAPEquipeVisiteur, $pronosticVainqueur);
-								echo '<div>' . $scoreAffiche . '</div>';
-							echo '</td>';
-							echo '<td>';
-								echo '<label>' . $buteursDomicile . '<br />' . $buteursVisiteur . '</label>';
-							echo '</td>';
-							echo '<td>';
-								echo '<label>' . $buteursInvalidesDomicile . '<br />' . $buteursInvalidesVisiteur . '</label>';
-							echo '</td>';
-							echo '<td>';
-								echo '<label>' . $buteursAbsentsDomicile . '<br />' . $buteursAbsentsVisiteur . '</label>';
-							echo '</td>';
+							$style = 'vert';
+						} else {
+							$style = 'blanc';
 						}
+						echo '<td class="' . $style . '">';
+							echo '<div>' . $scoreMatch . ' | ' . $scoreButeur . ' | ' . $scoreBonus . '</div>';
+							$scoreAffiche = formaterScoreMatch($pronosticScoreEquipeDomicile, $pronosticScoreAPEquipeDomicile, $pronosticScoreEquipeVisiteur, $pronosticScoreAPEquipeVisiteur, $pronosticVainqueur);
+							echo '<div>' . $scoreAffiche . '</div>';
+						echo '</td>';
+						echo '<td>';
+							echo '<label>' . $buteursDomicile . '<br />' . $buteursVisiteur . '</label>';
+						echo '</td>';
+						echo '<td>';
+							echo '<label>' . $buteursInvalidesDomicile . '<br />' . $buteursInvalidesVisiteur . '</label>';
+						echo '</td>';
+						echo '<td>';
+							echo '<label>' . $buteursAbsentsDomicile . '<br />' . $buteursAbsentsVisiteur . '</label>';
+						echo '</td>';
 					}
 				echo '</tr>';
 			}
