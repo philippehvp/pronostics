@@ -8,6 +8,14 @@
 	$pronostiqueurDetail = isset($_POST["pronostiqueurDetail"]) ? $_POST["pronostiqueurDetail"] : 0;
 
 	$journee = isset($_POST["journee"]) ? $_POST["journee"] : 0;
+
+	$ordreSQL = 'SELECT DISTINCT Journees_MatchCanalSelectionnable FROM journees WHERE Journee = ' . $journee;
+	$req = $bdd->query($ordreSQL);
+	$journees = $req->fetchAll();
+	if(sizeof($journees) && $journees[0]["Journees_MatchCanalSelectionnable"] == 1)
+		$matchCanalSelectionnable = 1;
+	else
+	$matchCanalSelectionnable = 0;
 	
 
 	// Bons résultats des matches d'une journée donnée
@@ -41,6 +49,7 @@
 				'				END AS Matches_PointsQualification' .
 				'				,Matches_PointsQualificationEquipeDomicile' .
 				'				,Matches_PointsQualificationEquipeVisiteur' .
+				'				,Journees_MatchCanalSelectionnable' .
 				'	FROM		vue_resultatsjournees' .
 				'	WHERE		Journees_Journee = ' . $journee .
 				'	ORDER BY	vue_resultatsjournees.Match';
@@ -430,7 +439,7 @@
 	echo '<table class="tableau--resultat" id="tablePronostics">';
 		echo '<thead>';
 			echo '<tr>';
-				if($journee >= 1 && $journee <= 38) {
+				if($matchCanalSelectionnable == 1) {
 					echo '<th class="colonneMatchCanal">&nbsp;</th>';	
 				}
 				echo '<th>Matches</th>';
@@ -465,7 +474,7 @@
 					$pointsQualificationEquipeVisiteur = $resultats[$i]["Matches_PointsQualificationEquipeVisiteur"];
 					$pronosticsCarreFinalCoefficient = $pronostics[$i]["PronosticsCarreFinal_Coefficient"];
 					
-					if($journee >= 1 && $journee <= 38) {
+					if($matchCanalSelectionnable == 1) {
 						$matchCanal = $pronostics[$i]["Matches_Coefficient"] == 2 ? 'matchCanal' : '';
 						echo '<td class="colonneMatchCanal ' . $matchCanal . '">&nbsp;</td>';
 					}

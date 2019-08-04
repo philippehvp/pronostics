@@ -288,7 +288,7 @@
 		// - un joueur peut être exempté de faire une journée
 		// - un joueur ayant été éliminé de la compétition ne peut plus pronostiquer
 		
-		$ordreSQL =		'	SELECT			DISTINCT Journee, journees.Championnats_Championnat, Championnats_Nom, Journees_Nom' .
+		$ordreSQL =		'	SELECT			DISTINCT Journee, journees.Championnats_Championnat, Championnats_Nom, Journees_Nom, Journees_MatchCanalSelectionnable' .
 						'	FROM			matches' .
 						'	JOIN			journees' .
 						'					ON		matches.Journees_Journee = journees.Journee' .
@@ -300,10 +300,10 @@
 						'					AND		inscriptions.Pronostiqueurs_Pronostiqueur = ' . $pronostiqueur .
 						'					AND		championnats.Championnat <> 5' .
 						'	UNION ALL' .
-						'	SELECT			DISTINCT journees.Journee, journees.Championnats_Championnat, Championnats_Nom, journees.Journees_Nom' .
+						'	SELECT			DISTINCT journees.Journee, journees.Championnats_Championnat, Championnats_Nom, journees.Journees_Nom, Journees_MatchCanalSelectionnable' .
 						'	FROM			confrontations' .
 						'	JOIN			(' .
-						'						SELECT			Championnats_Championnat, Journee, Journees_Nom' .
+						'						SELECT			Championnats_Championnat, Journee, Journees_Nom, Journees_MatchCanalSelectionnable' .
 						'						FROM			journees' .
 						'						WHERE			journees.Journees_Active = 1' .
 						'										AND		journees.Championnats_Championnat = 5' .
@@ -536,7 +536,7 @@
 
 								// Pour la ligue 1, il est possible de choisir le match Canal
 								// Sur toutes les journées, à part la journée de barrage (journée 39)
-								if($journee["Championnats_Championnat"] == 1 && $journee["Journee"] <= 38) {
+								if($journee["Journees_MatchCanalSelectionnable"] == 1) {
 									echo '<div class="zoneMatchCanal gauche">';
 										afficherZoneMatchCanal($unMatch);
 									echo '</div>';

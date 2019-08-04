@@ -28,6 +28,7 @@
 				'						,Matches_CoteNul' .
 				'						,Matches_CoteEquipeVisiteur' .
 				'						,Matches_TypeMatch' .
+				'						,Journees_MatchCanalSelectionnable' .
 				'	FROM				vue_resultatsjournees' .
 				'	WHERE				vue_resultatsjournees.Match = ' . $match .
 				'	ORDER BY			vue_resultatsjournees.Match';
@@ -438,7 +439,7 @@
 		echo '<thead>';
 			echo '<tr>';
 				foreach($resultats as $resultat) {
-					if($resultat["Journees_Journee"] >= 1 && $resultat["Journees_Journee"] <= 38) {
+					if($resultat["Journees_MatchCanalSelectionnable"] == 1) {
 						echo '<th class="colonneMatchCanal">&nbsp;</th>';	
 					}
 					echo '<th>Résultats</th>';
@@ -459,7 +460,7 @@
 				}
 			echo '</tr>';
 			echo '<tr>';
-				if($resultat["Journees_Journee"] >= 1 && $resultat["Journees_Journee"] <= 38) {
+				if($resultat["Journees_MatchCanalSelectionnable"] == 1) {
 					echo '<th class="colonneMatchCanal">&nbsp;</th>';	
 				}
 				echo '<th>&nbsp;</th>';
@@ -473,7 +474,7 @@
 			for($i = 0; $i < $nombrePronostiqueurs; $i++) {
 				echo '<tr>';
 					for($j = 0; $j < $nombreMatches; $j++) {
-						if($resultat["Journees_Journee"] >= 1 && $resultat["Journees_Journee"] <= 38) {
+						if($resultat["Journees_MatchCanalSelectionnable"] == 1) {
 							$matchCanal = $pronostics[($i * $nombreMatches) + $j]["Matches_Coefficient"] == 2 ? 'matchCanalBadge' : '';
 							echo '<td class="colonneMatchCanal ' . $matchCanal . '">&nbsp;</td>';
 						}
