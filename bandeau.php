@@ -96,6 +96,7 @@
                         $ordreSQL =     '   SELECT      fn_recherchejourneeencours(1) AS Journee_L1' .
                                         '               ,fn_recherchejourneeencours(2) AS Journee_LDC' .
                                         '               ,fn_recherchejourneeencours(3) AS Journee_EL' .
+                                        '               ,fn_recherchejourneeencours(4) AS Journee_Barr' .
                                         '               ,fn_recherchejourneeencours(5) AS Journee_CDF';
                                         
                         $req = $bdd->query($ordreSQL);
@@ -103,6 +104,7 @@
                         $journeeL1 = $journeesActives[0]["Journee_L1"];
                         $journeeLDC = $journeesActives[0]["Journee_LDC"];
                         $journeeEL = $journeesActives[0]["Journee_EL"];
+                        $journeeBarr = $journeesActives[0]["Journee_Barr"];
                         $journeeCDF = $journeesActives[0]["Journee_CDF"];
 
                         echo '<li class="menu--lien" id="menu-administration">Administration';
@@ -110,7 +112,7 @@
                                 echo '<div class="conteneur-sous-menu">';
                                     echo '<div class="groupe-menu colle-gauche gauche">';
                                         echo '<label class="titre">Gestion des matches</label>';
-                                        echo '<label class="lien" title="Gestion des matches"><a href="creer_match.php?journee=' . $journeeL1 . '">L1</a> - <a href="creer_match.php?journee=60">Barr</a> - <a href="creer_match.php?journee=' . $journeeLDC . '">LDC</a> - <a href="creer_match.php?journee=' . $journeeEL . '">EL</a> - <a href="creer_match.php?journee=' . $journeeCDF . '">CDF</a></label>';
+                                        echo '<label class="lien" title="Gestion des matches"><a href="creer_match.php?journee=' . $journeeL1 . '">L1</a> - <a href="creer_match.php?journee=' . $journeeBarr . '">Barr</a> - <a href="creer_match.php?journee=' . $journeeLDC . '">LDC</a> - <a href="creer_match.php?journee=' . $journeeEL . '">EL</a> - <a href="creer_match.php?journee=' . $journeeCDF . '">CDF</a></label>';
 
                                         echo '<label class="titre espacement-haut">Surveillance du direct</label>';
                                         echo '<label class="lien" onclick="window.open(\'creer_match_surveillance_direct.php\', \'_blank\');" title="Surveillance des compositions et du direct"><span>Surveillance sur Match en Direct</span></label>';
