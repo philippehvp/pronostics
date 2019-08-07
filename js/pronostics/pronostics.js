@@ -504,7 +504,8 @@ function creerMatch_remplirMatches(numeroJournee, numeroMatch) {
 				}
 			}
 		).done(function(html) {
-			console.log(html);
+			// Rechargement de la page
+			location.reload();
 	});
 }
 // Gestion de match - Affichage points de qualification d'une équipe
