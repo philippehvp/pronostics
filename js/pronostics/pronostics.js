@@ -320,9 +320,6 @@ function creerMatch_changerJournee() {
 
 // Gestion de match - Initialisation du match Canal
 function creerMatch_initialiserMatchCanal(numeroJournee) {
-    if(numeroJournee == 0 || numeroJournee > 38)
-		return;
-		
 	// Appel de la page d'initialisation des matches Canal pour les pronostiqueurs
 	$.ajax( {
 		url: 'creer_match_initialisation_canal.php',

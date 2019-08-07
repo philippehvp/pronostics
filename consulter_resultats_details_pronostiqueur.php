@@ -136,8 +136,12 @@
 					'							ELSE	\'?\'' .
 					'						END AS Scores_ScoreQualification' .
 					'						,CASE' .
-					'							WHEN	matches.Match = journees_pronostiqueurs_canal.Matches_Match' .
-					'							THEN	2' .
+					'							WHEN	journees_pronostiqueurs_canal.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] . ' OR fn_pronosticvisible(matches.Match) = 1' .
+					'							THEN	CASE' .
+					'										WHEN	matches.Match = journees_pronostiqueurs_canal.Matches_Match' .
+					'										THEN	2' .
+					'										ELSE	1' .
+					'									END' .
 					'							ELSE	1' .
 					'						END AS Matches_Coefficient' .
 					'						,CASE' .

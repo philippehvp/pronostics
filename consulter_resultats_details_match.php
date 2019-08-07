@@ -136,8 +136,12 @@
 					'								ELSE	\'?\'' .
 					'							END Scores_ScoreBonus' .
 					'							,CASE' .
-					'								WHEN	matches.Match = journees_pronostiqueurs_canal.Matches_Match' .
-					'								THEN	2' .
+					'								WHEN	journees_pronostiqueurs_canal.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] . ' OR fn_pronosticvisible(matches.Match) = 1' .
+					'								THEN	CASE' .
+					'											WHEN	journees_pronostiqueurs_canal.Matches_Match IS NOT NULL' .
+					'											THEN	2' .
+					'											ELSE	1' .
+					'										END' .
 					'								ELSE	1' .
 					'							END AS Matches_Coefficient' .
 					'							,CASE' .
@@ -426,7 +430,7 @@
 					'									AND		matches.Match = pronostics_carrefinal.Matches_Match' .
 					'		LEFT JOIN			journees_pronostiqueurs_canal' .
 					'							ON		journees_pronostiqueurs_canal.Matches_Match = ' . $match .
-					'									AND		pronostics.Pronostiqueurs_Pronostiqueur = journees_pronostiqueurs_canal.Pronostiqueurs_Pronostiqueur' .
+					'									AND		pronostiqueurs.Pronostiqueur = journees_pronostiqueurs_canal.Pronostiqueurs_Pronostiqueur' .
 					'		WHERE				classements.Classements_ClassementJourneeMatch >= ' . $borneInferieure .
 					'							AND		classements.Classements_ClassementJourneeMatch <= ' . $borneSuperieure .
                     '		ORDER BY			pronostiqueurs.Pronostiqueur';

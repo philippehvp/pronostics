@@ -22,16 +22,16 @@
 	setcookie('lepoulpeg_mdp', $mdp, time() + (7 * 24 * 3600), null, null, false, true);
 
 	$ordreSQL =		'	SELECT		Pronostiqueur, Pronostiqueurs_NomUtilisateur, Pronostiqueurs_Prenom, Pronostiqueurs_Administrateur' .
-								'				,IFNULL(Pronostiqueurs_Photo, \'_inconnu.png\') AS Pronostiqueurs_Photo' .
-								'				,IFNULL(Pronostiqueurs_PremiereConnexion, 1) AS Pronostiqueurs_PremiereConnexion' .
-								'				,Pronostiqueurs_AfficherTropheesChampionnat' .
-								'				,IFNULL(themes.Themes_NomCourt, \'defaut\') AS Pronostiqueurs_Theme' .
-								'	FROM		pronostiqueurs' .
-								'	LEFT JOIN	themes' .
-								'				ON		pronostiqueurs.Themes_Theme = themes.Theme' .
-								'	WHERE		Pronostiqueurs_NomUtilisateur = ?' .
-								'				AND		Pronostiqueurs_MotDePasse = ?' .
-								'	LIMIT		1';
+					'				,IFNULL(Pronostiqueurs_Photo, \'_inconnu.png\') AS Pronostiqueurs_Photo' .
+					'				,IFNULL(Pronostiqueurs_PremiereConnexion, 1) AS Pronostiqueurs_PremiereConnexion' .
+					'				,Pronostiqueurs_AfficherTropheesChampionnat' .
+					'				,IFNULL(themes.Themes_NomCourt, \'defaut\') AS Pronostiqueurs_Theme' .
+					'	FROM		pronostiqueurs' .
+					'	LEFT JOIN	themes' .
+					'				ON		pronostiqueurs.Themes_Theme = themes.Theme' .
+					'	WHERE		Pronostiqueurs_NomUtilisateur = ?' .
+					'				AND		Pronostiqueurs_MotDePasse = ?' .
+					'	LIMIT		1';
 
 	$req = $bdd->prepare($ordreSQL);
 	$req->execute(array($login, $mdp));
@@ -52,19 +52,18 @@
 		$_SESSION["erreurLogin"] = 0;
 
 		// S'il s'agit de la première connexion de l'utilisateur, on le dirige vers la page de modification de mot de passe
-		if($premiereConnexion == 1)
+		if($premiereConnexion == 1) {
 			header('Location: premiere_connexion.php');
-		else {
-			if($afficherTropheesChampionnat != null && $afficherTropheesChampionnat != 0) {
+		} else if($afficherTropheesChampionnat != null && $afficherTropheesChampionnat != 0) {
 				$pageAAfficher = 'Location: consulter_trophees.php?championnat=' . $afficherTropheesChampionnat . '&affichertrophees=1';
 				header($pageAAfficher);
-			}
-			else
-				header('Location: accueil.php');
+		} else {
+			header('Location: accueil.php');
 		}
-	}
-
-	else {
+	} else {
+		$ordreSQL =		'	INSERT INTO echecs_connexion' .
+						'	VALUES(NOW(), ' . $bdd->quote($login) . ', ' . $bdd->quote($mdp) . ')';
+		$bdd->exec($ordreSQL);
 		$_SESSION["pronostiqueur"] = 0;
 		$_SESSION["nom_pronostiqueur"] = '';
 		$_SESSION["prenom_pronostiqueur"] = '';
