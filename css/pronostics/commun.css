@@ -717,7 +717,7 @@ a.lien:link, a.lien:visited {
 	width: 96px;
 }
 
-.match .lien-page {
+.match .lien-page, .liste-matches--entete .lien-page {
 	width: 50em !important;
 }
 

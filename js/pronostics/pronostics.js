@@ -475,6 +475,38 @@ function creerMatch_sauvegarderMatch(evenement, element, numeroMatch) {
 	});
 }
 
+// Gestion de match - Sauvegarde du lien vers la page de la journée
+function creerMatch_sauvegarderJournee(numeroJournee) {
+	var journeeLienPage = $('#lien_journee_' + numeroJournee).val();										// Lien page de MAJ
+
+	$.ajax( {
+		url: 'creer_match_maj_journee.php',
+		type: 'POST',
+		data:   {
+					journee: numeroJournee,
+					journeeLienPage: journeeLienPage
+				}
+			}
+		).done(function(html) {
+	});
+}
+
+// Gestion de match - Remplissage des matches d'une journée
+function creerMatch_remplirMatches(numeroJournee, numeroMatch) {
+	var journeeLienPage = $('#lien_journee_' + numeroJournee).val();										// Lien page de MAJ
+	$.ajax( {
+		url: 'creer_match_remplissage_matches.php',
+		type: 'POST',
+		data:   {
+					journee: numeroJournee,
+					match: numeroMatch,
+					journeeLienPage: journeeLienPage
+				}
+			}
+		).done(function(html) {
+			console.log(html);
+	});
+}
 // Gestion de match - Affichage points de qualification d'une équipe
 function creerMatch_afficherPointsQualification(numeroMatch) {
     if(numeroMatch == 0 || numeroMatch == null)

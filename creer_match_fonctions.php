@@ -398,4 +398,30 @@
 		$bdd->exec($ordreSQL);
 	}
 
+	// Inscription des équipes d'un match
+	function inscrireEquipesDansMatch($bdd, $match, $indiceMatch, $dateMatch, $equipe1, $equipe2) {
+		$matchMisAJour = $match + $indiceMatch;
+		$ordreSQL =		'	UPDATE		matches' .
+						'	SET			matches.Equipes_EquipeDomicile = ' . $equipe1 .
+						'				,matches.Equipes_EquipeVisiteur = ' . $equipe2 .
+						'				,matches.Matches_Date = \'' . $dateMatch->format('Y-m-d H:i:s') . '\'' .
+						'	WHERE		matches.Match = ' . $matchMisAJour;
+		echo $ordreSQL;
+		$bdd->exec($ordreSQL);
+	}
+
+	// Recherche d'une équipe depuis son nom de correspondance complémentaire
+	function rechercherEquipeDepuisNomCorrespondanceComplementaire($bdd, $nomCorrespondanceComplemtaire) {
+		$ordreSQL =		'	SELECT	equipes.Equipe' .
+						'	FROM	equipes' .
+						'	WHERE	equipes.Equipes_NomCorrespondanceComplementaire = ' . $bdd->quote($nomCorrespondanceComplemtaire);
+		$req = $bdd->query($ordreSQL);
+		$equipes = $req->fetchAll();
+		if(sizeof($equipes) == 1) {
+			return $equipes[0]["Equipe"];
+		} else {
+			return 0;
+		}
+	}
+
 ?>

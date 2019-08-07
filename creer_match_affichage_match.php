@@ -286,8 +286,6 @@
 						echo '<input type="checkbox" id="matchDirect_match_' . $numeroMatch . '" onclick="matchEnDirect($(this), ' . $numeroMatch . ', \'libelleMatchDirect_match_' . $numeroMatch . '\', \'lien_match_' . $numeroMatch . '\'); creerMatch_sauvegarderMatch(1, \'\', ' . $numeroMatch . ');"' . $checked . ' />';
 						echo '<label style="margin-left: 5px;" class="bouton" onclick="creerMatch_lireEffectif(' . $numeroMatch . ', \'lien_match_' . $numeroMatch . '\', 1);">MeD - Effectif</label>';
 						echo '<label style="margin-left: 5px;" class="bouton" onclick="creerMatch_lireComposition(' . $numeroMatch . ', \'lien_match_' . $numeroMatch . '\', 1);">MeD - Compo</label>';
-						//echo '<label style="margin-left: 15px;" class="bouton" onclick="creerMatch_lireEffectif(' . $numeroMatch . ', \'lien_match_complementaire_' . $numeroMatch . '\', 2);">SP - Effectif</label>';
-						//echo '<label style="margin-left: 5px;" class="bouton" onclick="creerMatch_lireComposition(' . $numeroMatch . ', \'lien_match_complementaire_' . $numeroMatch . '\', 2);">SP - Compo</label>';
 						echo '<label style="margin-left: 35px;" class="bouton" onclick="creerMatch_reinitialiserMatch(' . $numeroMatch . ');">Réinitialiser le match</label>';
 						$checked = $matchIgnore == 1 ? ' checked' : '';
 						echo '<label style="margin-left: 35px;">Non surveillé : </label>';

@@ -32,7 +32,7 @@
 	$equipes = $req->fetchAll();
 
 	// On détermine si la journée en cours est active ou non pour l'afficher
-	$ordreSQL =		'	SELECT			Journees_Active, Championnats_Championnat' .
+	$ordreSQL =		'	SELECT			Journees_Active, Championnats_Championnat, Journees_LienPage' .
 					'	FROM			journees' .
 					'	WHERE			Journee = ' . $journee;
 	$req = $bdd->query($ordreSQL);
@@ -75,8 +75,13 @@
 	$matches = $req->fetchAll();
 
 	echo '<div class="liste-matches--entete">';
-		echo '<label class="detail">Lire la journée</label>';
-		echo '<label class="bouton" onclick="creerMatch_lireLiensMatches(' . $journee . ');">Page des matches MeD</label> - <label class="bouton" onclick="creerMatch_lireLiensMatchesScoresPro(' . $journee . ');">Page des matches SP</label>';
+		// echo '<label class="detail">Lire la journée</label>';
+		// echo '<label class="bouton" onclick="creerMatch_lireLiensMatches(' . $journee . ');">Page des matches MeD</label> - <label class="bouton" onclick="creerMatch_lireLiensMatchesScoresPro(' . $journee . ');">Page des matches SP</label>';
+		// echo '<br />';
+
+		echo '<label class="detail">Remplir la journée</label>';
+		echo '<input type="text" class="lien-page" id="lien_journee_' . $journee . '" value="' . $journees[0]["Journees_LienPage"] . '" onchange="creerMatch_sauvegarderJournee(' . $journee . ');" />';
+		echo '<label class="bouton" onclick="creerMatch_remplirMatches(' . $journee . ', ' . $matches[0]["Match"] . ');">Remplir</label>';
 		echo '<br />';
 
 		if($championnat == 1) {
