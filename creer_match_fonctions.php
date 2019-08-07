@@ -414,7 +414,7 @@
 	function rechercherEquipeDepuisNomCorrespondanceComplementaire($bdd, $nomCorrespondanceComplemtaire) {
 		$ordreSQL =		'	SELECT	equipes.Equipe' .
 						'	FROM	equipes' .
-						'	WHERE	equipes.Equipes_NomCorrespondanceComplementaire = ' . $bdd->quote($nomCorrespondanceComplemtaire);
+						'	WHERE	equipes.Equipes_NomCorrespondanceComplementaire = ' . $bdd->quote(remplacerCaracteres(my_utf8_decode($nomCorrespondanceComplemtaire)));
 		$req = $bdd->query($ordreSQL);
 		$equipes = $req->fetchAll();
 		if(sizeof($equipes) == 1) {
