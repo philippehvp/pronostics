@@ -4578,10 +4578,10 @@ function pantheon_afficherPronostiqueur(pronostiqueurConsulte, classe) {
 function gererSite_sauvegarderDonnees() {
   var saison = $('#txtSaison').val();
 
-  if(saison.trim().length == 0) {
-    afficherMessageInformationBandeau('Aucune saison fournie', 2000, '');
-    return;
-  }
+	if(saison.trim().length == 0) {
+		afficherMessageInformationBandeau('Aucune saison fournie', 2000, '');
+		return;
+	}
 
 	$.ajax(	{	url: 'gerer_site_sauvegarde_donnees.php',
 				type: 'POST',
@@ -4592,6 +4592,17 @@ function gererSite_sauvegarderDonnees() {
 	).done(function(html) {
 		afficherMessageInformationBandeau('Sauvegarde effectuée', 2000, '');
 	});
+}
+
+// Gestion du site - Lancemetn de la saison avec des valeurs 0 dans les classements
+function gererSite_lancerSaison() {
+	$.ajax(	{	url: 'gerer_site_lancement_saison.php',
+				type: 'POST'
+			}
+	).done(function(html) {
+		afficherMessageInformationBandeau('Saison lancée', 2000, '');
+	});
+
 }
 
 // Gestion du site - Réinitialisation des données

@@ -29,6 +29,11 @@
         echo '<label class="bouton" onclick="gererSite_sauvegarderDonnees();">Sauvegarder</label>';
 
         echo '<br /><br />';
+        echo '<label>Lancer la saison</label>';
+        echo '<br />';
+        echo '<label class="bouton" onclick="gererSite_lancerSaison();">Lancer</label>';
+
+        echo '<br /><br />';
         // Date max de saisie des bonus de fin de saison
 		$ordreSQL =		'	SELECT				bonus_date_max.Bonus_Date_Max AS Bonus_Date_Max_Date, HOUR(bonus_date_max.Bonus_Date_Max) AS Bonus_Date_Max_Heure, MINUTE(bonus_date_max.Bonus_Date_Max) AS Bonus_Date_Max_Minute' .
 						'	FROM				bonus_date_max';
