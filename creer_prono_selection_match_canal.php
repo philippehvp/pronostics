@@ -9,6 +9,7 @@
 	
 	// On vérifie avant tout qu'il n'est pas trop tard pour faire la modification
 	$ordreSQL =		'	SELECT		fn_matchpronostiquable(matches.Match, ' . $pronostiqueur . ') AS Matches_Pronostiquable' .
+					'				,fn_matchcanalmodifiable(matches.Match, ' . $pronostiqueur . ') AS Matches_MatchCanalModifiable' .
                     '	FROM		matches' .
                     '	JOIN		journees' .
                     '				ON		matches.Journees_Journee = journees.Journee' .
@@ -17,9 +18,10 @@
 	$req = $bdd->query($ordreSQL);
 	$donnees = $req->fetch();
 	$matchPronostiquable = $donnees["Matches_Pronostiquable"];
+	$matchCanalSelectionnable = $donnees["Matches_MatchCanalModifiable"];
 	$req->closeCursor();
 
-	if($matchPronostiquable == 0) {
+	if($matchPronostiquable == 0 || $matchCanalSelectionnable == 0) {
 		echo 'DEPASSE';
 		exit();
 	}
