@@ -58,7 +58,7 @@
 
 		// Affichage de la zone de sélection du match Canal
 		function afficherZoneMatchCanal($unMatch) {
-			$disabled = ($unMatch["Matches_Pronostiquable"] == 0) ? ' disabled' : '';
+			$disabled = $unMatch["Matches_Pronostiquable"] == 0 ? ' disabled' : ($unMatch["Matches_MatchCanalModifiable"] == 0 ? ' disabled' : '');
 			if($unMatch["Matches_Coefficient"] == 1) {
 				// Match normal
 				echo '<button id="btnCanal_match_' . $unMatch["Match"] . '" class="selectionMatchCanal matchNonCanal" onclick="creerProno_selectionnerMatchCanal(' . $unMatch["Journee"] . ', ' . $unMatch["Match"] . ');"' . $disabled . '></button>';
@@ -356,6 +356,7 @@
 						'							,(SELECT Pronostics_ScoreAPEquipeDomicile FROM pronostics WHERE Pronostiqueurs_pronostiqueur = ' . $pronostiqueur . ' AND Matches_Match = matches.Matches_MatchLie) AS PronosticsLies_ScoreAPEquipeDomicile' .
 						'							,(SELECT Pronostics_ScoreAPEquipeVisiteur FROM pronostics WHERE Pronostiqueurs_Pronostiqueur = ' . $pronostiqueur . ' AND Matches_Match = matches.Matches_MatchLie) AS PronosticsLies_ScoreAPEquipeVisiteur' .
 						'							,fn_matchpronostiquable(matches.Match, ' . $pronostiqueur . ') AS Matches_Pronostiquable' .
+						'							,fn_matchcanalmodifiable(matches.Match, ' . $pronostiqueur . ') AS Matches_MatchCanalModifiable' .
 						'							,CASE' .
 						'								WHEN	matches.Matches_Date > NOW() AND (pronostics_carrefinal.PronosticsCarreFinal_Coefficient IS NULL OR pronostics_carrefinal.PronosticsCarreFinal_Coefficient <> 0)' .
 						'								THEN	1' .
