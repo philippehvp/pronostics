@@ -34,7 +34,6 @@
 				'				,Matches_CoteEquipeDomicile' .
 				'				,Matches_CoteNul' .
 				'				,Matches_CoteEquipeVisiteur' .
-				'				,Matches_Coefficient' .
 				'				,Matches_TypeMatch' .
 				'				,CASE' .
 				'					WHEN	Matches_TypeMatch = 3' .
@@ -472,7 +471,6 @@
 					$coteEquipeDomicile = $resultats[$i]["Matches_CoteEquipeDomicile"];
 					$coteEquipeNul = $resultats[$i]["Matches_CoteNul"];
 					$coteEquipeVisiteur = $resultats[$i]["Matches_CoteEquipeVisiteur"];
-					$coefficient = $resultats[$i]["Matches_Coefficient"];
 					$pointsQualification = $resultats[$i]["Matches_PointsQualification"];
 					$pointsQualificationEquipeDomicile = $resultats[$i]["Matches_PointsQualificationEquipeDomicile"];
 					$pointsQualificationEquipeVisiteur = $resultats[$i]["Matches_PointsQualificationEquipeVisiteur"];
@@ -515,6 +513,7 @@
 					$scoreButeur = $pronostics[$i]["Scores_ScoreButeur"] != null ? $pronostics[$i]["Scores_ScoreButeur"] : '?';
 					$scoreBonus = $pronostics[$i]["Scores_ScoreBonus"] != null ? $pronostics[$i]["Scores_ScoreBonus"] : '?';
 					$scoreQualification = $pronostics[$i]["Scores_ScoreQualification"] != null ? $pronostics[$i]["Scores_ScoreQualification"] : '?';
+					$coefficient = $pronostics[$i]["Matches_Coefficient"];
 					
 					$pronosticScoreEquipeDomicile = $pronostics[$i]["Pronostics_ScoreEquipeDomicile"];
 					$pronosticScoreAPEquipeDomicile = $pronostics[$i]["Pronostics_ScoreAPEquipeDomicile"];
