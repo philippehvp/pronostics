@@ -106,7 +106,9 @@
 		echo '<label class="detail">Page des trophées</label><label class="bouton" onclick="creerMatch_afficherTrophees(' . $championnat .');">Afficher la page des trophées</label>';
 
 		echo '<br />';
-		echo '<label class="detail">Compte-rendu</label><label class="bouton" onclick="creerMatch_genererCR(' . $journee .');">Générer le compte-rendu</label>';
+		echo '<label class="detail">Compte-rendu</label>';
+		echo '<label class="bouton" onclick="creerMatch_genererCR(' . $journee . ');">Générer le compte-rendu</label>&nbsp;';
+		echo '<label class="bouton" onclick="creerMatch_consulterCanal(' . $journee . ');">Consulter le match Canal</label>';
 
 	echo '</div>';
 

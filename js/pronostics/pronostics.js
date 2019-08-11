@@ -1147,17 +1147,48 @@ function creerMatch_afficherTrophees(championnat) {
 }
 
 // Gestion de match - Génération du compte-rendu
-function creerMatch_genererCR(journee) {
+function creerMatch_genererCR(numeroJournee) {
 	$.ajax( {
 				url: 'creer_match_generation_cr.php',
 				type: 'POST',
 				data:   {
-							journee: journee
+							journee: numeroJournee
 						}
 			}
 	).done(function(html) {
 		alert(html);
 	});
+}
+
+// Gestion de match - Consulter le match Canal
+function creerMatch_consulterCanal(numeroJournee) {
+	$.ajax( {
+		url: 'creer_match_consultation_canal.php',
+		type: 'POST',
+		data:   {
+					journee: numeroJournee
+				}
+		}
+	).done(function(html) {
+		if($('.matchesCanal').length == 0)
+			$('body').append('<div class="matchesCanal"></div>');
+
+		$('.matchesCanal').empty().append(html);
+		$('.matchesCanal').dialog({
+				autoOpen: true
+				,width: 'auto'
+				,height: 'auto'
+				,modal: true
+				,title: 'Match Canal'
+				,position: 'center'
+				,buttons: {
+					'Fermer':  function() {
+						$(this).dialog('close');
+					}
+				}
+		});
+	});
+
 }
 
 // Gestion de match - Détermination des liens des pages pour les matches de la journée
@@ -1522,41 +1553,41 @@ function creerMatch_reinitialiserMatch(match) {
 }
 
 // Gestion de match - Génération du CR
-function creerMatch_genererCR() {
-	var journee = $('#selectJournee').val();
+// function creerMatch_genererCR() {
+// 	var journee = $('#selectJournee').val();
 
-	if(journee == 0)
-			return;
+// 	if(journee == 0)
+// 			return;
 
-	$.ajax(	{
-	  url: 'creer_match_generation_cr.php',
-	  type: 'POST',
-	  data:   {
-	              journee: journee
-	          }
-	}).done(function(html) {
-		if($('.info').length == 0)
-			$('body').append('<div class="info" style="z-index: 20000;"></div>');
+// 	$.ajax(	{
+// 	  url: 'creer_match_generation_cr.php',
+// 	  type: 'POST',
+// 	  data:   {
+// 	              journee: journee
+// 	          }
+// 	}).done(function(html) {
+// 		if($('.info').length == 0)
+// 			$('body').append('<div class="info" style="z-index: 20000;"></div>');
 
-		$('.info').html(html);
-		$('.info').dialog({
-			autoOpen: false
-			,width: 'auto'
-			,height: 'auto'
-			,modal: true
-			,title: 'Compte-rendu'
-			,position: 'center'
-			,buttons: {
-				'Fermer':   function() {
-								$(this).dialog('close');
-							}
-			}
+// 		$('.info').html(html);
+// 		$('.info').dialog({
+// 			autoOpen: false
+// 			,width: 'auto'
+// 			,height: 'auto'
+// 			,modal: true
+// 			,title: 'Compte-rendu'
+// 			,position: 'center'
+// 			,buttons: {
+// 				'Fermer':   function() {
+// 								$(this).dialog('close');
+// 							}
+// 			}
 
-		});
+// 		});
 
-		$('.info').dialog('open');
-	});
-}
+// 		$('.info').dialog('open');
+// 	});
+// }
 
 // Création d'un pronostic - Sauvegarde d'un pronostic
 function creerProno_sauvegarderPronostic(el, type, numeroMatch, equipe, numeroMatchLie) {
