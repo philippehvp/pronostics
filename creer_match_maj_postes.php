@@ -4,7 +4,7 @@
 	// Sauvegarde dposte d'un joueur
 	
 	// Lecture des paramètres passés à la page
-	$joueur = isset($_POST["numero_joueur"]) ? $_POST["numero_joueur"] : 0;
+	$joueur = isset($_POST["joueur"]) ? $_POST["joueur"] : 0;
 	$poste = isset($_POST["poste"]) ? $_POST["poste"] : -1;
 	
 	$ordreSQL =			'	UPDATE		joueurs' .

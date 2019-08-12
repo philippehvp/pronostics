@@ -6,11 +6,11 @@
 
 	// Lecture des paramètres passés à la page
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
-	$equipeDomicile = isset($_POST["equipe_domicile"]) ? $_POST["equipe_domicile"] : 0;
-	$equipeVisiteur = isset($_POST["equipe_visiteur"]) ? $_POST["equipe_visiteur"] : 0;
-	$date = isset($_POST["date_debut_match"]) ? $_POST["date_debut_match"] : 0;
+	$equipeDomicile = isset($_POST["equipeDomicile"]) ? $_POST["equipeDomicile"] : 0;
+	$equipeVisiteur = isset($_POST["equipeVisiteur"]) ? $_POST["equipeVisiteur"] : 0;
+	$date = isset($_POST["dateDebutMatch"]) ? $_POST["dateDebutMatch"] : 0;
 	$dateSQL = date('Y-m-d', strtotime(str_replace('/', '-', $date)));
-    $listeCoteJoueurs = isset($_POST["liste_cotes_joueurs"]) ? $_POST["liste_cotes_joueurs"] : '';
+    $listeCoteJoueurs = isset($_POST["listeCotesJoueurs"]) ? $_POST["listeCotesJoueurs"] : '';
 
     // Parcours des données HTML
     $docCotesJoueurs = new DOMDocument();
@@ -28,10 +28,10 @@
     $tableauJoueursInconnusEquipeVisiteur = array();
 
     if(!$listeJoueursEtCotes->length) {
-        $tableau['nombre_cotes_detectees'] = 0;
+        $tableau['nombreCotesDetectees'] = 0;
     }
     else {
-        $tableau['nombre_cotes_detectees'] = count($listeJoueursEtCotes);
+        $tableau['nombreCotesDetectees'] = count($listeJoueursEtCotes);
 
         // Effacement d'une éventuelle liste précédente
         $ordreSQL =		'	DELETE FROM		joueurs_cotes ' .
@@ -72,9 +72,9 @@
             $coteEquipeDomicile = !$coteEquipeDomicile;
         }
 
-        $tableau['nombre_joueurs_inconnus'] = count($tableauJoueursInconnusEquipeDomicile) + count($tableauJoueursInconnusEquipeVisiteur);
-        $tableau['joueurs_inconnus_equipe_domicile'] = $tableauJoueursInconnusEquipeDomicile;
-        $tableau['joueurs_inconnus_equipe_visiteur'] = $tableauJoueursInconnusEquipeVisiteur;
+        $tableau['nombreJoueursInconnus'] = count($tableauJoueursInconnusEquipeDomicile) + count($tableauJoueursInconnusEquipeVisiteur);
+        $tableau['joueursInconnusEquipeDomicile'] = $tableauJoueursInconnusEquipeDomicile;
+        $tableau['joueursInconnusEquipeVisiteur'] = $tableauJoueursInconnusEquipeVisiteur;
     }
     echo json_encode($tableau);
 ?>

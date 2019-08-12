@@ -11,7 +11,7 @@
 		
 		// Lecture des paramètres passés à la page
 		$journee = isset($_POST["journee"]) ? $_POST["journee"] : 0;
-		$pronostiqueurConsulte = isset($_POST["pronostiqueur_consulte"]) ? $_POST["pronostiqueur_consulte"] : 0;
+		$pronostiqueurConsulte = isset($_POST["pronostiqueurConsulte"]) ? $_POST["pronostiqueurConsulte"] : 0;
 	}
 	
 	// Lecture du championnat et des informations de la journée
@@ -25,7 +25,7 @@
 	$journeeDateEvenement = $journees[0]["Journees_DateEvenement"];
 	
 	
-	echo '<input type="hidden" name="date_maj_journee_temporaire" value="' . $journeeDateMAJ . '">';
+	echo '<input type="hidden" name="dateMAJJourneeTemporaire" value="' . $journeeDateMAJ . '">';
 	echo '<input type="hidden" name="date_evenement_journee_temporaire" value="' . $journeeDateEvenement . '">';
 
 	$ordreSQL =		'	SELECT		Pronostiqueur, Pronostiqueurs_NomUtilisateur, IFNULL(Pronostiqueurs_Photo, \'_inconnu.png\') AS Pronostiqueurs_Photo' .
@@ -109,20 +109,20 @@
 				// D'abord les matches de la journée (calcul ou modification de score, nouveaux scores du pronostiqueur, match en direct, etc.)
 				// Puis les classements (et le graphique)
 				var journee = $('input[name="journee"]').val();
-				var date_maj_journee = $('input[name="date_maj_journee_temporaire"]').val();
-				var date_evenement_journee = $('input[name="date_evenement_journee_temporaire"]').val();
-				pronostiqueurConsulte = $('input[name="pronostiqueur_consulte"]').val();
-				$('input[name="date_maj_journee"]').val(date_maj_journee);
-				$('input[name="date_evenement_journee"]').val(date_evenement_journee);
-				$('input[name="pronostiqueur_consulte"]').val(pronostiqueurConsulte);
-				matchCentre_rafrichirJournee(journee, pronostiqueurConsulte, date_maj_journee, date_evenement_journee, 'mc--resultats');
-				matchCentre_rafrichirClassements(journee, date_maj_journee, 'mc--classement-general', 'mc--classement-journee', 'mc--graphiques', 'mc--statistiques-journee');
+				var dateMAJJournee = $('input[name="dateMAJJourneeTemporaire"]').val();
+				var dateEvenementJournee = $('input[name="date_evenement_journee_temporaire"]').val();
+				pronostiqueurConsulte = $('input[name="pronostiqueurConsulte"]').val();
+				$('input[name="dateMAJJournee"]').val(dateMAJJournee);
+				$('input[name="dateEvenementJournee"]').val(dateEvenementJournee);
+				$('input[name="pronostiqueurConsulte"]').val(pronostiqueurConsulte);
+				matchCentre_rafrichirJournee(journee, pronostiqueurConsulte, dateMAJJournee, dateEvenementJournee, 'mc--resultats');
+				matchCentre_rafrichirClassements(journee, dateMAJJournee, 'mc--classement-general', 'mc--classement-journee', 'mc--graphiques', 'mc--statistiques-journee');
 			}, 5000);
 			
 			$('input[name="minuteur_journee"]').val(intervalle);
 		}
 		
-		pronostiqueurConsulte = $('input[name="pronostiqueur_consulte"]').val();
+		pronostiqueurConsulte = $('input[name="pronostiqueurConsulte"]').val();
 		
 		// Championnat en cours
 		var championnat = $('input[name="championnat"]').val();

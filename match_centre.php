@@ -46,8 +46,8 @@
 	// Les informations de dernière date de mise à jour du match et de la journée sont sauvegardées dans la page pour être
 	// comparées par la suite par la fonction de rafraîchissement
 	echo '<input type="hidden" name="date_maj_match" value="0" />';
-	echo '<input type="hidden" name="date_evenement_journee" value="0" />';
-	echo '<input type="hidden" name="date_maj_journee" value="0" />';
+	echo '<input type="hidden" name="dateEvenementJournee" value="0" />';
+	echo '<input type="hidden" name="dateMAJJournee" value="0" />';
 
 ?>
 

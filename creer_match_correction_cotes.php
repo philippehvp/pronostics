@@ -6,8 +6,8 @@
 	
 	// Lecture des paramètres passés à la page
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
-	$joueursInconnusEquipeDomicile = isset($_POST["joueurs_inconnus_equipe_domicile"]) ? $_POST["joueurs_inconnus_equipe_domicile"] : null;
-	$joueursInconnusEquipeVisiteur = isset($_POST["joueurs_inconnus_equipe_visiteur"]) ? $_POST["joueurs_inconnus_equipe_visiteur"] : null;
+	$joueursInconnusEquipeDomicile = isset($_POST["joueursInconnusEquipeDomicile"]) ? $_POST["joueursInconnusEquipeDomicile"] : null;
+	$joueursInconnusEquipeVisiteur = isset($_POST["joueursInconnusEquipeVisiteur"]) ? $_POST["joueursInconnusEquipeVisiteur"] : null;
 	
 	// Lecture de la liste des joueurs d'une équipe
 	function lireListeJoueurs($match, $equipe, $date) {

@@ -4,7 +4,7 @@
 	// Vérification de l'existence d'un nom d'utilisateur dans le processus de création d'un nouveau pronostiqueur
 	
 	// Lecture des paramètres passés à la page
-	$nomUtilisateur = isset($_POST["nom_utilisateur"]) ? $_POST["nom_utilisateur"] : '';
+	$nomUtilisateur = isset($_POST["nomUtilisateur"]) ? $_POST["nomUtilisateur"] : '';
 	
   $ordreSQL =    ' SELECT    COUNT(*) AS Nombre' .
                  ' FROM      (' .
@@ -22,9 +22,9 @@
   
   $tableau = array();
 	if($donnees[0]["Nombre"] > 0)
-    $tableau['existeDeja'] = 1;
+    $tableau['existe'] = 1;
   else
-    $tableau['existeDeja'] = 0;
+    $tableau['existe'] = 0;
 	
 	echo json_encode($tableau);
 ?>

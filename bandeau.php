@@ -297,7 +297,7 @@
                     }
 
                     // Rechargement du sous-menu de tchat avant affichage
-                    $.ajax( {
+                    $.ajax({
                                 url: page,
                                 type: 'POST',
                                 nomMenu: nomMenu

@@ -4,7 +4,7 @@
 	// Affichage du détail des points d'un pronostiqueur
 
 	// Lecture des paramètres passés à la page
-	$pronostiqueurConsulte = isset($_POST["pronostiqueur_consulte"]) ? $_POST["pronostiqueur_consulte"] : 0;
+	$pronostiqueurConsulte = isset($_POST["pronostiqueurConsulte"]) ? $_POST["pronostiqueurConsulte"] : 0;
 	
 	
 	function afficherTropheesL1($bdd, $pronostiqueurConsulte, $trophees) {

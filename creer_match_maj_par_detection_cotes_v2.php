@@ -6,11 +6,11 @@
 
 	// Lecture des paramètres passés à la page
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
-	$equipeDomicile = isset($_POST["equipe_domicile"]) ? $_POST["equipe_domicile"] : 0;
-	$equipeVisiteur = isset($_POST["equipe_visiteur"]) ? $_POST["equipe_visiteur"] : 0;
-	$date = isset($_POST["date_debut_match"]) ? $_POST["date_debut_match"] : 0;
+	$equipeDomicile = isset($_POST["equipeDomicile"]) ? $_POST["equipeDomicile"] : 0;
+	$equipeVisiteur = isset($_POST["equipeVisiteur"]) ? $_POST["equipeVisiteur"] : 0;
+	$date = isset($_POST["dateDebutMatch"]) ? $_POST["dateDebutMatch"] : 0;
 	$dateSQL = date('Y-m-d', strtotime(str_replace('/', '-', $date)));
-    $listeCoteJoueurs = isset($_POST["liste_cotes_joueurs"]) ? $_POST["liste_cotes_joueurs"] : '';
+    $listeCoteJoueurs = isset($_POST["listeCotesJoueurs"]) ? $_POST["listeCotesJoueurs"] : '';
 
 	// Le numéro de la colonne contenant la cote utile est contenu dans une table de configuration
 	$ordreSQL =		'	SELECT		Configurations_ColonneCote' .
@@ -37,14 +37,14 @@
                     '   AND             Equipes_Equipe IN (' . $equipeDomicile . ', '. $equipeVisiteur . ')';
     $bdd->exec($ordreSQL);
 
-	$tableau['nombre_cotes_detectees'] = 0;
-	$tableau['nombre_joueurs_inconnus'] = 0;
+	$tableau['nombreCotesDetectees'] = 0;
+	$tableau['nombreJoueursInconnus'] = 0;
 
 	// Recherche du tableau des cotes de l'équipe domicile
 	$listeJoueursEtCotes = $xpath->query("//tr[contains(@class, 'home-team-outcome')]");
 
 	if($listeJoueursEtCotes->length) {
-		$tableau['nombre_cotes_detectees'] += $listeJoueursEtCotes->length;
+		$tableau['nombreCotesDetectees'] += $listeJoueursEtCotes->length;
 
 	    // Parcours de la liste des joueurs et des cotes
 	    foreach ($listeJoueursEtCotes as $unJoueurEtCotes) {
@@ -79,15 +79,15 @@
 	        }
 	    }
 
-	    $tableau['nombre_joueurs_inconnus'] += count($tableauJoueursInconnusEquipeDomicile);
-	    $tableau['joueurs_inconnus_equipe_domicile'] = $tableauJoueursInconnusEquipeDomicile;
+	    $tableau['nombreJoueursInconnus'] += count($tableauJoueursInconnusEquipeDomicile);
+	    $tableau['joueursInconnusEquipeDomicile'] = $tableauJoueursInconnusEquipeDomicile;
 	}
 
 	// Recherche du tableau des cotes de l'équipe visiteur
 	$listeJoueursEtCotes = $xpath->query("//tr[contains(@class, 'away-team-outcome')]");
 
 	if($listeJoueursEtCotes->length) {
-		$tableau['nombre_cotes_detectees'] += $listeJoueursEtCotes->length;
+		$tableau['nombreCotesDetectees'] += $listeJoueursEtCotes->length;
 
 	    // Parcours de la liste des joueurs et des cotes
 	    foreach ($listeJoueursEtCotes as $unJoueurEtCotes) {
@@ -122,8 +122,8 @@
 	        }
 	    }
 
-	    $tableau['nombre_joueurs_inconnus'] += count($tableauJoueursInconnusEquipeVisiteur);
-	    $tableau['joueurs_inconnus_equipe_visiteur'] = $tableauJoueursInconnusEquipeVisiteur;
+	    $tableau['nombreJoueursInconnus'] += count($tableauJoueursInconnusEquipeVisiteur);
+	    $tableau['joueursInconnusEquipeVisiteur'] = $tableauJoueursInconnusEquipeVisiteur;
 	}
 
     echo json_encode($tableau);

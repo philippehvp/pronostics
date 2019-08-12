@@ -6,7 +6,7 @@
 	// Lecture des paramètres passés à la page
 	$equipe = isset($_POST["equipe"]) ? $_POST["equipe"] : 0;
 	$championnat = isset($_POST["championnat"]) ? $_POST["championnat"] : 0;
-	$l1Europe = isset($_POST["l1_europe"]) ? $_POST["l1_europe"] : 0;
+	$l1Europe = isset($_POST["l1Europe"]) ? $_POST["l1Europe"] : 0;
 	$action = isset($_POST["action"]) ? $_POST["action"] : -1;
 
 	if($action == -1)

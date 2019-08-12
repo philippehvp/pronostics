@@ -5,10 +5,10 @@
 	
 	// Lecture des paramètres passés à la page
 	$nom = isset($_POST["nom"]) ? $_POST["nom"] : '';
-	$nomCourt = isset($_POST["nom_court"]) ? $_POST["nom_court"] : 'NULL';
+	$nomCourt = isset($_POST["nomCourt"]) ? $_POST["nomCourt"] : 'NULL';
 	$fanion = isset($_POST["fanion"]) ? $_POST["fanion"] : 'NULL';
 	$l1 = isset($_POST["l1"]) ? $_POST["l1"] : 0;
-	$l1Europe = isset($_POST["l1_europe"]) ? $_POST["l1_europe"] : 0;
+	$l1Europe = isset($_POST["l1Europe"]) ? $_POST["l1Europe"] : 0;
 	$ldc = isset($_POST["ldc"]) ? $_POST["ldc"] : 0;
 	$el = isset($_POST["el"]) ? $_POST["el"] : 0;
 	$barrages = isset($_POST["barrages"]) ? $_POST["barrages"] : 0;

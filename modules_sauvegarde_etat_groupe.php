@@ -3,7 +3,7 @@
 
 	// Sauvegarde de l'état d'un groupe de modules
 	$parametre = isset($_POST["parametre"]) ? $_POST["parametre"] : 0;
-	$groupeActif = isset($_POST["groupe_actif"]) ? $_POST["groupe_actif"] : 0;
+	$groupeActif = isset($_POST["groupeActif"]) ? $_POST["groupeActif"] : 0;
 	
 	$ordreSQL =		'	UPDATE		modules_groupes' .
 					'	SET			ModulesGroupes_Actif = ' . $groupeActif .

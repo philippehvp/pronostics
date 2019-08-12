@@ -4,7 +4,7 @@
 	// Page de vérification de la date d'événement ou de mise à jour de la dernière journée d'un championnat
 	
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
-	$date_maj_match = isset($_POST["date_maj_match"]) ? $_POST["date_maj_match"] : '';
+	$dateMAJMatch = isset($_POST["dateMAJMatch"]) ? $_POST["dateMAJMatch"] : '';
 	
 	$ordreSQL =		'	SELECT		Matches_DateMAJ' .
 					'	FROM		matches' .
@@ -16,7 +16,7 @@
 	
 	$tableau = array();
 	// Comparaison avec les données qui viennent d'être lues et celles qui sont contenues en champs cachés dans la page
-	if($dateMAJ != $date_maj_match)
+	if($dateMAJ != $dateMAJMatch)
 		$tableau['rafraichir'] = '1';
 	else
 		$tableau['rafraichir'] = '0';

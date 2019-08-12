@@ -4,10 +4,10 @@
 	// Création d'un nouveau pronostiqueur
 	
 	// Lecture des paramètres passés à la page
-	$nomUtilisateur = isset($_POST["nom_utilisateur"]) ? $_POST["nom_utilisateur"] : '';
+	$nomUtilisateur = isset($_POST["nomUtilisateur"]) ? $_POST["nomUtilisateur"] : '';
 	$prenom = isset($_POST["prenom"]) ? $_POST["prenom"] : '';
-	$nomFamille = isset($_POST["nom_famille"]) ? $_POST["nom_famille"] : '';
-	$motDePasse = isset($_POST["mot_de_passe"]) ? $_POST["mot_de_passe"] : '';
+	$nomFamille = isset($_POST["nomFamille"]) ? $_POST["nomFamille"] : '';
+	$motDePasse = isset($_POST["motDePasse"]) ? $_POST["motDePasse"] : '';
 	
   $ordreSQL =   ' CALL    sp_creationpronostiqueur('. $bdd->quote($nomUtilisateur) . ', ' . $bdd->quote($nomFamille) . ', ' . $bdd->quote($prenom) . ', ' . $bdd->quote($motDePasse) . ', NULL, NULL, 3)';
 

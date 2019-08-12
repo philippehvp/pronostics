@@ -4,11 +4,11 @@
 	// Création d'un joueur
 	
 	// Lecture des paramètres passés à la page
-	$nomFamille = isset($_POST["nom_famille"]) ? $_POST["nom_famille"] : '';
+	$nomFamille = isset($_POST["nomFamille"]) ? $_POST["nomFamille"] : '';
 	$prenom = isset($_POST["prenom"]) ? $_POST["prenom"] : '';
-	$nomCorrespondance = isset($_POST["nom_correspondance"]) ? $_POST["nom_correspondance"] : '';
+	$nomCorrespondance = isset($_POST["nomCorrespondance"]) ? $_POST["nomCorrespondance"] : '';
 	$poste = isset($_POST["poste"]) ? $_POST["poste"] : 0;
-	$dateDebutPresence = isset($_POST["date_debut_presence"]) ? $_POST["date_debut_presence"] : 0;
+	$dateDebutPresence = isset($_POST["dateDebutPresence"]) ? $_POST["dateDebutPresence"] : 0;
 	$equipe = isset($_POST["equipe"]) ? $_POST["equipe"] : 0;
 	
 	$nomFamille = urldecode($nomFamille);

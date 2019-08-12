@@ -5,8 +5,8 @@
 	
 	// Lecture des paramètres passés à la page
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
-	$equipe = isset($_POST["numero_equipe"]) ? $_POST["numero_equipe"] : 0;
-	$joueur = isset($_POST["numero_joueur"]) ? $_POST["numero_joueur"] : 0;
+	$equipe = isset($_POST["equipe"]) ? $_POST["equipe"] : 0;
+	$joueur = isset($_POST["joueur"]) ? $_POST["joueur"] : 0;
 	$cote = isset($_POST["cote"]) ? $_POST["cote"] : '';
 	$poste = isset($_POST["poste"]) ? $_POST["poste"] : -1;
 	

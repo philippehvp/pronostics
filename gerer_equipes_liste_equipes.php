@@ -12,7 +12,7 @@
 		include_once('commun_administrateur.php');
 		
 		// Lecture des paramètres passés à la page
-		$nomEquipe = isset($_POST["nom_equipe"]) ? $_POST["nom_equipe"] : '';
+		$nomEquipe = isset($_POST["nomEquipe"]) ? $_POST["nomEquipe"] : '';
 	}
 	else {
 		$nomEquipe = '';

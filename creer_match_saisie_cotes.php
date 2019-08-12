@@ -6,8 +6,8 @@
 	
 	// Equipe concernée
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
-	$equipe = isset($_POST["numero_equipe"]) ? $_POST["numero_equipe"] : 0;
-	$date = isset($_POST["date_debut_match"]) ? $_POST["date_debut_match"] : 0;
+	$equipe = isset($_POST["equipe"]) ? $_POST["equipe"] : 0;
+	$date = isset($_POST["dateDebutMatch"]) ? $_POST["dateDebutMatch"] : 0;
 	$dateSQL = date('Y-m-d', strtotime(str_replace('/', '-', $date)));
 	
 	$ordreSQL =		'	SELECT		joueurs.Joueur, IFNULL(Postes_Poste, 0) AS Postes_Poste, Joueurs_NomFamille, Joueurs_Prenom, JoueursCotes_Cote' .

@@ -72,7 +72,7 @@
 	echo '<input type="hidden" name="nombrePronostiqueurs" value="' . $nombrePronostiqueurs . '" />';
 	echo '<input type="hidden" name="championnat" value="' . $championnat . '" />';
 	echo '<input type="hidden" name="journee" value="' . $journee . '" />';
-	echo '<input type="hidden" name="pronostiqueur_consulte" value="' . $pronostiqueurConsulte . '" />';
+	echo '<input type="hidden" name="pronostiqueurConsulte" value="' . $pronostiqueurConsulte . '" />';
 
 	
 	// Liste des pronostiqueurs pour le championnat

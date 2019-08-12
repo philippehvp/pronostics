@@ -6,7 +6,7 @@
 	
 	// Lecture des paramètres passés à la page
 	$joueur = isset($_POST["joueur"]) ? $_POST["joueur"] : 0;
-	$nomCorrespondance = isset($_POST["nom_correspondance"]) ? $_POST["nom_correspondance"] : '';
+	$nomCorrespondance = isset($_POST["nomCorrespondance"]) ? $_POST["nomCorrespondance"] : '';
 	$origine = isset($_POST["origine"]) ? $_POST["origine"] : 0;
 	
 	if($origine == 0)

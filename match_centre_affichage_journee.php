@@ -11,7 +11,7 @@
 		
 		// Lecture des paramètres passés à la page
 		$journee = isset($_POST["journee"]) ? $_POST["journee"] : 0;
-		$pronostiqueurConsulte = isset($_POST["pronostiqueur_consulte"]) ? $_POST["pronostiqueur_consulte"] : 0;
+		$pronostiqueurConsulte = isset($_POST["pronostiqueurConsulte"]) ? $_POST["pronostiqueurConsulte"] : 0;
 	}
 	
 	// Données de la journée

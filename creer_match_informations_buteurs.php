@@ -4,7 +4,7 @@
 	// Demande d'informations complémentaires concernant un buteur (cote dans le cas où ce buteur n'a pas encore été ajouté)
 
 
-	$demanderCote = isset($_POST["demander_cote"]) ? $_POST["demander_cote"] : 1;
+	$demanderCote = isset($_POST["demanderCote"]) ? $_POST["demanderCote"] : 1;
 	$joueur = isset($_POST["joueur"]) ? $_POST["joueur"] : 0;
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
 	$equipe = isset($_POST["equipe"]) ? $_POST["equipe"] : 0;
