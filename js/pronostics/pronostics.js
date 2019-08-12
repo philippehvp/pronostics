@@ -3966,7 +3966,7 @@ function matchCentre_afficherChampionnat(classe, numeroChampionnat, pronostiqueu
 		$('.' + classe).empty().append(html);
 
 		// On remet à 0 le numéro du match sélectionné (utilisé pour remettre en surbrillance un match sélectionné)
-		$('input[name="match_selectionne"]').val(0);
+		$('input[name="matchSelectionne"]').val(0);
 
 		$('input[name="pronostiqueurConsulte"]').val(pronostiqueurConsulte);
 	});
@@ -3990,7 +3990,7 @@ function matchCentre_afficherDetailMatch(classe, numeroMatch) {
 		// C'est la raison pour laquelle on doit sauvegarder quelque part dans la page le numéro de match sélectionné
 		// Ainsi, lors du rafraîchissement des données, ce numéro est déjà connu
 
-		$('input[name="match_selectionne"]').val(match);
+		$('input[name="matchSelectionne"]').val(match);
 	});
 }
 

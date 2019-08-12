@@ -286,7 +286,7 @@
 		$('.scroll-pane').niceScroll({cursorcolor: "#0e2c3d", cursorborder: "#0e2c3d"});
 		
 		// Mise en surbrillance du match précédemment sélectionné si nécessaire lors du rafraîchissement automatique de la page
-		var matchSelectionne = $('input[name="match_selectionne"]').val();
+		var matchSelectionne = $('input[name="matchSelectionne"]').val();
 		if(matchSelectionne) {
 			$('#match_' + matchSelectionne).addClass('selectionne');
 		}

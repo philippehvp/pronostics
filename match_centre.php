@@ -41,7 +41,7 @@
 	echo '<input type="hidden" name="minuteur_match" value="0" />';
 	
 	// Match sélectionné par le joueur (sauvegarde de ce numéro de match pour le remettre en sélectionné lors d'un rafraîchissement)
-	echo '<input type="hidden" name="match_selectionne" value="0" />';
+	echo '<input type="hidden" name="matchSelectionne" value="0" />';
 	
 	// Les informations de dernière date de mise à jour du match et de la journée sont sauvegardées dans la page pour être
 	// comparées par la suite par la fonction de rafraîchissement
