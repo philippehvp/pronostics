@@ -21,8 +21,7 @@
 	$req = $bdd->query($ordreSQL);
 	$donnees = $req->fetch();
 	if($donnees["Journees_Active"] == 1)
-		echo 'Journée activée';
+		echo 'Journée active';
 	else
 		echo 'Journée inactive';
-	
 ?>

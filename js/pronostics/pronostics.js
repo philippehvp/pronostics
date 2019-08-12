@@ -29,7 +29,7 @@ function activitePronostiqueur_rafraichissement() {
 	$.ajax({
 		url: 'activite_pronostiqueur.php',
 		type: 'POST'
-	}).done(function(html) {});
+	});
 }
 
 // Mise en place de la vérification de message
@@ -210,7 +210,7 @@ function modifierCouleur(elt, valeur, classe) {
 	}
 }
 
-// Enregistrement règlement LDC
+// Enregistrement règlement
 function enregistrerReglement(numeroChampionnat) {
 	var reglement = CKEDITOR.instances.txtReglement.getData();
 	$.ajax({
@@ -235,24 +235,24 @@ function enregistrerCompteRendu() {
 }
 
 // Connexion - Soumission de formulaire
-function connexion_connecter(el) {
-    var elt = document.forms['formConnexion'];
-    if(elt != null)
-        elt.submit();
+function connexion_connecter() {
+    var element = document.forms['formConnexion'];
+    if(element != null)
+        element.submit();
 }
 
 // Première connexion - Soumission de formulaire
 function premiereConnexion_validerMotDePasse() {
-    var elt = document.forms['formModificationMotDePasse'];
-    if(elt != null)
-        elt.submit();
+    var element = document.forms['formModificationMotDePasse'];
+    if(element != null)
+        element.submit();
 }
 
 // Modification de mot de passe - Soumission de formulaire
 function modifierMotDePasse_validerMotDePasse() {
-    var elt = document.forms['formModificationMotDePasse'];
-    if(elt != null)
-        elt.submit();
+    var element = document.forms['formModificationMotDePasse'];
+    if(element != null)
+        element.submit();
 }
 
 // Affichage / masquage d'une option de menu
@@ -261,7 +261,7 @@ function menu_basculerAffichage(menu) {
 		url: 'menu_bascule_affichage.php',
 		type: 'POST',
 		data: { menu: menu }
-	}).done(function(html) {});
+	});
 }
 
 // Gestion de match - Changement de championnat
@@ -313,7 +313,7 @@ function creerMatch_initialiserMatchCanal(numeroJournee) {
 }
 
 // Gestion de match - Activation / désactivation d'une journée
-function creerMatch_activerDesactiverJournee() {
+function creerMatch_activerDesactiverJournee(nouvelEtatEstActif, matchCanalSelectionnable) {
     var numeroJournee = $('#selectJournee').val();
 
     if(numeroJournee == 0)
@@ -325,6 +325,12 @@ function creerMatch_activerDesactiverJournee() {
 		data: { journee: numeroJournee }
 	}).done(function(html) {
 		$('#labelEtatJournee').html(html);
+
+		// Dans le cas où l'on active la journée et que la journée possède permet de sélectionner
+		// le match Canal, alors on initialise la liste des matches Canal pour les pronostiqueurs
+		if(nouvelEtatEstActif == 1 && matchCanalSelectionnable == 1) {
+			creerMatch_initialiserMatchCanal(numeroJournee);
+		}
 	});
 }
 
@@ -334,7 +340,7 @@ function creerMatch_ecrireEvenement(numeroMatch, evenement) {
 		url: 'creer_match_maj_evenement.php',
 		type: 'POST',
 		data: { match: numeroMatch, evenement: evenement }
-	}).done(function(html) {});
+	});
 }
 
 // Gestion de match - Sauvegarde d'un match
@@ -348,18 +354,18 @@ function creerMatch_sauvegarderMatch(evenement, element, numeroMatch) {
     if(numeroMatch == 0 || numeroMatch == null)
         return;
 
-    var equipeD = $('#equipeD_match_' + numeroMatch).val();                                     // Equipe domicile
-    var equipeV = $('#equipeV_match_' + numeroMatch).val();                                     // Equipe visiteur
-    var coteEquipeD = $('#coteEquipeD_match_' + numeroMatch).val();                             // Cote équipe domicile
+    var equipeDomicile = $('#equipeD_match_' + numeroMatch).val();                                     // Equipe domicile
+    var equipeVisiteur = $('#equipeV_match_' + numeroMatch).val();                                     // Equipe visiteur
+    var coteEquipeDomicile = $('#coteEquipeD_match_' + numeroMatch).val();                             // Cote équipe domicile
     var coteNul = $('#coteNul_match_' + numeroMatch).val();                                     // Cote du match nul
-    var coteEquipeV = $('#coteEquipeV_match_' + numeroMatch).val();                             // Cote équipe visiteur
+    var coteEquipeVisiteur = $('#coteEquipeV_match_' + numeroMatch).val();                             // Cote équipe visiteur
     var dateDebut = $('#dateDebut_match_' + numeroMatch).val();                                 // Date de début du match
     var heureDebut = $('#heureDebut_match_' + numeroMatch).val();                               // Heure de début du match
     var minuteDebut = $('#minuteDebut_match_' + numeroMatch).val();                             // Minute de début du match
-    var scoreEquipeD = $('#scoreEquipeD_match_' + numeroMatch).val();                           // Score équipe docmicile
-    var scoreEquipeV = $('#scoreEquipeV_match_' + numeroMatch).val();                           // Score équipe visiteur
-    var scoreAPEquipeD = $('#scoreAPEquipeD_match_' + numeroMatch).val();                       // Score AP équipe docmicile
-    var scoreAPEquipeV = $('#scoreAPEquipeV_match_' + numeroMatch).val();                       // Score AP équipe visiteur
+    var scoreEquipeDomicile = $('#scoreEquipeD_match_' + numeroMatch).val();                           // Score équipe docmicile
+    var scoreEquipeVisiteur = $('#scoreEquipeV_match_' + numeroMatch).val();                           // Score équipe visiteur
+    var scoreAPEquipeDomicile = $('#scoreAPEquipeD_match_' + numeroMatch).val();                       // Score AP équipe docmicile
+    var scoreAPEquipeVisiteur = $('#scoreAPEquipeV_match_' + numeroMatch).val();                       // Score AP équipe visiteur
     var vainqueur = $('#vainqueur_match_' + numeroMatch).val();                                 // Vainqueur du match
     var matchCanal = $('#matchCanal_match_' + numeroMatch).prop('checked') ? 1 : 0;             // Match Canal
     var report = $('#report_match_' + numeroMatch).prop('checked') ? 1 : 0;                     // Match reporté
@@ -367,13 +373,13 @@ function creerMatch_sauvegarderMatch(evenement, element, numeroMatch) {
 	var matchIgnore = $('#matchIgnore_match_' + numeroMatch).prop('checked') ? 1 : 0;			// Match ignoré de la surveillance
 	var matchHorsPronostic = $('#matchHorsPronostic_match_' + numeroMatch).prop('checked') ? 1 : 0;			// Match ignoré des points des pronostiqueurs
 
-    var pointsQualificationEquipeD = null;
+    var pointsQualificationEquipeDomicile = null;
     if($('#pointsQualificationEquipeD_match_' + numeroMatch).length != 0)
-        pointsQualificationEquipeD = $('#pointsQualificationEquipeD_match_' + numeroMatch).val();	// Points de qualification équipe domicile
+        pointsQualificationEquipeDomicile = $('#pointsQualificationEquipeD_match_' + numeroMatch).val();	// Points de qualification équipe domicile
 
-    var pointsQualificationEquipeV = null;
+    var pointsQualificationEquipeVisiteur = null;
     if($('#pointsQualificationEquipeV_match_' + numeroMatch).length != 0)
-        pointsQualificationEquipeV = $('#pointsQualificationEquipeV_match_' + numeroMatch).val();	// Points de qualification équipe visiteur
+        pointsQualificationEquipeVisiteur = $('#pointsQualificationEquipeV_match_' + numeroMatch).val();	// Points de qualification équipe visiteur
 
     var matchDirect = $('#matchDirect_match_' + numeroMatch).prop('checked') ? 1 : 0;				// Match en direct
 
@@ -394,26 +400,26 @@ function creerMatch_sauvegarderMatch(evenement, element, numeroMatch) {
 		type: 'POST',
 		data: {
 			match: numeroMatch,
-			equipeD: equipeD,
-			equipeV: equipeV,
-			coteEquipeD: coteEquipeD,
+			equipeD: equipeDomicile,
+			equipeV: equipeVisiteur,
+			coteEquipeD: coteEquipeDomicile,
 			coteNul: coteNul,
-			coteEquipeV: coteEquipeV,
+			coteEquipeV: coteEquipeVisiteur,
 			dateDebut: dateDebut,
 			heureDebut: heureDebut,
 			minuteDebut: minuteDebut,
-			scoreEquipeD: scoreEquipeD,
-			scoreEquipeV: scoreEquipeV,
-			scoreAPEquipeD: scoreAPEquipeD,
-			scoreAPEquipeV: scoreAPEquipeV,
+			scoreEquipeD: scoreEquipeDomicile,
+			scoreEquipeV: scoreEquipeVisiteur,
+			scoreAPEquipeD: scoreAPEquipeDomicile,
+			scoreAPEquipeV: scoreAPEquipeVisiteur,
 			vainqueur: vainqueur,
 			matchCanal: matchCanal,
 			report: report,
 			matchCS: matchCS,
 			matchAP: matchAP,
 			nomMatch: nomMatch,
-			pointsQualificationEquipeD: pointsQualificationEquipeD,
-			pointsQualificationEquipeV: pointsQualificationEquipeV,
+			pointsQualificationEquipeD: pointsQualificationEquipeDomicile,
+			pointsQualificationEquipeV: pointsQualificationEquipeVisiteur,
 			matchDirect: matchDirect,
 			matchLienPage: matchLienPage,
 			matchLienPageComplementaire: matchLienPageComplementaire,
@@ -451,7 +457,7 @@ function creerMatch_sauvegarderJournee(numeroJournee) {
 		url: 'creer_match_maj_journee.php',
 		type: 'POST',
 		data: { journee: numeroJournee, journeeLienPage: journeeLienPage }
-	}).done(function(html) {});
+	});
 }
 
 // Gestion de match - Remplissage des matches d'une journée
@@ -482,7 +488,7 @@ function creerMatch_afficherPointsQualification(numeroMatch) {
 }
 
 // Gestion de match - Confirmation de la liste des joueurs ayant participé à un match
-function creerMatch_confirmerParticipants(numeroMatch, equipe) {
+function creerMatch_confirmerParticipants(numeroMatch, equipeDomicileOuVisiteur) {
     // Lecture des valeurs saisies par l'utilisateur dans l'interface
     var numeroEquipe = 0;
     var dateDebutMatch = null;
@@ -491,7 +497,7 @@ function creerMatch_confirmerParticipants(numeroMatch, equipe) {
         return;
 
     // Si le paramètre equipe vaut 0, on prend l'équipe domicile sinon c'est l'équipe visiteur
-    if(equipe == 0) {
+    if(equipeDomicileOuVisiteur == 0) {
         numeroEquipe = $('#equipeD_match_' + numeroMatch).val();
         if(numeroEquipe == 0) {
             alert('Veuillez choisir une équipe domicile');
@@ -544,7 +550,7 @@ function creerMatch_confirmerParticipants(numeroMatch, equipe) {
 						url: 'creer_match_maj_participants.php',
 						type: 'POST',
 						data: param
-					}).done(function(html) {});
+					});
 				},
 				'Annuler': function() {
 					$(this).dialog('close');
@@ -870,7 +876,7 @@ function creerMatch_sauvegarderCotesJoueurs(numeroMatch, numeroEquipe, numeroJou
 			joueur: numeroJoueur,
 			cote: cote
 		}
-	}).done(function(html) {});
+	});
 }
 
 // Gestion de match - Modification de la colonne cote des buteurs
@@ -896,7 +902,7 @@ function creerMatch_sauvegarderPostesJoueurs(numeroJoueur, nomChampPoste) {
 		url: 'creer_match_maj_postes.php',
 		type: 'POST',
 		data: { joueur: numeroJoueur, poste: poste }
-	}).done(function(html) {});
+	});
 }
 
 // Gestion de match - Confirmation de la liste des buteurs d'un match
@@ -1287,7 +1293,7 @@ function creerMatch_modifierPrenomJoueur(elt, identifiant) {
 		url: 'creer_match_modification_prenom_joueur.php',
 		type: 'POST',
 		data: { joueur: numeroJoueur, prenom: encodeURIComponent(prenom) }
-	}).done(function(html) {});
+	});
 }
 
 // Gestion de match - Modification du nom du joueur dans la fenêtre de correction de l'effectif
@@ -1299,7 +1305,7 @@ function creerMatch_modifierNomJoueur(elt, identifiant) {
 		url: 'creer_match_modification_nom_joueur.php',
 		type: 'POST',
 		data: { joueur: numeroJoueur, nom: encodeURIComponent(nom) }
-	}).done(function(html) {});
+	});
 }
 
 // Gestion de match - Copie du nom lu vers le nom de correspondance
@@ -2470,7 +2476,7 @@ function consulterFiches_majPronostiqueur(pronostiqueurConsulte) {
 			,carriere: carriere
 			,commentaire: commentaire
 		}
-	}).done(function(html) {});
+	});
 }
 
 // Consultation de la fiche d'identié - Ajout / suppression de rival
@@ -2479,7 +2485,7 @@ function consulterFiches_ajoutRival(pronostiqueurConsulte, mode) {
 		url: 'consulter_fiches_ajout_rival.php',
 		type: 'POST',
 		data: { pronostiqueurConsulte: pronostiqueurConsulte, mode: mode }
-	}).done(function(html) {});
+	});
 }
 
 // Consultation de trohpées - Affichage d'une journée
@@ -2956,7 +2962,7 @@ function modules_changerModeRival(module, modeRival, parametre) {
 			modeRival: modeRival,
 			parametre: parametre
 		}
-	}).done(function(html) {});
+	});
 }
 
 // Modules - Activation / désactivation du mode concurrent direct
@@ -2969,7 +2975,7 @@ function modules_changerModeConcurrentDirect(module, modeConcurrentDirect, param
 			modeConcurrentDirect: modeConcurrentDirect,
 			parametre: parametre
 		}
-	}).done(function(html) {});
+	});
 }
 
 // Modules - Activation / désactivation du mode incrustation
@@ -2986,7 +2992,7 @@ function modules_changerModeIncrustation(module, modeIncrustation, parametre) {
 			modeIncrustation: nouveauModeIncrustation,
 			parametre: parametre
 		}
-	}).done(function(html) {});
+	});
 }
 
 // Modules - Changement de l'intervalle de rafraîchissement
@@ -2999,7 +3005,7 @@ function modules_changerIntervalleRafraichissement(module, parametre, intervalle
 			parametre: parametre,
 			intervalleRafraichissement: intervalleRafraichissement
 		}
-	}).done(function(html) {});
+	});
 }
 
 // Modules - Affichage d'un module (affichage uniquement)
@@ -3062,7 +3068,7 @@ function modules_sauvegarderEtatModule(moduleActif, module, nomConteneur, parame
 			parametre: parametre,
 			actif: moduleActif
 		}
-	}).done(function(html) {});
+	});
 }
 
 // Modules - Sauvegarde de la position d'un module
@@ -3080,7 +3086,7 @@ function modules_sauvegarderPositionModule(module, nomConteneur, parametre) {
 				x: coordonnees.left,
 				y: coordonnees.top
 			}
-		}).done(function(html) {});
+		});
     }
 }
 
@@ -3100,7 +3106,7 @@ function modules_sauvegarderTailleModule(module, nomConteneur, parametre) {
 			largeur: largeur,
 			hauteur: hauteur
 		}
-	}).done(function(html) {});
+	});
 }
 
 // Concours centre
@@ -3853,7 +3859,7 @@ function gererCDF_modifierAdresseVideo(element) {
 		url: 'gerer_cdf_modification_adresse_video.php',
 		type: 'POST',
 		data: { adresse: adresse }
-	}).done(function(html) {});
+	});
 }
 
 // Gestion de la Coupe de France - Réinitialiser toutes les confrontations
@@ -3864,7 +3870,7 @@ function gererCDF_reinitialiserConfrontations() {
     $.ajax({
 		url: 'gerer_cdf_reinitialisation.php',
 		type: 'POST'
-	}).done(function(html) {});
+	});
 }
 
 // Gestion de la Coupe de France - Placement des 4 premiers pronostiqueurs de Ligue 1
@@ -3872,7 +3878,7 @@ function gererCDF_placerPronostiqueurs1A4() {
     $.ajax({
 		url: 'gerer_cdf_placement1a4.php',
 		type: 'POST'
-	}).done(function(html) {});
+	});
 }
 
 // Gestion de la Coupe de France - Sélection d'un pronostiqueur
@@ -3918,7 +3924,7 @@ function gerer_cdf_selectionnerPronostiqueur(numeroCase) {
 							pronostiqueur: pronostiqueur,
 							exempte: exempte
 						}
-					}).done(function(html) {});
+					});
 				}
             }
         });

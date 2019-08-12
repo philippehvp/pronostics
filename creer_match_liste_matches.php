@@ -32,7 +32,7 @@
 	$equipes = $req->fetchAll();
 
 	// On détermine si la journée en cours est active ou non pour l'afficher
-	$ordreSQL =		'	SELECT			Journees_Active, Championnats_Championnat, Journees_LienPage' .
+	$ordreSQL =		'	SELECT			Journees_Active, Championnats_Championnat, Journees_LienPage, Journees_MatchCanalSelectionnable' .
 					'	FROM			journees' .
 					'	WHERE			Journee = ' . $journee;
 	$req = $bdd->query($ordreSQL);
@@ -43,6 +43,7 @@
 	$championnat = $journees[0]["Championnats_Championnat"];
 	if($championnat == null)
 		$championnat = 0;
+	$matchCanalSelectionnable = $journees[0]["Journees_MatchCanalSelectionnable"];
 
 	$ordreSQL =		'	SELECT				vue_matches.Match' .
 					'						,EquipeDomicile, EquipesDomicile_Nom' .
@@ -84,16 +85,26 @@
 		echo '<label class="bouton" onclick="creerMatch_remplirMatches(' . $journee . ', ' . $matches[0]["Match"] . ');">Remplir</label>';
 		echo '<br />';
 
-		if($championnat == 1) {
-			echo '<label class="detail">Initialiser match Canal</label>';
-			echo '<label class="bouton" onclick="creerMatch_initialiserMatchCanal(' . $journee . ');">Initialiser match Canal</label>';
-		echo '<br />';
+		echo '<input type="hidden" id="matchCanalSelectionnable" value="' . $matchCanalSelectionnable . '">';
+		// if($matchCanalSelectionnable == 1) {
+		// 	echo '<label class="detail">Initialiser match Canal</label>';
+		// 	echo '<label class="bouton" onclick="creerMatch_initialiserMatchCanal(' . $journee . ');">Initialiser match Canal</label>';
+		// 	echo '<br />';
+		// }
+
+		if($active == 1) {
+			// La journée est active
+			echo '<label class="detail vert" id="labelEtatJournee">Journée active</label>';
+			echo '<label class="bouton" id="labelActiverDesactiverJournee">Désactiver la journée</label>';
+		} else {
+			// La journée est inactive
+			echo '<label class="detail rouge" id="labelEtatJournee">Journée inactive</label>';
+			if($matchCanalSelectionnable == 1) {
+				echo '<label class="bouton" id="labelActiverDesactiverJournee">Activer la journée et initialiser match Canal</label>';
+			} else {
+				echo '<label class="bouton" id="labelActiverDesactiverJournee">Activer la journée</label>';
+			}
 		}
-
-		if($active == 1)			echo '<label class="detail vert" id="labelEtatJournee">Journée active</label>';
-		else						echo '<label class="detail rouge" id="labelEtatJournee">Journée inactive</label>';
-
-		echo '<label class="bouton" id="labelActiverDesactiverJournee">Activer / Désactiver la journée</label>';
 
 		echo '<br />';
 		echo '<label class="detail">Lancement des calculs</label><label class="bouton" onclick="calculerResultats_calculerResultats();">Calculer les scores</label>';
@@ -153,15 +164,25 @@
 ?>
 <script>
 	$(function() {
-		$('#labelActiverDesactiverJournee').click(	function(event) {
-			creerMatch_activerDesactiverJournee();
+		$('#labelActiverDesactiverJournee').click(function(event) {
+			var matchCanalSelectionnable = $('#matchCanalSelectionnable').val();
+
 			if($('#labelEtatJournee').hasClass('vert')) {
+				// La journée était active, on la désactive
+				creerMatch_activerDesactiverJournee(0, 0);
 				$('#labelEtatJournee').removeClass('vert');
 				$('#labelEtatJournee').addClass('rouge');
-			}
-			else {
+
+				if(matchCanalSelectionnable)
+					$('#labelActiverDesactiverJournee').html('Activer la journée et initialiser match Canal');
+				else
+				$('#labelActiverDesactiverJournee').html('Activer la journée');
+			} else {
+				// La journée était inactive, on l'active
+				creerMatch_activerDesactiverJournee(1, matchCanalSelectionnable);
 				$('#labelEtatJournee').removeClass('rouge');
 				$('#labelEtatJournee').addClass('vert');
+				$('#labelActiverDesactiverJournee').html('Désactiver la journée');
 			}
 		});
 
