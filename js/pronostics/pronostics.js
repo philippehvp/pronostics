@@ -1077,7 +1077,23 @@ function creerMatch_genererCR(numeroJournee) {
 		type: 'POST',
 		data: { journee: numeroJournee }
 	}).done(function(html) {
-		alert(html);
+		if($('.compteRendu').length == 0)
+			$('body').append('<div class="compteRendu"></div>');
+
+		$('.compteRendu').empty().append(html);
+		$('.compteRendu').dialog({
+			autoOpen: true
+			,width: 'auto'
+			,height: 'auto'
+			,modal: true
+			,title: 'Compte-rendu'
+			,position: 'center'
+			,buttons: {
+				'Fermer':  function() {
+					$(this).dialog('close');
+				}
+			}
+		});
 	});
 }
 
