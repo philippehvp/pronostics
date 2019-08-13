@@ -1471,13 +1471,14 @@ function creerProno_sauvegarderPronostic(el, type, numeroMatch, numeroEquipe, nu
 			equipe: numeroEquipe,
 			score: score,
 			vainqueur: vainqueur
-		}
+		},
+		dataType: 'json'
 	}).done(function(html) {
 		// La réponse de la page indique s'il y a prolongation ou non et s'il y a TAB ou non
 		// Si le score aller ou retour a été modifié, on regarde s'il faut afficher la zone de scores AP
 		// La page d'enregistrement a vérifié qu'il était encore possible d'effectuer des modifications
-		// Cela empêche qu'un utilisateur laisse sa page Internet active toute la journée avant de valider son pronostic
-		if(html.indexOf('DEPASSE') != -1) {
+		// Cela empêche qu'un utilisateur ne laisse sa page Internet active toute la journée avant de valider son pronostic
+		if(html.resultat == 'DEPASSE') {
 			if($('.info').length == 0)
 				$('body').append('<div class="info" style="z-index: 20000;"></div>');
 
@@ -1504,7 +1505,7 @@ function creerProno_sauvegarderPronostic(el, type, numeroMatch, numeroEquipe, nu
 			return;
 
 		if(type == 'score') {
-			if(html.indexOf("PROLONGATION") != -1) {
+			if(html.resultat.indexOf('PROLONGATION') != -1) {
 				// La page de mise à jour a détecté qu'il fallait afficher les scores AP
 				// On copie donc le score de la 90ème dans le score AP (en supprimant les scores inférieurs)
 				var minScoreEquipeDomicile = $('#selectButsD_match_' + numeroMatchLie).val();
@@ -1535,7 +1536,7 @@ function creerProno_sauvegarderPronostic(el, type, numeroMatch, numeroEquipe, nu
 			}
 
 			// TAB ?
-			if(html.indexOf("TAB") != -1)
+			if(html.resultat.indexOf("TAB") != -1)
 				$('#spanVainqueur_match_' + numeroMatchLie).css({'visibility': 'visible'});
 			else {
 				// Le fait de ne pas afficher les TAB ne signifie pas forcément qu'il faille les effacer
@@ -1546,7 +1547,7 @@ function creerProno_sauvegarderPronostic(el, type, numeroMatch, numeroEquipe, nu
 			}
 		} else if(type == 'scoreAP') {
 			// TAB ?
-			if(html.indexOf("TAB") != -1)
+			if(html.resultat.indexOf("TAB") != -1)
 				$('#spanVainqueur_match_' + numeroMatchLie).css({'visibility': 'visible'});
 			else {
 				// Le fait de ne pas afficher les TAB ne signifie pas forcément qu'il faille les effacer
