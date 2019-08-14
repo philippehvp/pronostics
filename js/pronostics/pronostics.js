@@ -1315,7 +1315,7 @@ function creerMatch_copierNomCorrespondance(nomCorrespondance, identifiant, cham
 
 	if(joueur != 0) {
 		$.ajax({
-			url: 'creer_match_copie_nomCorrespondance_joueur.php',
+			url: 'creer_match_copie_nom_correspondance_joueur.php',
 			type: 'POST',
 			data: {
 				joueur: joueur,
@@ -1336,7 +1336,7 @@ function creerMatch_supprimerNomCorrespondance(identifiant, champCorrespondance,
 
 	if(joueur != 0) {
 		$.ajax({
-			url: 'creer_match_suppression_nomCorrespondance_joueur.php',
+			url: 'creer_match_suppression_nom_correspondance_joueur.php',
 			type: 'POST',
 			data: { joueur: joueur, origine: origine }
 		}).done(function(html) {
