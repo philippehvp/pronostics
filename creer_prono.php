@@ -537,14 +537,14 @@
 
 								// Pour la ligue 1, il est possible de choisir le match Canal
 								// Sur toutes les journées, à part la journée de barrage (journée 39)
-								echo '<div class="zoneMatchCanal gauche">';
 								if($journee["Journees_MatchCanalSelectionnable"] == 1) {
+									echo '<div class="zoneMatchCanal gauche">';
 									afficherZoneMatchCanal($unMatch);
+									echo '</div>';
 								}
-								echo '</div>';
 
 								// Cote de l'équipe domicile
-								echo '<div id="divCoteEquipeDomicile_match_' . $match . '" class="pronosticCoteEquipe gauche">';
+								echo '<div id="divCoteEquipeDomicile_match_' . $match . '" class="pronosticCoteEquipe colle-gauche gauche">';
 									afficherCote($unMatch, 1, $finaleEuropeenne);
 								echo '</div>';
 
