@@ -1,14 +1,14 @@
 <?php
-	include_once('commun.php');
+	include_once('../commun.php');
 	
 	// Affichage des onglets des championnats
 	echo '<div class="colle-gauche gauche cc--sous-onglets" style="margin-top: 5px;">';
-		echo '<label class="cc--nom-sous-onglet" onclick="concoursCentre_afficherRepartitionPointsChampionnat(1, \'cc--conteneur-repartition-points\', 1);">LIGUE 1</label>';
-		echo '<label class="cc--nom-sous-onglet" onclick="concoursCentre_afficherRepartitionPointsChampionnat(2, \'cc--conteneur-repartition-points\', 3);">LIGUE DES CHAMPIONS</label>';
-		echo '<label class="cc--nom-sous-onglet" onclick="concoursCentre_afficherRepartitionPointsChampionnat(3, \'cc--conteneur-repartition-points\', 4);">EUROPA LEAGUE</label>';
+		echo '<label class="cc--nom-sous-onglet" onclick="concoursCentre_afficherPalmaresChampionnat(1, \'cc--conteneur-palmares\', 1);">LIGUE 1</label>';
+		echo '<label class="cc--nom-sous-onglet" onclick="concoursCentre_afficherPalmaresChampionnat(2, \'cc--conteneur-palmares\', 2);">LIGUE DES CHAMPIONS</label>';
+		echo '<label class="cc--nom-sous-onglet" onclick="concoursCentre_afficherPalmaresChampionnat(3, \'cc--conteneur-palmares\', 3);">EUROPA LEAGUE</label>';
 	echo '</div>';
 
-	echo '<div class="colle-gauche cc--conteneur-repartition-points"></div>';
+	echo '<div class="colle-gauche cc--conteneur-palmares"></div>';
 	
 ?>
 

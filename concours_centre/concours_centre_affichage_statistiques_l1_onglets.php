@@ -1,5 +1,5 @@
 <?php
-	include_once('commun.php');
+	include_once('../commun.php');
 	
 	// Affichage des onglets des championnats
 	echo '<div class="colle-gauche gauche cc--sous-onglets" style="margin-top: 5px;">';

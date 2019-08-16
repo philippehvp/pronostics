@@ -6,6 +6,10 @@
 	$epaisseurRepere = 2;
 	$rayonDisque = 6;
 	
+	if($nombrePoints == 0) {
+		$nomFichierHTML = '';
+		return;
+	}
 	
 	$espaceInterValeur = floor(($zoneDessinLargeur - (2 * $margeLaterale)) / $nombrePoints / 20);
 	if($espaceInterValeur == 0)
@@ -44,8 +48,8 @@
 	
 	for($i = 0; $i < $nombrePoints; $i++) {
 		// Taille du texte
-		$largeurTexteClassement = imagettfbbox(10, 0, 'polices/arial.ttf', $classements[$i]["Valeur"]);
-		$largeurTexteJournee = imagettfbbox(10, 0, 'polices/arial.ttf', ($i + 1));
+		$largeurTexteClassement = imagettfbbox(10, 0, '../polices/arial.ttf', $classements[$i]["Valeur"]);
+		$largeurTexteJournee = imagettfbbox(10, 0, '../polices/arial.ttf', ($i + 1));
 	
 		$x1 = $margeLaterale + ($i * $espaceBarre) + $espaceInterValeur;
 		$y1 = $margeVerticale + (($classements[$i]["Valeur"] - 1) * (($zoneDessinHauteur - 2 * $margeVerticale) / ($nombrePronostiqueurs - 1)));
@@ -61,30 +65,32 @@
 				imagefilledrectangle($image, $x1, $y1 - 2, $x2, $y2, $vert);
 			else
 				imagefilledrectangle($image, $x1, $y1, $x2, $y2, $vert);
-			imagettftext($image, 10, 0, $xClassement, $y1 - 2, $vert, 'polices/arial.ttf', $classements[$i]["Valeur"]);
+			imagettftext($image, 10, 0, $xClassement, $y1 - 2, $vert, '../polices/arial.ttf', $classements[$i]["Valeur"]);
 		}
 		else if($classements[$i]["Valeur"] == $classementMax) {
 			// Cas particulier à gérer : si le pronostiqueur est dernier, il faut tout de même afficher une barre d'un trait
 			if($classements[$i]["Valeur"] == $nombrePronostiqueurs) {
 				imagefilledrectangle($image, $x1, $y2 - 1, $x2, $y2, $orange);
-				imagettftext($image, 10, 0, $xClassement, $y1 - 8, $orange, 'polices/arial.ttf', $classements[$i]["Valeur"]);
+				imagettftext($image, 10, 0, $xClassement, $y1 - 8, $orange, '../polices/arial.ttf', $classements[$i]["Valeur"]);
 			}
 			else {
 				imagefilledrectangle($image, $x1, $y1, $x2, $y2, $orange);
-				imagettftext($image, 10, 0, $xClassement, $y1 - 2, $orange, 'polices/arial.ttf', $classements[$i]["Valeur"]);
+				imagettftext($image, 10, 0, $xClassement, $y1 - 2, $orange, '../polices/arial.ttf', $classements[$i]["Valeur"]);
 			}
 			
 		}
 		else {
 			imagefilledrectangle($image, $x1, $y1, $x2, $y2, $gris);
-			imagettftext($image, 10, 0, $xClassement, $y1 - 2, $gris, 'polices/arial.ttf', $classements[$i]["Valeur"]);
+			imagettftext($image, 10, 0, $xClassement, $y1 - 2, $gris, '../polices/arial.ttf', $classements[$i]["Valeur"]);
 		}
 
 		// Numéro de journée
-		imagettftext($image, 8, 0, $xJournee, $zoneDessinHauteur - $epaisseurRepere - ($margeVerticale / 2) + 2, $noir, 'polices/arial.ttf', ($i + 1));
+		imagettftext($image, 8, 0, $xJournee, $zoneDessinHauteur - $epaisseurRepere - ($margeVerticale / 2) + 2, $noir, '../polices/arial.ttf', ($i + 1));
 	}
 
 	$nomFichier = $dossierImages . $unChampionnat["Championnat"] . '_' . $pronostiqueurConsulte . '_' . date('YmdHis') . '.png';
+	$nomFichierHTML = $dossierImagesHTML . $unChampionnat["Championnat"] . '_' . $pronostiqueurConsulte . '_' . date('YmdHis') . '.png';
+	
 	imagepng($image, $nomFichier);
 	imagedestroy($image);	
 

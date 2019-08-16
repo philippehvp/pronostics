@@ -1,5 +1,5 @@
 <?php
-	include_once('commun.php');
+	include_once('../commun.php');
 	
 	// Affichage des classements comparés pour un championnat
 
@@ -82,24 +82,6 @@
 	
 		// Classements occupés
 		if($generalJournee == 1)
-			/*$ordreSQL =		'	SELECT		Classements_ClassementGeneralMatch AS Valeur' .
-							'	FROM		classements' .
-							'	JOIN		journees' .
-							'				ON		classements.Journees_Journee = journees.Journee' .
-							'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
-							'				AND		journees.Championnats_Championnat = ' . $championnat .
-							'				AND		Classements_ClassementGeneralMatch IS NOT NULL' .
-							'	ORDER BY	Journee';
-		else
-			$ordreSQL =		'	SELECT		Classements_ClassementJourneeMatch AS Valeur' .
-							'	FROM		classements' .
-							'	JOIN		journees' .
-							'				ON		classements.Journees_Journee = journees.Journee' .
-							'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
-							'				AND		journees.Championnats_Championnat = ' . $championnat .
-							'				AND		Classements_ClassementJourneeMatch IS NOT NULL' .
-							'	ORDER BY	Journee';
-		*/
 			$ordreSQL =		'	SELECT		Classements_ClassementGeneralMatch AS Valeur' .
 							'	FROM		(' .
 							'					SELECT		classements.Journees_Journee, classements.Classements_ClassementGeneralMatch, classements.Pronostiqueurs_Pronostiqueur' .
@@ -142,18 +124,21 @@
 		$nombrePoints = sizeof($classements);
 	
 		$nomFichier = '';
-		if($generalJournee == 1)
-			$dossierImages = 'images/classements/general/';
-		else
-			$dossierImages = 'images/classements/journee/';
+		if($generalJournee == 1) {
+			$dossierImages = '../images/classements/general/';
+			$dossierImagesHTML = 'images/classements/general/';
+		} else {
+			$dossierImages = '../images/classements/journee/';
+			$dossierImagesHTML = 'images/classements/journee/';
+		}
 
 		// Effacement d'images qui pourraient exister dans ce dossier pour ce pronostiqueur
-		foreach(glob($dossierImages . $championnat . '/_' . $_SESSION["pronostiqueur"] . '_*.png') as $f) {
+		foreach(glob($dossierImagesHTML . $championnat . '/_' . $_SESSION["pronostiqueur"] . '_*.png') as $f) {
 			unlink($f);
 		}
 		
 		include('concours_centre_affichage_classements_creation_graphique_principal.php');
-		echo '<img src="' . $nomFichier . '" alt="" />';
+		echo '<img src="' . $nomFichierHTML . '" alt="" />';
 	echo '</div>';
 	echo '<div class="cc--classements-graphique-secondaire" style="position: absolute;"></div>';
 	

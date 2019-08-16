@@ -1,5 +1,5 @@
 <?php
-	include_once('commun.php');
+	include_once('../commun.php');
 	
 	// Affichage des équipes d'une catégorie :
 	// - 1 : équipes de L1 pure

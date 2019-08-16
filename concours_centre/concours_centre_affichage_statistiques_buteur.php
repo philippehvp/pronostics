@@ -1,5 +1,5 @@
 <?php
-	include_once('commun.php');
+	include_once('../commun.php');
 	
 	// Affichage des statistiques buteur pour un championnat
 	

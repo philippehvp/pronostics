@@ -1,5 +1,5 @@
 <?php
-	include_once('commun.php');
+	include_once('../commun.php');
 	
 	// Affichage des classements comparés pour un championnat
 	// Affichage du classement secondaire
@@ -101,17 +101,20 @@
 	$nombrePoints = sizeof($classements);
 
 	$nomFichier = '';
-	if($generalJournee == 1)
-		$dossierImages = 'images/classements/general/';
-	else
-		$dossierImages = 'images/classements/journee/';
+	if($generalJournee == 1) {
+		$dossierImages = '../images/classements/general/';
+		$dossierImagesHTML = 'images/classements/general/';
+	} else {
+		$dossierImages = '../images/classements/journee/';
+		$dossierImagesHTML = 'images/classements/journee/';
+	}
 	
 	// Effacement d'images qui pourraient exister dans ce dossier pour ce pronostiqueur
-	foreach(glob($dossierImages . $championnat . '/' . $pronostiqueurConsulte . '_*.png') as $f) {
+	foreach(glob($dossierImagesHTML . $championnat . '/' . $pronostiqueurConsulte . '_*.png') as $f) {
 		unlink($f);
 	}
 
 	include('concours_centre_affichage_classements_creation_graphique_secondaire.php');
-	echo '<img src="' . $nomFichier . '" alt="" />';
+	echo '<img src="' . $nomFichierHTML . '" alt="" />';
 
 ?>

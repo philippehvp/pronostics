@@ -1,5 +1,5 @@
 <?php
-	include_once('commun.php');
+	include_once('../commun.php');
 	
 	// Affichage des pronostiqueurs du concours
 	// Lecture des paramètres passés à la page

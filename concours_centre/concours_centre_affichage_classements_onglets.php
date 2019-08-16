@@ -1,5 +1,5 @@
 <?php
-	include_once('commun.php');
+	include_once('../commun.php');
 	
 	// Lecture des paramètres passés à la page
 	$generalJournee = isset($_POST["generalJournee"]) ? $_POST["generalJournee"] : 1;

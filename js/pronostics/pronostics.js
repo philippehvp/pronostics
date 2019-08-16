@@ -3123,7 +3123,7 @@ function concoursCentre_afficherConcoursCentre() {
 	var largeur = $('body').width();
 
 	$.ajax({
-		url: 'concours_centre.php',
+		url: 'concours_centre/concours_centre.php',
 		type: 'POST'
 	}).done(function(html) {
 		if($('.cc').length == 0)
@@ -3182,7 +3182,7 @@ function concoursCentre_afficherPronostiqueurs(classe, ongletActif, classeEntete
 		cc_sousOngletActif = 2;
 
 	$.ajax({
-		url: 'concours_centre_affichage_pronostiqueurs.php',
+		url: 'concours_centre/concours_centre_affichage_pronostiqueurs.php',
 		type: 'POST',
 		data: {
 			largeur: largeur,
@@ -3197,12 +3197,12 @@ function concoursCentre_afficherPronostiqueurs(classe, ongletActif, classeEntete
 			$('.' + classe).fadeOut(500, function() {
 				// A l'ouverture de la page, on affiche l'en-tête et la fiche du pronostiqueur connecté
 				$.ajax({
-					url: 'concours_centre_affichage_pronostiqueurs_entete.php',
+					url: 'concours_centre/concours_centre_affichage_pronostiqueurs_entete.php',
 					type: 'POST',
 					data: { pronostiqueurConsulte: pronostiqueurConsulte }
 				}).done(function(htmlEntete) {
 					$.ajax({
-						url: 'concours_centre_affichage_pronostiqueurs_detail.php',
+						url: 'concours_centre/concours_centre_affichage_pronostiqueurs_detail.php',
 						type: 'POST',
 						data: { pronostiqueurConsulte: pronostiqueurConsulte, sousOnglet: 1 }
 					}).done(function(htmlDetail) {
@@ -3218,12 +3218,12 @@ function concoursCentre_afficherPronostiqueurs(classe, ongletActif, classeEntete
 			});
 		} else {
 			return $.ajax({
-				url: 'concours_centre_affichage_pronostiqueurs_entete.php',
+				url: 'concours_centre/concours_centre_affichage_pronostiqueurs_entete.php',
 				type: 'POST',
 				data: { pronostiqueurConsulte: pronostiqueurConsulte }
 			}).done(function(htmlEntete) {
 				$.ajax({
-					url: 'concours_centre_affichage_pronostiqueurs_detail.php',
+					url: 'concours_centre/concours_centre_affichage_pronostiqueurs_detail.php',
 					type: 'POST',
 					data: { pronostiqueurConsulte: pronostiqueurConsulte, sousOnglet: 2 }
 				}).done(function(htmlDetail) {
@@ -3239,7 +3239,7 @@ function concoursCentre_afficherPronostiqueurs(classe, ongletActif, classeEntete
 // Concours centre - Affichage de l'en-tête d'un pronostiqueur
 function concoursCentre_afficherPronostiqueurEntete(pronostiqueurConsulte, classe) {
 	$.ajax({
-		url: 'concours_centre_affichage_pronostiqueurs_entete.php',
+		url: 'concours_centre/concours_centre_affichage_pronostiqueurs_entete.php',
 		type: 'POST',
 		data: { pronostiqueurConsulte: pronostiqueurConsulte }
 	}).done(function(html) {
@@ -3264,7 +3264,7 @@ function concoursCentre_afficherPronostiqueurDetail(pronostiqueurConsulte, class
 		cc_sousOngletActif = sousOnglet;
 
 	return $.ajax({
-		url: 'concours_centre_affichage_pronostiqueurs_detail.php',
+		url: 'concours_centre/concours_centre_affichage_pronostiqueurs_detail.php',
 		type: 'POST',
 		data: {
 			pronostiqueurConsulte: pronostiqueurConsulte,
@@ -3289,7 +3289,7 @@ function concoursCentre_afficherStatistiquesButeur(classe, ongletActif) {
 
 	// Affichage des sous-onglets des championnats
 	$.ajax({
-		url: 'concours_centre_affichage_statistiques_buteur_onglets.php',
+		url: 'concours_centre/concours_centre_affichage_statistiques_buteur_onglets.php',
 		type: 'POST'
 	}).done(function(html) {
 		$('.' + classe).fadeOut(500, function() {
@@ -3306,7 +3306,7 @@ function concoursCentre_afficherStatistiquesButeurChampionnat(numeroChampionnat,
 	cc_sousOngletActif = sousOngletActif;
 
 	$.ajax({
-		url: 'concours_centre_affichage_statistiques_buteur.php',
+		url: 'concours_centre/concours_centre_affichage_statistiques_buteur.php',
 		type: 'POST',
 		data: { championnat: numeroChampionnat }
 	}).done(function(html) {
@@ -3349,7 +3349,7 @@ function concoursCentre_afficherPalmares(classe, ongletActif) {
 
 	// Affichage des sous-onglets des championnats
 	$.ajax({
-		url: 'concours_centre_affichage_palmares_onglets.php',
+		url: 'concours_centre/concours_centre_affichage_palmares_onglets.php',
 		type: 'POST'
 	}).done(function(html) {
 		$('.' + classe).fadeOut(500, function() {
@@ -3366,7 +3366,7 @@ function concoursCentre_afficherPalmaresChampionnat(numeroChampionnat, classe, s
 	cc_sousOngletActif = sousOngletActif;
 
 	$.ajax({
-		url: 'concours_centre_affichage_palmares.php',
+		url: 'concours_centre/concours_centre_affichage_palmares.php',
 		type: 'POST',
 		data: { championnat: numeroChampionnat }
 	}).done(function(html) {
@@ -3409,7 +3409,7 @@ function concoursCentre_afficherRepartitionPoints(classe, ongletActif) {
 
 	// Affichage des sous-onglets des championnats
 	$.ajax({
-		url: 'concours_centre_affichage_repartition_points_onglets.php',
+		url: 'concours_centre/concours_centre_affichage_repartition_points_onglets.php',
 		type: 'POST'
 	}).done(function(html) {
 		$('.' + classe).fadeOut(500, function() {
@@ -3426,7 +3426,7 @@ function concoursCentre_afficherRepartitionPointsChampionnat(numeroChampionnat, 
 	cc_sousOngletActif = sousOngletActif;
 
 	$.ajax({
-		url: 'concours_centre_affichage_repartition_points.php',
+		url: 'concours_centre/concours_centre_affichage_repartition_points.php',
 		type: 'POST',
 		data: { championnat: numeroChampionnat }
 	}).done(function(html) {
@@ -3468,7 +3468,7 @@ function concoursCentre_afficherStatistiquesLigue1(classe, ongletActif) {
 
 	// Affichage des sous-onglets
 	$.ajax({
-		url: 'concours_centre_affichage_statistiques_l1_onglets.php',
+		url: 'concours_centre/concours_centre_affichage_statistiques_l1_onglets.php',
 		type: 'POST'
 	}).done(function(html) {
 		$('.' + classe).fadeOut(500, function() {
@@ -3485,7 +3485,7 @@ function concoursCentre_afficherVictoiresNulsDefaites(classe, sousOngletActif) {
 	cc_sousOngletActif = sousOngletActif;
 
 	$.ajax({
-		url: 'concours_centre_affichage_victoires_nuls_defaites.php',
+		url: 'concours_centre/concours_centre_affichage_victoires_nuls_defaites.php',
 		type: 'POST',
 		data: { championnat: 1 }
 	}).done(function(html) {
@@ -3524,7 +3524,7 @@ function concoursCentre_afficherPourcentagePoints(classe, sousOngletActif) {
 	cc_sousOngletActif = sousOngletActif;
 
 	$.ajax({
-		url: 'concours_centre_affichage_pourcentage_points.php',
+		url: 'concours_centre/concours_centre_affichage_pourcentage_points.php',
 		type: 'POST',
 		data: { championnat: 1 }
 	}).done(function(html) {
@@ -3562,7 +3562,7 @@ function concoursCentre_afficherPointsParEquipe(classe, sousOngletActif) {
 	cc_sousOngletActif = sousOngletActif;
 
 	$.ajax({
-		url: 'concours_centre_affichage_points_par_equipe.php',
+		url: 'concours_centre/concours_centre_affichage_points_par_equipe.php',
 		type: 'POST',
 		data: { championnat: 1 }
 	}).done(function(html) {
@@ -3605,7 +3605,7 @@ function concoursCentre_afficherMeilleuresEquipes(classe, sousOngletActif) {
 	cc_sousOngletActif = sousOngletActif;
 
 	$.ajax({
-		url: 'concours_centre_affichage_meilleures_equipes.php',
+		url: 'concours_centre/concours_centre_affichage_meilleures_equipes.php',
 		type: 'POST',
 		data: { championnat: 1 }
 	}).done(function(html) {
@@ -3632,7 +3632,7 @@ function concoursCentre_afficherMatchCanal(classe, sousOngletActif) {
 	cc_sousOngletActif = sousOngletActif;
 
 	$.ajax({
-		url: 'concours_centre_affichage_match_canal.php',
+		url: 'concours_centre/concours_centre_affichage_match_canal.php',
 		type: 'POST',
 		data: { championnat: 1 }
 	}).done(function(html) {
@@ -3673,7 +3673,7 @@ function concoursCentre_afficherClassements(classe, ongletActif, generalJournee)
 
 	// Affichage des sous-onglets des championnats
 	$.ajax({
-		url: 'concours_centre_affichage_classements_onglets.php',
+		url: 'concours_centre/concours_centre_affichage_classements_onglets.php',
 		type: 'POST',
 		data: { generalJournee: generalJournee }
 	}).done(function(html) {
@@ -3691,7 +3691,7 @@ function concoursCentre_afficherClassementsChampionnat(numeroChampionnat, classe
 	cc_sousOngletActif = sousOngletActif;
 
 	$.ajax({
-		url: 'concours_centre_affichage_classements.php',
+		url: 'concours_centre/concours_centre_affichage_classements.php',
 		type: 'POST',
 		data: {
 			championnat: numeroChampionnat,
@@ -3715,7 +3715,7 @@ function concoursCentre_comparerClassementsPronostiqueur(numeroChampionnat, clas
 	$('.' + classeSecondaire).height($('.' + classe).height());
 
 	$.ajax({
-		url: 'concours_centre_affichage_classements_secondaires.php',
+		url: 'concours_centre/concours_centre_affichage_classements_secondaires.php',
 		type: 'POST',
 		data: {
 			championnat: numeroChampionnat,
@@ -3742,7 +3742,7 @@ function concoursCentre_afficherOngletEquipes(classe, ongletActif) {
 
 	// Affichage des sous-onglets des championnats
 	$.ajax({
-		url: 'concours_centre_affichage_equipes_onglets.php',
+		url: 'concours_centre/concours_centre_affichage_equipes_onglets.php',
 		type: 'POST'
 	}).done(function(html) {
 		$('.' + classe).fadeOut(500, function() {
@@ -3761,7 +3761,7 @@ function concoursCentre_afficherEquipes(classe, sousOngletActif) {
 	var largeur = parseInt($('.' + classe).css('width'));
 
 	$.ajax({
-		url: 'concours_centre_affichage_equipes.php',
+		url: 'concours_centre/concours_centre_affichage_equipes.php',
 		type: 'POST',
 		data: {
 			largeur: largeur,
@@ -3777,7 +3777,7 @@ function concoursCentre_afficherEquipes(classe, sousOngletActif) {
 // Concours centre - Affichage des détail d'une équipe
 function concoursCentre_afficherEquipeDetail(equipe, typeEquipe, classe) {
 	$.ajax({
-		url: 'concours_centre_affichage_equipes_detail.php',
+		url: 'concours_centre/concours_centre_affichage_equipes_detail.php',
 		type: 'POST',
 		data: {
 			equipe: equipe,

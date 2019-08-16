@@ -1,5 +1,5 @@
 <?php
-	include_once('commun.php');
+	include_once('../commun.php');
 
 	// Affichage de l'en-tête d'un pronostiqueur
 	// Lecture des paramètres passés à la page

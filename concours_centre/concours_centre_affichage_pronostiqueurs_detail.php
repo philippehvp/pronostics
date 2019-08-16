@@ -1,5 +1,5 @@
 <?php
-	include_once('commun.php');
+	include_once('../commun.php');
 	
 	// Affichage des détails d'un pronostiqueur du concours
 	// Lecture des paramètres passés à la page
@@ -531,15 +531,16 @@
 				
 				echo '<label><b>' . $unChampionnat["Championnats_Nom"] . '</b> (' . $nombrePronostiqueurs . ' joueurs) - Meilleur classement : ' . $classementMinAffiche . ', performance la moins élevée : ' . $classementMaxAffiche . '</label><br />';
 				
-				$dossierImages = 'images/evolution/';
+				$dossierImages = '../images/evolution/';
+				$dossierImagesHTML = 'images/evolution/';
 				
 				// Effacement d'images qui pourraient exister dans ce dossier pour ce pronostiqueur
-				foreach(glob($dossierImages . $unChampionnat["Championnat"] . '_' . $pronostiqueurConsulte . '_*.png') as $f) {
+				foreach(glob($dossierImagesHTML . $unChampionnat["Championnat"] . '_' . $pronostiqueurConsulte . '_*.png') as $f) {
 					unlink($f);
 				}
 				
 				include('concours_centre_affichage_pronostiqueurs_classement.php');
-				echo '<img src="' . $nomFichier . '" alt="" />';
+				echo '<img src="' . $nomFichierHTML . '" alt="" />';
 			}
 		}
 	}
@@ -606,15 +607,16 @@
 					
 					echo '<label><b>' . $unChampionnat["Championnats_Nom"] . '</b> (' . $nombrePronostiqueurs . ' joueurs) - Meilleur classement : ' . $classementMinAffiche . ', performance la moins élevée : ' . $classementMaxAffiche . '</label><br />';
 					
-					$dossierImages = 'images/journee/';
+					$dossierImages = '../images/journee/';
+					$dossierImagesHTML = 'images/journee/';
 
 					// Effacement d'images qui pourraient exister dans ce dossier pour ce pronostiqueur
-					foreach(glob($dossierImages . $unChampionnat["Championnat"] . '_' . $pronostiqueurConsulte . '_*.png') as $f) {
+					foreach(glob($dossierImagesHTML . $unChampionnat["Championnat"] . '_' . $pronostiqueurConsulte . '_*.png') as $f) {
 						unlink($f);
 					}					
 					
 					include('concours_centre_affichage_pronostiqueurs_classement.php');
-					echo '<img src="' . $nomFichier . '" alt="" />';
+					echo '<img src="' . $nomFichierHTML . '" alt="" />';
 				}
 			
 			echo '</div>';
