@@ -14,7 +14,6 @@
 <body>
 	<?php
 		$nomPage = 'consulter_fiches.php';
-		enregistrerConsultationPage($bdd, $nomPage);
 		echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
 		
 		$NOMBRE_COLONNES = 10;

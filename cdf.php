@@ -13,7 +13,6 @@
 <body class="cdf">
 	<?php
 		$nomPage = 'cdf.php';
-		enregistrerConsultationPage($bdd, $nomPage);
 		echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
 		echo '<div class="conteneur">';
 			include_once('bandeau.php');
@@ -27,26 +26,24 @@
 		
 		function rafraichirPage() {
 			// On regarde ici s'il est nécessaire de rafraîchir la page (la première fois, c'est évidemment obligatoire)
-			$.ajax(	{
-						url: 'cdf_verification.php',
-						type: 'POST',
-						data:	{
-									critereRafraichissement: critereRafraichissement
-								},
-						dataType: 'json'
-					}
-			).done(function(html) {
+			$.ajax({
+				url: 'cdf_verification.php',
+				type: 'POST',
+				data: { critereRafraichissement: critereRafraichissement },
+				dataType: 'json'
+			}).done(function(html) {
 				if(html.rafraichir == '1') {
 					critereRafraichissement = html.critereRafraichissement;
-					$.ajax(	{
+					$.ajax({
 						url: 'cdf_affichage_confrontations.php',
 						type: 'POST'
 					}).done(function(html) {
 						$('.confrontations').empty().append(html);
 					}).fail(function(html) { console.log('Fonction d\'affichage des confrontations : fail du deuxième appel Ajax'); });
 				}
-				
-			}).fail(function(html) { console.log('Fonction de vérification des confrontations : fail du premier appel Ajax'); });
+			}).fail(function(html) {
+				console.log('Fonction de vérification des confrontations : fail du premier appel Ajax');
+			});
 		}
 	
 		$(function() {
@@ -59,11 +56,9 @@
 			
 			// Mise en place du timer de rafraîchissement
 			var intervalle = setInterval(function() {
-							rafraichirPage();
-						}, 5000);
+				rafraichirPage();
+			}, 5000);
 		});
-	
 	</script>
-	
 </body>
 </html>

@@ -13,7 +13,6 @@
 <body>
 	<?php
 		$nomPage = 'consulter_qualification.php';
-		enregistrerConsultationPage($bdd, $nomPage);
 		echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
 		
 		$NOMBRE_EQUIPES = 4;

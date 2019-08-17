@@ -12,7 +12,6 @@
 <body>
 	<?php
 		$nomPage = 'creer_bonus.php';
-		enregistrerConsultationPage($bdd, $nomPage);
 		include_once('bandeau.php');
 		
 		echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';

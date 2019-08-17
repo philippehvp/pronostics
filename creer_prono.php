@@ -13,7 +13,6 @@
 <body>
 	<?php
 		$nomPage = 'creer_prono.php';
-		enregistrerConsultationPage($bdd, $nomPage);
 		echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
 
 		// Affichage des informations de l'équipe (nom, fanion, etc.)

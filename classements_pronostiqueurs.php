@@ -15,7 +15,6 @@
 <?php
 	// Module d'affichage des classements
 	$nomPage = 'classements_pronostiqueurs.php';
-	enregistrerConsultationPage($bdd, $nomPage);
 	echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
 	
 	// Le paramètre "affichageNeutre" passé dans l'URL permet d'empêcher le tableau de faire apparaître le pronostiqueur connecté en surbrillance

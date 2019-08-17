@@ -27,14 +27,4 @@
 	catch(Exception $e) {
 		die('Erreur de base de données : ' . $e->getMessage());
 	}
-
-	function enregistrerConsultationPage($bdd, $nomPage) {
-		// Ajout de la page pour le pronostiqueur dans la table des pages consultées
-		/* $ordreSQL =		'	INSERT INTO		pages_consultees(Pages_Page, Pronostiqueurs_Pronostiqueur, PagesConsultees_Date)' .
-									'	SELECT			Page, ' . $_SESSION["pronostiqueur"] . ', NOW()' .
-									'	FROM			pages' .
-									'	WHERE			Pages_Nom = \'' . $nomPage . '\'';
-
-		$bdd->exec($ordreSQL); */
-	}
 ?>

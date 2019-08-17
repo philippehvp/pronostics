@@ -16,7 +16,6 @@
 <body>
 	<?php
 		$nomPage = 'creer_qualification.php';
-		enregistrerConsultationPage($bdd, $nomPage);
 		include_once('bandeau.php');
 		
 		echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';

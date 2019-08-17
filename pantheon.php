@@ -15,7 +15,6 @@
 <?php
 	// Panthéon du Poulpe d'Or
 	$nomPage = 'pantheon.php';
-	enregistrerConsultationPage($bdd, $nomPage);
 	echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
 
 	echo '<div class="conteneur">';

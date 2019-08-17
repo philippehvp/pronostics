@@ -15,8 +15,6 @@
 <body>
 	<?php
 		$nomPage = 'consulter_bareme_bonus.php';
-		enregistrerConsultationPage($bdd, $nomPage);
-		
 		echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
 		
 		// Consultation du barème des bonus

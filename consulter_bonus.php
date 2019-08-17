@@ -15,7 +15,6 @@
 <body>
     <?php
         $nomPage = 'consulter_bonus.php';
-        enregistrerConsultationPage($bdd, $nomPage);
         echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
         
         // Page d'affichage des bonus pronostiqués par tous les pronostiqueurs

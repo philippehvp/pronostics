@@ -16,7 +16,6 @@
 <?php
 	// Consultation des trophées
 	$nomPage = 'consulter_trophees.php';
-	enregistrerConsultationPage($bdd, $nomPage);
 	echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
 	
 	// Si l'affichage de la page des trophées a été demandé par l'administrateur, c'est qu'une journée vient de se terminer et que le pronostiqueur, dès sa connexion, doit être dirigé

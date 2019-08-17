@@ -12,7 +12,6 @@
 <body>
 	<?php
 		$nomPage = 'reglement.php';
-		enregistrerConsultationPage($bdd, $nomPage);
 		echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
 
 		echo '<div class="conteneur">';
