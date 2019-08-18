@@ -119,7 +119,7 @@
 		echo '<br />';
 		echo '<label class="detail">Compte-rendu</label>';
 		echo '<label class="bouton" onclick="creerMatch_genererCR(' . $journee . ');">Générer le compte-rendu</label>&nbsp;';
-		echo '<label class="bouton" onclick="creerMatch_consulterCanal(' . $journee . ');">Consulter le match Canal</label>';
+		echo '<label class="bouton" onclick="consulterCanal(' . $journee . ');">Consulter le match Canal</label>';
 
 	echo '</div>';
 
@@ -191,4 +191,15 @@
 		history.pushState(stateObj, "Le Poulpe d'Or", "creer_match.php?journee=" + $('#selectJournee').val());
 
 	});
+
+	function consulterCanal(numeroJournee) {
+		// On affiche un message de confirmation si la journée est active
+		if($('#labelEtatJournee').hasClass('vert')) {
+			if(confirm('La journée est active, voir les matchs Canal ?')) {
+				creerMatch_consulterCanal(numeroJournee);	
+			}
+		} else {
+			creerMatch_consulterCanal(numeroJournee);
+		}
+	}
 </script>
