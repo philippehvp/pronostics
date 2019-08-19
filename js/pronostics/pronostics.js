@@ -3662,6 +3662,67 @@ function concoursCentre_afficherMatchCanal(classe, sousOngletActif) {
 	});
 }
 
+// Concours centre - Affichage de l'onglet de sélection des journées pour le choix du match Canal
+function concoursCentre_afficherOngletChoixMatchCanal(classe, sousOngletActif) {
+	if(cc_sousOngletActif == sousOngletActif)
+		return;
+
+	cc_sousOngletActif = sousOngletActif;
+
+	var largeur = parseInt($('.' + classe).css('width'));
+
+	$.ajax({
+		url: 'concours_centre/concours_centre_affichage_choix_match_canal_onglets.php',
+		type: 'POST',
+		data: {
+			largeur: largeur,
+			championnat: 1
+		}
+	}).done(function(html) {
+		$('.' + classe).fadeOut(500, function() {
+			$('.' + classe).removeClass('cc--contenu-interieur-initial').empty().append(html).fadeIn(250);
+		});
+	});
+}
+
+// Concours centre - Affichage des choix de match Canal
+function concoursCentre_afficherChoixMatchCanal(classe, numeroJournee) {
+	if(cc_sousOngletActif == numeroJournee)
+		return;
+
+	cc_sousOngletActif = numeroJournee;
+
+	$.ajax({
+		url: 'concours_centre/concours_centre_affichage_choix_match_canal.php',
+		type: 'POST',
+		data: { journee: numeroJournee }
+	}).done(function(html) {
+		$('.' + classe).removeClass('cc--contenu-interieur-initial').empty().append(html);
+		var oTable = $('.cc--tableau').DataTable({
+			"scrollY": "670px"
+			,"scrollX": true
+			,paging: false
+			,"bScrollCollapse": true
+			,"bAutoWidth": false
+			,"bFilter": false
+			,"bInfo": false
+			,"bSort": true
+			,"order": [[2, 'desc']]
+		});
+		var obj = new $.fn.dataTable.FixedColumns(oTable);
+
+		oTable.column(0).nodes().each(function(cellule, i) {
+			cellule.innerHTML = i + 1;
+		}).draw();
+
+		oTable.on('order.dt', function() {
+			oTable.column(0).nodes().each(function(cellule, i) {
+				cellule.innerHTML = i + 1;
+			});
+		});
+	});
+}
+
 // Concours centre - Affichage des onglets des championnats pour les classements comparés
 function concoursCentre_afficherClassements(classe, ongletActif, generalJournee) {
 	// Si l'onglet affiché est l'onglet actif, alors ne rien faire

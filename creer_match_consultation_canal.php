@@ -24,7 +24,6 @@
         return;
     }
 
-
     echo '<table class="tableau--classement">';
         echo '<thead>';
             echo '<tr class="tableau--classement-nom-colonnes">';
