@@ -66,7 +66,7 @@
 						echo '<th>Poulpe d\'Argent</th>';
 						echo '<th>Poulpe de Bronze</th>';
 						echo '<th>Soulier d\'Or</th>';
-						echo '<th>Brandao</th>';
+						echo '<th>Choupo</th>';
 						echo '<th>Jérémy Morel</th>';
 						echo '<th>Record de points</th>';
 						echo '<th>Record de points buteur</th>';

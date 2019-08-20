@@ -13,9 +13,9 @@
 		
 		// Lecture des trophées obttenus
 		$ordreSQL =		'	SELECT		PantheonsPoints_L1_Premier_Nombre, PantheonsPoints_L1_Deuxieme_Nombre, PantheonsPoints_L1_Troisieme_Nombre, PantheonsPoints_L1_Quatrieme_Nombre, PantheonsPoints_L1_Cinquieme_Nombre' .
-						'				,PantheonsPoints_L1_NombreCompetiteurs, PantheonsPoints_L1_SoulierOr_Nombre, PantheonsPoints_L1_Brandao_Nombre, PantheonsPoints_L1_DjaDjeDje_Nombre' .
+						'				,PantheonsPoints_L1_NombreCompetiteurs, PantheonsPoints_L1_SoulierOr_Nombre, PantheonsPoints_L1_Choupo_Nombre, PantheonsPoints_L1_DjaDjeDje_Nombre' .
 						'				,PantheonsPoints_L1_NombrePoulpesOr_Nombre, PantheonsPoints_L1_NombrePoulpesArgent_Nombre, PantheonsPoints_L1_NombrePoulpesBronze_Nombre' .
-						'				,PantheonsPoints_L1_NombreSouliersOr_Nombre, PantheonsPoints_L1_NombreBrandao_Nombre, PantheonsPoints_L1_NombreDjaDjeDje_Nombre, PantheonsPoints_L1_RecordPoints_Nombre, PantheonsPoints_L1_RecordPointsButeur_Nombre' .
+						'				,PantheonsPoints_L1_NombreSouliersOr_Nombre, PantheonsPoints_L1_NombreChoupo_Nombre, PantheonsPoints_L1_NombreDjaDjeDje_Nombre, PantheonsPoints_L1_RecordPoints_Nombre, PantheonsPoints_L1_RecordPointsButeur_Nombre' .
 						'				,PantheonsPoints_L1_DixSurOnze_Nombre, PantheonsPoints_L1_OnzeSurOnze_Nombre' .
 						'	FROM		vue_pointspantheon' .
 						'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $pronostiqueurConsulte;
@@ -28,13 +28,13 @@
 		if($donneesL1[0]["PantheonsPoints_L1_Cinquieme_Nombre"] != 0)				echo '<label class="pantheon--detail--nom-categorie">5ème place : ' . $donneesL1[0]["PantheonsPoints_L1_Cinquieme_Nombre"] . '</label>';
 		if($donneesL1[0]["PantheonsPoints_L1_NombreCompetiteurs"] != 0)				echo '<label class="pantheon--detail--nom-categorie">Points classement : ' . $donneesL1[0]["PantheonsPoints_L1_NombreCompetiteurs"] . '</label>';
 		if($donneesL1[0]["PantheonsPoints_L1_SoulierOr_Nombre"] != 0)				echo '<label class="pantheon--detail--nom-categorie">Soulier d\'Or : ' . $donneesL1[0]["PantheonsPoints_L1_SoulierOr_Nombre"] . '</label>';
-		if($donneesL1[0]["PantheonsPoints_L1_Brandao_Nombre"] != 0)					echo '<label class="pantheon--detail--nom-categorie">Brandao : ' . $donneesL1[0]["PantheonsPoints_L1_Brandao_Nombre"] . '</label>';
+		if($donneesL1[0]["PantheonsPoints_L1_Choupo_Nombre"] != 0)					echo '<label class="pantheon--detail--nom-categorie">Choupo : ' . $donneesL1[0]["PantheonsPoints_L1_Choupo_Nombre"] . '</label>';
 		if($donneesL1[0]["PantheonsPoints_L1_DjaDjeDje_Nombre"] != 0)				echo '<label class="pantheon--detail--nom-categorie">Dja Djé Djé : ' . $donneesL1[0]["PantheonsPoints_L1_DjaDjeDje_Nombre"] . '</label>';
 		if($donneesL1[0]["PantheonsPoints_L1_NombrePoulpesOr_Nombre"] != 0)			echo '<label class="pantheon--detail--nom-categorie">Nb poulpes d\'Or : ' . $donneesL1[0]["PantheonsPoints_L1_NombrePoulpesOr_Nombre"] . '</label>';
 		if($donneesL1[0]["PantheonsPoints_L1_NombrePoulpesArgent_Nombre"] != 0)		echo '<label class="pantheon--detail--nom-categorie">Nb poulpes d\'Argent : ' . $donneesL1[0]["PantheonsPoints_L1_NombrePoulpesArgent_Nombre"] . '</label>';
 		if($donneesL1[0]["PantheonsPoints_L1_NombrePoulpesBronze_Nombre"] != 0)		echo '<label class="pantheon--detail--nom-categorie">Nb poulpes de Bronze : ' . $donneesL1[0]["PantheonsPoints_L1_NombrePoulpesBronze_Nombre"] . '</label>';
 		if($donneesL1[0]["PantheonsPoints_L1_NombreSouliersOr_Nombre"] != 0)		echo '<label class="pantheon--detail--nom-categorie">Nb souliers d\'Or : ' . $donneesL1[0]["PantheonsPoints_L1_NombreSouliersOr_Nombre"] . '</label>';
-		if($donneesL1[0]["PantheonsPoints_L1_NombreBrandao_Nombre"] != 0)			echo '<label class="pantheon--detail--nom-categorie">Nb trophées Brandao : ' . $donneesL1[0]["PantheonsPoints_L1_NombreBrandao_Nombre"] . '</label>';
+		if($donneesL1[0]["PantheonsPoints_L1_NombreChoupo_Nombre"] != 0)			echo '<label class="pantheon--detail--nom-categorie">Nb trophées Choupo : ' . $donneesL1[0]["PantheonsPoints_L1_NombreChoupo_Nombre"] . '</label>';
 		if($donneesL1[0]["PantheonsPoints_L1_NombreDjaDjeDje_Nombre"] != 0)			echo '<label class="pantheon--detail--nom-categorie">Nb trophées Dja Djé Djé : ' . $donneesL1[0]["PantheonsPoints_L1_NombreDjaDjeDje_Nombre"] . '</label>';
 		if($donneesL1[0]["PantheonsPoints_L1_RecordPoints_Nombre"] != 0)			echo '<label class="pantheon--detail--nom-categorie">Nb records pts : ' . $donneesL1[0]["PantheonsPoints_L1_RecordPoints_Nombre"] . '</label>';
 		if($donneesL1[0]["PantheonsPoints_L1_RecordPointsButeur_Nombre"] != 0)		echo '<label class="pantheon--detail--nom-categorie">Nb records buteur : ' . $donneesL1[0]["PantheonsPoints_L1_RecordPointsButeur_Nombre"] . '</label>';
@@ -48,7 +48,7 @@
 		
 		// Lecture des trophées obttenus
 		$ordreSQL =		'	SELECT		PantheonsPoints_LDC_Premier_Nombre, PantheonsPoints_LDC_Deuxieme_Nombre, PantheonsPoints_LDC_Troisieme_Nombre, PantheonsPoints_LDC_Quatrieme_Nombre, PantheonsPoints_LDC_Cinquieme_Nombre' .
-						'				,PantheonsPoints_LDC_SoulierOr_Nombre, PantheonsPoints_LDC_Brandao_Nombre, PantheonsPoints_LDC_DjaDjeDje_Nombre' .
+						'				,PantheonsPoints_LDC_SoulierOr_Nombre, PantheonsPoints_LDC_Choupo_Nombre, PantheonsPoints_LDC_DjaDjeDje_Nombre' .
 						'	FROM		vue_pointspantheon' .
 						'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $pronostiqueurConsulte;
 		$req = $bdd->query($ordreSQL);
@@ -59,7 +59,7 @@
 		if($donneesLDC[0]["PantheonsPoints_LDC_Quatrieme_Nombre"] != 0)				echo '<label class="pantheon--detail--nom-categorie">4ème place : ' . $donneesLDC[0]["PantheonsPoints_LDC_Quatrieme_Nombre"] . '</label>';
 		if($donneesLDC[0]["PantheonsPoints_LDC_Cinquieme_Nombre"] != 0)				echo '<label class="pantheon--detail--nom-categorie">5ème place : ' . $donneesLDC[0]["PantheonsPoints_LDC_Cinquieme_Nombre"] . '</label>';
 		if($donneesLDC[0]["PantheonsPoints_LDC_SoulierOr_Nombre"] != 0)				echo '<label class="pantheon--detail--nom-categorie">Soulier d\'Or : ' . $donneesLDC[0]["PantheonsPoints_LDC_SoulierOr_Nombre"] . '</label>';
-		if($donneesLDC[0]["PantheonsPoints_LDC_Brandao_Nombre"] != 0)				echo '<label class="pantheon--detail--nom-categorie">Brandao : ' . $donneesLDC[0]["PantheonsPoints_LDC_Brandao_Nombre"] . '</label>';
+		if($donneesLDC[0]["PantheonsPoints_LDC_Choupo_Nombre"] != 0)				echo '<label class="pantheon--detail--nom-categorie">Choupo : ' . $donneesLDC[0]["PantheonsPoints_LDC_Choupo_Nombre"] . '</label>';
 		if($donneesLDC[0]["PantheonsPoints_LDC_DjaDjeDje_Nombre"] != 0)				echo '<label class="pantheon--detail--nom-categorie">Dja Djé Djé : ' . $donneesLDC[0]["PantheonsPoints_LDC_DjaDjeDje_Nombre"] . '</label>';
 	}
 	
@@ -69,7 +69,7 @@
 		
 		// Lecture des trophées obttenus
 		$ordreSQL =		'	SELECT		PantheonsPoints_EL_Premier_Nombre, PantheonsPoints_EL_Deuxieme_Nombre, PantheonsPoints_EL_Troisieme_Nombre, PantheonsPoints_EL_Quatrieme_Nombre, PantheonsPoints_EL_Cinquieme_Nombre' .
-						'				,PantheonsPoints_EL_SoulierOr_Nombre, PantheonsPoints_EL_Brandao_Nombre, PantheonsPoints_EL_DjaDjeDje_Nombre' .
+						'				,PantheonsPoints_EL_SoulierOr_Nombre, PantheonsPoints_EL_Choupo_Nombre, PantheonsPoints_EL_DjaDjeDje_Nombre' .
 						'	FROM		vue_pointspantheon' .
 						'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $pronostiqueurConsulte;
 		$req = $bdd->query($ordreSQL);
@@ -80,7 +80,7 @@
 		if($donneesEL[0]["PantheonsPoints_EL_Quatrieme_Nombre"] != 0)				echo '<label class="pantheon--detail--nom-categorie">4ème place : ' . $donneesEL[0]["PantheonsPoints_EL_Quatrieme_Nombre"] . '</label>';
 		if($donneesEL[0]["PantheonsPoints_EL_Cinquieme_Nombre"] != 0)				echo '<label class="pantheon--detail--nom-categorie">5ème place : ' . $donneesEL[0]["PantheonsPoints_EL_Cinquieme_Nombre"] . '</label>';
 		if($donneesEL[0]["PantheonsPoints_EL_SoulierOr_Nombre"] != 0)				echo '<label class="pantheon--detail--nom-categorie">Soulier d\'Or : ' . $donneesEL[0]["PantheonsPoints_EL_SoulierOr_Nombre"] . '</label>';
-		if($donneesEL[0]["PantheonsPoints_EL_Brandao_Nombre"] != 0)					echo '<label class="pantheon--detail--nom-categorie">Brandao : ' . $donneesEL[0]["PantheonsPoints_EL_Brandao_Nombre"] . '</label>';
+		if($donneesEL[0]["PantheonsPoints_EL_Choupo_Nombre"] != 0)					echo '<label class="pantheon--detail--nom-categorie">Choupo : ' . $donneesEL[0]["PantheonsPoints_EL_Choupo_Nombre"] . '</label>';
 		if($donneesEL[0]["PantheonsPoints_EL_DjaDjeDje_Nombre"] != 0)				echo '<label class="pantheon--detail--nom-categorie">Dja Djé Djé : ' . $donneesEL[0]["PantheonsPoints_EL_DjaDjeDje_Nombre"] . '</label>';
 	}
 

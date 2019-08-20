@@ -198,7 +198,7 @@
 						'					ORDER BY	championnats.Championnat' .
 						'				) trophees';
 		$req = $bdd->query($ordreSQL);
-		$tropheesBrandao = $req->fetchAll();
+		$tropheesChoupo = $req->fetchAll();
 
 		$ordreSQL =		'	SELECT		GROUP_CONCAT(Trophee SEPARATOR \', \') AS Trophees' .
 						'	FROM		(' .
@@ -310,7 +310,7 @@
 				echo '<label class="simple">Poulpe d\'Argent</label><input type="text" value="' . (sizeof($tropheesPoulpeArgent) == 0 ? '-' : $tropheesPoulpeArgent[0]["Trophees"]) . '" class="lecture-seule" readonly="true" /><br />';
 				echo '<label class="simple">Poulpe de Bronze</label><input type="text" value="' . (sizeof($tropheesPoulpeBronze) == 0 ? '-' : $tropheesPoulpeBronze[0]["Trophees"]) . '" class="lecture-seule" readonly="true" />';
 				echo '<label class="simple">Soulier d\'Or</label><input type="text" value="' . (sizeof($tropheesSoulierOr) == 0 ? '-' : $tropheesSoulierOr[0]["Trophees"]) . '" class="lecture-seule" readonly="true" /><br />';
-				echo '<label class="simple">Brandao</label><input type="text" value="' . (sizeof($tropheesBrandao) == 0 ? '-' : $tropheesBrandao[0]["Trophees"]) . '" class="lecture-seule" readonly="true" />';
+				echo '<label class="simple">Choupo</label><input type="text" value="' . (sizeof($tropheesChoupo) == 0 ? '-' : $tropheesChoupo[0]["Trophees"]) . '" class="lecture-seule" readonly="true" />';
 				echo '<label class="simple">Jérémy Morel</label><input type="text" value="' . (sizeof($tropheesDjaDjedje) == 0 ? '-' : $tropheesDjaDjedje[0]["Trophees"]) . '" class="lecture-seule" readonly="true" /><br />';
 				echo '<label class="simple">Record de points</label><input type="text" value="' . (sizeof($tropheesRecordPoints) == 0 ? '-' : $tropheesRecordPoints[0]["Trophees"]) . '" class="lecture-seule" readonly="true" />';
 				echo '<label class="simple">Record buteur</label><input type="text" value="' . (sizeof($tropheesRecordPointsButeur) == 0 ? '-' : $tropheesRecordPointsButeur[0]["Trophees"]) . '" class="lecture-seule" readonly="true" />';

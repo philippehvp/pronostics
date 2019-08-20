@@ -5,7 +5,7 @@
     $saison = json_decode($postedData['saison']);
     $championnat = json_decode($postedData['championnat']);
 
-    $sql =      '       SELECT      Statut, Pronostiqueurs_NomUtilisateur, Poulpe_Or, Poulpe_Argent, Poulpe_Bronze, Soulier_Or, Brandao, Jeremy_Morel, Record_Points, Record_Buteur' .
+    $sql =      '       SELECT      Statut, Pronostiqueurs_NomUtilisateur, Poulpe_Or, Poulpe_Argent, Poulpe_Bronze, Soulier_Or, Choupo, Jeremy_Morel, Record_Points, Record_Buteur' .
                 '       FROM        (' .
                 '                       SELECT      0 AS Statut, pronostiqueurs.Pronostiqueurs_NomUtilisateur' .
                 '                                   ,(' .
@@ -62,7 +62,7 @@
                 '                                                   AND     trophees_prec.Trophees_CodeTrophee = 5' .
                 '                                                   AND     trophees_prec.Pronostiqueurs_Pronostiqueur = pronostiqueurs.Pronostiqueur' .
                 '                                       GROUP BY    trophees_prec.Pronostiqueurs_Pronostiqueur' .
-                '                                   ) AS Brandao' .
+                '                                   ) AS Choupo' .
                 '                                   ,(' .
                 '                                       SELECT      GROUP_CONCAT(journees.Journees_NomCourt SEPARATOR \', \')' .
                 '                                       FROM        trophees_prec' .
@@ -153,7 +153,7 @@
                 '                                                   AND     trophees_prec.Trophees_CodeTrophee = 5' .
                 '                                                   AND     trophees_prec.Pronostiqueurs_Pronostiqueur = pronostiqueurs_anciens.Pronostiqueur' .
                 '                                       GROUP BY    trophees_prec.Pronostiqueurs_Pronostiqueur' .
-                '                                   ) AS Brandao' .
+                '                                   ) AS Choupo' .
                 '                                   ,(' .
                 '                                       SELECT      GROUP_CONCAT(journees.Journees_NomCourt SEPARATOR \', \')' .
                 '                                       FROM        trophees_prec' .
@@ -193,7 +193,7 @@
                 '                   OR     Poulpe_Argent IS NOT NULL' .
                 '                   OR     Poulpe_Bronze IS NOT NULL' .
                 '                   OR     Soulier_Or IS NOT NULL' .
-                '                   OR     Brandao IS NOT NULL' .
+                '                   OR     Choupo IS NOT NULL' .
                 '                   OR     Jeremy_Morel IS NOT NULL' .
                 '                   OR     Record_Points IS NOT NULL' .
                 '                   OR     Record_Buteur IS NOT NULL' .

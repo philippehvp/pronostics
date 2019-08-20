@@ -152,7 +152,7 @@
 					$journeesSoulierOr = $tropheesSoulierOr[0]["Journees_Journees"];
 				}
 
-				// Journées Brandao
+				// Journées Choupo
 				$ordreSQL =		'	SELECT		GROUP_CONCAT(IFNULL(Journees_NomCourt, Journees_Journee) SEPARATOR \', \') AS Journees_Journees, COUNT(*) AS Nombre' .
 								'	FROM		trophees' .
 								'	JOIN		journees' .
@@ -162,10 +162,10 @@
 								'				AND		Trophees_CodeTrophee = 5' .
 								'	GROUP BY	Trophees_CodeTrophee';
 				$req = $bdd->query($ordreSQL);
-				$tropheesBrandao = $req->fetchAll();
-				if(sizeof($tropheesBrandao) > 0) {
-					$nombreBrandao = $tropheesBrandao[0]["Nombre"];
-					$journeesBrandao = $tropheesBrandao[0]["Journees_Journees"];
+				$tropheesChoupo = $req->fetchAll();
+				if(sizeof($tropheesChoupo) > 0) {
+					$nombreChoupo = $tropheesChoupo[0]["Nombre"];
+					$journeesChoupo = $tropheesChoupo[0]["Journees_Journees"];
 				}
 
 				// Journées Dja Djédjé
@@ -227,7 +227,7 @@
 					echo '<tbody>';
 						echo '<tr>';
 							echo '<td>Poulpe d\'Or</td><td>' . (sizeof($tropheesPoulpeOr) == 0 ? '-' : ($nombrePoulpeOr . ' : ' . $journeesPoulpeOr)) . '</td>';
-							echo '<td>Trophée Brandao</td><td>' . (sizeof($tropheesBrandao) == 0 ? '-' : ($nombreBrandao . ' : ' . $journeesBrandao)) . '</td>';
+							echo '<td>Trophée Choupo</td><td>' . (sizeof($tropheesChoupo) == 0 ? '-' : ($nombreChoupo . ' : ' . $journeesChoupo)) . '</td>';
 						echo '</tr>';
 						echo '<tr>';
 							echo '<td>Poulpe d\'Argent</td><td>' . (sizeof($tropheesPoulpeArgent) == 0 ? '-' : ($nombrePoulpeArgent . ' : ' . $journeesPoulpeArgent)) . '</td>';

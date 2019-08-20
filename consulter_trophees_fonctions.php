@@ -34,7 +34,7 @@
 						'								) minimum' .
 						'								ON		classements.Classements_PointsJourneeButeur = minimum.Classements_PointsJourneeButeur' .
 						'					WHERE		classements.Journees_Journee = ' . $journee .
-						'				) Brandao' .
+						'				) Choupo' .
 						'				,(' .
 						'					/* Dernier de la journée ayant tout saisi */' .
 						'					SELECT		CONCAT(GROUP_CONCAT(Pronostiqueurs_NomUtilisateur SEPARATOR \', \'), \' (\', classements.Classements_PointsJourneeMatch, \')\') AS Pronostiqueurs_Pronostiqueur' .
@@ -161,8 +161,8 @@
 						echo '<td class="aligne-gauche">' . $trophees[0]["Soulier"] . '</td>';
 					echo '</tr>';
 					echo '<tr>';
-						echo '<td>Brandao</td>';
-						echo '<td class="aligne-gauche">' . $trophees[0]["Brandao"] . '</td>';
+						echo '<td>Choupo</td>';
+						echo '<td class="aligne-gauche">' . $trophees[0]["Choupo"] . '</td>';
 					echo '</tr>';
 					echo '<tr>';
 						echo '<td>Jérémy Morel</td>';
