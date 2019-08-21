@@ -1376,11 +1376,11 @@ function creerMatch_creerJoueur(champPrenom, champNom, champNomCorrespondance, c
 }
 
 // Gestion de match - Recherche des informations d'un joueur sur Google
-function creerMatch_rechercherJoueur(numeroJoueur, numeroEquipe) {
+function creerMatch_rechercherJoueur(nomJoueur, nomEquipe) {
 	$.ajax({
 		url: 'creer_match_recherche_joueur.php',
 		type: 'POST',
-		data: { joueur: numeroJoueur, equipe: numeroEquipe }
+		data: { joueur: nomJoueur, equipe: nomEquipe }
 	}).done(function(html) {
 		if($('.rechercheJoueur').length == 0)
 			$('body').append('<div class="rechercheJoueur"></div>');
@@ -1391,7 +1391,7 @@ function creerMatch_rechercherJoueur(numeroJoueur, numeroEquipe) {
 			,width: 'auto'
 			,height: 'auto'
 			,modal: false
-			,title: 'Recherche du joueur ' + decodeURI(joueur)
+			,title: 'Recherche du joueur ' + decodeURI(nomJoueur)
 			,position: 'center'
 			,buttons: {
 				'Fermer':  function() {
