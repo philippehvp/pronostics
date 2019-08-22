@@ -88,7 +88,13 @@
 		echo '<select id="selectMatch">';
 			foreach($matches as $unMatch) {
 				if($unMatch["Matches_L1Europe"] == 0) {
-					echo '<option value="' . $unMatch["Match"] . '">' . $unMatch["Match"] . '</option>';
+					$nomEquipeDomicile = $unMatch["EquipesDomicile_Nom"] ? $unMatch["EquipesDomicile_Nom"] : '';
+					$nomEquipeVisiteur = $unMatch["EquipesVisiteur_Nom"] ? $unMatch["EquipesVisiteur_Nom"] : '';
+					if($nomEquipeDomicile != '' && $nomEquipeVisiteur != '') {
+						echo '<option value="' . $unMatch["Match"] . '">' . $unMatch["Match"] . ' : ' . $nomEquipeDomicile . '-' . $nomEquipeVisiteur . '</option>';
+					} else {
+						echo '<option value="' . $unMatch["Match"] . '">' . $unMatch["Match"] . '</option>';
+					}
 				}
 			}
 		echo '</select>';
