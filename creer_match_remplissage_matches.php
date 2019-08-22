@@ -2,7 +2,20 @@
 
 	// Lecture des matches d'une journée pour remplissage automatique en Ligue 1
 	include_once('creer_match_fonctions.php');
-	
+
+    function verifierSiMatchEstEuropeenL1($bdd, $match) {
+        $ordreSQL =     '       SELECT      matches.Matches_L1Europe' .
+                        '       FROM        matches' .
+                        '       WHERE       matches.Match = ' . $match;
+        $req = $bdd->query($ordreSQL);
+        $matches = $req->fetchAll();
+        if(sizeof($matches) == 1 && $matches[0]["Matches_L1Europe"] == 1) {
+            return 1;
+        }
+
+        return 0;
+    }
+
 	// Lecture des paramètres passés à la page
     $match = isset($_POST["match"]) ? $_POST["match"] : 0;
     $lien = isset($_POST["journeeLienPage"]) ? $_POST["journeeLienPage"] : "";
@@ -40,7 +53,17 @@
                 $equipe1 = rechercherEquipeDepuisNomCorrespondanceComplementaire($bdd, $equipes[0]);
                 $equipe2 = rechercherEquipeDepuisNomCorrespondanceComplementaire($bdd, $equipes[1]);
                 if($equipe1 != 0 && $equipe2 != 0) {
-                    inscrireEquipesDansMatch($bdd, $match, $indiceMatch, $dateMatch, $equipe1, $equipe2);
+                    // Arrivé ici, on vérifie que le match à inscrire n'est pas le match européen de Ligue 1
+                    // Auquel cas il faut passer au match suivant
+                    $estMatchEuropeenL1 = verifierSiMatchEstEuropeenL1($bdd, ($match + $indiceMatch));
+
+                    // Si le match sur lequel on veut écrire le match en cours de lecture est un match européen de Ligue 1
+                    // Il faut alors passer sur le match suivant
+                    if($estMatchEuropeenL1 == 1) {
+                        $indiceMatch++;
+                    }
+                    inscrireEquipesDansMatch($bdd, ($match + $indiceMatch), $dateMatch, $equipe1, $equipe2);
+
                     $indiceMatch++;
                 }
             }

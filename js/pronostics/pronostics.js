@@ -461,8 +461,9 @@ function creerMatch_sauvegarderJournee(numeroJournee) {
 }
 
 // Gestion de match - Remplissage des matches d'une journée
-function creerMatch_remplirMatches(numeroJournee, numeroMatch) {
+function creerMatch_remplirMatches(numeroJournee) {
 	var journeeLienPage = $('#lien_journee_' + numeroJournee).val();										// Lien page de MAJ
+	var numeroMatch = $('#selectMatch').val();
 	$.ajax({
 		url: 'creer_match_remplissage_matches.php',
 		type: 'POST',

@@ -82,7 +82,18 @@
 
 		echo '<label class="detail">Remplir la journée</label>';
 		echo '<input type="text" class="lien-page" id="lien_journee_' . $journee . '" value="' . $journees[0]["Journees_LienPage"] . '" onchange="creerMatch_sauvegarderJournee(' . $journee . ');" />';
-		echo '<label class="bouton" onclick="creerMatch_remplirMatches(' . $journee . ', ' . $matches[0]["Match"] . ');">Remplir</label>';
+		echo '<br />';
+
+		echo '<label class="detail">Commencer par</label>';
+		echo '<select id="selectMatch">';
+			foreach($matches as $unMatch) {
+				if($unMatch["Matches_L1Europe"] == 0) {
+					echo '<option value="' . $unMatch["Match"] . '">' . $unMatch["Match"] . '</option>';
+				}
+			}
+		echo '</select>';
+
+		echo '<label class="bouton" onclick="creerMatch_remplirMatches(' . $journee . ');">Remplir</label>';
 		echo '<br />';
 
 		echo '<input type="hidden" id="matchCanalSelectionnable" value="' . $matchCanalSelectionnable . '">';

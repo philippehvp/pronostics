@@ -399,14 +399,12 @@
 	}
 
 	// Inscription des équipes d'un match
-	function inscrireEquipesDansMatch($bdd, $match, $indiceMatch, $dateMatch, $equipe1, $equipe2) {
-		$matchMisAJour = $match + $indiceMatch;
+	function inscrireEquipesDansMatch($bdd, $match, $dateMatch, $equipe1, $equipe2) {
 		$ordreSQL =		'	UPDATE		matches' .
 						'	SET			matches.Equipes_EquipeDomicile = ' . $equipe1 .
 						'				,matches.Equipes_EquipeVisiteur = ' . $equipe2 .
 						'				,matches.Matches_Date = \'' . $dateMatch->format('Y-m-d H:i:s') . '\'' .
-						'	WHERE		matches.Match = ' . $matchMisAJour;
-		echo $ordreSQL;
+						'	WHERE		matches.Match = ' . $match;
 		$bdd->exec($ordreSQL);
 	}
 
