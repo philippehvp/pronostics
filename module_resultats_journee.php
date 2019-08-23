@@ -163,11 +163,19 @@
 					echo '<tr>';
 						// Equipe domicile
 						echo '<td>';
-							echo '<label>' . $unResultat["EquipesDomicile_Nom"] . '</label><br />';
-							echo '<img class="tableau--resultat-journee--fanion" src="images/equipes/' . $unResultat["EquipesDomicile_Fanion"] . '" alt="" /><br />';
+							if($_SESSION["administrateur"] == 1) {
+								echo '<span onclick="consulterMatch_modifierMatch(' . $journeeAffichee . ', ' . $unResultat["Match"] . ', \'' . $unResultat["EquipesDomicile_Nom"] . '\', \'' . $unResultat["EquipesVisiteur_Nom"] . '\');">';
+							} else {
+								echo '<span>';
+							}
+								echo '<label>' . $unResultat["EquipesDomicile_Nom"] . '</label><br />';
+								echo '<img class="tableau--resultat-journee--fanion" src="images/equipes/' . $unResultat["EquipesDomicile_Fanion"] . '" alt="" /><br />';
+							echo '</span>';
 							
-							if($unResultat["Buteurs_Domicile"] != null)			echo '<label class="texte-petit curseur-main" onclick="afficherButeurs(' . $unResultat["Match"] . ', ' . $unResultat["Equipes_EquipeDomicile"] . ');">' . str_replace(', ', '<br />', $unResultat["Buteurs_Domicile"]) . '</label>';
-							else												echo '<label class="texte-petit">&nbsp;</label>';
+							if($unResultat["Buteurs_Domicile"] != null)
+								echo '<label class="texte-petit curseur-main" onclick="afficherButeurs(' . $unResultat["Match"] . ', ' . $unResultat["Equipes_EquipeDomicile"] . ');">' . str_replace(', ', '<br />', $unResultat["Buteurs_Domicile"]) . '</label>';
+							else
+								echo '<label class="texte-petit">&nbsp;</label>';
 						echo '</td>';
 					
 						// Logistique et score
@@ -182,14 +190,19 @@
 						
 						// Equipe visiteur
 						echo '<td>';
-							echo '<label>' . $unResultat["EquipesVisiteur_Nom"] . '</label><br />';
-							echo '<img class="tableau--resultat-journee--fanion" src="images/equipes/' . $unResultat["EquipesVisiteur_Fanion"] . '" alt="" /><br />';
+							if($_SESSION["administrateur"] == 1) {
+								echo '<span onclick="consulterMatch_modifierMatch(' . $journeeAffichee . ', ' . $unResultat["Match"] . ', \'' . $unResultat["EquipesDomicile_Nom"] . '\', \'' . $unResultat["EquipesVisiteur_Nom"] . '\');">';
+							} else {
+								echo '<span>';
+							}
+								echo '<label>' . $unResultat["EquipesVisiteur_Nom"] . '</label><br />';
+								echo '<img class="tableau--resultat-journee--fanion" src="images/equipes/' . $unResultat["EquipesVisiteur_Fanion"] . '" alt="" /><br />';
+							echo '</span>';
 							
 							if($unResultat["Buteurs_Visiteur"] != null)
 								echo '<label class="texte-petit curseur-main" onclick="afficherButeurs(' . $unResultat["Match"] . ', ' . $unResultat["Equipes_EquipeVisiteur"] . ');">' . str_replace(', ', '<br />', $unResultat["Buteurs_Visiteur"]) . '</label>';
 							else
 								echo '<label class="texte-petit">&nbsp;</label>';
-
 						echo '</td>';
 					echo '</tr>';
 				}

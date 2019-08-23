@@ -36,7 +36,7 @@
 									'						,Matches_LienPage' .
 									'						,Matches_LienPageComplementaire' .
 									'						,Matches_MatchIgnore' .
-									'						,Mathches_MatchHorsPronostic' .
+									'						,Matches_MatchHorsPronostic' .
 									'	FROM			vue_matches' .
 									'	WHERE			vue_matches.Match = ' . $match;
 
@@ -86,7 +86,7 @@
 					echo '</td>';
 
 					echo '<td colspan="2" style="text-align: left;">';
-						echo '<input class="moyen date" id="dateDebut_match_' . $numeroMatch . '" type="text" value="' . $dateDebut . '" onchange="creerMatch_sauvegarderMatch(0, \'\', ' . $numeroMatch . ');"/> à ';
+						echo '<input class="moyen date" id="dateDebut_match_' . $numeroMatch . '" type="text" value="' . $dateDebut . '" onchange="creerMatch_sauvegarderMatch(0, \'\', ' . $numeroMatch . ');" /> à ';
 						echo '<select id="heureDebut_match_' . $numeroMatch . '" onchange="creerMatch_sauvegarderMatch(0, \'\', ' . $numeroMatch . ');">';
 							for($j = 0; $j <= 23; $j++) {
 								$heures = sprintf('%02u', $j);
@@ -190,6 +190,7 @@
 								echo '<input type="text" id="pointsQualificationEquipeD_match_' . $numeroMatch . '"  value="' . $pointsQualificationEquipeDomicile . '" onchange="creerMatch_sauvegarderMatch(0, \'\', ' . $numeroMatch . ');" />';
 								echo '<input type="text" id="pointsQualificationEquipeV_match_' . $numeroMatch . '"  value="' . $pointsQualificationEquipeVisiteur . '" onchange="creerMatch_sauvegarderMatch(0, \'\', ' . $numeroMatch . ');" />';
 						echo '</td>';
+					echo '</tr>';
 				}
 
 				echo '<tr>';

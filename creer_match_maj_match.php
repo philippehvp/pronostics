@@ -32,22 +32,6 @@
 	$matchIgnore = isset($_POST["matchIgnore"]) ? $_POST["matchIgnore"] : 0;
 	$matchHorsPronostic = isset($_POST["matchHorsPronostic"]) ? $_POST["matchHorsPronostic"] : 0;
 	
-	// L'heure max à laquelle un utilisateur peut faire ses pronostics dépend :
-	// - du type de championnat
-	// - du jour de la semaine (cas typique de ligue 1)
-	
-	$ordreSQL =		'	SELECT			Championnats_Regle' .
-					'	FROM			championnats'.
-					'	INNER JOIN		journees'.
-					'					ON		championnats.Championnat = journees.Championnats_Championnat'.
-					'	INNER JOIN		matches'.
-					'					ON		journees.Journee = matches.Journees_Journee'.
-					'	WHERE			matches.Match = ' . $match;
-					
-	$req = $bdd->query($ordreSQL);
-	$donnees = $req->fetchAll();
-	$regle = $donnees[0]["Championnats_Regle"];
-	
 	// Pour mise à jour du match avec tous les paramètres (même s'ils n'ont pas été modifiés)
 	$ordreSQL =		'	UPDATE		matches' .
 					'	SET			Equipes_EquipeDomicile = ' . $equipeD .

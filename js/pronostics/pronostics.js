@@ -440,10 +440,7 @@ function creerMatch_sauvegarderMatch(evenement, element, numeroMatch) {
 			case 3: // Changement de score ou de vainqueur de TAB
 				// Dans tous les cas, même si le score repasse à 0 ou que le vainqueur de TAB est réinitialisé, il est nécessaire de faire le rafraîchissement du module
 				// Mais, l'événement (par exemple un but marqué) n'est indiqué que s'il a eu lieu (score différent de 0)
-				if($('#' + element + ' option:selected').val() > 0)
-					creerMatch_ecrireEvenement(numeroMatch, evenement);
-				else
-					creerMatch_ecrireEvenement(numeroMatch, 0);
+				creerMatch_ecrireEvenement(numeroMatch, evenement);
 			break;
 		}
 	});
@@ -489,29 +486,33 @@ function creerMatch_afficherPointsQualification(numeroMatch) {
 }
 
 // Gestion de match - Confirmation de la liste des joueurs ayant participé à un match
-function creerMatch_confirmerParticipants(numeroMatch, equipeDomicileOuVisiteur) {
+function creerMatch_confirmerParticipants(numeroMatch, equipeDomicileOuVisiteur, numeroEquipe = 0) {
     // Lecture des valeurs saisies par l'utilisateur dans l'interface
-    var numeroEquipe = 0;
+    var equipe = 0;
     var dateDebutMatch = null;
 
     if(numeroMatch == 0 || numeroMatch == null)
         return;
 
-    // Si le paramètre equipe vaut 0, on prend l'équipe domicile sinon c'est l'équipe visiteur
-    if(equipeDomicileOuVisiteur == 0) {
-        numeroEquipe = $('#equipeD_match_' + numeroMatch).val();
-        if(numeroEquipe == 0) {
-            alert('Veuillez choisir une équipe domicile');
-            return;
-        }
-    }
-    else {
-        numeroEquipe = $('#equipeV_match_' + numeroMatch).val();
-        if(numeroEquipe == 0) {
-            alert('Veuillez choisir une équipe visiteur');
-            return;
-        }
-    }
+	if(numeroEquipe == 0) {
+		// Si le paramètre equipeDomicileOuVisiteur vaut 0, on prend l'équipe domicile sinon c'est l'équipe visiteur
+		if(equipeDomicileOuVisiteur == 0) {
+			equipe = $('#equipeD_match_' + numeroMatch).val();
+			if(equipe == 0) {
+				alert('Veuillez choisir une équipe domicile');
+				return;
+			}
+		}
+		else {
+			equipe = $('#equipeV_match_' + numeroMatch).val();
+			if(equipe == 0) {
+				alert('Veuillez choisir une équipe visiteur');
+				return;
+			}
+		}
+	} else {
+		equipe = numeroEquipe;
+	}
 
     dateDebutMatch = $('#dateDebut_match_' + numeroMatch).val();
     if(dateDebutMatch == '') {
@@ -523,7 +524,7 @@ function creerMatch_confirmerParticipants(numeroMatch, equipeDomicileOuVisiteur)
     $.ajax({
 		url: 'creer_match_liste_participants.php',
 		type: 'POST',
-		data: { match: numeroMatch, equipe: numeroEquipe, date: dateDebutMatch }
+		data: { match: numeroMatch, equipe: equipe, date: dateDebutMatch }
 	}).done(function(html) {
 		if($('.listeParticipants').length == 0)
 			$('body').append('<div class="listeParticipants"></div>');
@@ -540,7 +541,7 @@ function creerMatch_confirmerParticipants(numeroMatch, equipeDomicileOuVisiteur)
 				'Valider': function() {
 					$(this).dialog('close');
 					var param = 'match=' + numeroMatch;
-					param += '&equipe=' + numeroEquipe;
+					param += '&equipe=' + equipe;
 
 					var i = 0;
 					$('.participants li').each(function() {
@@ -806,27 +807,31 @@ function creerMatch_remplirCotes(numeroMatch) {
 }
 
 // Gestion de match - Saisie des cotes des buteurs
-function creerMatch_saisirCotes(numeroMatch, equipe) {
+function creerMatch_saisirCotes(numeroMatch, equipeDomicileOuVisiteur, numeroEquipe = 0) {
     // Lecture des valeurs saisies par l'utilisateur dans l'interface
-    var numeroEquipe = 0;
+    var equipe = 0;
 
     if(numeroMatch == 0 || numeroMatch == null)
         return;
 
-    // Si le paramètre equipe vaut 0, on prend l'équipe domicile sinon c'est l'équipe visiteur
-    if(equipe == 0) {
-        numeroEquipe = $('#equipeD_match_' + numeroMatch).val();
-        if(numeroEquipe == 0) {
-            alert('Veuillez choisir une équipe domicile');
-            return;
-        }
-    } else {
-        numeroEquipe = $('#equipeV_match_' + numeroMatch).val();
-        if(numeroEquipe == 0) {
-            alert('Veuillez choisir une équipe visiteur');
-            return;
-        }
-    }
+	if(numeroEquipe == 0) {
+		// Si le paramètre equipeDomicileOuVisiteur vaut 0, on prend l'équipe domicile sinon c'est l'équipe visiteur
+		if(equipeDomicileOuVisiteur == 0) {
+			equipe = $('#equipeD_match_' + numeroMatch).val();
+			if(equipe == 0) {
+				alert('Veuillez choisir une équipe domicile');
+				return;
+			}
+		} else {
+			equipe = $('#equipeV_match_' + numeroMatch).val();
+			if(equipe == 0) {
+				alert('Veuillez choisir une équipe visiteur');
+				return;
+			}
+		}
+	} else {
+		equipe = numeroEquipe;
+	}
 
     dateDebutMatch = $('#dateDebut_match_' + numeroMatch).val();
     if(dateDebutMatch == '') {
@@ -840,7 +845,7 @@ function creerMatch_saisirCotes(numeroMatch, equipe) {
 		type: 'POST',
 		data: {
 			match: numeroMatch,
-			equipe: numeroEquipe,
+			equipe: equipe,
 			dateDebutMatch: dateDebutMatch
 		}
 	}).done(function(html) {
@@ -907,28 +912,32 @@ function creerMatch_sauvegarderPostesJoueurs(numeroJoueur, nomChampPoste) {
 }
 
 // Gestion de match - Confirmation de la liste des buteurs d'un match
-function creerMatch_confirmerButeurs(numeroMatch, equipe) {
+function creerMatch_confirmerButeurs(numeroMatch, equipeDomicileOuVisiteur, numeroEquipe = 0) {
     if(numeroMatch == 0 || numeroMatch == null)
         return;
 
-    var numeroEquipe = 0;
+    var equipe = 0;
     var dateDebutMatch = null;
 
-    // Si le paramètre equipe vaut 0, alors c'est l'équipe domicile sinon c'est l'équipe visiteur
-    if(equipe == 0) {
-        numeroEquipe = $('#equipeD_match_' + numeroMatch).val();
-        if(numeroEquipe == 0) {
-            alert('Veuillez choisir une équipe domicile');
-            return;
-        }
-    }
-    else {
-        numeroEquipe = $('#equipeV_match_' + numeroMatch).val();
-        if(numeroEquipe == 0) {
-            alert('Veuillez choisir une équipe visiteur');
-            return;
-        }
-    }
+	if(numeroEquipe == 0) {
+		// Si le paramètre equipeDomicileOuVisiteur vaut 0, alors c'est l'équipe domicile sinon c'est l'équipe visiteur
+		if(equipeDomicileOuVisiteur == 0) {
+			equipe = $('#equipeD_match_' + numeroMatch).val();
+			if(equipe == 0) {
+				alert('Veuillez choisir une équipe domicile');
+				return;
+			}
+		}
+		else {
+			equipe = $('#equipeV_match_' + numeroMatch).val();
+			if(equipe == 0) {
+				alert('Veuillez choisir une équipe visiteur');
+				return;
+			}
+		}
+	} else {
+		equipe = numeroEquipe;
+	}
 
     dateDebutMatch = $('#dateDebut_match_' + numeroMatch).val();
     if(dateDebutMatch == '') {
@@ -942,7 +951,7 @@ function creerMatch_confirmerButeurs(numeroMatch, equipe) {
 		type: 'POST',
 		data: {
 			match: numeroMatch,
-			equipe: numeroEquipe,
+			equipe: equipe,
 			date: dateDebutMatch
 		}
 	}).done(function(html) {
@@ -963,7 +972,7 @@ function creerMatch_confirmerButeurs(numeroMatch, equipe) {
 					fenetreButeurs.dialog('close');
 					// Sauvegarde des buteurs saisis par l'utilisateur
 					var param = 'match=' + numeroMatch;
-					param += '&equipe=' + numeroEquipe;
+					param += '&equipe=' + equipe;
 
 					var i = 0;
 					// Dans la "value" du joueur, on a combiné son ID, sa cote pour la sauvegarder dans la table et le but CSC
@@ -1019,7 +1028,7 @@ function creerMatch_confirmerButeurs(numeroMatch, equipe) {
 				data: {
 					joueur: numeroJoueurPur,
 					match: numeroMatch,
-					equipe: numeroEquipe,
+					equipe: equipe,
 					demanderCote: demanderCote
 				}
 			}).done(function(html) {
@@ -1831,8 +1840,11 @@ function calculerResultats_changerChampionnat() {
 }
 
 // Calcul de résultats - Calcul des résultats
-function calculerResultats_calculerResultats() {
-    var journee = $('#selectJournee').val();
+function calculerResultats_calculerResultats(numeroJournee = 0) {
+	if(numeroJournee == 0)
+		var journee = $('#selectJournee').val();
+	else
+		var journee = numeroJournee;
 
 	$.ajax({
 		url: 'calculer_resultats_calcul_resultats.php',
@@ -2671,6 +2683,82 @@ function consulterMatch_afficherRepartitionVainqueurQualifie(numeroMatch) {
         $('.info').dialog('open');
 	});
 }
+
+// Module d'affichage des résultats d'une journée - Affichage d'une page de gestion du match pour les administrateurs
+function consulterMatch_modifierMatch(numeroJournee, numeroMatch, nomEquipeDomicile, nomEquipeVisiteur) {
+	$.ajax({
+		url: 'creer_match_administration_match.php',
+		type: 'POST',
+		data: { journee: numeroJournee, match: numeroMatch }
+	}).done(function(html) {
+		if($('.modificationMatch').length == 0)
+			$('body').append('<div class="modificationMatch"><div id="divListeMatches"></div></div>');
+
+		$('.modificationMatch').empty().append(html);
+
+		$('.modificationMatch').dialog( {
+			autoOpen: false
+			,width: 'auto'
+			,height: 'auto'
+			,modal: true
+			,title: ('Modification du match ' + nomEquipeDomicile + '-' + nomEquipeVisiteur)
+			,position: 'center'
+			,buttons: {
+				'Fermer': function() {
+					$(this).dialog('close');
+				}
+            }
+        });
+
+        $('.modificationMatch').dialog('open');
+	});
+}
+
+// Module d'affichage des résultats d'une journée - Mise à jour d'un match pour les administrateurs
+function consulterMatch_sauvegarderMatch(evenement, element, numeroMatch, elementModifie) {
+    if(numeroMatch == 0 || numeroMatch == null)
+        return;
+
+    var scoreEquipeDomicile = elementModifie == 1 ? $('#scoreEquipeD_match_' + numeroMatch).val() : null;                         // Score équipe docmicile
+    var scoreEquipeVisiteur = elementModifie == 2 ? $('#scoreEquipeV_match_' + numeroMatch).val() : null;                         // Score équipe visiteur
+    var scoreAPEquipeDomicile = elementModifie == 3 ? $('#scoreAPEquipeD_match_' + numeroMatch).val() : null;                     // Score AP équipe docmicile
+    var scoreAPEquipeVisiteur = elementModifie == 4 ? $('#scoreAPEquipeV_match_' + numeroMatch).val() : null;                     // Score AP équipe visiteur
+    var vainqueur = elementModifie == 5 ? $('#vainqueur_match_' + numeroMatch).val() : null;                  		            // Vainqueur du match
+	var matchIgnore = elementModifie == 6 && $('#matchIgnore_match_' + numeroMatch).prop('checked') ? 1 : 0;				  	// Match ignoré de la surveillance
+	var matchHorsPronostic = elementModifie == 7 && $('#matchHorsPronostic_match_' + numeroMatch).prop('checked') ? 1 : 0;		// Match ignoré des points des pronostiqueurs
+    var matchDirect = elementModifie == 8 && $('#matchDirect_match_' + numeroMatch).prop('checked') ? 1 : 0;					// Match en direct
+
+    // Appel de la page de sauvegarde du match avec les paramètres
+    $.ajax({
+		url: 'creer_match_administration_match_maj.php',
+		type: 'POST',
+		data: {
+			match: numeroMatch,
+			action: elementModifie,
+			scoreEquipeD: scoreEquipeDomicile,
+			scoreEquipeV: scoreEquipeVisiteur,
+			scoreAPEquipeD: scoreAPEquipeDomicile,
+			scoreAPEquipeV: scoreAPEquipeVisiteur,
+			vainqueur: vainqueur,
+			matchIgnore : matchIgnore,
+			matchHorsPronostic: matchHorsPronostic,
+			matchDirect: matchDirect
+		}
+	}).done(function(html) {
+		switch(evenement) {
+			case 1: // Match en direct ou non
+				creerMatch_ecrireEvenement(numeroMatch, evenement);
+			break;
+			case 2:
+			case 3: // Changement de score ou de vainqueur de TAB
+				// Dans tous les cas, même si le score repasse à 0 ou que le vainqueur de TAB est réinitialisé, il est nécessaire de faire le rafraîchissement du module
+				// Mais, l'événement (par exemple un but marqué) n'est indiqué que s'il a eu lieu (score différent de 0)
+				creerMatch_ecrireEvenement(numeroMatch, evenement);
+			break;
+		}
+	});
+}
+
 
 // Affichage / masquage des modules du concours
 // Est appelé uniquement depuis le menu des modules

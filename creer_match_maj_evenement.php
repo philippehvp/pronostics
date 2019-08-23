@@ -27,7 +27,7 @@
 
 	$ordreSQL =		'	UPDATE		modules' .
 					'	JOIN		championnats' .
-					'				ON		Modules_Parametre = championnats.Championnat' .
+					'				ON		modules.Modules_Parametre = championnats.Championnat' .
 					'	JOIN		journees' .
 					'				ON		championnats.Championnat = journees.Championnats_Championnat' .
 					'	JOIN		matches' .
@@ -36,8 +36,7 @@
 					'				ON		modules.Module = modules_resultats_evenements.Modules_Module' .
 					'	SET			Modules_CritereRafraichissement = \'' . $date . '\'' .
 					'	WHERE		matches.Match = ' . $match;
-
-	$req = $bdd->exec($ordreSQL);
+	$bdd->exec($ordreSQL);
 	
 ?>
 	
