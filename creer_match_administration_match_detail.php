@@ -3,24 +3,12 @@
     $ordreSQL =		'	SELECT		vue_matches.Match' .
                     '				,EquipeDomicile, EquipesDomicile_Nom' .
                     '				,EquipeVisiteur, EquipesVisiteur_Nom' .
-                    '				,Matches_CoteEquipeDomicile, Matches_CoteNul, Matches_CoteEquipeVisiteur' .
                     '				,Matches_Date' .
-                    '				,HOUR(Matches_Date) AS Matches_Heure' .
-                    '				,MINUTE(Matches_Date) AS Matches_Minute' .
                     '				,Matches_ScoreEquipeDomicile, Matches_ScoreEquipeVisiteur' .
                     '				,Matches_ScoreAPEquipeDomicile, Matches_ScoreAPEquipeVisiteur' .
                     '				,Matches_Vainqueur' .
-                    '				,Matches_MatchCS' .
-                    '				,Matches_Coefficient' .
                     '				,Matches_Report' .
-                    '				,Matches_AvecProlongation' .
-                    '				,Matches_L1Europe' .
-                    '				,Matches_L1EuropeNom' .
-                    '				,Matches_MatchLie' .
-                    '				,Matches_PointsQualificationEquipeDomicile, Matches_PointsQualificationEquipeVisiteur' .
                     '				,IFNULL(Matches_Direct, 0) AS Matches_Direct' .
-                    '				,Matches_LienPage' .
-                    '				,Matches_LienPageComplementaire' .
                     '				,Matches_MatchIgnore' .
                     '				,Matches_MatchHorsPronostic' .
                     '	FROM		vue_matches' .
