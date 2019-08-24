@@ -16,11 +16,11 @@
 		include_once('creer_match_fonctions.php');
 	}
 
-	$ordreSQL =		'	SELECT		matches.Match, Journees_Journee, Matches_Date, Matches_LienPage' .
-								'						,Equipes_EquipeDomicile, Equipes_EquipeVisiteur, matches.Matches_SansButeur, IFNULL(matches.Matches_MatchIgnore, 0) AS Matches_MatchIgnore' .
-								'	FROM			matches' .
-								'	JOIN			matches_direct' .
-								'						ON		matches.Match = matches_direct.Matches_Match';
+	$ordreSQL =		'	SELECT		matches.Match, matches.Journees_Journee, matches.Matches_Date, matches.Matches_LienPage' .
+					'				,matches.Equipes_EquipeDomicile, matches.Equipes_EquipeVisiteur, matches.Matches_SansButeur, IFNULL(matches.Matches_MatchIgnore, 0) AS Matches_MatchIgnore' .
+					'	FROM		matches' .
+					'	JOIN		matches_direct' .
+					'				ON		matches.Match = matches_direct.Matches_Match';
 
 	$req = $bdd->query($ordreSQL);
 	$matches = $req->fetchAll();
@@ -333,12 +333,12 @@
 			ajouterEvenement($bdd, $match, 0, 9, 0, 1);
 			supprimerMatchDuDirect($bdd, $match);
 		}
+
+		// S'il s'agit d'un nouvel événement et d'une entrée de joueur, il est nécessaire de relancer les calculs
+		// En toute rigueur, ce lancement de calcul ne doit se faire qu'à partir du moment où le nouvel entrant a été pronostiqué par au moins un
+		// pronostiqueur car ce serait inutile dans le cas inverse
+		if($lancementCalcul == true) {
+			lancerCalcul($bdd, $unMatch["Journees_Journee"]);
+		}
 	}
-
-	// S'il s'agit d'un nouvel événement et d'une entrée de joueur, il est nécessaire de relancer les calculs
-	// En toute rigueur, ce lancement de calcul ne doit se faire qu'à partir du moment où le nouvel entrant a été pronostiqué par au moins un
-	// pronostiqueur car ce serait inutile dans le cas inverse
-	if($lancementCalcul == true)
-		lancerCalcul($bdd, $unMatch["Journees_Journee"]);
-
 ?>

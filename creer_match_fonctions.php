@@ -306,7 +306,6 @@
 		$signatureButeurs = $donnees[0]["Signature"];
 
 		if($signatureEvenements != $signatureButeurs) {
-
 			$ordreSQL =		'	CALL	sp_synchronisationevenementsbut(' . $match . ', ' . $prolongation . ')';
 			$bdd->exec($ordreSQL);
 
