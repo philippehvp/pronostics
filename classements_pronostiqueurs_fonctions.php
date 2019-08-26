@@ -515,11 +515,31 @@
 		$meilleur_passeur = $req->fetchAll();
 
 		// Lecture des pronostics de bonus
-		$ordreSQL =		'	SELECT		equipes_championnes.Equipes_NomCourt AS Equipe_Championne' .
-						'				,CONCAT(equipes_1.Equipes_NomCourt, \', \', equipes_2.Equipes_NomCourt, \', \', equipes_3.Equipes_NomCourt) AS Equipes_LDC' .
-						'				,CONCAT(equipes_18.Equipes_NomCourt, \', \', equipes_19.Equipes_NomCourt, \', \', equipes_20.Equipes_NomCourt) AS Equipes_Releguees' .
-						'				,meilleurs_buteurs.Joueurs_NomFamille AS Meilleur_Buteur' .
-						'				,meilleurs_passeurs.Joueurs_NomFamille AS Meilleur_Passeur' .
+		$ordreSQL =		'	SELECT		CASE' .
+						'					WHEN	NOW() >= bonus_date_max.Bonus_Date_Max OR pronostics_bonus.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+						'					THEN	equipes_championnes.Equipes_NomCourt' .
+						'					ELSE	\'?\''.
+						'				END AS Equipe_Championne' .
+						'				,CASE' .
+						'					WHEN	NOW() >= bonus_date_max.Bonus_Date_Max OR pronostics_bonus.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+						'					THEN	CONCAT(equipes_1.Equipes_NomCourt, \', \', equipes_2.Equipes_NomCourt, \', \', equipes_3.Equipes_NomCourt)' .
+						'					ELSE	\'?\''.
+						'				END AS Equipes_LDC' .
+						'				,CASE' .
+						'					WHEN	NOW() >= bonus_date_max.Bonus_Date_Max OR pronostics_bonus.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+						'					THEN	CONCAT(equipes_18.Equipes_NomCourt, \', \', equipes_19.Equipes_NomCourt, \', \', equipes_20.Equipes_NomCourt)' .
+						'					ELSE	\'?\'' .
+						'				END AS Equipes_Releguees' .
+						'				,CASE' .
+						'					WHEN	NOW() >= bonus_date_max.Bonus_Date_Max OR pronostics_bonus.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+						'					THEN	meilleurs_buteurs.Joueurs_NomFamille' .
+						'					ELSE	\'?\'' .
+						'				END AS Meilleur_Buteur' .
+						'				,CASE' .
+						'					WHEN	NOW() >= bonus_date_max.Bonus_Date_Max OR pronostics_bonus.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+						'					THEN	meilleurs_passeurs.Joueurs_NomFamille' .
+						'					ELSE	\'?\'' .
+						'				END AS Meilleur_Passeur' .
 						'	FROM		pronostics_bonus' .
 						'	JOIN		equipes equipes_championnes' .
 						'				ON		PronosticsBonus_EquipeChampionne = equipes_championnes.Equipe' .
@@ -543,6 +563,7 @@
 						'				ON		pronostics_bonus.Pronostiqueurs_Pronostiqueur = pronostiqueurs.Pronostiqueur' .
 						'	JOIN		classements_virtuels' .
 						'				ON		pronostics_bonus.Pronostiqueurs_Pronostiqueur = classements_virtuels.Pronostiqueurs_Pronostiqueur' .
+						'	CROSS JOIN	bonus_date_max' .
 						'	ORDER BY	ClassementsVirtuels_PointsGeneralMatch DESC, ClassementsVirtuels_PointsGeneralButeur ASC, Pronostiqueurs_NomUtilisateur';
 		$req = $bdd->query($ordreSQL);
 		$pronostics_bonus = $req->fetchAll();
