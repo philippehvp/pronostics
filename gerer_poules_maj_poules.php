@@ -35,12 +35,24 @@
 		}
 	}
 
-	// On met à jour les qualifications de poule
-	// Ainsi, les chapeaux dans les qualifications reflèteront la répartition des chapeaux
-	$ordreSQL =		'	UPDATE		pronostics_qualifications' .
+	// Arrivé ici, on met à jour la table des pronostics de qualifications
+	// Pour éviter qu'un pronostiqueur n'ait de données dans différentes compétitions européennes, il faut :
+	// - effacer toutes les lignes de pronostics_qualifications des pronostiqueurs de ce championnat (éviter éventuellement des lignes de la saison précédente)
+	// - recréer les lignes
+	$ordreSQL =		'	DELETE		pronostics_qualifications' .
+					'	FROM		pronostics_qualifications' .
+					'	JOIN		inscriptions' .
+					'				ON		pronostics_qualifications.Pronostiqueurs_Pronostiqueur = inscriptions.Pronostiqueurs_Pronostiqueur' .
+					'	WHERE		inscriptions.Championnats_Championnat = ' . $championnat;
+	$bdd->exec($ordreSQL);
+
+	$ordreSQL =		'	INSERT INTO pronostics_qualifications(Pronostiqueurs_Pronostiqueur, Championnats_Championnat, Groupes_Groupe, Equipes_Equipe, PronosticsQualifications_Classement)' .
+					'	SELECT		inscriptions.Pronostiqueurs_Pronostiqueur, inscriptions.Championnats_Championnat, equipes_groupes.Groupes_Groupe, equipes_groupes.Equipes_Equipe, equipes_groupes.EquipesGroupes_Chapeau' .
+					'	FROM		inscriptions' .
+					'	JOIN		groupes' .
+					'				ON		inscriptions.Championnats_Championnat = groupes.Championnats_Championnat' .
 					'	JOIN		equipes_groupes' .
-					'				ON		pronostics_qualifications.Groupes_Groupe = equipes_groupes.Groupes_Groupe' .
-					'						AND		pronostics_qualifications.Equipes_Equipe = equipes_groupes.Equipes_Equipe' .
-					'	WHERE		pronostics_qualifications.Championnats_Championnat = ' . $championnat;
+					'				ON		groupes.Groupe = equipes_groupes.Groupes_Groupe' .
+					'	WHERE		inscriptions.Championnats_Championnat = ' . $championnat;
 	$bdd->exec($ordreSQL);
 ?>
