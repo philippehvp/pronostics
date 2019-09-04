@@ -95,7 +95,7 @@
 			
             echo '<br />';
 			echo '<div id="divClassementsGroupeValider" class="colle-gauche gauche">';
-				echo '<label id="labelCreerPoules">Créer les poules</label>';
+				echo '<label id="labelCreerPoules">Créer les poules + MAJ chapeaux pronostics</label>';
 			echo '</div>';
 		echo '</div>';
 

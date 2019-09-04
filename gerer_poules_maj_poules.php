@@ -34,4 +34,13 @@
 			$bdd->exec($ordreSQL);
 		}
 	}
+
+	// On met à jour les qualifications de poule
+	// Ainsi, les chapeaux dans les qualifications reflèteront la répartition des chapeaux
+	$ordreSQL =		'	UPDATE		pronostics_qualifications' .
+					'	JOIN		equipes_groupes' .
+					'				ON		pronostics_qualifications.Groupes_Groupe = equipes_groupes.Groupes_Groupe' .
+					'						AND		pronostics_qualifications.Equipes_Equipe = equipes_groupes.Equipes_Equipe' .
+					'	WHERE		pronostics_qualifications.Championnats_Championnat = ' . $championnat;
+	$bdd->exec($ordreSQL);
 ?>
