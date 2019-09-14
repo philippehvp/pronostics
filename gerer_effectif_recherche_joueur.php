@@ -49,6 +49,7 @@
 			echo '<thead>';
 				echo '<th class="aligne-gauche">Joueur(s)</th>';
 				echo '<th class="aligne-gauche">Equipe(s)</th>';
+				echo '<th>&nbsp;</th>';
 			echo '</thead>';
 			
 			echo '<tbody>';
@@ -59,6 +60,7 @@
 						$nomEquipeModifie = str_ireplace($critereRecherche, ('<b>' . $critereRecherche . '</b>'), $unJoueur["Equipes_Nom"]);
 						echo '<td class="aligne-gauche" style="padding-right: 2em;">' . $nomJoueurModifie . '</td>';
 						echo '<td class="aligne-gauche" style="padding-right: 2em;">' . $nomEquipeModifie . '</td>';
+						echo '<td><label class="bouton" onclick="gererEffectif_transfererJoueur(0, ' . $unJoueur["Joueur"] . ', \'' . str_replace('\'', '\\\'', $unJoueur["Joueurs_NomComplet"]) . '\');">Transférer</label></td>';
 					echo '</tr>';
 				}
 			echo '</tbody>';
