@@ -1,6 +1,7 @@
 <?php
 
-	// Lecture des matches d'une journée pour remplissage automatique en Ligue 1
+    // Lecture des matches d'une journée pour remplissage automatique en Ligue 1 et en journée de poule des
+    // coupes d'Europe (Ligue des Champions et Europa League)
 	include_once('creer_match_fonctions.php');
 
     function verifierSiMatchEstEuropeenL1($bdd, $match) {

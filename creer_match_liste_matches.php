@@ -32,17 +32,18 @@
 	$equipes = $req->fetchAll();
 
 	// On détermine si la journée en cours est active ou non pour l'afficher
-	$ordreSQL =		'	SELECT			Journees_Active, Championnats_Championnat, Journees_LienPage, Journees_MatchCanalSelectionnable' .
+	$ordreSQL =		'	SELECT			IFNULL(Journees_Active, 0) AS Journees_Active' .
+					'					,IFNULL(Championnats_Championnat, 0) AS Championnats_Championnat' .
+					'					,Journees_LienPage, Journees_LienPageRetour' .
+					'					,IFNULL(Journees_AvecConfrontationDirecte, 0) AS Journees_AvecConfrontationDirecte' .
+					'					,IFNULL(Journees_MatchCanalSelectionnable, 0) AS Journees_MatchCanalSelectionnable' .
 					'	FROM			journees' .
 					'	WHERE			Journee = ' . $journee;
 	$req = $bdd->query($ordreSQL);
 	$journees = $req->fetchAll();
 	$active = $journees[0]["Journees_Active"];
-	if($active == null)
-		$active = 0;
 	$championnat = $journees[0]["Championnats_Championnat"];
-	if($championnat == null)
-		$championnat = 0;
+	$avecConfrontationDirecte = $journees[0]["Journees_AvecConfrontationDirecte"];
 	$matchCanalSelectionnable = $journees[0]["Journees_MatchCanalSelectionnable"];
 
 	$ordreSQL =		'	SELECT				vue_matches.Match' .
@@ -76,38 +77,57 @@
 	$matches = $req->fetchAll();
 
 	echo '<div class="liste-matches--entete">';
-		// echo '<label class="detail">Lire la journée</label>';
-		// echo '<label class="bouton" onclick="creerMatch_lireLiensMatches(' . $journee . ');">Page des matches MeD</label> - <label class="bouton" onclick="creerMatch_lireLiensMatchesScoresPro(' . $journee . ');">Page des matches SP</label>';
-		// echo '<br />';
-
-		echo '<label class="detail">Remplir la journée</label>';
-		echo '<input type="text" class="lien-page" id="lien_journee_' . $journee . '" value="' . $journees[0]["Journees_LienPage"] . '" onchange="creerMatch_sauvegarderJournee(' . $journee . ');" />';
-		echo '<br />';
-
-		echo '<label class="detail">Commencer par</label>';
-		echo '<select id="selectMatch">';
-			foreach($matches as $unMatch) {
-				if($unMatch["Matches_L1Europe"] == 0) {
-					$nomEquipeDomicile = $unMatch["EquipesDomicile_Nom"] ? $unMatch["EquipesDomicile_Nom"] : '';
-					$nomEquipeVisiteur = $unMatch["EquipesVisiteur_Nom"] ? $unMatch["EquipesVisiteur_Nom"] : '';
-					if($nomEquipeDomicile != '' && $nomEquipeVisiteur != '') {
-						echo '<option value="' . $unMatch["Match"] . '">' . $unMatch["Match"] . ' : ' . $nomEquipeDomicile . '-' . $nomEquipeVisiteur . '</option>';
-					} else {
-						echo '<option value="' . $unMatch["Match"] . '">' . $unMatch["Match"] . '</option>';
+		if($avecConfrontationDirecte == 0) {
+			echo '<label class="detail">Remplir la journée</label>';
+			echo '<input type="text" class="lien-page" id="lien_journee_' . $journee . '" value="' . $journees[0]["Journees_LienPage"] . '" onchange="creerMatch_sauvegarderJournee(' . $journee . ');" />';
+			echo '<br />';
+	
+			echo '<label class="detail">Commencer par</label>';
+			echo '<select id="selectMatch">';
+				foreach($matches as $unMatch) {
+					if($unMatch["Matches_L1Europe"] == 0) {
+						$nomEquipeDomicile = $unMatch["EquipesDomicile_Nom"] ? $unMatch["EquipesDomicile_Nom"] : '';
+						$nomEquipeVisiteur = $unMatch["EquipesVisiteur_Nom"] ? $unMatch["EquipesVisiteur_Nom"] : '';
+						if($nomEquipeDomicile != '' && $nomEquipeVisiteur != '') {
+							echo '<option value="' . $unMatch["Match"] . '">' . $unMatch["Match"] . ' : ' . $nomEquipeDomicile . '-' . $nomEquipeVisiteur . '</option>';
+						} else {
+							echo '<option value="' . $unMatch["Match"] . '">' . $unMatch["Match"] . '</option>';
+						}
 					}
 				}
-			}
-		echo '</select>';
+			echo '</select>';
+	
+			echo '<label class="bouton" onclick="creerMatch_remplirMatches(' . $journee . ');">Remplir</label>';
+			echo '<br />';
+		} else {
+			echo '<label class="detail">Page match aller</label>';
+			echo '<input type="text" class="lien-page" id="lien_journee_' . $journee . '" value="' . $journees[0]["Journees_LienPage"] . '" onchange="creerMatch_sauvegarderJournee(' . $journee . ');" />';
+			echo '<br />';
+			echo '<label class="detail">Page match retour</label>';
+			echo '<input type="text" class="lien-page" id="lien_journee_retour_' . $journee . '" value="' . $journees[0]["Journees_LienPageRetour"] . '" onchange="creerMatch_sauvegarderJournee(' . $journee . ');" />';
+			echo '<br />';
 
-		echo '<label class="bouton" onclick="creerMatch_remplirMatches(' . $journee . ');">Remplir</label>';
-		echo '<br />';
+			echo '<label class="detail">Commencer par</label>';
+			echo '<select id="selectMatch">';
+				foreach($matches as $unMatch) {
+					if($unMatch["Matches_L1Europe"] == 0) {
+						$nomEquipeDomicile = $unMatch["EquipesDomicile_Nom"] ? $unMatch["EquipesDomicile_Nom"] : '';
+						$nomEquipeVisiteur = $unMatch["EquipesVisiteur_Nom"] ? $unMatch["EquipesVisiteur_Nom"] : '';
+						if($nomEquipeDomicile != '' && $nomEquipeVisiteur != '') {
+							echo '<option value="' . $unMatch["Match"] . '">' . $unMatch["Match"] . ' : ' . $nomEquipeDomicile . '-' . $nomEquipeVisiteur . '</option>';
+						} else {
+							echo '<option value="' . $unMatch["Match"] . '">' . $unMatch["Match"] . '</option>';
+						}
+					}
+				}
+			echo '</select>';
+
+			echo '<label class="detail">&nbsp;</label>';
+			echo '<label class="bouton" onclick="creerMatch_remplirMatchesAR(' . $journee . ');">Remplir</label>';
+			echo '<br />';
+		}
 
 		echo '<input type="hidden" id="matchCanalSelectionnable" value="' . $matchCanalSelectionnable . '">';
-		// if($matchCanalSelectionnable == 1) {
-		// 	echo '<label class="detail">Initialiser match Canal</label>';
-		// 	echo '<label class="bouton" onclick="creerMatch_initialiserMatchCanal(' . $journee . ');">Initialiser match Canal</label>';
-		// 	echo '<br />';
-		// }
 
 		if($active == 1) {
 			// La journée est active

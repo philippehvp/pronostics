@@ -449,17 +449,18 @@ function creerMatch_sauvegarderMatch(evenement, element, numeroMatch) {
 // Gestion de match - Sauvegarde du lien vers la page de la journée
 function creerMatch_sauvegarderJournee(numeroJournee) {
 	var journeeLienPage = $('#lien_journee_' + numeroJournee).val();										// Lien page de MAJ
+	var journeeLienPageRetour = $('#lien_journee_retour_' + numeroJournee).val();							// Lien page de MAJ
 
 	$.ajax({
 		url: 'creer_match_maj_journee.php',
 		type: 'POST',
-		data: { journee: numeroJournee, journeeLienPage: journeeLienPage }
+		data: { journee: numeroJournee, journeeLienPage: journeeLienPage, journeeLienPageRetour: journeeLienPageRetour }
 	});
 }
 
 // Gestion de match - Remplissage des matches d'une journée
 function creerMatch_remplirMatches(numeroJournee) {
-	var journeeLienPage = $('#lien_journee_' + numeroJournee).val();										// Lien page de MAJ
+	var journeeLienPage = $('#lien_journee_' + numeroJournee).val();
 	var numeroMatch = $('#selectMatch').val();
 	$.ajax({
 		url: 'creer_match_remplissage_matches.php',
@@ -470,6 +471,22 @@ function creerMatch_remplirMatches(numeroJournee) {
 		location.reload();
 	});
 }
+
+// Gestion de match - Remplissage des matches AR d'une journée
+function creerMatch_remplirMatchesAR(numeroJournee) {
+	var journeeLienPage = $('#lien_journee_' + numeroJournee).val();
+	var journeeLienPageRetour = $('#lien_journee_retour_' + numeroJournee).val();
+	var numeroMatch = $('#selectMatch').val();
+	$.ajax({
+		url: 'creer_match_remplissage_matches_ar.php',
+		type: 'POST',
+		data: { journee: numeroJournee, match: numeroMatch, journeeLienPage: journeeLienPage, journeeLienPageRetour: journeeLienPageRetour }
+	}).done(function(html) {
+		// Rechargement de la page
+		location.reload();
+	});
+}
+
 // Gestion de match - Affichage points de qualification d'une équipe
 function creerMatch_afficherPointsQualification(numeroMatch) {
     if(numeroMatch == 0 || numeroMatch == null)

@@ -5,11 +5,11 @@
 	// Pour des raisons inconnues, la fonction utf8_decode a des comportements différents en local et sur OVH
 	// Une fonction my_utf8_decode a donc été créée pour tester si l'on est en local ou non et faire le comportement adéquat
 	function my_utf8_decode($chaine) {
-		$local = isset($_SESSION["local"]) ? $_SESSION["local"] : 0;
-		if($local == 1)
-			return $chaine;
+		// $local = isset($_SESSION["local"]) ? $_SESSION["local"] : 0;
+		// if($local == 1)
+		// 	return $chaine;
 
-		//return utf8_decode($chaine);
+		// //return utf8_decode($chaine);
 		return $chaine;
 	}
 
@@ -89,7 +89,7 @@
 			'ß'=>'ss',
 			'Ù'=>'U', 'Ú'=>'U', 'Û'=>'U', 'Ü'=>'U', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ü'=>'u', 'ů'=>'u',
 			'Ý'=>'Y', 'ý'=>'y', 'ÿ'=>'y',
-			'Ž'=>'Z', 'ž'=>'z', 'ź'
+			'Ž'=>'Z', 'ž'=>'z', 'ź'=>'z'
 		);
 		return strtr($chaine, $tableauCaracteres);
 	}
