@@ -30,7 +30,8 @@
 						'	LEFT JOIN		journees_pronostiqueurs_canal' .
 						'					ON		journees_pronostiqueurs_canal.Journees_Journee = ' . $journee .
 						'							AND		pronostiqueurs.Pronostiqueur = journees_pronostiqueurs_canal.Pronostiqueurs_Pronostiqueur' .
-						'	WHERE			journees_pronostiqueurs_canal.Journees_Journee IS NULL';
+						'	WHERE			journees_pronostiqueurs_canal.Journees_Journee IS NULL' .
+						'					OR		journees_pronostiqueurs_canal.Matches_Match = 0';
 		$bdd->exec($ordreSQL);
 	}
 ?>
