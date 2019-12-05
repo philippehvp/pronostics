@@ -334,5 +334,16 @@
 			}
 		}
 	}
+	
+	// Création de la trace
+	$nomFichier = '../traces/scores/' . $_SESSION["pronostiqueur"] . '_' . $match . '_' . $type;
+	if($type != 'vainqueur') {
+		$nomFichier .= '_' . $equipe . '.txt';
+		file_put_contents($nomFichier, $score);
+	} else {
+		$nomFichier .= '.txt';
+		file_put_contents($nomFichier, $vainqueur);
+	}
 	echo json_encode($resultat);
+
 ?>

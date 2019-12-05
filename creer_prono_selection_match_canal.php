@@ -29,5 +29,8 @@
 	$ordreSQL =		'	REPLACE INTO	journees_pronostiqueurs_canal' .
 					'	SELECT			' . $journee . ', ' . $_SESSION["pronostiqueur"] . ', ' . $match;
 	$bdd->exec($ordreSQL);
-	echo '';
+	
+	// Création de la trace
+	$nomFichier = '../traces/canal/' . $_SESSION["pronostiqueur"] . '_' . $journee . '.txt';
+	file_put_contents($nomFichier, $match);
 ?>

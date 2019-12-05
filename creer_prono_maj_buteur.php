@@ -38,8 +38,11 @@
 	$bdd->exec($ordreSQL);
 	
 	// Ajout des buteurs
+	// Pour les traces, les numéros de buteurs sont stockés dans une chaîne de caractères
+	$trace = "";
 	for($i = 0; $i < $joueurs; $i++) {
 		$joueur = isset($_POST["joueur" . $i]) ? $_POST["joueur" . $i] : 0;
+		$trace .= $joueur . ';';
 
 		$ordreSQL =		'	INSERT INTO		pronostics_buteurs(Pronostiqueurs_Pronostiqueur, Matches_Match, Joueurs_Joueur, Equipes_Equipe) ' .
 						'	VALUES(' . $pronostiqueur . ', ' . $match . ', ' . $joueur . ', ' . $equipe . ')';
@@ -83,6 +86,11 @@
 	$tableau = array();
 	
 	$tableau['buteurs'] = $listeButeurs;
+	
+	// Création de la trace
+	$nomFichier = '../traces/buteurs/' . $_SESSION["pronostiqueur"] . '_' . $match . '_' . $equipe . '.txt';
+	file_put_contents($nomFichier, $trace);
+
 	echo json_encode($tableau);
 
 ?>
