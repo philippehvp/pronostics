@@ -88,7 +88,7 @@
 	$tableau['buteurs'] = $listeButeurs;
 	
 	// Création de la trace
-	$nomFichier = '../traces/buteurs/' . $_SESSION["pronostiqueur"] . '_' . $match . '_' . $equipe . '.txt';
+	$nomFichier = '../traces/buteurs/' . $match . '_' . $_SESSION["pronostiqueur"] . '_' . $equipe . '.txt';
 	file_put_contents($nomFichier, $trace);
 
 	echo json_encode($tableau);

@@ -31,6 +31,6 @@
 	$bdd->exec($ordreSQL);
 	
 	// Création de la trace
-	$nomFichier = '../traces/canal/' . $_SESSION["pronostiqueur"] . '_' . $journee . '.txt';
+	$nomFichier = '../traces/canal/' . $journee . '_' . $_SESSION["pronostiqueur"] . '.txt';
 	file_put_contents($nomFichier, $match);
 ?>

@@ -83,7 +83,7 @@ function verificationMessage_rafraichissement() {
 		}
 		else
 			$('#liTchatGroupe').removeClass('rouge');
-	}).fail(function(html) {
+	}).fail(function() {
 		console.log('Fonction verificationMessage_rafraichissement : dans le fail');
 	});
 }
@@ -170,7 +170,7 @@ function changerTheme(theme) {
 		url: 'changement_theme.php',
 		type: 'POST',
 		data: { theme: theme }
-	}).done(function(html) {
+	}).done(function() {
 		// Rechargement de la page
 		location.reload();
 	});
@@ -217,7 +217,7 @@ function enregistrerReglement(numeroChampionnat) {
 		url: 'reglement_maj.php',
 		type: 'POST',
 		data: { championnat: numeroChampionnat, reglement: reglement }
-	}).done(function(html) {
+	}).done(function() {
 		afficherMessageInformationBandeau('Règlement sauvegardé avec succès', 2000, '');
 	});
 }
@@ -229,7 +229,7 @@ function enregistrerCompteRendu() {
 		url: 'creer_compte_rendu_maj_compte_rendu.php',
 		type: 'POST',
 		data: { compteRendu: compteRendu }
-	}).done(function(html) {
+	}).done(function() {
 		afficherMessageInformationBandeau('Compte-rendu sauvegardé avec succès', 2000, '');
 	});
 }
@@ -307,7 +307,7 @@ function creerMatch_initialiserMatchCanal(numeroJournee) {
 		url: 'creer_match_initialisation_canal.php',
 		type: 'POST',
 		data: { journee: numeroJournee }
-	}).done(function(html) {
+	}).done(function() {
 		afficherMessageInformationBandeau('Initialisation du match Canal effectuée avec succès', 2000, '');
 	});
 }
@@ -350,7 +350,7 @@ function creerMatch_ecrireEvenement(numeroMatch, evenement) {
 // Dans le cas d'un changement de score, par exemple, si le score est mis à 0, il n'est pas nécessaire de noter l'événement
 // puisque cela correspond au début du match
 // Dans le cas d'un changement de vainqueur de TAB, si la valeur est -1, c'est qu'on a remis la zone à zéro, etc.
-function creerMatch_sauvegarderMatch(evenement, element, numeroMatch) {
+function creerMatch_sauvegarderMatch(evenement, numeroMatch) {
     if(numeroMatch == 0 || numeroMatch == null)
         return;
 
@@ -466,7 +466,7 @@ function creerMatch_remplirMatches(numeroJournee) {
 		url: 'creer_match_remplissage_matches.php',
 		type: 'POST',
 		data: { journee: numeroJournee, match: numeroMatch, journeeLienPage: journeeLienPage }
-	}).done(function(html) {
+	}).done(function() {
 		// Rechargement de la page
 		location.reload();
 	});
@@ -481,7 +481,7 @@ function creerMatch_remplirMatchesAR(numeroJournee) {
 		url: 'creer_match_remplissage_matches_ar.php',
 		type: 'POST',
 		data: { journee: numeroJournee, match: numeroMatch, journeeLienPage: journeeLienPage, journeeLienPageRetour: journeeLienPageRetour }
-	}).done(function(html) {
+	}).done(function() {
 		// Rechargement de la page
 		location.reload();
 	});
@@ -817,7 +817,7 @@ function creerMatch_remplirCotes(numeroMatch) {
 			url: 'creer_match_remplissage_cotes.php',
 			type: 'POST',
 			data: { match: numeroMatch }
-		}).done(function(html) {
+		}).done(function() {
             afficherMessageInformationBandeau('Cotes buteur remplies automatiquement', 2000, '');
         });
     }
@@ -911,7 +911,7 @@ function creerMatch_modifierColonneCote(colonne) {
 			url: 'creer_match_maj_colonne_cote.php',
 			type: 'POST',
 			data: { colonne_cote: colonneCote }
-		}).done(function(html) {
+		}).done(function() {
 			afficherMessageInformationBandeau('Colonne de cote mise à jour avec succès', 2000, '');
 		});
 	}
@@ -992,9 +992,6 @@ function creerMatch_confirmerButeurs(numeroMatch, equipeDomicileOuVisiteur, nume
 					param += '&equipe=' + equipe;
 
 					var i = 0;
-					// Dans la "value" du joueur, on a combiné son ID, sa cote pour la sauvegarder dans la table et le but CSC
-					// Si la cote n'existe pas, ce qui arrive si le buteur a déjà été ajouté avant, il faut mettre la valeur 0
-					var cote;
 					$('.buteurs li').each(function() {
 							param += '&joueur' + i++ + '=' + $(this).attr('value');
 						}
@@ -1098,7 +1095,7 @@ function creerMatch_afficherTrophees(numeroChampionnat) {
 		url: 'creer_match_affichage_trophees.php',
 		type: 'POST',
 		data: { championnat: numeroChampionnat }
-	}).done(function(html) {
+	}).done(function() {
 		afficherMessageInformationBandeau('Affichage automatique de la page de trophées à la prochaine connexion', 2000, '');
 	});
 }
@@ -1157,13 +1154,35 @@ function creerMatch_consulterCanal(numeroJournee) {
 	});
 }
 
+// Gestion de match - Injection des traces de la journée
+function creerMatch_injecterTracesJournee(numeroJournee) {
+	$.ajax({
+		url: 'creer_match_injection_traces.php',
+		type: 'POST',
+		data: { journee: numeroJournee, match: 0 }
+	}).done(function () {
+		afficherMessageInformationBandeau('Traces de la journée rejouées avec succès', 2000, '');
+	});
+}
+
+// Gestion de match - Injection des traces du match
+function creerMatch_injecterTracesMatch(numeroMatch) {
+	$.ajax({
+		url: 'creer_match_injection_traces.php',
+		type: 'POST',
+		data: { journee: 0, match: numeroMatch }
+	}).done(function () {
+		afficherMessageInformationBandeau('Traces du match rejouées avec succès', 2000, '');
+	});
+}
+
 // Gestion de match - Détermination des liens des pages pour les matches de la journée
 function creerMatch_lireLiensMatches(numeroJournee) {
 	$.ajax({
 		url: 'creer_match_lecture_liens_matches.php',
 		type: 'POST',
 		data: { journee: numeroJournee }
-	}).done(function(html) {
+	}).done(function() {
 		// Rechargement de la page
 		location.reload();
 	});
@@ -1175,7 +1194,7 @@ function creerMatch_lireLiensMatchesScoresPro(numeroJournee) {
 		url: 'creer_match_lecture_liens_matches_scorespro.php',
 		type: 'POST',
 		data: { journee: numeroJournee }
-	}).done(function(html) {
+	}).done(function() {
 		// Rechargement de la page
 		location.reload();
 	});
@@ -1279,7 +1298,7 @@ function creerMatch_lireComposition(numeroMatch, champLienPage, origine) {
 			});
 		} else
 			afficherMessageInformationBandeau('Composition remplie avec succès', 2000, '');
-	}).fail(function(html) {
+	}).fail(function() {
 		console.log('Fonction creerMatch_lireComposition : dans le fail');
 	});
 }
@@ -1301,7 +1320,7 @@ function creerMatch_lireJoueur(identifiant, champPrenom, champNom, champCorrespo
 				$('#' + champNom).val(html.nom);
 				$('#' + champCorrespondance).val(html.correspondance);
 			}
-		}).fail(function(html) {
+		}).fail(function() {
 			console.log('Fonction creerMatch_lireJoueur : dans le fail');
 		});
 	} else {
@@ -1349,7 +1368,7 @@ function creerMatch_copierNomCorrespondance(nomCorrespondance, identifiant, cham
 				nomCorrespondance: nomCorrespondance,
 				origine: origine
 			}
-		}).done(function(html) {
+		}).done(function() {
 			$('#' + champCorrespondance).val(decodeURIComponent(nomCorrespondance));
 		});
 	} else
@@ -1366,7 +1385,7 @@ function creerMatch_supprimerNomCorrespondance(identifiant, champCorrespondance,
 			url: 'creer_match_suppression_nom_correspondance_joueur.php',
 			type: 'POST',
 			data: { joueur: joueur, origine: origine }
-		}).done(function(html) {
+		}).done(function() {
 			$('#' + champCorrespondance).val('');
 		});
 	} else
@@ -1397,7 +1416,7 @@ function creerMatch_creerJoueur(champPrenom, champNom, champNomCorrespondance, c
 			dateDebutPresence: dateDebutPresence,
 			equipe: equipe
 		}
-	}).done(function(html) {
+	}).done(function() {
 		afficherMessageInformationBandeau('Joueur créé avec succès', 1000, '');
 	});
 }
@@ -1435,7 +1454,7 @@ function creerMatch_passerEnDirect(numeroMatch) {
 		url: 'creer_match_ajout_direct.php',
 		type: 'POST',
 		data: { match: numeroMatch }
-	}).done(function(html) {
+	}).done(function() {
 		afficherMessageInformationBandeau('Match passé en direct', 2000, '');
 	});
 }
@@ -1446,7 +1465,7 @@ function creerMatch_supprimerDuDirect(numeroMatch) {
 		url: 'creer_match_suppression_direct.php',
 		type: 'POST',
 		data: { match: numeroMatch }
-	}).done(function(html) {
+	}).done(function() {
 		afficherMessageInformationBandeau('Match supprimé du direct', 2000, '');
 	});
 }
@@ -1461,10 +1480,10 @@ function creerMatch_reinitialiserMatch(numeroMatch) {
 		url: 'creer_match_reinitialisation_match.php',
 		type: 'POST',
 		data: { match: numeroMatch }
-	}).done(function(html) {
+	}).done(function() {
 		// Rechargement de la page
 		location.reload();
-	}).fail(function(html) {
+	}).fail(function() {
 		console.log('Fonction creerMatch_reinitialiserMatch : dans le fail');
 	});
 }
@@ -1645,7 +1664,7 @@ function creerProno_pronostiquerButeurs(el, type, numeroMatch, numeroEquipe) {
 							else
 								$('#labelButeursV_match_' + numeroMatch).html('Aucun');
 						}
-					}).fail(function(html) { console.log('Fonction creerProno_pronostiquerButeurs : dans le fail'); });
+					}).fail(function() { console.log('Fonction creerProno_pronostiquerButeurs : dans le fail'); });
 				},
 				'Annuler': function() {
 					fenetreButeurs.dialog('close');
@@ -1867,7 +1886,7 @@ function calculerResultats_calculerResultats(numeroJournee = 0) {
 		url: 'calculer_resultats_calcul_resultats.php',
 		type: 'POST',
 		data: { journee: journee }
-	}).done(function(html) {
+	}).done(function() {
 		afficherMessageInformationBandeau('Calculs effectués avec succès pour la journée ' + journee, 2000);
 	});
 }
@@ -2013,7 +2032,7 @@ function gererEffectif_supprimerJoueur(numeroJoueur) {
 		url: 'gerer_effectif_supprimer_joueur.php',
 		type: 'POST',
 		data: { joueur: numeroJoueur }
-	}).done(function(html) {
+	}).done(function() {
         afficherMessageInformationBandeau('Joueur supprimé avec succès', 1000, '');
         gererEffectif_afficherEffectif();
     });
@@ -2044,7 +2063,7 @@ function gererEffectif_creerJoueur(nomFamille, prenom, postes, dateDebutPresence
 			dateDebutPresence: $('#' + dateDebutPresence).val(),
 			equipe: $('#' + equipes).val()
 		}
-	}).done(function(html) {
+	}).done(function() {
 		// Se placer sur la zone de saisie du nom du joueur
 		$('#' + nomFamille).focus();
 
@@ -2069,7 +2088,7 @@ function gererEffectif_modifierJoueur(element, numeroJoueur, champ) {
 			,valeur: valeur
 			,champ: champ
 		}
-	}).done(function(html) {
+	}).done(function() {
 		afficherMessageInformationBandeau('Modification effectuée avec succès', 1000, '');
 	});
 }
@@ -2230,8 +2249,6 @@ function gererBonus_calculerBonus() {
 
 // Création des qualifications - Validation des équipes qualifiées
 function creerQualification_validerQualifiees(nomGroupe, nombreGroupes, numeroPremierGroupe, nombreEquipes) {
-    // Le nom final du groupe est la contraction de la racine (passée dans le paramètre nomGroupe, et le nombre de groupes
-    var grp = nomGroupe;
     var i;
     var param = 'groupes=' + nombreGroupes + '&equipes=' + nombreEquipes + '&numeroPremierGroupe=' + numeroPremierGroupe;
     for(i = 0; i < nombreGroupes; i++) {
@@ -2282,7 +2299,7 @@ function gererQualification_validerQualifiees(championnat, nombreGroupes, numero
 		url: 'gerer_qualification_maj_qualifications.php',
 		type: 'POST',
 		data: param
-	}).done(function(html) {
+	}).done(function() {
 		afficherMessageInformationBandeau('Sauvegarde effectuée avec succès', 2000, '');
 	});
 }
@@ -2300,7 +2317,7 @@ function gererQualification_validerQualifieesPoule(championnat, numeroIndice, nu
 		url: 'gerer_qualification_maj_qualifications_poule.php',
 		type: 'POST',
 		data: param
-	}).done(function(html) {
+	}).done(function() {
 		afficherMessageInformationBandeau('Sauvegarde et calculs effectués avec succès', 2000, '');
 	});
 }
@@ -2319,7 +2336,7 @@ function gererPoules_creerPoules(championnat, nombreGroupes, numeroPremierGroupe
 		url: 'gerer_poules_maj_poules.php',
 		type: 'POST',
 		data: param
-	}).done(function(html) {
+	}).done(function() {
 		afficherMessageInformationBandeau('Création des poules effectuée avec succès', 2000, '');
 	});
 }
@@ -2354,7 +2371,6 @@ function classementsPronostiqueurs_afficherPronostiqueur(pronostiqueurConsulte) 
 			$('body').append('<div class="cc" style="background-color: #fff; color: #000;"><div class="cc--contenu-interieur" style="z-index: 20000; width: 1168px; height: 900px;"></div></div>');
 		}
 
-		var appelClassique = 0;
 		var onglet = 1;
 		var sousOnglet = 2;
 		$.when(concoursCentre_afficherPronostiqueurs('cc--contenu-interieur', onglet, 'cc--pronostiqueurs-entete', 'cc--pronostiqueurs-detail', pronostiqueurConsulte)).done(function() {
@@ -2458,7 +2474,7 @@ function creerFiche_validerFiche(premiereConnexion) {
 			,carriere: carriere
 			,commentaire: commentaire
 		}
-	}).done(function(html) {
+	}).done(function() {
         if(premiereConnexion)
             afficherMessageInformationBandeau('Sauvegarde effectuée avec succès', 2000, 'accueil.php');
         else
@@ -2732,7 +2748,7 @@ function consulterMatch_modifierMatch(numeroJournee, numeroMatch, nomEquipeDomic
 }
 
 // Module d'affichage des résultats d'une journée - Mise à jour d'un match pour les administrateurs
-function consulterMatch_sauvegarderMatch(evenement, element, numeroMatch, elementModifie) {
+function consulterMatch_sauvegarderMatch(evenement, numeroMatch, elementModifie) {
     if(numeroMatch == 0 || numeroMatch == null)
         return;
 
@@ -2761,7 +2777,7 @@ function consulterMatch_sauvegarderMatch(evenement, element, numeroMatch, elemen
 			matchHorsPronostic: matchHorsPronostic,
 			matchDirect: matchDirect
 		}
-	}).done(function(html) {
+	}).done(function() {
 		switch(evenement) {
 			case 1: // Match en direct ou non
 				creerMatch_ecrireEvenement(numeroMatch, evenement);
@@ -2803,7 +2819,7 @@ function basculerEtatModule(groupeActif, moduleActif, module, nomConteneur, para
 	} else {
 		// Ici, on ne fait que sauvegarder le nouvel état (affiché ou masqué) du module sans faire de mise à jour visuelle
 		// puisque le module n'est pas censé être visible
-		modules_sauvegarderEtatModule(moduleActif, module, nomConteneur, parametre);
+		modules_sauvegarderEtatModule(moduleActif, module, parametre);
 	}
 }
 
@@ -2813,7 +2829,7 @@ function basculerEtatGroupeModule(groupeActif, parametre) {
 		url: 'modules_sauvegarde_etat_groupe.php',
 		type: 'POST',
 		data: { parametre: parametre, groupeActif: groupeActif }
-	}).done(function(html) {
+	}).done(function() {
 		// Une fois un groupe de modules activé ou masqué, il est nécessaire d'afficher / masquer les modules qui appartiennent à ce groupe
 		// Pour cela, il est nécessaire de parcourir la liste des modules actifs du groupe et de les afficher ou masquer
 		$.ajax({
@@ -2830,7 +2846,7 @@ function basculerEtatGroupeModule(groupeActif, parametre) {
 					afficherMasquerModule(html.donnees[i].Module, 'divModule' + html.donnees[i].Module, html.donnees[i].Modules_Parametre);
 				} else {
 					afficherMasquerModule(html.donnees[i].Module, 'divModule' + html.donnees[i].Module, html.donnees[i].Modules_Parametre);
-					modules_sauvegarderEtatModule(1, html.donnees[i].Module, 'divModule' + html.donnees[i].Module, html.donnees[i].Modules_Parametre);
+					modules_sauvegarderEtatModule(1, html.donnees[i].Module, html.donnees[i].Modules_Parametre);
 				}
 			}
 		});
@@ -2883,7 +2899,7 @@ function moduleTchat_creerConversation(interlocuteur) {
 	}).done(function(html) {
 		// Ouverture automatique d'une fenêtre de tchat
 		modules_afficherModule(numeroModuleTchat, 'divModule' + numeroModuleTchat, html.tchatGroupe);
-	}).fail(function(html) {
+	}).fail(function() {
 		console.log('Fonction moduleTchat_creerConversation : dans le fail');
 	});
 }
@@ -2942,7 +2958,7 @@ function moduleTchatGroupe_creerTchatGroupe(nomTchatGroupe, listePronostiqueurs)
 }
 
 // Module de tchat de groupe - Création d'une conversation avec un interlocuteur
-function moduleTchatGroupe_creerConversation(module, nomConteneur, parametre) {
+function moduleTchatGroupe_creerConversation() {
 	// Sélection de l'interlocuteur
 	$.ajax({
 		url: 'module_tchat_groupe_liste_pronostiqueurs.php',
@@ -2986,7 +3002,7 @@ function moduleTchatGroupe_creerConversation(module, nomConteneur, parametre) {
 					}).done(function(html) {
 						// Ouverture automatique d'une fenêtre de tchat
 						modules_afficherModule(numeroModuleTchat, 'divModule' + numeroModuleTchat, html.tchatGroupe);
-					}).fail(function(html) {
+					}).fail(function() {
 						console.log('Fonction moduleTchatGroupe_creerConversation : dans le fail');
 					});
 				},
@@ -3042,7 +3058,6 @@ function moduleTchatGroupe_selectionnerPronostiqueurs(nomControle) {
 					$(this).dialog('close');
 					var param = '';
 
-					var i = 0;
 					$('#divTchatGroupeListePronostiqueurs input[type="checkbox"]:checked ').each(function() {
 						param += $(this).attr('value') + ';';
 					});
@@ -3138,8 +3153,8 @@ function modules_afficherModule(module, nomConteneur, parametre) {
 			}
 		}).done(function(html) {
 			$('body').append(html);
-            modules_sauvegarderEtatModule(1, module, nomConteneur, parametre);
-        }).fail(function(html) {
+            modules_sauvegarderEtatModule(1, module, parametre);
+        }).fail(function() {
 			console.log('Fonction modules_afficherModule : dans le fail');
 		});
     }
@@ -3149,7 +3164,7 @@ function modules_afficherModule(module, nomConteneur, parametre) {
 function modules_masquerModule(module, nomConteneur, parametre) {
     if($('#' + nomConteneur + parametre).length != 0) {
         $('#' + nomConteneur + parametre).css('display', 'none');
-        modules_sauvegarderEtatModule(0, module, nomConteneur, parametre);
+        modules_sauvegarderEtatModule(0, module, parametre);
 		$('#' + nomConteneur + parametre).find('.module--contenu').getNiceScroll().remove();
         $('#' + nomConteneur + parametre).remove();
     }
@@ -3165,7 +3180,7 @@ function modules_relancerModule(module, nomConteneur, parametre) {
 }
 
 // Modules - Sauvegarde de l'état (actif ou non) d'un module
-function modules_sauvegarderEtatModule(moduleActif, module, nomConteneur, parametre) {
+function modules_sauvegarderEtatModule(moduleActif, module, parametre) {
     // Cette fonction sauvegarde en base l'état (affiché ou masqué) d'un module
     $.ajax({
 		url: 'modules_sauvegarde_etat.php',
@@ -3430,7 +3445,6 @@ function concoursCentre_afficherStatistiquesButeurChampionnat(numeroChampionnat,
 			,"bInfo": false
 			,"order": [[2, 'desc'], [3, 'desc'], [4, 'desc']]
 		});
-		var obj = new $.fn.dataTable.FixedColumns(oTable);
 
 		oTable.column(0).nodes().each(function(cellule, i) {
 			cellule.innerHTML = i + 1;
@@ -3490,7 +3504,6 @@ function concoursCentre_afficherPalmaresChampionnat(numeroChampionnat, classe, s
 			,"bInfo": false
 			,"order": [[2, 'desc'], [3, 'desc'], [4, 'desc'], [5, 'desc']]
 		});
-		var obj = new $.fn.dataTable.FixedColumns(oTable, {leftColumns: 2});
 
 		oTable.column(0).nodes().each(function(cellule, i) {
 			cellule.innerHTML = i + 1;
@@ -3550,7 +3563,6 @@ function concoursCentre_afficherRepartitionPointsChampionnat(numeroChampionnat, 
 			,"bInfo": false
 			,"order": [[2, 'desc'], [3, 'desc'], [4, 'desc'], [5, 'desc'], [6, 'desc'], [8, 'desc'], [9, 'desc'], [10, 'desc'], [11, 'asc'], [12, 'asc']]
 		});
-		var obj = new $.fn.dataTable.FixedColumns(oTable, {leftColumns: 2});
 
 		oTable.column(0).nodes().each(function(cellule, i) {
 			cellule.innerHTML = i + 1;
@@ -3608,7 +3620,6 @@ function concoursCentre_afficherVictoiresNulsDefaites(classe, sousOngletActif) {
 			,"bFilter": false
 			,"bInfo": false, "order": [[4, 'desc'], [7, 'desc'], [10, 'desc']]
 		});
-		var obj = new $.fn.dataTable.FixedColumns(oTable);
 
 		oTable.column(0).nodes().each(function(cellule, i) {
 			cellule.innerHTML = i + 1;
@@ -3646,7 +3657,6 @@ function concoursCentre_afficherPourcentagePoints(classe, sousOngletActif) {
 			,"bSort": true
 			,"order": [[2, 'desc']]
 		});
-		var obj = new $.fn.dataTable.FixedColumns(oTable, {leftColumns: 2});
 
 		oTable.column(0).nodes().each(function(cellule, i) {
 			cellule.innerHTML = i + 1;
@@ -3689,7 +3699,6 @@ function concoursCentre_afficherPointsParEquipe(classe, sousOngletActif) {
 			,"bSort": true
 			,"order": [[1, 'asc']]
 		});
-		var obj = new $.fn.dataTable.FixedColumns(oTable, {leftColumns: 2});
 
 		oTable.column(0).nodes().each(function(cellule, i) {
 			cellule.innerHTML = i + 1;
@@ -3726,7 +3735,6 @@ function concoursCentre_afficherMeilleuresEquipes(classe, sousOngletActif) {
 			,"bInfo": false
 			,"bSort": false
 		});
-		var obj = new $.fn.dataTable.FixedColumns(oTable);
 	});
 }
 
@@ -3754,7 +3762,6 @@ function concoursCentre_afficherMatchCanal(classe, sousOngletActif) {
 			,"bSort": true
 			,"order": [[2, 'desc']]
 		});
-		var obj = new $.fn.dataTable.FixedColumns(oTable);
 
 		oTable.column(0).nodes().each(function(cellule, i) {
 			cellule.innerHTML = i + 1;
@@ -3815,7 +3822,6 @@ function concoursCentre_afficherChoixMatchCanal(classe, numeroJournee) {
 			,"bSort": true
 			,"order": [[2, 'desc']]
 		});
-		var obj = new $.fn.dataTable.FixedColumns(oTable);
 
 		oTable.column(0).nodes().each(function(cellule, i) {
 			cellule.innerHTML = i + 1;
@@ -4249,7 +4255,7 @@ function matchCentre_afficherPronostiqueur(numeroJournee, pronostiqueurConsulte,
 }
 
 // Match centre - Rafraîchissement des classements
-function matchCentre_rafrichirClassements(numeroJournee, dateMAJJournee, classeClassementGeneral, classeClassementJournee, classeGraphiques, classeStatistiques) {
+function matchCentre_rafrichirClassements(numeroJournee, dateMAJJournee, classeClassementGeneral, classeClassementJournee, classeGraphiques) {
 	$.ajax({
 		url: 'match_centre_rafraichissement_classements.php',
 		type: 'POST',
@@ -4344,7 +4350,7 @@ function gererSite_sauvegarderDonnees() {
 		url: 'gerer_site_sauvegarde_donnees.php',
 			type: 'POST',
 			data: { saison: saison }
-	}).done(function(html) {
+	}).done(function() {
 		afficherMessageInformationBandeau('Sauvegarde effectuée', 2000, '');
 	});
 }
@@ -4354,7 +4360,7 @@ function gererSite_lancerSaison() {
 	$.ajax({
 		url: 'gerer_site_lancement_saison.php',
 		type: 'POST'
-	}).done(function(html) {
+	}).done(function() {
 		afficherMessageInformationBandeau('Saison lancée', 2000, '');
 	});
 }
@@ -4370,7 +4376,7 @@ function gererSite_reinitialiserDonnees() {
 	$.ajax({
 		url: 'gerer_site_reinitialisation_donnees.php',
 		type: 'POST'
-	}).done(function(html) {
+	}).done(function() {
 		afficherMessageInformationBandeau('Réinitialisation effectuée', 2000, '');
 	});
 }
@@ -4389,7 +4395,7 @@ function gererSite_modifierDateBonus() {
 			heure: heure,
 			minute: minute
 		}
-	}).done(function(html) {
+	}).done(function() {
 		afficherMessageInformationBandeau('Modification de la date max de bonus effectuée avec succès', 2000, '');
 	}).fail(function() {
     	console.log('Fonction gererSite_modifierDateBonus : dans le fail');
@@ -4411,7 +4417,7 @@ function gererSite_modifierDateQualificationsLDC() {
 			heure: heure,
 			minute: minute
 		}
-	}).done(function(html) {
+	}).done(function() {
 		afficherMessageInformationBandeau('Modification de la date max de qualifications LDC effectuée avec succès', 2000, '');
 	}).fail(function() {
     	console.log('Fonction gererSite_modifierDateQualificationsLDC : dans le fail');
@@ -4433,7 +4439,7 @@ function gererSite_modifierDateQualificationsEL() {
 			heure: heure,
 			minute: minute
 		}
-	}).done(function(html) {
+	}).done(function() {
 		afficherMessageInformationBandeau('Modification de la date max de qualifications EL effectuée avec succès', 2000, '');
 	}).fail(function() {
     	console.log('Fonction gererSite_modifierDateQualificationsEL : dans le fail');
@@ -4462,7 +4468,7 @@ function gererPronostiqueur_creerPronostiqueur() {
 			nomFamille: nomFamille,
 			motDePasse: motDePasse
 		}
-	}).done(function(html) {
+	}).done(function() {
 		afficherMessageInformationBandeau('Création du pronostiqueur effectuée avec succès', 2000, '');
 		// Rechargement de la page
 		location.reload();
@@ -4505,7 +4511,7 @@ function gererPronostiqueur_modifierInscription(element, numeroPronostiqueur, nu
 			championnat: numeroChampionnat,
 			action: action
 		}
-	}).done(function(html) {
+	}).done(function() {
 		if(action == 1)
 			afficherMessageInformationBandeau('Inscription effectuée', 1000, '');
 		else if(action == 0)
@@ -4525,7 +4531,7 @@ function gererPronostiqueur_effacerPronostiqueur(numeroPronostiqueur, deplacemen
 			pronostiqueur: numeroPronostiqueur,
 			deplacement: deplacement
 		}
-	}).done(function(html) {
+	}).done(function() {
 		afficherMessageInformationBandeau('Effacement du pronostiqueur effectué', 2000, '');
     	// Rechargement de la page
 		location.reload();
@@ -4543,7 +4549,7 @@ function gererPronostiqueurs_reinscrirePronostiqueur(nomUtilisateur) {
 			nomFamille: '',
 			motDePasse: ''
 		}
-	}).done(function(html) {
+	}).done(function() {
 		afficherMessageInformationBandeau('Réinscription du pronostiqueur effectuée avec succès', 2000, '');
     	// Rechargement de la page
 		location.reload();
@@ -4569,7 +4575,7 @@ function gererEquipe_modifierEngagement(element, numeroEquipe, numeroChampionnat
 			l1Europe: l1Europe,
 			action: action
 		}
-	}).done(function(html) {
+	}).done(function() {
 		if(action == 1)
 			afficherMessageInformationBandeau('Engagement effectué', 1000, '');
 		else if(action == 0)
@@ -4589,7 +4595,7 @@ function gererEquipe_modifierEquipe(element, numeroEquipe, champ) {
 			valeur: valeur,
 			champ: champ
 		}
-	}).done(function(html) {
+	}).done(function() {
 		afficherMessageInformationBandeau('Modification effectuée', 1000, '');
 	});
 }
@@ -4654,7 +4660,7 @@ function gererEquipe_creationEquipe() {
 							barrages: barrages,
 							cdf: cdf
 						}
-					}).done(function(html) {
+					}).done(function() {
 						// Rechargement de la page
 						location.reload();
 					});
@@ -4713,7 +4719,7 @@ function gererBaremeBonusEquipes_modifierBonus(element, numeroEquipe, table) {
 			,equipe: numeroEquipe
 			,table: table
 		}
-	}).done(function(html) {
+	}).done(function() {
         afficherMessageInformationBandeau('Barème bonus modifié avec succès', 2000, '');
     });
 }
@@ -4732,7 +4738,7 @@ function gererBaremeBonusEquipes_modifierBonusAnticipe(element, table) {
 			,table: table
 			,action: action
 		}
-	}).done(function(html) {
+	}).done(function() {
         afficherMessageInformationBandeau('Bonus anticipé modifié avec succès', 2000, '');
     });
 }
@@ -4748,7 +4754,7 @@ function gererBaremeBonusButeurs_modifierBonus(element, numeroJoueur) {
 			bonus: bonus
 			,joueur: numeroJoueur
 		}
-	}).done(function(html) {
+	}).done(function() {
         afficherMessageInformationBandeau('Barème bonus modifié avec succès', 2000, '');
     });
 }
@@ -4763,7 +4769,7 @@ function gererBaremeBonusButeurs_supprimerJoueur(numeroJoueur) {
 		,type: 'POST'
 		,data: { joueur: numeroJoueur }
 	}
-    ).done(function(html) {
+    ).done(function() {
         // Rechargement de la page
         location.reload();
     });
@@ -4777,7 +4783,7 @@ function gererBaremeBonusButeurs_ajouterJoueur(numeroJoueur) {
 		url: 'gerer_bareme_bonus_buteurs_ajout_joueur.php'
 		,type: 'POST'
 		,data: { joueur: numeroJoueur, bonus: bonus }
-	}).done(function(html) {
+	}).done(function() {
         // Rechargement de la page
         location.reload();
     });
@@ -4789,7 +4795,7 @@ function gererMeilleursPasseurs_supprimerJoueur(numeroJoueur) {
 		url: 'gerer_meilleurs_passeurs_suppression_joueur.php'
 		,type: 'POST'
 		,data: { joueur: numeroJoueur }
-	}).done(function(html) {
+	}).done(function() {
         // Rechargement de la page
         location.reload();
     });
@@ -4802,7 +4808,7 @@ function gererMeilleursPasseurs_ajouterJoueur(numeroJoueur) {
 		,type: 'POST'
 		,data: { joueur: numeroJoueur, bonus: 100 }
 	}
-    ).done(function(html) {
+    ).done(function() {
         // Rechargement de la page
         location.reload();
     });

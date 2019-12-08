@@ -158,6 +158,9 @@
 		echo '<label class="bouton" onclick="creerMatch_genererCR(' . $journee . ');">Générer le compte-rendu</label>&nbsp;';
 		echo '<label class="bouton" onclick="consulterCanal(' . $journee . ');">Consulter le match Canal</label>';
 
+		echo '<br />';
+		echo '<label class="detail">Rejouer</label>';
+		echo '<label class="bouton" onclick="injecterTracesJournee(' . $journee . ');">Scores, buteurs et match Canal</label>';
 	echo '</div>';
 
 
@@ -239,4 +242,11 @@
 			creerMatch_consulterCanal(numeroJournee);
 		}
 	}
+
+	function injecterTracesJournee(numeroJournee) {
+		if(confirm('Etes-vous sûr de vouloir rejouer les traces de la journée ?')) {
+				creerMatch_injecterTracesJournee(numeroJournee);
+			}
+	}
+
 </script>

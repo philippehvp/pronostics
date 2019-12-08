@@ -271,14 +271,6 @@
 					echo '</td>';
 				echo '</tr>';
 
-				/*echo '<tr>';
-					echo '<td class="colonne-theme">Lien page FR</td>';
-					echo '<td colspan="2">';
-						echo '<input type="text" class="lien-page" id="lien_match_complementaire_' . $numeroMatch . '" value="' . $matchLienPageComplementaire . '" onchange="corrigerLien_FlashResultats(this); creerMatch_sauvegarderMatch(0, \'\', ' . $numeroMatch . ');" />';
-						echo '&nbsp;<label class="bouton" onclick="window.open(\'' . $matchLienPageComplementaire . '\', \'_blank\');">Match</label>';
-					echo '</td>';
-				echo '</tr>';*/
-
 				echo '<tr>';
 					if($matchDirect == 1)			echo '<td id="libelleMatchDirect_match_' . $numeroMatch . '" class="colonne-theme vert">Direct</td>';
 					else											echo '<td id="libelleMatchDirect_match_' . $numeroMatch . '" class="colonne-theme">Direct</td>';
@@ -296,6 +288,15 @@
 						echo '<label style="margin-left: 35px;">Hors points pronostics : </label>';
 						echo '<input type="checkbox" id="matchHorsPronostic_match_' . $numeroMatch . '" onclick="creerMatch_sauvegarderMatch(0, \'\', ' . $numeroMatch . ');"' . $checked . ' />';
 
+					echo '</td>';
+				echo '</tr>';
+
+				echo '<tr>';
+					echo '<td>';
+						echo '<label style="margin-left: 35px;">Rejouer</label>';
+					echo '</td>';
+					echo '<td colspan="2">';
+						echo '<label class="bouton" onclick="injecterTracesMatch(' . $numeroMatch . ');">Scores et buteurs</label>';
 					echo '</td>';
 				echo '</tr>';
 
@@ -331,6 +332,12 @@
 			var nouvelleValeur = elt.value;
 			nouvelleValeur = nouvelleValeur.replace("#resume-du-match", "#compositions;1");
 			elt.value = nouvelleValeur;
+	}
+
+	function injecterTracesMatch(numeroMatch) {
+		if(confirm('Etes-vous sûr de vouloir rejouer les traces du match ?')) {
+			creerMatch_injecterTracesMatch(numeroMatch);
+		}
 	}
 
 </script>

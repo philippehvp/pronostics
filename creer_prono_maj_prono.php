@@ -13,15 +13,15 @@
 	// - scoreAP : le score AP de l'une des équipes a été modifié et dans ce cas, le paramètre equipe détermine laquelle des deux
 	// - vainqueur : l'utilisateur a choisi l'équipe vainqueur du match
 	$type = isset($_POST["type"]) ? $_POST["type"] : '';
-	
+
 	// On vérifie avant tout qu'il n'est pas trop tard pour faire la modification
 	$ordreSQL =		'	SELECT		fn_matchpronostiquable(matches.Match, ' . $pronostiqueur . ') AS Matches_Pronostiquable' .
-						'	FROM		matches' .
-						'	JOIN		journees' .
-						'				ON		matches.Journees_Journee = journees.Journee' .
-						'	LEFT JOIN	pronostics_carrefinal' .
-						'				ON		matches.Match = pronostics_carrefinal.Matches_Match' .
-						'	WHERE		matches.Match = ' . $match;
+					'	FROM		matches' .
+					'	JOIN		journees' .
+					'				ON		matches.Journees_Journee = journees.Journee' .
+					'	LEFT JOIN	pronostics_carrefinal' .
+					'				ON		matches.Match = pronostics_carrefinal.Matches_Match' .
+					'	WHERE		matches.Match = ' . $match;
 
 	$req = $bdd->query($ordreSQL);
 	$donnees = $req->fetch();
@@ -29,7 +29,7 @@
 	$req->closeCursor();
 
 	$resultat = array();
-    
+
 	if($matchPronostiquable == 0) {
 		$resultat["resultat"] = 'DEPASSE';
 		echo json_encode($resultat);
@@ -50,12 +50,11 @@
 			// Changement du score
 			$equipe = isset($_POST["equipe"]) ? $_POST["equipe"] : '';
 			$score = isset($_POST["score"]) ? $_POST["score"] : 0;
-			
+
 			// Cas particulier, si le pronostiqueur indique -1 en score (réinitialisation de son score), il est nécessaire de nettoyer les scores AP
 			if($score == -1) {
 				$score = 'NULL';
 				$ajoutOrdreSQL = ', Pronostics_ScoreAPEquipeDomicile = NULL, Pronostics_ScoreAPEquipeVisiteur = NULL, Pronostics_Vainqueur = NULL';
-				
 			}
 
 			if($equipe == 'D') {
@@ -82,7 +81,7 @@
 			// Changement du score AP
 			$equipe = isset($_POST["equipe"]) ? $_POST["equipe"] : '';
 			$score = isset($_POST["score"]) ? $_POST["score"] : 0;
-			
+
 			if($score == -1)
 				$score = 'NULL';
 
@@ -115,10 +114,19 @@
 		break;
 	}
 	$bdd->exec($ordreSQL);
-	$texte = $ordreSQL;
+
+	// Création de la trace
+	$nomFichier = '../traces/scores/' . $match . '_' . $_SESSION["pronostiqueur"] . '_' . $type;
+	if($type != 'vainqueur') {
+		$nomFichier .= '_' . $equipe . '.txt';
+		file_put_contents($nomFichier, $score);
+	} else {
+		$nomFichier .= '.txt';
+		file_put_contents($nomFichier, $vainqueur);
+	}
 
 	/*
-		-- Ensuite, on détermine quel est le type de match :
+		-- Dans un deuxième, on détermine quel est le type de match :
 		-- - 1 : match régulier (pas de prolongation, pas de match lié)
 		-- - 2 : match aller (pas de prolongation, match lié)
 		-- - 3 : match retour (prolongation, match lié)
@@ -185,8 +193,13 @@
 										'				,Pronostics_DateMAJ = NOW()' .
 										'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
 										'				AND		Matches_Match = ' . $matchRetour;
-										
 						$bdd->exec($ordreSQL);
+
+						// Création de la trace
+						$nomFichier = '../traces/scores/' . $match . '_' . $_SESSION["pronostiqueur"] . '_scoreAP_D.txt';
+						file_put_contents($nomFichier, $retour_ScoreEquipeDomicile);
+						$nomFichier = '../traces/scores/' . $match . '_' . $_SESSION["pronostiqueur"] . '_scoreAP_V.txt';
+						file_put_contents($nomFichier, $retour_ScoreEquipeVisiteur);
 					}
 					else {
 						// S'il n'y a pas prolongation et TAB, on efface les pronostics AP et le nom du vainqueur car ils ont pu avoir été écrits à un moment
@@ -198,10 +211,18 @@
 										'					AND		Matches_Match = ' . $matchRetour;
 						$bdd->exec($ordreSQL);
 						$resultat["resultat"] = '';
+
+						// Création de la trace
+						$nomFichier = '../traces/scores/' . $match . '_' . $_SESSION["pronostiqueur"] . '_scoreAP_D.txt';
+						file_put_contents($nomFichier, 'NULL');
+						$nomFichier = '../traces/scores/' . $match . '_' . $_SESSION["pronostiqueur"] . '_scoreAP_V.txt';
+						file_put_contents($nomFichier, 'NULL');
+						$nomFichier = '../traces/scores/' . $match . '_' . $_SESSION["pronostiqueur"] . '_vainqueur.txt';
+						file_put_contents($nomFichier, 'NULL');
 					}
 				}
 			break;
-			
+
 			case 4:
 				// Lecture des pronostics AP du match
 				$ordreSQL =		'	SELECT		IFNULL(Pronostics_ScoreEquipeDomicile, -1) AS Pronostics_ScoreEquipeDomicile, IFNULL(Pronostics_ScoreEquipeVisiteur, -1) AS Pronostics_ScoreEquipeVisiteur' .
@@ -226,6 +247,12 @@
 										'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
 										'				AND		Matches_Match = ' . $match;
 						$bdd->exec($ordreSQL);
+
+						// Création de la trace
+						$nomFichier = '../traces/scores/' . $match . '_' . $_SESSION["pronostiqueur"] . '_scoreAP_D.txt';
+						file_put_contents($nomFichier, $match_ScoreEquipeDomicile);
+						$nomFichier = '../traces/scores/' . $match . '_' . $_SESSION["pronostiqueur"] . '_scoreAP_V.txt';
+						file_put_contents($nomFichier, $match_ScoreEquipeVisiteur);
 					}
 					else {
 						// S'il n'y a pas prolongation et TAB, on efface les pronostics AP et le nom du vainqueur car ils ont pu avoir été écrits à un moment
@@ -236,13 +263,20 @@
 										'					,Pronostics_DateMAJ = NOW()' .
 										'	WHERE			Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
 										'					AND		Matches_Match = ' . $match;
-										
 						$bdd->exec($ordreSQL);
 						$resultat["resultat"] = '';
+
+						// Création de la trace
+						$nomFichier = '../traces/scores/' . $match . '_' . $_SESSION["pronostiqueur"] . '_scoreAP_D.txt';
+						file_put_contents($nomFichier, 'NULL');
+						$nomFichier = '../traces/scores/' . $match . '_' . $_SESSION["pronostiqueur"] . '_scoreAP_V.txt';
+						file_put_contents($nomFichier, 'NULL');
+						$nomFichier = '../traces/scores/' . $match . '_' . $_SESSION["pronostiqueur"] . '_vainqueur.txt';
+						file_put_contents($nomFichier, 'NULL');
 					}
 				}
 			break;
-			
+
 			case 5:
 				// Lecture des pronostics du match
 				$ordreSQL =		'	SELECT		IFNULL(Pronostics_ScoreEquipeDomicile, -1) AS Pronostics_ScoreEquipeDomicile,' .
@@ -266,9 +300,12 @@
 									'					AND		Matches_Match = ' . $match;
 					$bdd->exec($ordreSQL);
 					$resultat["resultat"] = '';
+
+					// Création de la trace
+					$nomFichier = '../traces/scores/' . $match . '_' . $_SESSION["pronostiqueur"] . '_vainqueur.txt';
+					file_put_contents($nomFichier, 'NULL');
 				}
 			break;
-		
 		}
 	}
 	else if($type == 'scoreAP') {
@@ -302,6 +339,10 @@
 									'					AND		Matches_Match = ' . $matchRetour;
 					$bdd->exec($ordreSQL);
 					$resultat["resultat"] = '';
+
+					// Création de la trace
+					$nomFichier = '../traces/scores/' . $match . '_' . $_SESSION["pronostiqueur"] . '_vainqueur.txt';
+					file_put_contents($nomFichier, 'NULL');
 				}
 			}
 		}
@@ -330,20 +371,14 @@
 									'					AND		Matches_Match = ' . $match;
 					$bdd->exec($ordreSQL);
 					$resultat["resultat"] = '';
+
+					// Création de la trace
+					$nomFichier = '../traces/scores/' . $match . '_' . $_SESSION["pronostiqueur"] . '_vainqueur.txt';
+					file_put_contents($nomFichier, 'NULL');
 				}
 			}
 		}
 	}
-	
-	// Création de la trace
-	$nomFichier = '../traces/scores/' . $_SESSION["pronostiqueur"] . '_' . $match . '_' . $type;
-	if($type != 'vainqueur') {
-		$nomFichier .= '_' . $equipe . '.txt';
-		file_put_contents($nomFichier, $score);
-	} else {
-		$nomFichier .= '.txt';
-		file_put_contents($nomFichier, $vainqueur);
-	}
-	echo json_encode($resultat);
 
+	echo json_encode($resultat);
 ?>
