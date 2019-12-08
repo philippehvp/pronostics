@@ -350,7 +350,7 @@ function creerMatch_ecrireEvenement(numeroMatch, evenement) {
 // Dans le cas d'un changement de score, par exemple, si le score est mis à 0, il n'est pas nécessaire de noter l'événement
 // puisque cela correspond au début du match
 // Dans le cas d'un changement de vainqueur de TAB, si la valeur est -1, c'est qu'on a remis la zone à zéro, etc.
-function creerMatch_sauvegarderMatch(evenement, numeroMatch) {
+function creerMatch_sauvegarderMatch(evenement, element, numeroMatch) {
     if(numeroMatch == 0 || numeroMatch == null)
         return;
 
