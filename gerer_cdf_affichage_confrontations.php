@@ -57,10 +57,10 @@
 					'				ON		confrontations.Pronostiqueurs_PronostiqueurB = pronostiqueursB.Pronostiqueur' .
 					'	WHERE		journees.Championnats_Championnat = 5' .
 					'	ORDER BY	confrontations.Confrontations_DecalageY, confrontations.Confrontations_DecalageX';
-					
+
 	$req = $bdd->query($ordreSQL);
 	$confrontations = $req->fetchAll();
-	
+
 	// Branches reliant les confrontations
 	$ordreSQL =		'	SELECT		Confrontations_Confrontation' .
 					'				,ConfrontationsBranches_DecalageX, ConfrontationsBranches_DecalageY' .
@@ -87,7 +87,7 @@
 		echo '<label class="bouton" onclick="gererCDF_placerPronostiqueurs1A4();">Placer les quatre premiers de Ligue 1</label>';
 	echo '</div>';
 	echo '<br /><br /><br />';
-	
+
 	// Affichage des branches reliant les confrontations
 	foreach($confrontationsBranches as $uneBranche) {
 		$hauteurBordure = 1;
@@ -99,16 +99,16 @@
 			case 5: $classe = 'confrontation--branche-demi--gauche'; $hauteurBordure = 2; break;
 			case 6: $classe = 'confrontation--branche-demi--droite'; $hauteurBordure = 2; break;
 		}
-		
+
 		$x = $uneBranche["ConfrontationsBranches_DecalageX"] * $largeurCarreau;
 		$y = $uneBranche["ConfrontationsBranches_DecalageY"] * $hauteurCarreau;
-		
+
 		// Attention, ne pas oublier de soustraire la taille de la bordure
 		$largeur = $uneBranche["ConfrontationsBranches_Largeur"] * $largeurCarreau - 2;
 		$hauteur = $uneBranche["ConfrontationsBranches_Hauteur"] * $hauteurCarreau - $hauteurBordure;
 		echo '<span class="confrontation--branche ' . $classe . '" style="left: ' . $x . 'px; top: ' . $y . 'px; width: ' . $largeur . 'px; height: ' . $hauteur . 'px"></span>';
 	}
-	
+
 	// Affichage des confrontations
 	foreach($confrontations as $uneConfrontation) {
 		$x = $uneConfrontation["Confrontations_DecalageX"] * $largeurCarreau;
@@ -127,7 +127,7 @@
 		}
 
 		$classeEnveloppe = 'confrontation--enveloppe ' . $classeEnveloppeTour;
-		
+
 		if($uneConfrontation["Confrontations_ConfrontationReelle"] == 1) {
 			echo '<div class="' . $classeEnveloppe . '" style="left: ' . ($x - 1) . 'px; top: ' . ($y - 1) . 'px;">';
 				echo '<div class="confrontation confrontation-reelle" style="left: ' . $x . 'px; top: ' . $y . 'px; height: ' . $hauteurCarreau . 'px" onclick="gerer_cdf_selectionnerPronostiqueur(' . $uneConfrontation["Confrontations_NumeroCaseA"] . ');">';
@@ -143,7 +143,7 @@
 
 					echo '<label class="confrontation--score">' . $uneConfrontation["Confrontations_ScorePronostiqueurA"] . '</label>';
 				echo '</div>';
-				
+
 				echo '<div class="confrontation-reelle" style="left: ' . $x . 'px; top: ' . ($y + $hauteurCarreau) . 'px; height: ' . $hauteurCarreau . 'px" onclick="gerer_cdf_selectionnerPronostiqueur(' . $uneConfrontation["Confrontations_NumeroCaseB"] . ');">';
 					echo '<img class="confrontation--image" src="images/pronostiqueurs/' . $uneConfrontation["PronostiqueursB_Photo"] . '" alt="" />';
 					if($uneConfrontation["Pronostiqueurs_PronostiqueurB"] != null) {
@@ -164,15 +164,15 @@
 				echo '<div class="confrontation-fictive" style="left: ' . $x . 'px; top: ' . $y . 'px;">';
 					echo '<label class="confrontation--titre">' . $uneConfrontation["Confrontations_NomCourt"] . '</label>';
 				echo '</div>';
-				
+
 				echo '<div class="confrontation-fictive" style="left: ' . $x . 'px; top: ' . ($y + $hauteurCarreau) . 'px;" onclick="gerer_cdf_selectionnerPronostiqueur(' . $uneConfrontation["Confrontations_NumeroCaseB"] . ');">';
 					echo '<img class="confrontation--image" src="images/pronostiqueurs/' . $uneConfrontation["PronostiqueursB_Photo"] . '" alt="" />';
-					
+
 					if($uneConfrontation["Pronostiqueurs_PronostiqueurB"] != null)
 						echo '<label class="confrontation--nom confrontation--nom-sans-score">' . $uneConfrontation["PronostiqueursB_NomUtilisateur"] . '</label>';
 					else
 						echo '<label class="confrontation--nom confrontation--nom-sans-score">' . $uneConfrontation["Confrontations_NumeroCaseB"] . '</label>';
-						
+
 				echo '</div>';
 			echo '</div>';
 		}

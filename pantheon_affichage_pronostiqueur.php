@@ -5,12 +5,12 @@
 
 	// Lecture des paramètres passés à la page
 	$pronostiqueurConsulte = isset($_POST["pronostiqueurConsulte"]) ? $_POST["pronostiqueurConsulte"] : 0;
-	
-	
+
+
 	function afficherTropheesL1($bdd, $pronostiqueurConsulte, $trophees) {
 		// Ligue 1
 		echo '<label class="pantheon--detail--nom-categorie">Trophées : ' . $trophees[0]["Nombre_Trophees"] . ' (' . $trophees[0]["Points_Trophees"] . ' points)</label>';
-		
+
 		// Lecture des trophées obttenus
 		$ordreSQL =		'	SELECT		PantheonsPoints_L1_Premier_Nombre, PantheonsPoints_L1_Deuxieme_Nombre, PantheonsPoints_L1_Troisieme_Nombre, PantheonsPoints_L1_Quatrieme_Nombre, PantheonsPoints_L1_Cinquieme_Nombre' .
 						'				,PantheonsPoints_L1_NombreCompetiteurs, PantheonsPoints_L1_SoulierOr_Nombre, PantheonsPoints_L1_Choupo_Nombre, PantheonsPoints_L1_DjaDjeDje_Nombre' .
@@ -41,11 +41,11 @@
 		if($donneesL1[0]["PantheonsPoints_L1_DixSurOnze_Nombre"] != 0)				echo '<label class="pantheon--detail--nom-categorie">Nb 10/11 : ' . $donneesL1[0]["PantheonsPoints_L1_DixSurOnze_Nombre"] . '</label>';
 		if($donneesL1[0]["PantheonsPoints_L1_OnzeSurOnze_Nombre"] != 0)				echo '<label class="pantheon--detail--nom-categorie">Nb 11/11 : ' . $donneesL1[0]["PantheonsPoints_L1_OnzeSurOnze_Nombre"] . '</label>';
 	}
-	
+
 	function afficherTropheesLDC($bdd, $pronostiqueurConsulte, $trophees) {
 		// Ligue des Champions
 		echo '<label class="pantheon--detail--nom-categorie">Trophées : ' . $trophees[0]["Nombre_Trophees"] . ' (' . $trophees[0]["Points_Trophees"] . ' points)</label>';
-		
+
 		// Lecture des trophées obttenus
 		$ordreSQL =		'	SELECT		PantheonsPoints_LDC_Premier_Nombre, PantheonsPoints_LDC_Deuxieme_Nombre, PantheonsPoints_LDC_Troisieme_Nombre, PantheonsPoints_LDC_Quatrieme_Nombre, PantheonsPoints_LDC_Cinquieme_Nombre' .
 						'				,PantheonsPoints_LDC_SoulierOr_Nombre, PantheonsPoints_LDC_Choupo_Nombre, PantheonsPoints_LDC_DjaDjeDje_Nombre' .
@@ -62,11 +62,11 @@
 		if($donneesLDC[0]["PantheonsPoints_LDC_Choupo_Nombre"] != 0)				echo '<label class="pantheon--detail--nom-categorie">Choupo : ' . $donneesLDC[0]["PantheonsPoints_LDC_Choupo_Nombre"] . '</label>';
 		if($donneesLDC[0]["PantheonsPoints_LDC_DjaDjeDje_Nombre"] != 0)				echo '<label class="pantheon--detail--nom-categorie">Dja Djé Djé : ' . $donneesLDC[0]["PantheonsPoints_LDC_DjaDjeDje_Nombre"] . '</label>';
 	}
-	
+
 	function afficherTropheesEL($bdd, $pronostiqueurConsulte, $trophees) {
 		// Europa League
 		echo '<label class="pantheon--detail--nom-categorie">Trophées : ' . $trophees[0]["Nombre_Trophees"] . ' (' . $trophees[0]["Points_Trophees"] . ' points)</label>';
-		
+
 		// Lecture des trophées obttenus
 		$ordreSQL =		'	SELECT		PantheonsPoints_EL_Premier_Nombre, PantheonsPoints_EL_Deuxieme_Nombre, PantheonsPoints_EL_Troisieme_Nombre, PantheonsPoints_EL_Quatrieme_Nombre, PantheonsPoints_EL_Cinquieme_Nombre' .
 						'				,PantheonsPoints_EL_SoulierOr_Nombre, PantheonsPoints_EL_Choupo_Nombre, PantheonsPoints_EL_DjaDjeDje_Nombre' .
@@ -87,7 +87,7 @@
 	function afficherTropheesCDF($bdd, $pronostiqueurConsulte, $trophees) {
 		// Coupe de France
 		echo '<label class="pantheon--detail--nom-categorie">Trophées : ' . $trophees[0]["Nombre_Trophees"] . ' (' . $trophees[0]["Points_Trophees"] . ' points)</label>';
-		
+
 		// Lecture des trophées obttenus
 		$ordreSQL =		'	SELECT		PantheonsPoints_CDF_Premier_Nombre, PantheonsPoints_CDF_Deuxieme_Nombre, PantheonsPoints_CDF_Troisieme_Nombre' .
 						'	FROM		vue_pointspantheon' .
@@ -98,11 +98,11 @@
 		if($donneesCDF[0]["PantheonsPoints_CDF_Deuxieme_Nombre"] != 0)				echo '<label class="pantheon--detail--nom-categorie">2ème place : ' . $donneesCDF[0]["PantheonsPoints_CDF_Deuxieme_Nombre"] . '</label>';
 		if($donneesCDF[0]["PantheonsPoints_CDF_Troisieme_Nombre"] != 0)				echo '<label class="pantheon--detail--nom-categorie">3ème place : ' . $donneesCDF[0]["PantheonsPoints_CDF_Troisieme_Nombre"] . '</label>';
 	}
-	
+
 	function afficherTropheesCDM($bdd, $pronostiqueurConsulte, $trophees) {
 		// Coupe du Monde
 		echo '<label class="pantheon--detail--nom-categorie">Trophées : ' . $trophees[0]["Nombre_Trophees"] . ' (' . $trophees[0]["Points_Trophees"] . ' points)</label>';
-		
+
 		// Lecture des trophées obttenus
 		$ordreSQL =		'	SELECT		PantheonsPoints_CDM_Premier_Nombre, PantheonsPoints_CDM_Deuxieme_Nombre, PantheonsPoints_CDM_Troisieme_Nombre, PantheonsPoints_CDM_Quatrieme_Nombre, PantheonsPoints_CDM_Cinquieme_Nombre' .
 						'	FROM		vue_pointspantheon' .
@@ -115,11 +115,11 @@
 		if($donneesCDM[0]["PantheonsPoints_CDM_Quatrieme_Nombre"] != 0)				echo '<label class="pantheon--detail--nom-categorie">4ème place : ' . $donneesCDM[0]["PantheonsPoints_CDM_Quatrieme_Nombre"] . '</label>';
 		if($donneesCDM[0]["PantheonsPoints_CDM_Cinquieme_Nombre"] != 0)				echo '<label class="pantheon--detail--nom-categorie">5ème place : ' . $donneesCDM[0]["PantheonsPoints_CDM_Cinquieme_Nombre"] . '</label>';
 	}
-	
+
 	function afficherTropheesCA($bdd, $pronostiqueurConsulte, $trophees) {
 		// Copa America
 		echo '<label class="pantheon--detail--nom-categorie">Trophées : ' . $trophees[0]["Nombre_Trophees"] . ' (' . $trophees[0]["Points_Trophees"] . ' points)</label>';
-		
+
 		// Lecture des trophées obttenus
 		$ordreSQL =		'	SELECT		PantheonsPoints_CA_Premier_Nombre, PantheonsPoints_CA_Deuxieme_Nombre, PantheonsPoints_CA_Troisieme_Nombre, PantheonsPoints_CA_Quatrieme_Nombre, PantheonsPoints_CA_Cinquieme_Nombre' .
 						'	FROM		vue_pointspantheon' .
@@ -136,7 +136,7 @@
 	function afficherTropheesEuro($bdd, $pronostiqueurConsulte, $trophees) {
 		// Euro
 		echo '<label class="pantheon--detail--nom-categorie">Trophées : ' . $trophees[0]["Nombre_Trophees"] . ' (' . $trophees[0]["Points_Trophees"] . ' points)</label>';
-		
+
 		// Lecture des trophées obttenus
 		$ordreSQL =		'	SELECT		PantheonsPoints_EURO_Premier_Nombre, PantheonsPoints_EURO_Deuxieme_Nombre, PantheonsPoints_EURO_Troisieme_Nombre, PantheonsPoints_EURO_Quatrieme_Nombre, PantheonsPoints_EURO_Cinquieme_Nombre' .
 						'	FROM		vue_pointspantheon' .
@@ -149,7 +149,7 @@
 		if($donneesEuro[0]["PantheonsPoints_EURO_Quatrieme_Nombre"] != 0)				echo '<label class="pantheon--detail--nom-categorie">4ème place : ' . $donneesEuro[0]["PantheonsPoints_EURO_Quatrieme_Nombre"] . '</label>';
 		if($donneesEuro[0]["PantheonsPoints_EURO_Cinquieme_Nombre"] != 0)				echo '<label class="pantheon--detail--nom-categorie">5ème place : ' . $donneesEuro[0]["PantheonsPoints_EURO_Cinquieme_Nombre"] . '</label>';
 	}
-	
+
 	// L'affichage du détail concerne uniquement les compétitions pour lesquelles le pronostiqueur consulté a obtenu au moins un trophé / récompense
 
 	// Lecture du nombre de trophées et de points par compétition principale
@@ -172,7 +172,7 @@
 					'				,fn_pointstrophees_cdf(' . $pronostiqueurConsulte . ') AS Points_Trophees';
 	$req = $bdd->query($ordreSQL);
 	$tropheesCDF = $req->fetchAll();
-	
+
 	$ordreSQL =		'	SELECT		fn_nombretrophees_ca(' . $pronostiqueurConsulte . ') AS Nombre_Trophees' .
 					'				,fn_pointstrophees_ca(' . $pronostiqueurConsulte . ') AS Points_Trophees';
 	$req = $bdd->query($ordreSQL);
@@ -199,12 +199,12 @@
 
 	$req = $bdd->query($ordreSQL);
 	$pronostiqueur = $req->fetchAll();
-	
+
 	echo '<div class="colle-gauche gauche pantheon--detail--pronostiqueur">';
 		echo '<img src="images/pronostiqueurs/' . $pronostiqueur[0]["Pronostiqueurs_Photo"] . '" alt="" title="" /><br />';
 		echo '<label class="pantheon--detail--nom">' . $pronostiqueur[0]["Pronostiqueurs_NomUtilisateur"] . '</label>';
 	echo '</div>';
-	
+
 	// Les données sont affichées sous forme de tableau
 	// Il est donc nécessaire de savoir avant la création du tableau combien de colonnes celui-ci comportera
 	// Chaque colonne affiche les trophées obtenus dans une compétition
@@ -218,7 +218,7 @@
 	if($tropheesCA[0]["Nombre_Trophees"] > 0)				array_push($tableauColonnes, array('code' => '6', 'tableau' => $tropheesCA));
 	if($tropheesEuro[0]["Nombre_Trophees"] > 0)				array_push($tableauColonnes, array('code' => '7', 'tableau' => $tropheesEuro));
 	$nombreColonnes = count($tableauColonnes);
-	
+
 	echo '<div class="gauche pantheon--detail--liste-categories">';
 		//echo '<span class="pantheon--detail--separateur"></span>';
 		echo '<table class="pantheon--detail--tableau-trophees">';
@@ -240,7 +240,7 @@
 					}
 				echo '</tr>';
 			echo '</thead>';
-		
+
 			echo '<tbody>';
 				echo '<tr>';
 					// Parcours des différentes compétitions à afficher
@@ -261,7 +261,7 @@
 				echo '</tr>';
 		echo '</table>';
 	echo '</div>';
-	
+
 	echo '<div class="colle-gauche"></div>';
 
 ?>

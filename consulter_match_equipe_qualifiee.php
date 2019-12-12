@@ -1,7 +1,7 @@
 <?php
 	// Affichage de la répartition des pronostics d'équipes qualifiées pour le tour suivant en confrontation directe
 	include_once('commun.php');
-	
+
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
 
 	$ordreSQL = 'SET @@session.group_concat_max_len=2048';
@@ -74,7 +74,7 @@
 	$req = $bdd->query($ordreSQL);
 	$defaites = $req->fetchAll();
 	$pronostiqueursDefaite = $defaites[0]["Pronostiqueurs_NomUtilisateur"];
-	
+
 	// Noms des équipes
 	$ordreSQL =		'	SELECT		equipesDomicile.Equipes_Nom AS EquipesDomicile_Nom, equipesVisiteur.Equipes_Nom AS EquipesVisiteur_Nom' .
 					'	FROM		matches' .
@@ -85,8 +85,8 @@
 					'	WHERE		matches.Match = ' . $match;
 	$req = $bdd->query($ordreSQL);
 	$equipes = $req->fetchAll();
-	
-					
+
+
 	echo '<table class="tableau--classement tableau--classement-buteurs">';
 		echo '<thead>';
 			echo '<tr class="tableau--classement-nom-colonnes">';
@@ -94,7 +94,7 @@
 				echo '<th class="aligne-gauche">Joueurs</th>';
 			echo '</tr>';
 		echo '</thead>';
-		
+
 		echo '<tbody>';
 			echo '<tr class="aligne-haut">';
 				echo '<td class="aligne-gauche">' . $equipes[0]["EquipesDomicile_Nom"] . '</td>';

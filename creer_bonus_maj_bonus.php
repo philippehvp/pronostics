@@ -2,7 +2,7 @@
 	include_once('commun.php');
 
 	// Sauvegarde des pronostics de bonus
-	
+
 	// Lecture des paramètres passés à la page
 	$equipeChampionne = isset($_POST["equipeChampionne"]) ? $_POST["equipeChampionne"] : 0;
 	$equipeLDC1 = isset($_POST["equipeLDC1"]) ? $_POST["equipeLDC1"] : 0;
@@ -13,7 +13,7 @@
 	$equipeReleguee3 = isset($_POST["equipeReleguee3"]) ? $_POST["equipeReleguee3"] : NULL;
 	$meilleurButeur = isset($_POST["meilleurButeur"]) ? $_POST["meilleurButeur"] : 0;
 	$meilleurPasseur = isset($_POST["meilleurPasseur"]) ? $_POST["meilleurPasseur"] : 0;
-	
+
 	// Mise à jour des données dans la table
 	$ordreSQL =		'	REPLACE INTO	pronostics_bonus	(	Pronostiqueurs_Pronostiqueur' .
 					'											,PronosticsBonus_EquipeChampionne' .

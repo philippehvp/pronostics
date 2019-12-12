@@ -1,6 +1,6 @@
 <?php
 	include_once('../commun.php');
-	
+
 	// Affichage des classements comparés pour un championnat
 	// Affichage du classement secondaire
 
@@ -32,7 +32,7 @@
 						'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $pronostiqueurConsulte .
 						'				AND		journees.Championnats_Championnat = ' . $championnat .
 						'				AND		Classements_ClassementJourneeMatch IS NOT NULL';
-	
+
 	$req = $bdd->query($ordreSQL);
 	$classementsMinEtMax = $req->fetchAll();
 	$classementMin = $classementsMinEtMax[0]["Classement_Min"];
@@ -93,8 +93,8 @@
 						'	WHERE		journees.Championnats_Championnat = ' . $championnat .
 						'				AND		classements.Pronostiqueurs_Pronostiqueur = ' . $pronostiqueurConsulte .
 						'	ORDER BY	classements.Journees_Journee';
-						
-						
+
+
 
 	$req = $bdd->query($ordreSQL);
 	$classements = $req->fetchAll();
@@ -108,7 +108,7 @@
 		$dossierImages = '../images/classements/journee/';
 		$dossierImagesHTML = 'images/classements/journee/';
 	}
-	
+
 	// Effacement d'images qui pourraient exister dans ce dossier pour ce pronostiqueur
 	foreach(glob($dossierImagesHTML . $championnat . '/' . $pronostiqueurConsulte . '_*.png') as $f) {
 		unlink($f);

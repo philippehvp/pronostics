@@ -1,14 +1,14 @@
 <?php
 	// Affichage de la liste des joueurs pour lesquels la recherche a été infructueuse
 	// Cela concerne la lecture des cotes
-	
+
 	include_once('commun_administrateur.php');
-	
+
 	// Lecture des paramètres passés à la page
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
 	$joueursInconnusEquipeDomicile = isset($_POST["joueursInconnusEquipeDomicile"]) ? $_POST["joueursInconnusEquipeDomicile"] : null;
 	$joueursInconnusEquipeVisiteur = isset($_POST["joueursInconnusEquipeVisiteur"]) ? $_POST["joueursInconnusEquipeVisiteur"] : null;
-	
+
 	// Lecture de la liste des joueurs d'une équipe
 	function lireListeJoueurs($match, $equipe, $date) {
 		$ordreSQL =		'	SELECT		joueurs.Joueur' .
@@ -26,7 +26,7 @@
 						'	ORDER BY	IFNULL(joueurs.Joueurs_Prenom, joueurs.Joueurs_NomFamille)';
 		return $ordreSQL;
 	}
-	
+
 	// Affichage de la liste des joueurs d'une équipe
 	function afficherListeJoueurs($i, $equipe, $champPrenom, $champNom, $champCorrespondance, $listeJoueurs) {
 		echo '<select id="selectListeJoueurs_' . $i . '_' . $equipe . '" onchange="creerMatch_lireJoueur(\'' . $i . '_' . $equipe . '\', \'' . $champPrenom . '\', \'' . $champNom . '\', \'' . $champCorrespondance . '\', 3);">';
@@ -36,7 +36,7 @@
 			}
 		echo '</select>';
 	}
-    
+
     // Affichage de la liste des joueurs inconnus
     function afficherListeJoueursInconnus($bdd, $match, $matchDate, $joueursInconnus, $equipe, $equipeNom) {
         // Lecture de la liste des joueurs des équipes
@@ -74,7 +74,7 @@
 		echo '</table>';
 
     }
-	
+
 	// Lecture des joueurs des deux équipes
 	$ordreSQL =		'	SELECT		Matches_Date' .
                     '               ,equipes_domicile.Equipe AS EquipesDomicile_Equipe, equipes_visiteur.Equipe AS EquipesVisiteur_Equipe' .
@@ -87,7 +87,7 @@
 					'	WHERE		matches.Match = ' . $match;
 	$req = $bdd->query($ordreSQL);
 	$equipes = $req->fetchAll();
-	
+
     // Deux cas sont possibles :
     // - dans les deux équipes, il y a au moins un joueur inconnu
     // - dans une seule des deux équipes il y a un ou plusieurs joueurs inconnus
@@ -104,5 +104,5 @@
         else
             afficherListeJoueursInconnus($bdd, $match, $equipes[0]["Matches_Date"], $joueursInconnusEquipeVisiteur, $equipes[0]["EquipesVisiteur_Equipe"], $equipes[0]["EquipesVisiteur_Nom"]);
     }
-    
+
 ?>

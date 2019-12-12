@@ -2,7 +2,7 @@
 
 	include_once('commun.php');
 	include_once('fonctions.php');
-	
+
 	// Lecture des paramètres passés à la page
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
 
@@ -35,7 +35,7 @@
 
 		$req = $bdd->query($ordreSQL);
 		$vainqueurs = $req->fetchAll();
-		
+
 		foreach($vainqueurs as $unVainqueur) {
 			switch($unVainqueur["Vainqueur"]) {
 				case 0: $nombrePronosticsMatchNul = $unVainqueur["Nombre"];
@@ -48,7 +48,7 @@
 				break;
 			}
 		}
-		
+
 		if($nombrePronosticsVictoireDomicile == '?')		$nombrePronosticsVictoireDomicile = 0;
 		if($nombrePronosticsMatchNul == '?')				$nombrePronosticsMatchNul = 0;
 		if($nombrePronosticsVictoireVisiteur == '?')		$nombrePronosticsVictoireVisiteur = 0;
@@ -86,7 +86,7 @@
 
 		$req = $bdd->query($ordreSQL);
 		$vainqueurs = $req->fetchAll();
-		
+
 		foreach($vainqueurs as $unVainqueur) {
 			switch($unVainqueur["Vainqueur"]) {
 				case 0: $nombrePronosticsMatchNul = $unVainqueur["Nombre"];
@@ -99,12 +99,12 @@
 				break;
 			}
 		}
-		
+
 		if($nombrePronosticsVictoireDomicile == '?')		$nombrePronosticsVictoireDomicile = 0;
 		if($nombrePronosticsMatchNul == '?')				$nombrePronosticsMatchNul = 0;
 		if($nombrePronosticsVictoireVisiteur == '?')		$nombrePronosticsVictoireVisiteur = 0;
 		if($nombreOublis == '?')							$nombreOublis = 0;
-		
+
 		// Lecture du vainqueur qualifié
 		$ordreSQL =		'	SELECT		COUNT(*) AS Nombre, Vainqueur' .
 						'	FROM		(' .
@@ -141,7 +141,7 @@
 
 		$req = $bdd->query($ordreSQL);
 		$vainqueurs = $req->fetchAll();
-		
+
 		foreach($vainqueurs as $unVainqueur) {
 			switch($unVainqueur["Vainqueur"]) {
 				case 1: $nombrePronosticsQualificationDomicile = $unVainqueur["Nombre"];
@@ -150,12 +150,12 @@
 				break;
 			}
 		}
-		
+
 		if($nombrePronosticsQualificationDomicile == '?')		$nombrePronosticsQualificationDomicile = 0;
 		if($nombrePronosticsQualificationVisiteur == '?')		$nombrePronosticsQualificationVisiteur = 0;
 
 	}
-	
+
 	// Lecture des vainqueurs pronostiqués pour les matches de type 4 et 5
 	function lireVainqueurPronostique4Et5($bdd, $match, &$nombrePronosticsVictoireDomicile, &$nombrePronosticsVictoireVisiteur, &$nombreOublis) {
 		$ordreSQL =		'	SELECT		COUNT(*) AS Nombre, Vainqueur' .
@@ -193,7 +193,7 @@
 
 		$req = $bdd->query($ordreSQL);
 		$vainqueurs = $req->fetchAll();
-		
+
 		foreach($vainqueurs as $unVainqueur) {
 			switch($unVainqueur["Vainqueur"]) {
 				case 1: $nombrePronosticsVictoireDomicile = $unVainqueur["Nombre"];
@@ -204,12 +204,12 @@
 				break;
 			}
 		}
-		
+
 		if($nombrePronosticsVictoireDomicile == '?')		$nombrePronosticsVictoireDomicile = 0;
 		if($nombrePronosticsVictoireVisiteur == '?')		$nombrePronosticsVictoireVisiteur = 0;
 		if($nombreOublis == '?')							$nombreOublis = 0;
 	}
-	
+
 	// Affichage du nombre de pronostics donnant l'équipe domicile vainqueur, le match nul, l'équipe visiteur vainqueur pour les matches de type 1 et 2
 	function afficherVainqueurPronostique1Et2($bdd, $match, $nombrePronosticsVictoireDomicile, $nombrePronosticsMatchNul, $nombrePronosticsVictoireVisiteur, $nombreOublis) {
 		if($nombreOublis > 0)			echo '<div title="Victoires | Nuls | Défaites | Oublis">';
@@ -221,7 +221,7 @@
 				echo '<span onclick="consulterMatch_afficherRepartitionVainqueurPronostiqueMatchRegulier(' . $match . ');" class="stats-match--resultat"><label class="texte-rouge curseur-main">' . $nombreOublis . '</label></span>';
 		echo '</div>';
 	}
-	
+
 	// Affichage du nombre de pronostics donnant l'équipe domicile vainqueur, le match nul, l'équipe visiteur vainqueur pour les matches de type 3
 	function afficherVainqueurPronostique3($bdd, $match, $nombrePronosticsVictoireDomicile, $nombrePronosticsMatchNul, $nombrePronosticsVictoireVisiteur, $nombreOublis, $nombrePronosticsQualificationDomicile, $nombrePronosticsQualificationVisiteur) {
 		if($nombreOublis > 0)			echo '<div title="Victoires | Nuls | Défaites | Oublis">';
@@ -238,14 +238,14 @@
 			echo '<span onclick="consulterMatch_afficherRepartitionVainqueurQualifie(' . $match . ');" class="stats-match--resultat"><label class="curseur-main">' . $nombrePronosticsQualificationVisiteur . '</label></span>';
 		echo '</div>';
 	}
-	
+
 	// Affichage du nombre de pronostics donnant l'équipe domicile vainqueur, l'équipe visiteur vainqueur pour les matches de type 4 et 5
 	function afficherVainqueurPronostique4Et5($bdd, $match, $nombrePronosticsVictoireDomicile, $nombrePronosticsVictoireVisiteur, $nombreOublis) {
 		if($nombreOublis > 0)			echo '<div title="Victoires | Nuls | Défaites | Oublis">';
 		else							echo '<div title="Victoires | Nuls | Défaites">';
 			echo '<span onclick="consulterMatch_afficherRepartitionVainqueurPronostiqueMatchCoupe(' . $match . ');" class="stats-match--resultat"><label class="curseur-main">' . $nombrePronosticsVictoireDomicile . '</label></span>';
 			echo '<span onclick="consulterMatch_afficherRepartitionVainqueurPronostiqueMatchCoupe(' . $match . ');" class="stats-match--resultat"><label class="curseur-main">' . $nombrePronosticsVictoireVisiteur . '</label></span>';
-		
+
 			if($nombreOublis > 0)
 				echo '<span onclick="consulterMatch_afficherRepartitionVainqueurPronostiqueMatchCoupe(' . $match . ');" class="stats-match--resultat"><label class="texte-rouge curseur-main">' . $nombreOublis . '</label></span>';
 		echo '</div>';
@@ -281,13 +281,13 @@
 	$matchLie = $matches[0]["Matches_MatchLie"] != null ? $matches[0]["Matches_MatchLie"] : 0;
 	$matchAP = $matches[0]["Matches_AvecProlongation"] != null ? $matches[0]["Matches_AvecProlongation"] : 0;
 	$matchDateMAJ = $matches[0]["Matches_DateMAJ"] != null ? $matches[0]["Matches_DateMAJ"] : 0;
-	
-	
+
+
 	// Lors de la lecture de la date de mise à jour du match, il est nécessaire d'indiquer cette date à a page conteneur
 	// Pour cela, on va écrire dans une zone temporaire la valeur lue pour qu'elle puisse être ensuite mise à jour dans la page conteneur
-	
+
 	echo '<input type="hidden" name="date_maj_match_temporaire" value="' . $matchDateMAJ . '">';
-	
+
 	if($matchCS == 1)									$typeMatch = 5;
 	else if($matchAP == 0 && $matchLie == 0)			$typeMatch = 1;
 	else if($matchAP == 0 && $matchLie != 0)			$typeMatch = 2;
@@ -373,11 +373,11 @@
 					'	ORDER BY	Buteur DESC, joueurs.Postes_Poste DESC';
 	$req = $bdd->query($ordreSQL);
 	$equipeVisiteur_participants = $req->fetchAll();
-	
+
 
 	// On écrit aussi le numéro de match
 	echo '<input type="hidden" name="match" value="' . $match . '" />';
-	
+
 	echo '<table class="mc--tableau-equipes scroll-pane">';
 		echo '<thead>';
 			echo '<tr>';
@@ -385,20 +385,20 @@
 					echo '<label class="mc--titre-section">' . $equipeDomicile_Nom . '</label>';
 					echo '<img class="fanion" src="images/equipes/' . $equipeDomicile_Fanion . '" alt="" />';
 				echo '</td>';
-				
+
 				echo '<td width="10%" class="bordure-basse">';
 					echo '<img class="curseur-main" src="images/oeil.png" title="Tous les pronostics" alt="Pronostics" onclick="consulterResultats_afficherMatch(' . $matches[0]["Match"] . ', \'' . $equipeDomicile_Nom . '\', \'' . $equipeVisiteur_Nom . '\', 0, 0);" />';
 					echo '<br /><br />';
 					echo '<img class="curseur-main" src="images/oeil_rival.png" title="Pronostics des rivaux" alt="Pronostics des rivaux" onclick="consulterResultats_afficherMatch(' . $matches[0]["Match"] . ', \'' . $equipeDomicile_Nom . '\', \'' . $equipeVisiteur_Nom . '\', 1, 0);" />';
 				echo '</td>';
-				
+
 				echo '<td width="45%" class="bordure-basse">';
 					echo '<label class="mc--titre-section">' . $equipeVisiteur_Nom . '</label>';
 					echo '<img class="fanion" src="images/equipes/' . $equipeVisiteur_Fanion . '" alt="" />';
 				echo '</td>';
 			echo '</tr>';
 		echo '</thead>';
-		
+
 		echo '<tbody>';
 			echo '<tr>';
 					echo '<td colspan="3" class="bordure-basse">';
@@ -422,7 +422,7 @@
 									echo '<td class="bordure-droite-legere">' . $coteDefaite . '</td>';
 									echo '<td>-</td>';
 								echo '</tr>';
-								
+
 								if($typeMatch == 1 || $typeMatch == 2)				echo '<tr class="logistique curseur-main" onclick="consulterMatch_afficherRepartitionVainqueurPronostiqueMatchRegulier(' . $match . ');">';
 								else if($typeMatch == 3)							echo '<tr class="logistique curseur-main" onclick="consulterMatch_afficherResultatMatchRetour(' . $match . ');">';
 								else if($typeMatch == 4 || $typeMatch == 5)			echo '<tr class="logistique curseur-main" onclick="consulterMatch_afficherResultatMatchCoupe(' . $match . ');">';
@@ -433,7 +433,7 @@
 									echo '<td class="bordure-droite-legere">' . $nombrePronosticsVictoireVisiteur . '</td>';
 									echo '<td>' . $nombreOublis . '</td>';
 								echo '</tr>';
-								
+
 								if($typeMatch == 3) {
 									echo '<tr class="logistique curseur-main" onclick="consulterMatch_afficherRepartitionVainqueurQualifie(' . $match . ');">';
 										echo '<td class="aligne-droite bordure-droite-legere">Qualification</td>';
@@ -443,9 +443,9 @@
 										echo '<td>-</td>';
 									echo '</tr>';
 								}
-								
+
 							echo '</tbody>';
-						
+
 						echo '</table>';
 			echo '</tr>';
 
@@ -478,9 +478,9 @@
 						echo '</table>';
 					}
 				echo '</td>';
-				
+
 				echo '<td>&nbsp;</td>';
-				
+
 				echo '<td class="equipe" style="vertical-align: top;">';
 					// Effectif de l'équipe visiteur
 					$nombreParticipants = sizeof($equipeVisiteur_participants);
@@ -510,7 +510,7 @@
 					}
 				echo '</td>';
 			echo '</tr>';
-		
+
 		echo '</tbody>';
 	echo '</table>';
 ?>
@@ -520,7 +520,7 @@
 	$(function() {
 		// Création d'un timer de rafraîchissement si celui-ci n'existe pas déjà
 		var intervalle = $('input[name="minuteur_match"]').val();
-		
+
 		if(intervalle == 0) {
 			intervalle = setInterval(function() {
 				// Vérification des données affichées pour rafraîchissement si nécessaire
@@ -529,7 +529,7 @@
 				$('input[name="date_maj_match"]').val(date_maj_match);
 				matchCentre_rafrichirMatch(match, date_maj_match, 'mc--detail-match');
 			}, 5000);
-			
+
 			$('input[name="minuteur_match"]').val(intervalle);
 		}
 

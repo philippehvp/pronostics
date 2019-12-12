@@ -1,15 +1,15 @@
 <?php
 	include_once('commun.php');
-	
+
 	// Recherche d'un joueur dont on a saisi le nom
-	
+
 	$critereRecherche = isset($_POST["critereRecherche"]) ? $_POST["critereRecherche"] : '';
 	$nomZoneRecherche = isset($_POST["nomZoneRecherche"]) ? $_POST["nomZoneRecherche"] : '';
 	$nomZoneId = isset($_POST["nomZoneId"]) ? $_POST["nomZoneId"] : '';
 	$nomZoneNomJoueur = isset($_POST["nomZoneNomJoueur"]) ? $_POST["nomZoneNomJoueur"] : '';
 	$critereRechercheSQL = str_replace('\'', '\\\'', $critereRecherche);
-	
-	
+
+
 	$ordreSQL =		'	SELECT		joueurs.Joueur, CONCAT(joueurs.Joueurs_NomFamille, \' \', IFNULL(joueurs.Joueurs_Prenom, \'\')) AS Joueurs_NomComplet, joueurs_equipes.Equipes_Equipe, equipes.Equipes_Nom' .
 					'	FROM		joueurs' .
 					'	JOIN		joueurs_equipes' .
@@ -29,7 +29,7 @@
 					'	LIMIT 50';
 
 	$req = $bdd->query($ordreSQL);
-	
+
 	$premiereExecution = true;
 	while($donnees = $req->fetch()) {
 		if($premiereExecution == true) {
@@ -49,7 +49,7 @@
 		echo '</tr>';
 	}
 	$req->closeCursor();
-	
+
 	if($premiereExecution == false) {
 			echo '</tbody>';
 		echo '</table>';
@@ -63,7 +63,7 @@
 			echo '</tbody>';
 		echo '</table>';
 	}
-	
-	
-	
+
+
+
 ?>

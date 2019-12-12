@@ -2,7 +2,7 @@
 	include_once('commun_administrateur.php');
 
 	// Page de création de la liste des buteurs dans un match
-	
+
 	// Equipe concernée
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
 	$equipe = isset($_POST["equipe"]) ? $_POST["equipe"] : 0;
@@ -56,7 +56,7 @@
 				}
 			echo '</ul>';
 		echo '</div>';
-		
+
 		echo '<div class="gauche" style="margin-left: 10px;">';
 			echo '<label>Buteurs du match</label><br />';
 			echo '<ul class="effectif-equipe buteurs">';
@@ -72,7 +72,7 @@
 						echo '<li class="' . $classe . '" value="' . $donneesButeurs["Joueur"] . '-1.' . $donneesButeurs["Buteurs_Cote"] . '">' . $donneesButeurs["Joueurs_NomComplet"] . '(CSC)</li>';
 					else
 						echo '<li class="' . $classe . '" value="' . $donneesButeurs["Joueur"] . '-0.' . $donneesButeurs["Buteurs_Cote"] . '">' . $donneesButeurs["Joueurs_NomComplet"] . '</li>';
-						
+
 				}
 			echo '</ul>';
 		echo '</div>';

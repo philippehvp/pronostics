@@ -1,11 +1,11 @@
 <?php
 	include_once('../commun.php');
-	
+
 	// Affichage de la répartition des points pour un championnat
-	
+
 	// Lecture des paramètres passés à la page
 	$championnat = isset($_POST["championnat"]) ? $_POST["championnat"] : 0;
-	
+
 	// Liste des pronostiqueurs pour le championnat en question
 	$ordreSQL =		'	SELECT		pronostiqueurs.Pronostiqueur, Pronostiqueurs_NomUtilisateur' .
 					'				,CASE' .
@@ -96,7 +96,7 @@
 
 	$NOMBRE_COLONNES = 10;
 	$nombrePronostiqueurs = sizeof($scoresMarques) / $NOMBRE_COLONNES;
-	
+
 	if(sizeof($scoresMarques) > 0) {
 		echo '<div class="cc--repartition-points">';
 			echo '<table class="cc--tableau">';

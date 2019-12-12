@@ -1770,7 +1770,7 @@ function consulterResultats_afficherMatch(match, equipeDomicile, equipeVisiteur,
     $.ajax({
 		url: 'consulter_resultats_details_match.php',
 		type: 'POST',
-		data: { 
+		data: {
 			match: match,
 			modeRival: modeRival,
 			modeConcurrentDirect: modeConcurrentDirect

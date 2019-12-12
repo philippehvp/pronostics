@@ -11,12 +11,12 @@
 	if($mode == 1)
 		$ordreSQL =		'	INSERT INTO		pronostiqueurs_rivaux(Pronostiqueur, PronostiqueursRivaux_Pronostiqueur)' .
 						'	SELECT			' . $_SESSION["pronostiqueur"] . ', ' . $pronostiqueurConsulte;
-	
-	else if($mode == 0) 
+
+	else if($mode == 0)
 		$ordreSQL =		'	DELETE FROM		pronostiqueurs_rivaux' .
 						'	WHERE			Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
 						'					AND		PronostiqueursRivaux_Pronostiqueur = ' . $pronostiqueurConsulte;
 
-	
+
 	$req = $bdd->exec($ordreSQL);
 ?>

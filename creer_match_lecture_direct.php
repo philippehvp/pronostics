@@ -32,10 +32,10 @@
 		// La recherche des balises col2 et col3 se fait à partir de la balise match_score et non sur l'ensemble du document
 		$scoreEquipeDomicile = $xpath->query('//div[@class="col2"]', $baliseMatchScore->item(0));
 		$scoreEquipeVisiteur = $xpath->query('//div[@class="col3"]', $baliseMatchScore->item(0));
-		
+
 		$scoreEquipeDomicile = str_replace(chr(0xC2) . chr(0xA0), '', $scoreEquipeDomicile->item(0)->textContent);
 		$scoreEquipeVisiteur = str_replace(chr(0xC2) . chr(0xA0), '', $scoreEquipeVisiteur->item(0)->textContent);
-		
+
 		if($scoreEquipeDomicile != '' && $scoreEquipeVisiteur != '') {
 			if(ajouterEvenement($bdd, $match, 0, 1, 0, 1) == 1) {
 				initialiserMatch($bdd, $match);

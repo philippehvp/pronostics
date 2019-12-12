@@ -1,8 +1,8 @@
 <?php
 	// Recherche d'un joueur sur Google
 	include_once('commun_administrateur.php');
-	
-	
+
+
 	// Lecture de paramètres passés à la page
 	$joueur = isset($_POST["joueur"]) ? $_POST["joueur"] : '';
 	$equipe = isset($_POST["equipe"]) ? $_POST["equipe"] : '';
@@ -12,7 +12,7 @@
 	$resultat = file_get_contents($url, FILE_USE_INCLUDE_PATH);
 
 	$json = json_decode($resultat);
-	
+
 
 	for($i = 0; $i < count($json->items) && $i <= 3; $i++) {
 		echo '<b><a target="_blank" href="' . $json->items[$i]->link . '">' . $json->items[$i]->link . '</a></b>';

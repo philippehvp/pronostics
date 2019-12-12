@@ -17,13 +17,13 @@
 	<?php
 		$nomPage = 'gerer_qualification.php';
 		include_once('bandeau.php');
-		
+
 		echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
-		
+
 		// Page de gestion des qualifiés
-		
+
 		$championnat = isset($_GET["championnat"]) ? $_GET["championnat"] : 0;
-	
+
 		// Lecture des groupes et des équipes
 		$ordreSQL =		'	SELECT		groupes.Groupe, groupes.Groupes_Nom, equipes.Equipe, equipes.Equipes_Nom, equipes.Equipes_Fanion' .
 						'				,qualifications.Qualifications_Classement' .
@@ -40,10 +40,10 @@
 
 		$req = $bdd->query($ordreSQL);
 		$groupes = $req->fetchAll();
-		
+
 		// Parcours des différents groupes et équipes
 		$nombreGroupes = sizeof($groupes) / 4;
-		
+
 		// Lecture du numéro du premier groupe concerné par ce championnat
 		$ordreSQL =		'	SELECT		MIN(Groupe) AS Groupe' .
 						'	FROM		groupes' .
@@ -52,7 +52,7 @@
 		$req = $bdd->query($ordreSQL);
 		$groupeMinimum = $req->fetchAll();
 		$numeroPremierGroupe = $groupeMinimum[0]["Groupe"];
-		
+
 		$classe = 'pair';
 		echo '<div id="divClassementGroupes" class="contenu-page">';
 			echo '<input type="hidden" id="championnat" value="' . $championnat . '" />';
@@ -74,7 +74,7 @@
 					echo '</div>';
 				echo '</div>';
 			}
-			
+
 			echo '<div id="divClassementsGroupeValider" class="colle-gauche gauche">';
 				echo '<label id="labelValiderQualification">Valider les qualifications</label>';
 			echo '</div>';
@@ -87,7 +87,7 @@
 			afficherTitrePage('divClassementGroupes', 'Gestion des qualifications');
             $('.listeTriee').sortable({axis: 'x'});
             $('.listeTriee').disableSelection();
-            
+
 			$('#labelValiderQualification').button().click(	function(event) {
                 gererQualification_validerQualifiees('<?php echo $championnat; ?>', '<?php echo $nombreGroupes; ?>', '<?php echo $numeroPremierGroupe; ?>', 4);
             });

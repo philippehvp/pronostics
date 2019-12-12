@@ -14,28 +14,28 @@
 	<?php
 		$nomPage = 'gerer_effectif.php';
 		include_once('bandeau.php');
-		
+
 		echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
-		
+
 		// Page de gestion de l'effectif (équipes et joueurs)
-	
+
 		// Sélection des différents championnats
 		$ordreSQL = 'SELECT DISTINCT Equipe, IFNULL(Equipes_NomCourt, Equipes_Nom) AS Equipes_Nom FROM equipes ORDER BY Equipes_Nom';
 		$req = $bdd->query($ordreSQL);
         $equipes = $req->fetchAll();
 
 		echo '<div id="divGererEffectif" class="contenu-page">';
-		
+
 			echo '<div id="divJoueurs">';
 				echo '<label>Nom du joueur ou de son équipe</label><br />';
 				echo '<input type="text" id="critereRecherche" />';
 				echo '<div class="recherche-joueurs" style="background-color: #666; position: absolute; z-index: 1000;"></div>';
-				
+
 				echo '';
 			echo '</div>';
-			
+
 			echo '<br />';
-			
+
 			echo '<div id="divEquipes">';
 				echo '<label>Equipes</label><br />';
 				echo '<select id="selectEquipes" size="10">';
@@ -45,13 +45,13 @@
 						echo '<option value="' . $uneEquipe["Equipe"] . '">' . $uneEquipe["Equipes_Nom"] . '</option>';
 				echo '</select>';
 			echo '</div>';
-				
+
             echo '<br />';
 			echo '<div id="divEffectif"></div>';
 			echo '<div id="divTransfertJoueur"></div>';
 		echo '</div>';
 
-		
+
 
 	?>
 
@@ -59,7 +59,7 @@
 		$(function() {
 			afficherTitrePage('divGererEffectif', 'GESTION DE L\'EFFECTIF');
 			$('#selectEquipes').click(	function() {	gererEffectif_afficherEffectif();	});
-			
+
 			$('#critereRecherche').keyup(function(event) {
 												// Lecture de la taille de la zone de texte
 												if($('#critereRecherche').val().length >= 3) {
@@ -69,17 +69,17 @@
 												else {
 													$('.recherche-joueurs').css({'display': 'none'});
 												}
-												
+
 											}
 										);
-			
+
 			$('#critereRecherche').blur	(	function() {
 												setTimeout(function() {
 													$('.recherche-joueurs').css({'display': 'none'});
 												}, 100);
 											}
 										);
-										
+
 			$('#critereRecherche').focus(function() {
 												// Lecture de la taille de la zone de texte
 												if($('#critereRecherche').val().length >= 3) {

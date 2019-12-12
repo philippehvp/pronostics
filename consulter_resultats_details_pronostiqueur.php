@@ -3,7 +3,7 @@
 	include_once('fonctions.php');
 
 	// Affichage des résultats et des pronostics d'un pronostiqueur pour une journée
-	
+
 	// Lecture des paramètres passés à la page
 	$pronostiqueurDetail = isset($_POST["pronostiqueurDetail"]) ? $_POST["pronostiqueurDetail"] : 0;
 
@@ -16,7 +16,7 @@
 		$matchCanalSelectionnable = 1;
 	else
 	$matchCanalSelectionnable = 0;
-	
+
 
 	// Bons résultats des matches d'une journée donnée
 	$ordreSQL = '	SELECT		DISTINCT vue_resultatsjournees.Match' .
@@ -443,7 +443,7 @@
 		echo '<thead>';
 			echo '<tr>';
 				if($matchCanalSelectionnable == 1) {
-					echo '<th class="colonneMatchCanal">&nbsp;</th>';	
+					echo '<th class="colonneMatchCanal">&nbsp;</th>';
 				}
 				echo '<th>Matches</th>';
 				echo '<th>Score final et buteurs</th>';
@@ -475,7 +475,7 @@
 					$pointsQualificationEquipeDomicile = $resultats[$i]["Matches_PointsQualificationEquipeDomicile"];
 					$pointsQualificationEquipeVisiteur = $resultats[$i]["Matches_PointsQualificationEquipeVisiteur"];
 					$pronosticsCarreFinalCoefficient = $pronostics[$i]["PronosticsCarreFinal_Coefficient"];
-					
+
 					if($matchCanalSelectionnable == 1) {
 						$matchCanal = $pronostics[$i]["Matches_Coefficient"] == 2 ? 'matchCanal' : '';
 						echo '<td class="colonneMatchCanal ' . $matchCanal . '">&nbsp;</td>';
@@ -485,7 +485,7 @@
 						echo '<label>' . $equipeDomicileNomCourt . ' - ' . $equipeVisiteurNomCourt;
 						if($pronosticsCarreFinalCoefficient != -1)
 							echo ' (x' . $pronosticsCarreFinalCoefficient . ')';
-						
+
 						echo '</label><br />';
 						echo '<label>Cotes : ' . $coteEquipeDomicile . '-' . $coteEquipeNul . '-' . $coteEquipeVisiteur . '</label>';
 						if($typeMatch == 3) {
@@ -493,13 +493,13 @@
 							echo '<label>Points qualification : ' . $pointsQualificationEquipeDomicile . '-' . $pointsQualificationEquipeVisiteur . '</label>';
 						}
 						else
-							
+
 					echo '</td>';
 					echo '<td>';
 						$scoreAffiche = formaterScoreMatch($scoreEquipeDomicile, $scoreAPEquipeDomicile, $scoreEquipeVisiteur, $scoreAPEquipeVisiteur, $vainqueur);
 						echo $scoreAffiche . '<br />' . $equipeDomicileButeurs . '<br />' . $equipeVisiteurButeurs;
 					echo '</td>';
-					
+
 					$pronosticScoreEquipeDomicile = $pronostics[$i]["Pronostics_ScoreEquipeDomicile"];
 					$pronosticScoreEquipeVisiteur = $pronostics[$i]["Pronostics_ScoreEquipeVisiteur"];
 					$pronosticVainqueur = $pronostics[$i]["Pronostics_Vainqueur"];
@@ -514,13 +514,13 @@
 					$scoreBonus = $pronostics[$i]["Scores_ScoreBonus"] != null ? $pronostics[$i]["Scores_ScoreBonus"] : '?';
 					$scoreQualification = $pronostics[$i]["Scores_ScoreQualification"] != null ? $pronostics[$i]["Scores_ScoreQualification"] : '?';
 					$coefficient = $pronostics[$i]["Matches_Coefficient"];
-					
+
 					$pronosticScoreEquipeDomicile = $pronostics[$i]["Pronostics_ScoreEquipeDomicile"];
 					$pronosticScoreAPEquipeDomicile = $pronostics[$i]["Pronostics_ScoreAPEquipeDomicile"];
 					$pronosticScoreEquipeVisiteur = $pronostics[$i]["Pronostics_ScoreEquipeVisiteur"];
 					$pronosticScoreAPEquipeVisiteur = $pronostics[$i]["Pronostics_ScoreAPEquipeVisiteur"];
 					$pronosticVainqueur = $pronostics[$i]["Pronostics_Vainqueur"];
-					
+
 					if($scoreMatch / $coefficient < 5)
 						$style = 'blanc';
 					else if($scoreMatch / $coefficient >= 5 && $scoreMatch / $coefficient < 10)

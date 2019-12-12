@@ -3,13 +3,13 @@
 
 	// Page de saisie des cotes des joueurs
 	// La page affiche l'effectif avec les cotes, connues ou non
-	
+
 	// Equipe concernée
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
 	$equipe = isset($_POST["equipe"]) ? $_POST["equipe"] : 0;
 	$date = isset($_POST["dateDebutMatch"]) ? $_POST["dateDebutMatch"] : 0;
 	$dateSQL = date('Y-m-d', strtotime(str_replace('/', '-', $date)));
-	
+
 	$ordreSQL =		'	SELECT		joueurs.Joueur, IFNULL(Postes_Poste, 0) AS Postes_Poste, Joueurs_NomFamille, Joueurs_Prenom, JoueursCotes_Cote' .
 					'	FROM		joueurs' .
 					'	JOIN		joueurs_equipes' .
@@ -22,10 +22,10 @@
 					'	WHERE		JoueursEquipes_Debut <= \'' . $dateSQL . '\'' .
 					'				AND		(JoueursEquipes_Fin IS NULL OR JoueursEquipes_Fin > \'' . $dateSQL . '\')' .
 					'	ORDER BY	Postes_Poste DESC, Joueurs_NomFamille';
-	
+
 	$req = $bdd->query($ordreSQL);
 	$joueurs = $req->fetchAll();
-	
+
 	// Postes différents
 	$ordreSQL =		'	SELECT		Poste, Postes_NomCourt' .
 					'	FROM		(' .
@@ -37,7 +37,7 @@
 					'	ORDER BY	Poste';
 	$req = $bdd->query($ordreSQL);
 	$postes = $req->fetchAll();
-	
+
 	// Pour les joueurs qui ne possèdent pas de cote, on fait la moyenne des cotes des joueurs qui en possèdent une
 	// La moyenne se fait par poste (somme des cotes des attaquants, des milieux, etc.)
 	$ordreSQL =		'	SELECT		GROUP_CONCAT(Cote_Moyenne SEPARATOR \' - \') AS Cote' .
@@ -57,7 +57,7 @@
 					'				) cotes';
 	$req = $bdd->query($ordreSQL);
 	$cotesMoyennes = $req->fetchAll();
-	
+
 	if(sizeof($joueurs)) {
 		echo '<label>Cote moyenne par poste : ' . $cotesMoyennes[0]["Cote"] . '</label>';
 		echo '<table>';
@@ -74,9 +74,9 @@
 						$nomAffiche = $unJoueur["Joueurs_NomFamille"] . ' ' . $unJoueur["Joueurs_Prenom"];
 					else
 						$nomAffiche = $unJoueur["Joueurs_NomFamille"];
-					
+
 					echo '<tr>';
-						
+
 						echo '<td>';
 							echo '<select class="liste-postes" id="selectPostes_' . $unJoueur["Joueur"] . '" style="margin-right: 20px;" onchange="modifierCouleur(this, 0, \'blanc-fond-rouge\'); creerMatch_sauvegarderPostesJoueurs(' . $unJoueur["Joueur"] . ', \'selectPostes_' . $unJoueur["Joueur"] . '\');">';
 								foreach($postes as $unPoste) {
@@ -94,7 +94,7 @@
 			echo '</tbody>';
 		echo '</table>';
 	}
-	
+
 ?>
 
 
@@ -104,11 +104,11 @@
 									event.preventDefault();
 			}
 		);
-		
+
 		$('.liste-postes').each(function() {
 			if($(this).find('option:selected').val() == 0)
 				$(this).addClass('blanc-fond-rouge');
 		});
-		
+
 	});
 </script>

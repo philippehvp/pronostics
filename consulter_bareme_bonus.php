@@ -16,13 +16,13 @@
 	<?php
 		$nomPage = 'consulter_bareme_bonus.php';
 		echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
-		
+
 		// Consultation du barème des bonus
         echo '<div class="conteneur">';
 			include_once('bandeau.php');
 			echo '<div id="divBaremeBonus" class="contenu-page">';
 				echo '<ul class="ulNavigation"></ul>';
-        
+
                 echo '<div id="divBaremeBonus_1" class="bareme" title="Barème des équipes">';
                     // Lecture des équipes et des barèmes
                     $ordreSQL =		'	SELECT      equipes.Equipe, IFNULL(equipes.Equipes_NomCourt, equipes.Equipes_Nom) AS Equipes_NomCourt, equipes.Equipes_Fanion' .
@@ -57,7 +57,7 @@
                                 echo '<th>Reléguées en L2</th>';
                             echo '</tr>';
                         echo '</thead>';
-                        
+
                         echo '<tbody>';
                             for($i = 0; $i < $nombreEquipes; $i++) {
                                 echo '<tr>';
@@ -74,7 +74,7 @@
 
                 echo '<div id="divBaremeBonus_2" class="bareme" title="Barème du meilleur buteur">';
                     // Lecture des joueurs et des bonus
-                    
+
                     $ordreSQL =		'	SELECT      joueurs.Joueur, IFNULL(joueurs.Joueurs_NomCourt, joueurs.Joueurs_NomFamille) AS Joueurs_NomFamille' .
                                     '               ,bonus_meilleur_buteur.Bonus_Points' .
                                     '   FROM        joueurs' .
@@ -85,8 +85,8 @@
                     $req = $bdd->query($ordreSQL);
                     $baremesButeurs = $req->fetchAll();
                     $nombreJoueurs = count($baremesButeurs);
-                    
-                    
+
+
                     // Tableau des buteurs
                     echo '<table class="tableau--bonus">';
                         echo '<thead>';
@@ -95,7 +95,7 @@
                                 echo '<th>Bonus meilleur buteur</th>';
                             echo '</tr>';
                         echo '</thead>';
-                        
+
                         echo '<tbody>';
                             for($i = 0; $i < $nombreJoueurs; $i++) {
                                 echo '<tr>';
@@ -108,18 +108,18 @@
                 echo '</div>';
             echo '</div>';
 	?>
-	
+
 	<script>
 		$(function() {
 			afficherTitrePage('divBaremeBonus', 'Barème des bonus');
-            
+
             $('.tableau--bonus').dataTable({"bPaginate": false, "bFilter": false, "bInfo": false});
-            
+
             $('.bareme').each(function() {
 				$('.ulNavigation').append('<li><a href="#' + $(this).attr('id') + '">' + $(this).attr('title') + '</a></li>');
 			});
             $('#divBaremeBonus').tabs();
-            
+
             $('.ui-tabs-anchor').prepend('<em class="icones icones-grandes">&#10150;</em>');
 		});
 	</script>

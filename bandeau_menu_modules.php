@@ -1,8 +1,8 @@
 <?php
 	// Module d'affichage des modules liés au concours (classement général, journée, pronostics et résultats)
-	
+
 	include_once('commun.php');
-	
+
 	// if($_SESSION["administrateur"] == 1)
 	// 	// Nombre de championnats différents
 	// 	$ordreSQL =		'	SELECT		DISTINCT Championnat, Championnats_NomCourt, ModulesGroupes_Actif' .
@@ -40,7 +40,7 @@
 			foreach($championnats as $unChampionnat) {
 				if($nombreChampionnatsAffiches == 0)
 					echo '<div class="groupe-menu gauche">';
-				
+
 				$ordreSQL =		'	SELECT		Module, Modules_NomCourt, Modules_Parametre, ModulesPronostiqueurs_Actif' .
 								'	FROM		modules' .
 								'	JOIN		championnats' .
@@ -64,11 +64,11 @@
 						$classe = 'lien--actif';
 					else
 						$classe = 'lien--inactif';
-						
+
 					//echo '<label class="lien ' . $classe . ' divModule' . $modules[$i]["Module"] . $modules[$i]["Modules_Parametre"] . '" onclick="basculerEtat(\'divModule' . $modules[$i]["Module"] . $modules[$i]["Modules_Parametre"] . '\'); afficherMasquerModule(' . $modules[$i]["Module"] . ', \'divModule' . $modules[$i]["Module"] . '\', \'' . $modules[$i]["Modules_Parametre"] . '\');">' . $modules[$i]["Modules_NomCourt"] . '</label>';
 					echo '<label class="lien ' . $classe . ' divModule' . $modules[$i]["Module"] . $modules[$i]["Modules_Parametre"] . '" onclick="basculerEtat(\'cbChampionnat_' . $unChampionnat["Championnat"] . '\', \'divModule' . $modules[$i]["Module"] . $modules[$i]["Modules_Parametre"] . '\', ' . $modules[$i]["Module"] . ', \'divModule' . $modules[$i]["Module"] . '\', \'' . $modules[$i]["Modules_Parametre"] . '\');"><span>' . $modules[$i]["Modules_NomCourt"] . '</span></label>';
 				}
-				
+
 				$nombreChampionnatsAffiches++;
 				if($nombreChampionnatsAffiches == 1) {
 					$nombreChampionnatsAffiches = 0;
@@ -86,7 +86,7 @@
 		var groupeActif = 0;
 		if($('#' + identifiantGroupe).prop('checked') == true)
 			groupeActif = 1;
-		
+
 		var moduleActif = 0;
 		if($('.' + identifiantLigne).hasClass('lien--actif')) {
 			$('.' + identifiantLigne).removeClass('lien--actif');
@@ -100,14 +100,14 @@
 
 		basculerEtatModule(groupeActif, moduleActif, module, nomConteneur, parametre);
 	}
-	
+
 	// Basculement d'un groupe de modules d'un état à l'autre
 	function basculerEtatGroupe(groupe, identifiantGroupe) {
 		var groupeActif = 0;
 		if($('#' + identifiantGroupe).prop('checked') == true)
 			groupeActif = 1;
-		
+
 		basculerEtatGroupeModule(groupeActif, groupe);
 	}
-	
+
 </script>

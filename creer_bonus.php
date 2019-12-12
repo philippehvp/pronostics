@@ -13,11 +13,11 @@
 	<?php
 		$nomPage = 'creer_bonus.php';
 		include_once('bandeau.php');
-		
+
 		echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
-		
+
 		// Saisie des bonus pour un pronostiqueur
-		
+
 		// Liste des équipes
 		$ordreSQL =		'	SELECT		equipes.Equipe, Equipes_Nom' .
 						'	FROM		equipes' .
@@ -28,7 +28,7 @@
 						'	ORDER BY	Equipes_Nom';
 		$req = $bdd->query($ordreSQL);
 		$equipes = $req->fetchAll();
-		
+
 		// Lecture des données déjà saisies par le pronostiqueur
 		$ordreSQL =		'	SELECT		PronosticsBonus_EquipeChampionne' .
 						'				,PronosticsBonus_EquipeLDC1, PronosticsBonus_EquipeLDC2, PronosticsBonus_EquipeLDC3' .
@@ -46,7 +46,7 @@
 
 		$req = $bdd->query($ordreSQL);
 		$pronostics_bonus = $req->fetchAll();
-		
+
 		if(!empty($pronostics_bonus)) {
 			$pronosticsBonus_EquipeChampionne = $pronostics_bonus[0]["PronosticsBonus_EquipeChampionne"] != null ? $pronostics_bonus[0]["PronosticsBonus_EquipeChampionne"] : 0;
 			$pronosticsBonus_EquipeLDC1 = $pronostics_bonus[0]["PronosticsBonus_EquipeLDC1"] != null ? $pronostics_bonus[0]["PronosticsBonus_EquipeLDC1"] : 0;
@@ -73,12 +73,12 @@
 			$nomMeilleurButeur = '';
 			$nomMeilleurPasseur = '';
 		}
-        
+
 		echo '<div id="divBonus" class="creation-bonus contenu-page">';
 			/*echo '<a class="lienActif" href="cotes/cotes_bonus_fin_de_saison.xls" alt="">Cotes de bonus de fin de saison</a>';
 			echo '<br />';*/
-		
-		
+
+
 			// Equipe championne
 			echo '<div class="tuile gauche impair">';
 				echo '<div class="saisie">';
@@ -104,7 +104,7 @@
 				echo '</div>';
 				echo '<div class="texte"><label>Meilleur buteur</label></div>';
 			echo '</div>';
-			
+
 			// Meilleur passeur
 			echo '<div class="tuile gauche impair">';
 				echo '<div class="saisie-joueur">';
@@ -116,7 +116,7 @@
 				echo '</div>';
 				echo '<div class="texte"><label>Meilleur passeur</label></div>';
 			echo '</div>';
-			
+
 			// Equipes LDC
 			echo '<div class="tuile colle-gauche pair">';
 				echo '<div class="saisie">';
@@ -130,7 +130,7 @@
 				echo '</div>';
 				echo '<div class="texte"><label>Equipe 1 qualifiée en LDC</label></div>';
 			echo '</div>';
-			
+
 			echo '<div class="tuile gauche pair">';
 				echo '<div class="saisie">';
 					echo '<select id="selectEquipesLDC2">';
@@ -205,11 +205,11 @@
 		echo '</div>';
 
 	?>
-	
+
 	<script>
 		$(function() {
 			afficherTitrePage('divBonus', 'Saisie des bonus');
-		
+
 			$('#labelValiderBonus').button().click(	function(event) {
 														creerBonus_validerBonus();
 													}
@@ -223,17 +223,17 @@
 												else {
 													$('.liste-meilleur-buteur').css({'display': 'none'});
 												}
-												
+
 											}
 										);
-			
+
 			$('.nom-meilleur-buteur').blur	(	function() {
 												setTimeout(function() {
 													$('.liste-meilleur-buteur').css({'display': 'none'});
 												}, 500);
 											}
 										);
-										
+
 			$('.nom-meilleur-buteur').focus(function() {
 												// Lecture de la taille de la zone de texte
 												if($('.nom-meilleur-buteur').val().length >= 3) {
@@ -252,17 +252,17 @@
 												else {
 													$('.liste-meilleur-passeur').css({'display': 'none'});
 												}
-												
+
 											}
 										);
-			
+
 			$('.nom-meilleur-passeur').blur	(	function() {
 												setTimeout(function() {
 													$('.liste-meilleur-passeur').css({'display': 'none'});
 												}, 500);
 											}
 										);
-										
+
 			$('.nom-meilleur-passeur').focus(function() {
 												// Lecture de la taille de la zone de texte
 												if($('.nom-meilleur-passeur').val().length >= 3) {

@@ -1,13 +1,13 @@
 <?php
 	include_once('commun_administrateur.php');
-	
+
 	// Recherche d'un joueur dont on a saisi le nom
-	
+
 	$critereRecherche = isset($_POST["critereRecherche"]) ? $_POST["critereRecherche"] : '';
 	$critereRechercheSQL = str_replace('\'', '\\\'', $critereRecherche);
 	$modeRechercheSimple = isset($_POST["modeRechercheSimple"]) ? $_POST["modeRechercheSimple"] : 0;
-	
-	
+
+
 	$ordreSQL =		'	SELECT		joueurs.Joueur, CONCAT(joueurs.Joueurs_NomFamille, \' \', IFNULL(joueurs.Joueurs_Prenom, \'\')) AS Joueurs_NomComplet, joueurs_equipes.Equipes_Equipe, equipes.Equipes_Nom' .
 					'	FROM		joueurs' .
 					'	LEFT JOIN	joueurs_equipes' .
@@ -27,7 +27,7 @@
 	$req = $bdd->query($ordreSQL);
 	$joueurs = $req->fetchAll();
 	$nombreJoueurs = sizeof($joueurs);
-	
+
 	echo '<table class="classement" id="tableResultatRecherche">';
 		if($nombreJoueurs == 0) {
 			if($modeRechercheSimple == 0) {
@@ -51,7 +51,7 @@
 				echo '<th class="aligne-gauche">Equipe(s)</th>';
 				echo '<th>&nbsp;</th>';
 			echo '</thead>';
-			
+
 			echo '<tbody>';
 				foreach($joueurs as $unJoueur) {
 					if($modeRechercheSimple == 0)		echo '<tr class="curseur-main" onclick="gererEffectif_transfererJoueur(0, ' . $unJoueur["Joueur"] . ', \'' . str_replace('\'', '\\\'', $unJoueur["Joueurs_NomComplet"]) . '\');">';
@@ -66,5 +66,5 @@
 			echo '</tbody>';
 		}
 	echo '</table>';
-	
+
 ?>

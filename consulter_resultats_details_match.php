@@ -3,7 +3,7 @@
 	include_once('fonctions.php');
 
 	// Affichage des résultats et des pronostics d'un match
-	
+
 	// Lecture des paramètres passés à la page
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
 	$modeRival = isset($_POST["modeRival"]) ? $_POST["modeRival"] : 0;
@@ -35,10 +35,10 @@
 
 	$req = $bdd->query($ordreSQL);
 	$resultats = $req->fetchAll();
-	
+
 	$nombreMatches = sizeof($resultats);
-	
-	
+
+
 	// Si le mode concurrent direct est activé, il est nécessaire de lire d'abord le classement du joueur pour ensuite savoir quelles sont les places à afficher
 	// Exemple, le joueur est 15ème, on affiche donc les places 10 à 20
 	$borneInferieure = 0;
@@ -59,8 +59,8 @@
 		$borneSuperieure = $classementActuel + 5;
 	}
 
-	
-	
+
+
 	// Tous les pronostics et pronostics de buteurs d'un match donné
 	// Attention toutefois, les modes rival et concurrent direct sont pris en compte
 	$ordreSQL =		'	    SELECT DISTINCT		pronostiqueurs.Pronostiqueurs_NomUtilisateur' .
@@ -162,8 +162,8 @@
 					'			ON		vue_pronostiqueursrivaux.PronostiqueursRivaux_Pronostiqueur = pronostiqueurs.Pronostiqueur';
 					else
 					$ordreSQL .=	'			pronostiqueurs';
-					
-					
+
+
 					$ordreSQL .=	'		JOIN				(' .
 					'								SELECT	*' .
 					'								FROM	matches' .
@@ -444,7 +444,7 @@
 			echo '<tr>';
 				foreach($resultats as $resultat) {
 					if($resultat["Journees_MatchCanalSelectionnable"] == 1) {
-						echo '<th class="colonneMatchCanal">&nbsp;</th>';	
+						echo '<th class="colonneMatchCanal">&nbsp;</th>';
 					}
 					echo '<th>Résultats</th>';
 						// Pour chaque ligne de résultat, on affiche le score final, les buteurs
@@ -465,7 +465,7 @@
 			echo '</tr>';
 			echo '<tr>';
 				if($resultat["Journees_MatchCanalSelectionnable"] == 1) {
-					echo '<th class="colonneMatchCanal">&nbsp;</th>';	
+					echo '<th class="colonneMatchCanal">&nbsp;</th>';
 				}
 				echo '<th>&nbsp;</th>';
 				echo '<th>Cotes : ' . $coteEquipeDomicile . '-' . $coteEquipeNul . '-' . $coteEquipeVisiteur . '</th>';
@@ -500,14 +500,14 @@
 						$pronosticScoreEquipeVisiteur = $pronostics[$indice]["Pronostics_ScoreEquipeVisiteur"];
 						$pronosticScoreAPEquipeVisiteur = $pronostics[$indice]["Pronostics_ScoreAPEquipeVisiteur"];
 						$pronosticVainqueur = $pronostics[$indice]["Pronostics_Vainqueur"];
-						
+
 						echo '<td>';
 							echo $pronostics[$indice]["Pronostiqueurs_NomUtilisateur"];
 							$pronosticsCarreFinalCoefficient = $pronostics[($i * $nombreMatches) + $j]["PronosticsCarreFinal_Coefficient"];
 							if($pronosticsCarreFinalCoefficient != -1)
 							echo ' (x' . $pronosticsCarreFinalCoefficient . ')';
 						echo '</td>';
-						
+
 						$coefficient = $pronostics[$indice]["Matches_Coefficient"];
 						if($scoreMatch!= '?') {
 							if($scoreMatch / $coefficient < 5)

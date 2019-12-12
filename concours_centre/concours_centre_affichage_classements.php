@@ -1,6 +1,6 @@
 <?php
 	include_once('../commun.php');
-	
+
 	// Affichage des classements comparés pour un championnat
 
 	// Lecture des paramètres passés à la page
@@ -27,13 +27,13 @@
 					'	ORDER BY	Pronostiqueurs_NomUtilisateur';
 	$req = $bdd->query($ordreSQL);
 	$pronostiqueurs = $req->fetchAll();
-	
+
 	// Affichage des pronostiqueurs
 	$NOMBRE_COLONNES = 10;
 
 	$nombrePronostiqueurs = sizeof($pronostiqueurs);
 	$nombrePronostiqueursParColonne = ceil($nombrePronostiqueurs / $NOMBRE_COLONNES);
-	
+
 	echo '<div>';
 		if($nombrePronostiqueurs) {
 			echo '<div>';
@@ -52,7 +52,7 @@
 			echo '</div>';
 		}
 	echo '</div>';
-	
+
 	// Création du graphique du pronostiqueur connecté
 	echo '<div class="cc--classements-graphique">';
 		// Meilleur et plus mauvais classements
@@ -74,12 +74,12 @@
 							'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
 							'				AND		journees.Championnats_Championnat = ' . $championnat .
 							'				AND		Classements_ClassementJourneeMatch IS NOT NULL';
-		
+
 		$req = $bdd->query($ordreSQL);
 		$classementsMinEtMax = $req->fetchAll();
 		$classementMin = $classementsMinEtMax[0]["Classement_Min"];
 		$classementMax = $classementsMinEtMax[0]["Classement_Max"];
-	
+
 		// Classements occupés
 		if($generalJournee == 1)
 			$ordreSQL =		'	SELECT		Classements_ClassementGeneralMatch AS Valeur' .
@@ -122,7 +122,7 @@
 		$req = $bdd->query($ordreSQL);
 		$classements = $req->fetchAll();
 		$nombrePoints = sizeof($classements);
-	
+
 		$nomFichier = '';
 		if($generalJournee == 1) {
 			$dossierImages = '../images/classements/general/';
@@ -136,12 +136,12 @@
 		foreach(glob($dossierImagesHTML . $championnat . '/_' . $_SESSION["pronostiqueur"] . '_*.png') as $f) {
 			unlink($f);
 		}
-		
+
 		include('concours_centre_affichage_classements_creation_graphique_principal.php');
 		echo '<img src="' . $nomFichierHTML . '" alt="" />';
 	echo '</div>';
 	echo '<div class="cc--classements-graphique-secondaire" style="position: absolute;"></div>';
-	
+
 ?>
 
 <script>
@@ -156,7 +156,7 @@
 				$(this).addClass('cc--selectionne');
 			}
 		});
-		
+
 		// Gestion du clic sur une pronostiqueur pour que celle-ci apparaisse avec un style de surbrillance / sélection
 		$('.cc--pronostiqueur').click(function (e) {
 			// Si cet onglet n'était pas sélectionné, alors effectuer deux tâches :
@@ -167,7 +167,7 @@
 				$(this).addClass('cc--selectionnee');
 			}
 		});
-		
+
 	});
 
 </script>

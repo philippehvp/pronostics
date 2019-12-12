@@ -1,10 +1,10 @@
 <?php
 	include_once('commun_administrateur.php');
-	
+
 	// Recherche d'un joueur dans la liste des partipants et des buteurs avant suppression
-	
+
 	$joueur = isset($_POST["joueur"]) ? $_POST["joueur"] : 0;
-	
+
 	$ordreSQL =		'	SELECT		Matches_Match' .
 					'	FROM		(' .
                     '                   SELECT      matches_participants.Matches_Match' .
@@ -18,10 +18,10 @@
 
 	$req = $bdd->query($ordreSQL);
 	$matches = $req->fetchAll();
-    
+
     $tableau = array();
     $tableau["joueurAParticipeOuMarque"] = count($matches);
-    
+
     echo json_encode($tableau);
-	
+
 ?>

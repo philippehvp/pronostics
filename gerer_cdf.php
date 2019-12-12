@@ -19,11 +19,11 @@
 			echo '<div class="confrontations"></div>';
 			//include_once('pied.php');
 		echo '</div>';
-		
+
 	?>
 	<script>
 		var critereRafraichissement = '';
-		
+
 		function rafraichirPage() {
 			// On regarde ici s'il est nécessaire de rafraîchir la page (la première fois, c'est évidemment obligatoire)
 			$.ajax(	{
@@ -44,10 +44,10 @@
 						$('.confrontations').empty().append(html);
 					}).fail(function(html) { console.log('Fonction d\'affichage des confrontations : fail du deuxième appel Ajax'); });
 				}
-				
+
 			}).fail(function(html) { console.log('Fonction de vérification des confrontations : fail du premier appel Ajax'); });
 		}
-	
+
 		$(function() {
 			retournerHautPage();
 			activitePronostiqueur();
@@ -61,8 +61,8 @@
 							rafraichirPage();
 						}, 3000);
 		});
-	
+
 	</script>
-	
+
 </body>
 </html>

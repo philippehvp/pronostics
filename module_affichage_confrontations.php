@@ -1,12 +1,12 @@
 <?php
 	// Module d'affichage des confrontations de la Coupe de France
-	
-	
+
+
 	$rafraichissementModule = isset($_POST["rafraichissementModule"]) ? $_POST["rafraichissementModule"] : 0;
 	if($rafraichissementModule == 1) {
 		// Rafraîchissement automatique du module
 		include_once('commun.php');
-		
+
 		// Lecture des paramètres passés à la page
 		$championnat = isset($_POST["parametre"]) ? $_POST["parametre"] : 0;
 	}
@@ -20,13 +20,13 @@
 	$req = $bdd->query($ordreSQL);
 	$donnees = $req->fetchAll();
 	$journeeAffichee = $donnees[0]["Journee_EnCours"];
-	
+
 	// Nom de la journée
 	$ordreSQL =		'	SELECT Journees_Nom FROM journees WHERE Journee = ' . $journeeAffichee;
 	$req = $bdd->query($ordreSQL);
 	$journees = $req->fetchAll();
 	$journeeNom = $journees[0]["Journees_Nom"];
-	
+
 	// Affichage de la liste des confrontations de la journée
 	$ordreSQL =		'	SELECT		Confrontation' .
 					'				,confrontations.Pronostiqueurs_Vainqueur' .
@@ -48,7 +48,7 @@
 	$req = $bdd->query($ordreSQL);
 	$confrontations = $req->fetchAll();
 	$nombreConfrontations = sizeof($confrontations);
-	
+
 	if($nombreConfrontations) {
 		echo '<table class="tableau--classement">';
 			echo '<thead>';

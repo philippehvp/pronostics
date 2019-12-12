@@ -1,6 +1,6 @@
 <?php
 	// Module de tchat - Options
-	
+
 	// La liste des destinataires
 	// Pour le tchat public, on se contente d'afficher une indication simple
 	// Pour le tchat de groupe, on affiche le nom du groupe ainsi que la liste des membres du groupe
@@ -16,10 +16,10 @@
 						'				AND		Pronostiqueurs_Pronostiqueur <> ' . $_SESSION["pronostiqueur"];
 		$req = $bdd->query($ordreSQL);
 		$membres = $req->fetchAll();
-		
+
 		echo '<div style="overflow: hidden;"><label title="' . $membres[0]["Pronostiqueurs_NomUtilisateur"] . '">Discussion avec ' . $membres[0]["Pronostiqueurs_NomUtilisateur"] . '</label></div><br />';
 	}
-	
+
 	// Zone de saisie du texte à envoyer
 	echo '<textarea class="module--tchat-texte module--tchat-texte-vide" style="border: 1px solid #fff;" maxlength="255">Saisissez votre texte ici. Touche "Entrée" pour l\'envoyer</textarea>';
 ?>
@@ -40,8 +40,8 @@
 				$(this).val('Saisissez votre texte ici. Touche "Entrée" pour l\'envoyer');
 				$(this).addClass('module--tchat-texte-vide');
 			}
-		});		
-	
+		});
+
 		$('#' + '<?php echo $nomConteneurComplet;?>' + ' .module--tchat-texte').keydown(function(event) {
 			if(event.which == 13) {
 				// On vérifie que du texte a été saisi

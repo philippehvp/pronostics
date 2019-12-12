@@ -14,18 +14,18 @@
 	<?php
 		$nomPage = 'calculer_qualification.php';
 		include_once('bandeau.php');
-		
+
 		echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
-		
+
 		// Page de lancement des calculs des points de qualification (sorties de poules LDC et EL)
 		$ordreSQL =		'	CALL sp_calculpointsqualifications()';
 		$bdd->exec($ordreSQL);
-		
-		
+
+
 		echo '<div>';
 			echo 'Les points de qualifications ont été calculés avec succès';
 		echo '</div>';
-		
+
 	?>
 
 	<script>

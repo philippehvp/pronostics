@@ -1,11 +1,11 @@
 <?php
 	// Lecture des liens vers les matches d'une journée
-	
+
 	include_once('commun_administrateur.php');
-	
+
 	// Lecture des paramètres passés à la page
 	$journee = isset($_POST["journee"]) ? $_POST["journee"] : 0;
-	
+
 	// Parcours des matches dont les équipes sont connues et pour lesquelles il n'existe pas de lien page
 	$ordreSQL =		'	UPDATE		matches' .
 					'	JOIN		equipes equipes_domicile' .

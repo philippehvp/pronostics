@@ -2,7 +2,7 @@
 	include_once('commun_administrateur.php');
 
 	// Création en base de données d'une équipe
-	
+
 	// Lecture des paramètres passés à la page
 	$nom = isset($_POST["nom"]) ? $_POST["nom"] : '';
 	$nomCourt = isset($_POST["nomCourt"]) ? $_POST["nomCourt"] : 'NULL';
@@ -13,8 +13,8 @@
 	$el = isset($_POST["el"]) ? $_POST["el"] : 0;
 	$barrages = isset($_POST["barrages"]) ? $_POST["barrages"] : 0;
 	$cdf = isset($_POST["cdf"]) ? $_POST["cdf"] : 0;
-	
-	
+
+
 	if(strlen($nom) == 0)
 		return;
 
@@ -24,11 +24,11 @@
 					'					,CASE WHEN LENGTH(' . $bdd->quote($fanion) . ') = 0 THEN NULL ELSE ' . $bdd->quote($fanion) . ' END';
 
 	$bdd->exec($ordreSQL);
-	
+
 	// Numéro de l'équipe qui vient d'être ajoutée
 	$equipe = $bdd->lastInsertId();
-	
-	
+
+
 	// Ajout dans chacun des championnats cochés
 	if($l1 == 1) {
 		$ordreSQL =		'	INSERT INTO	engagements(Equipes_Equipe, Championnats_Championnat)' .
@@ -41,13 +41,13 @@
 						'	SELECT		' . $equipe . ', 2';
 		$bdd->exec($ordreSQL);
 	}
-	
+
 	if($el == 1) {
 		$ordreSQL =		'	INSERT INTO	engagements(Equipes_Equipe, Championnats_Championnat)' .
 						'	SELECT		' . $equipe . ', 3';
 		$bdd->exec($ordreSQL);
 	}
-	
+
 	if($barrages == 1) {
 		$ordreSQL =		'	INSERT INTO	engagements(Equipes_Equipe, Championnats_Championnat)' .
 						'	SELECT		' . $equipe . ', 4';
@@ -59,7 +59,7 @@
 						'	SELECT		' . $equipe . ', 5';
 		$bdd->exec($ordreSQL);
 	}
-	
+
 	// L'équipe joue-t-elle le match européen de ligue 1 ?
 	if($l1Europe == 1) {
 		$ordreSQL =		'	UPDATE		equipes' .
@@ -67,5 +67,5 @@
 						'	WHERE		Equipe = ' . $equipe;
 		$bdd->exec($ordreSQL);
 	}
-	
+
 ?>

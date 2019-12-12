@@ -1,10 +1,10 @@
 <?php
 	// Module de tchat
-	
+
 	// Le module peut être appelé de deux manières :
 	// - par une inclusion
 	// - par un appel Ajax (cas du rafraîchissement)
-	
+
 	$rafraichissementModule = isset($_POST["rafraichissementModule"]) ? $_POST["rafraichissementModule"] : 0;
 	if($rafraichissementModule == 1) {
 		// Rafraîchissement automatique du module
@@ -12,15 +12,15 @@
 
 		// Nom du div dans lequel se trouve le module
 		$nomConteneur = isset($_POST["nomConteneur"]) ? $_POST["nomConteneur"] : '';
-		
+
 		// Lecture des paramètres passés à la page
 		$tchatGroupe = isset($_POST["parametre"]) ? $_POST["parametre"] : 0;
 	}
 	else
 		$tchatGroupe = $parametre;		// Paramètre du module
 
-?>	
-	
+?>
+
 <script type="text/javascript">
 	<?php
 		// Lecture de l'identifiant du dernier message
@@ -29,7 +29,7 @@
 					'	WHERE		TchatGroupes_TchatGroupe = ' . $tchatGroupe .
 					'	ORDER BY	Message DESC' .
 					'	LIMIT 1';
-				
+
 		$req = $bdd->query($ordreSQL);
 		$messages = $req->fetchAll();
 		if(sizeof($messages) > 0)
@@ -59,13 +59,13 @@
 		$req = $bdd->query($ordreSQL);
 		$messages = $req->fetchAll();
 		$nombreMessages = sizeof($messages);
-		
+
 		if($nombreMessages) {
 			foreach($messages as $unMessage) {
 				// Lecture de la couleur
 				$codeCouleur = isset($unMessage["Pronostiqueurs_CodeCouleur"]) ? $unMessage["Pronostiqueurs_CodeCouleur"] : '#ffffff';
 				$messageAAfficher = $unMessage["Messages_Message"];
-				
+
 				echo '<p style="color: ' . $codeCouleur . ';">';
 					// Si le message date d'aujourd'hui, on affiche uniquement l'heure
 					// Sinon, on affiche le jour et l'heure
@@ -73,8 +73,8 @@
 						$dateAffichee = date("H:i", strtotime($unMessage["Messages_Date"]));
 					else
 						$dateAffichee = date("d/m H:i", strtotime($unMessage["Messages_Date"]));
-					
-				
+
+
 					if($unMessage["Pronostiqueur"] == $_SESSION["pronostiqueur"])
 						echo '(' . $dateAffichee . ') <strong>Moi</strong> :&nbsp;';
 					else
@@ -82,7 +82,7 @@
 					echo htmlentities($messageAAfficher);
 				echo '</p>';
 			}
-			
+
 			// On indique que l'on a lu tous les messages de ce tchat de groupe
 			// On exclut le tchat public
 			if($tchatGroupe != 1) {

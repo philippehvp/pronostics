@@ -1,11 +1,11 @@
 <?php
 	include_once('../commun.php');
-	
+
 	// Affichage des pourcentages de points marqués par journée
-	
+
 	// Lecture des paramètres passés à la page
 	$championnat = isset($_POST["championnat"]) ? $_POST["championnat"] : 0;
-	
+
 	// Lecture du nombre de points théoriques
 	$ordreSQL =		'	SELECT		Scores_Match + Scores_Bonus + Scores_Buteur AS Scores_Match, Scores_Buteur' .
 					'	FROM		(' .
@@ -116,7 +116,7 @@
 	$req = $bdd->query($ordreSQL);
 	$pointsTheoriques = $req->fetchAll();
 	$nombreJournees = sizeof($pointsTheoriques);
-	
+
 	// Scores match et scores buteur pour chaque pronostiqueur
 	$ordreSQL =		'	SELECT		pronostiqueurs.Pronostiqueur, Pronostiqueurs_NomUtilisateur, classements.Journees_Journee, Classements_PointsJourneeMatch, Classements_PointsJourneeButeur' .
 					'				,CASE' .
@@ -187,7 +187,7 @@
 								else																						echo '<tr>';
 									echo '<td></td>';
 									echo '<td>' . $resultats[$i * $nombreJournees]["Pronostiqueurs_NomUtilisateur"] . '</td>';
-									
+
 							}
 								// Affichage des données des journées
 								echo '<td>' . $resultats[$i * $nombreJournees + $j]["Classements_PointsJourneeMatch"] . '</td>';

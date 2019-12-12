@@ -5,14 +5,14 @@
 		// Adresses de destination
 		$adresseDestinataire = 'alexandrepueyo@hotmail.com,salles.jl@free.fr,alexandredecorps@gmail.com,philippe_hvp@hotmail.com';
 		//$adresseDestinataire = 'philippe_hvp@hotmail.com';
-	  
+
 		// Fabrication de la fin de chaîne (différente selon les serveurs de mail)
 		if(!preg_match('#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#', $adresseDestinataire))
 			$retourLigne = "\r\n";
 		else
 			$retourLigne = "\n";
 
-		
+
 		$message_txt = $message;
 		$message_html = '	<html>
 								<head>
@@ -24,7 +24,7 @@
 									<p>' . $message . '</p>
 								</body>
 							</html>';
-							  
+
 		// Frontière entre les éléments du mail
 		$frontiere = "-----=".md5(rand());
 
@@ -39,7 +39,7 @@
 		$enteteCourrier .= 'MIME-Version: 1.0' . $retourLigne;
 		$enteteCourrier .= 'X-Priority: 3' . $retourLigne;
 		$enteteCourrier .= 'Content-Type: multipart/alternative;' . $retourLigne . ' boundary="' . $frontiere . '"' . $retourLigne;
-							  
+
 		// Message du mail
 		$messageCourrier = $retourLigne . '--' . $frontiere . $retourLigne;
 
@@ -58,6 +58,6 @@
 
 		mail($adresseDestinataire, $sujetCourrier, $messageCourrier, $enteteCourrier);
 	}
-	
-	
+
+
 ?>

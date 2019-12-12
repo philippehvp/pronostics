@@ -1,9 +1,9 @@
 <?php
 	include_once('../commun.php');
-	
+
 	// Affichage des statistiques de Ligue 1
 	$championnat = isset($_POST["championnat"]) ? $_POST["championnat"] : 0;
-	
+
 	// Nombre de buteurs pronostiqués et trouvés
 	$ordreSQL =		'	SELECT		pronostiqueurs.Pronostiqueur, Pronostiqueurs_NomUtilisateur' .
 					'				,Nombre_Victoires_Reelles / Nombre_Victoires_Pronostiquees * 100 AS Ratio_Victoires, Nombre_Victoires_Reelles, Nombre_Victoires_Pronostiquees' .
@@ -153,7 +153,7 @@
 							echo '<td>' . $unPronostic["Nombre_Defaites_Reelles"] . '</td>';
 							echo '<td>' . number_format($unPronostic["Ratio_Defaites"], 2) . '%</td>';
 						echo '</tr>';
-				
+
 					}
 				echo '</tbody>';
 			echo '</table>';

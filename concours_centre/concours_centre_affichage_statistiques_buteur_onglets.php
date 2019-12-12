@@ -1,6 +1,6 @@
 <?php
 	include_once('../commun.php');
-	
+
 	// Affichage des onglets des championnats
 	echo '<div class="colle-gauche gauche cc--sous-onglets" style="margin-top: 5px;">';
 		echo '<label class="cc--nom-sous-onglet" onclick="concoursCentre_afficherStatistiquesButeurChampionnat(1, \'cc--conteneur-statistiques-buteur\', 1);">LIGUE 1</label>';
@@ -9,7 +9,7 @@
 	echo '</div>';
 
 	echo '<div class="colle-gauche cc--conteneur-statistiques-buteur"></div>';
-	
+
 ?>
 
 <script>
@@ -24,7 +24,7 @@
 				$(this).addClass('cc--selectionne');
 			}
 		});
-		
+
 	});
 
 </script>

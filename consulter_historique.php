@@ -16,9 +16,9 @@
 	<body ng-controller="MainController as mainCtl">
 		<?php
 			$nomPage = 'consulter_historique.php';
-			
+
 			echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
-			
+
 			// Page de consultation des données d'historique
 			// La page sait également afficher les données de la saison en cours
 
@@ -41,7 +41,7 @@
 			<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular-touch.min.js"></script>
 			<script type="text/javascript" src="https://code.angularjs.org/1.5.6/i18n/angular-locale_fr-fr.js"></script>
 			<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.2/ui-bootstrap-tpls.min.js"></script>
-			
+
 			<script src="https://rawgithub.com/angular-ui/ui-layout/master/src/ui-layout.js"></script>
 
 			<script type="text/javascript" src="dist/app.js" type="text/javascript"></script>
@@ -54,6 +54,6 @@
 
 			});
 		</script>
-		
+
 	</body>
 </html>

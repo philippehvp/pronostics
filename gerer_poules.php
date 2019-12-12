@@ -17,13 +17,13 @@
 	<?php
 		$nomPage = 'gerer_poules.php';
 		include_once('bandeau.php');
-		
+
 		echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
-		
+
 		// Page de gestion des poules
-		
+
 		$championnat = isset($_GET["championnat"]) ? $_GET["championnat"] : 0;
-	
+
 		// Lecture des groupes et des équipes
 		$ordreSQL =		'	SELECT      Groupe, Groupes_Nom, Equipes_Equipe AS Equipe, IFNULL(Equipes_NomCourt, Equipes_Nom) AS Equipes_Nom, Chapeau' .
                         '   FROM        groupes' .
@@ -40,7 +40,7 @@
 
 		$req = $bdd->query($ordreSQL);
 		$groupes = $req->fetchAll();
-        
+
         // Lecture des équipes du championnat
         $ordreSQL =     '   SELECT      Equipe, IFNULL(Equipes_NomCourt, Equipes_Nom) AS Equipes_Nom' .
                         '   FROM        equipes' .
@@ -50,10 +50,10 @@
                         '   ORDER BY    Equipes_Nom';
         $req = $bdd->query($ordreSQL);
         $equipes = $req->fetchAll();
-        
+
 		// Parcours des différents groupes et équipes
 		$nombreGroupes = count($groupes) / 4;
-		
+
 		// Lecture du numéro du premier groupe concerné par ce championnat
 		$ordreSQL =		'	SELECT		MIN(Groupe) AS Groupe' .
 						'	FROM		groupes' .
@@ -62,7 +62,7 @@
 		$req = $bdd->query($ordreSQL);
 		$groupeMinimum = $req->fetchAll();
 		$numeroPremierGroupe = $groupeMinimum[0]["Groupe"];
-        
+
 		echo '<div id="divClassementGroupes" class="contenu-page">';
 			echo '<input type="hidden" id="championnat" value="' . $championnat . '" />';
             echo '<table class="tableau--poules">';
@@ -92,7 +92,7 @@
                     }
                     echo '</tbody>';
                 echo '</table>';
-			
+
             echo '<br />';
 			echo '<div id="divClassementsGroupeValider" class="colle-gauche gauche">';
 				echo '<label id="labelCreerPoules">Créer les poules + MAJ chapeaux pronostics</label>';
@@ -107,7 +107,7 @@
 			$('#labelCreerPoules').button().click(	function(event) {
                 gererPoules_creerPoules('<?php echo $championnat; ?>', '<?php echo $nombreGroupes; ?>', '<?php echo $numeroPremierGroupe; ?>', 4);
             });
-		
+
             $('.listeTriee').sortable({axis: 'x'});
             $('.listeTriee').disableSelection();
 		});

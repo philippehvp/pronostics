@@ -1,9 +1,9 @@
 <?php
 	include_once('../commun.php');
-	
+
 	// Lecture des paramètres passés à la page
 	$generalJournee = isset($_POST["generalJournee"]) ? $_POST["generalJournee"] : 1;
-	
+
 	// Affichage des onglets des championnats
 	$ordreSQL =		'	SELECT	Championnat, UPPER(Championnats_Nom) AS Championnats_Nom' .
 					'	FROM	championnats' .
@@ -13,7 +13,7 @@
 					'			AND		inscriptions.Championnats_Championnat NOT IN (4, 5)';
 	$req = $bdd->query($ordreSQL);
 	$championnats = $req->fetchAll();
-	
+
 	echo '<div class="colle-gauche gauche cc--sous-onglets" style="margin-top: 5px;">';
 		$sousOnglet = 1;
 		foreach($championnats as $unChampionnat) {
@@ -22,7 +22,7 @@
 	echo '</div>';
 
 	echo '<div class="colle-gauche cc--conteneur-classements"></div>';
-	
+
 ?>
 
 <script>
@@ -37,7 +37,7 @@
 				$(this).addClass('cc--selectionne');
 			}
 		});
-		
+
 	});
 
 </script>

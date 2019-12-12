@@ -1,9 +1,9 @@
 <?php
 	include_once('../commun.php');
-	
+
 	// Lecture des paramètres passés à la page
 	$journee = isset($_POST["journee"]) ? $_POST["journee"] : 0;
-	
+
 	// Affichage du choix de match Canal de la journée
 	$ordreSQL =     '   SELECT          pronostiqueurs.Pronostiqueur, pronostiqueurs.Pronostiqueurs_NomUtilisateur' .
 					'					,equipes_domicile.Equipes_NomCourt AS EquipesDomicile_NomCourt, equipes_visiteur.Equipes_NomCourt AS EquipesVisiteur_NomCourt' .
@@ -39,7 +39,7 @@
         echo 'Pas de résultat, anomalie';
         return;
 	}
-	
+
 	echo '<div class="cc--points-par-equipe">';
 		echo '<table class="cc--tableau">';
 			echo '<thead>';
@@ -64,7 +64,7 @@
 
 					$i++;
 				}
-				
+
 			echo '</tbody>';
 		echo '</table>';
 	echo '</div>';
@@ -82,7 +82,7 @@
 				$(this).addClass('cc--selectionne');
 			}
 		});
-		
+
 	});
 
 </script>

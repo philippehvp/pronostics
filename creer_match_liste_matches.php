@@ -81,7 +81,7 @@
 			echo '<label class="detail">Remplir la journée</label>';
 			echo '<input type="text" class="lien-page" id="lien_journee_' . $journee . '" value="' . $journees[0]["Journees_LienPage"] . '" onchange="creerMatch_sauvegarderJournee(' . $journee . ');" />';
 			echo '<br />';
-	
+
 			echo '<label class="detail">Commencer par</label>';
 			echo '<select id="selectMatch">';
 				foreach($matches as $unMatch) {
@@ -96,7 +96,7 @@
 					}
 				}
 			echo '</select>';
-	
+
 			echo '<label class="bouton" onclick="creerMatch_remplirMatches(' . $journee . ');">Remplir</label>';
 			echo '<br />';
 		} else {
@@ -236,7 +236,7 @@
 		// On affiche un message de confirmation si la journée est active
 		if($('#labelEtatJournee').hasClass('vert')) {
 			if(confirm('La journée est active, voir les matchs Canal ?')) {
-				creerMatch_consulterCanal(numeroJournee);	
+				creerMatch_consulterCanal(numeroJournee);
 			}
 		} else {
 			creerMatch_consulterCanal(numeroJournee);

@@ -1,10 +1,10 @@
 <?php
 	include_once('commun.php');
-	
+
 	// Retourne la liste des modules actifs du groupe de modules pour un pronostiqueur
-	
+
 	$parametre = isset($_POST["parametre"]) ? $_POST["parametre"] : -1;
-	
+
 	$ordreSQL =		'	SELECT		Module, Modules_Parametre' .
 					'	FROM		modules' .
 					'	LEFT JOIN	modules_groupes' .
@@ -17,10 +17,10 @@
 					'				AND		ModulesPronostiqueurs_Actif = 1';
 	$req = $bdd->query($ordreSQL);
 	$modules = $req->fetchAll(PDO::FETCH_ASSOC);
-	
+
 	$tableau = array();
 	$tableau['donnees'] = $modules;
-	
+
 	echo json_encode($tableau);
 
 

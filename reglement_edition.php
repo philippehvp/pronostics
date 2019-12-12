@@ -15,34 +15,34 @@
 	<?php
 		$nomPage = 'reglement_edition.php';
 		include_once('bandeau.php');
-		
+
 		echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
-		
+
 		// Page de règlement CDF
-		
+
 		$ordreSQL =		'	SELECT		IFNULL(Reglements_Texte, \'Vide\') AS Reglements_Texte' .
 						'	FROM		reglements' .
 						'	WHERE		Championnats_Championnat = 0';
 		$req = $bdd->query($ordreSQL);
 		$reglements = $req->fetchAll();
 		$reglement = $reglements[0]["Reglements_Texte"];
-		
+
 		echo '<div id="divReglement" class="contenu-page">';
 			echo '<textarea name="txtReglement" id="txtReglement">' . $reglement . '</textarea>';
 			echo '<input type="button" value="Enregistrer" class="bouton" onclick="enregistrerReglement(0);" />';
 		echo '</div>';
-		
+
 	?>
 
 	<script>
 		$(function() {
 			afficherTitrePage('divReglement', 'Règlement');
 			retournerHautPage();
-			
+
 			CKEDITOR.replace('txtReglement');
-			
+
 		});
 	</script>
-	
+
 </body>
 </html>

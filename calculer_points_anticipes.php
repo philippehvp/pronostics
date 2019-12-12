@@ -14,18 +14,18 @@
 	<?php
 		$nomPage = 'calculer_points_anticipes.php';
 		include_once('bandeau.php');
-		
+
 		echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
-		
+
 		// Page de lancement des calculs des points de qualification (sorties de poules LDC et EL)
 		$ordreSQL =		'	CALL sp_calculpointsbonusanticipes()';
 		$bdd->exec($ordreSQL);
-		
-		
+
+
 		echo '<div id="divCalculPointsAnticipes" class="contenu-page">';
 			echo 'Les points de bonus ligue 1 ont été calculés avec succès';
 		echo '</div>';
-		
+
 	?>
 
 	<script>
@@ -34,6 +34,6 @@
 			retournerHautPage();
 		});
 	</script>
-	
+
 </body>
 </html>

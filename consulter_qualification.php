@@ -14,15 +14,15 @@
 	<?php
 		$nomPage = 'consulter_qualification.php';
 		echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
-		
+
 		$NOMBRE_EQUIPES = 4;
-		
+
 		// Page d'affichage des équipes qualifiées qui sortent de poule
 		// Le numéro de championnat dépend du pronostiqueur connecté
-		
+
 		echo '<div class="conteneur">';
 			include_once('bandeau.php');
-			
+
 			echo '<div id="divClassementGroupes" class="contenu-page">';
 				// Lecture du nombre de pronostiqueurs
 				$ordreSQL =		'	SELECT		COUNT(*) AS NombrePronostiqueurs, inscriptions.Championnats_Championnat' .
@@ -78,9 +78,9 @@
 
 					$req = $bdd->query($ordreSQL);
 					$pronostics = $req->fetchAll();
-					
+
 					$nombreGroupes = sizeof($pronostics) / ($NOMBRE_EQUIPES * $nombrePronostiqueurs);
-					
+
 					$classe = 'impair';
 					for($i = 0; $i < $nombrePronostiqueurs; $i++) {
 						$classe = $classe == 'pair' ? 'impair' : 'pair';

@@ -1,9 +1,9 @@
 <?php
 	include_once('commun_administrateur.php');
-	
+
 	// Initialisation du match Canal pour les pronostiquers pour une journée
 	// On vérifie que la journée a la possibilité d'accueillir les matches Canal
-	
+
 	$journee = isset($_POST["journee"]) ? $_POST["journee"] : 0;
 
 	$ordreSQL =		'	SELECT		journees.Journees_MatchCanalSelectionnable' .
@@ -16,7 +16,7 @@
 	} else {
 		return;
 	}
-	
+
 	if($matchCanalSelectionnable == 1) {
 		$ordreSQL =		'	REPLACE INTO	journees_pronostiqueurs_canal' .
 						'	SELECT			' . $journee . ', pronostiqueurs.Pronostiqueur' .

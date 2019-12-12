@@ -16,7 +16,7 @@
     <?php
         $nomPage = 'consulter_bonus.php';
         echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
-        
+
         // Page d'affichage des bonus pronostiqués par tous les pronostiqueurs
 
         // Lecture des bonus saisis
@@ -90,7 +90,7 @@
                             echo '<th>Meilleur passeur</th>';
                         echo '</tr>';
                     echo '</thead>';
-                    
+
                     echo '<tbody>';
                         for($i = 0; $i < $nombrePronostiqueurs; $i++) {
                             $classe = $pronostics_bonus[$i]["Bonus_Saisis"] == 1 ? 'vert' : 'rouge';
@@ -113,14 +113,14 @@
             echo '</div>';
             //include_once('pied.php');
         echo '</div>';
-            
-        
+
+
     ?>
-    
+
     <script>
         $(function() {
             afficherTitrePage('divBonus', 'Consultation des bonus');
-            
+
             $('.tableau--bonus').dataTable({"bPaginate": false, "bFilter": false, "bInfo": false});
         });
     </script>

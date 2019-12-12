@@ -6,10 +6,10 @@
 	// Lecture des paramètres passés à la page
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
 	$evenement = isset($_POST["evenement"]) ? $_POST["evenement"] : 0;
-	
+
 	date_default_timezone_set('Europe/Paris');
 	$date = date('Y-m-d H:i:s');
-	
+
 	$ordreSQL =		'	UPDATE		journees' .
 					'	JOIN		matches' .
 					'				ON		journees.Journee = matches.Journees_Journee' .
@@ -17,7 +17,7 @@
 					'				,journees.Journees_CodeEvenement = ' . $evenement .
 					'	WHERE		matches.Match = ' . $match;
 	$req = $bdd->exec($ordreSQL);
-	
+
 	// Il est à présent nécessaire de mettre à jour le critère de rafraîchissement de la table des modules
 	// Ce critère est lu par le module lors de son tout premier affichage (et sauvegardé dans un champ caché)
 	// Ensuite, à la première demande de rafraîchissement, le module sera capable de comparer cette valeur et le critère de comparaison
@@ -37,6 +37,5 @@
 					'	SET			Modules_CritereRafraichissement = \'' . $date . '\'' .
 					'	WHERE		matches.Match = ' . $match;
 	$bdd->exec($ordreSQL);
-	
+
 ?>
-	

@@ -2,13 +2,13 @@
 	include_once('commun_administrateur.php');
 
 	// Déplacement d'un joueur
-	
+
 	// Lecture des paramètres passés à la page
 	$action = isset($_POST["action"]) ? $_POST["action"] : -1;
 	$equipe = isset($_POST["equipe"]) ? $_POST["equipe"] : 0;
 	$dateTransfert = isset($_POST["dateTransfert"]) ? $_POST["dateTransfert"] : 0;
 
-	
+
 	// Dans le cas d'un transfert
 	if($action == 0) {
 		// Dans un premier temps, on clôture la présence du joueur dans son ancienne équipe
@@ -21,8 +21,8 @@
 					'				AND		joueurs_equipes.JoueursEquipes_Fin IS NULL';
 
 		$bdd->exec($ordreSQL);
-					
-		
+
+
 	}
 	else if($action == 1) {
 		$nomJoueur = isset($_POST["nomJoueur"]) ? str_replace('\'', '\\\'', $_POST["nomJoueur"]) : '';
@@ -31,7 +31,7 @@
 		// On crée un nouveau joueur dans la table joueurs
 		$ordreSQL =	'	INSERT INTO		joueurs(Joueurs_NomFamille, Joueurs_Prenom) VALUES (\'' . $nomJoueur . '\', \'' . $prenomJoueur . '\')';
 		$bdd->exec($ordreSQL);
-		
+
 		// On lit le numéro du joueur nouvellement créé
 		$ordreSQL =	'	SELECT		MAX(Joueur) AS Joueur FROM joueurs';
 		$req = $bdd->query($ordreSQL);

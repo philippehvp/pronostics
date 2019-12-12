@@ -7,7 +7,7 @@
 <head>
 <?php
 	include_once('commun_entete.php');
-	
+
 ?>
 
 </head>
@@ -17,7 +17,7 @@
 	// Consultation des trophées
 	$nomPage = 'consulter_trophees.php';
 	echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
-	
+
 	// Si l'affichage de la page des trophées a été demandé par l'administrateur, c'est qu'une journée vient de se terminer et que le pronostiqueur, dès sa connexion, doit être dirigé
 	// vers cette. Une fois cette page consultée, il n'est plus nécessaire à la prochaine connexion d'afficher cette page (jusqu'à la prochaine demande de l'administrateur)
 	$afficherTrophees = isset($_GET["affichertrophees"]) ? $_GET["affichertrophees"] : 0;
@@ -70,7 +70,7 @@
 								echo '<label class="lienJournee" onclick="consulterTrophees_afficherJournee(' . $championnat . ', ' . $uneJournee["Journee"] . ', \'divConsulterTropheesTableaux\');">' . $uneJournee["Journees_Nom"] . '</label>';
 						}
 					echo '</div>';
-					
+
 					echo '<div id="divConsulterTropheesTableaux" class="unChampionnat">';
 						afficherTrophees($bdd, $championnat, $journee, $dtDateMAJ, $journeeNom);
 					echo '</div>';

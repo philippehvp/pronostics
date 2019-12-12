@@ -1,10 +1,10 @@
 <?php
         // Affichage des résultats et des pronostics d'une journée
-        
+
         // Cette page est appelée de deux manières :
         // - soit directement depuis la page consulter_resultats.php (par un include)
         // - soit par un appel Ajax : dans ce cas, il est nécessaire d'inclure le fichier d'en-tête
-        
+
         // Lecture des paramètres passés à la page
         if(isset($_POST["journee"])) {
                 include_once('commun.php');
@@ -17,7 +17,7 @@
         }
 
         include_once('fonctions.php');
-        
+
         // Faut-il afficher les points de qualification pour la journée ?
         $ordreSQL =     '       SELECT          Journees_PointsQualification' .
                                 '       FROM            journees' .
@@ -25,7 +25,7 @@
         $req = $bdd->query($ordreSQL);
         $donnees = $req->fetchAll();
         $afficherPointsQualification = $donnees[0]["Journees_PointsQualification"] != null ? $donnees[0]["Journees_PointsQualification"] : 0;
-        
+
         // Bons résultats des matches d'une journée donnée
         $ordreSQL = '   SELECT DISTINCT         vue_resultatsjournees.Match' .
                                 '                                               ,EquipesDomicile_NomCourt' .
@@ -46,7 +46,7 @@
 
         $req = $bdd->query($ordreSQL);
         $resultats = $req->fetchAll();
-        
+
         $nombreMatches = sizeof($resultats);
         if($afficherPointsQualification == 1) {
                 // Attention, dans les matches de confrontation directe (en LDC et EL), la finale se joue sur un seul match
@@ -56,7 +56,7 @@
                 else
                         $nombreConfrontations = $nombreMatches / 2;
         }
-        
+
         // Tous les pronostics et pronostics de buteurs d'une journée donnée
         $ordreSQL =             '           SELECT              pronostiqueurs.Pronostiqueur' .
                                         '                                       ,pronostiqueurs.Pronostiqueurs_NomUtilisateur' .
@@ -243,7 +243,7 @@
 
         $req = $bdd->query($ordreSQL);
         $totaux = $req->fetchAll();
-        
+
         if($afficherPointsQualification == 1) {
                 // Les noms des équipes gagnantes
                 $ordreSQL =             '               SELECT          Equipes_NomCourt, Equipes_Nom' .
@@ -258,7 +258,7 @@
 
                 $req = $bdd->query($ordreSQL);
                 $vainqueursReels = $req->fetchAll();
-                
+
                 // Les noms des équipes pronostiquées gagnantes par le pronostiqueur
                 $ordreSQL =             '               SELECT          CASE' .
                                                 '                                               WHEN    vue_vainqueurspronosticsretouravecpoints.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] . ' OR fn_pronosticvisible(matches.Match) = 1' .
@@ -294,12 +294,12 @@
                                         $equipeVisiteurButeurs = $resultat["EquipesVisiteur_Buteurs"] != null ? $resultat["EquipesVisiteur_Buteurs"] : 'Aucun';
                                         echo '<th class="curseur-main" title="' . $resultat["EquipesDomicile_Nom"] . ' : ' . $equipeDomicileButeurs . '&#13' . $resultat["EquipesVisiteur_Nom"] . ' : ' . $equipeVisiteurButeurs . '" onclick="consulterResultats_afficherMatch(' . $resultat["Match"] . ', \'' . $resultat["EquipesDomicile_Nom"] . '\', \'' . $resultat["EquipesVisiteur_Nom"] . '\', 0, 0);">';
                                                 echo $resultat["EquipesDomicile_NomCourt"] . '<br />' . $resultat["EquipesVisiteur_NomCourt"] . '<br />';
-                                                
+
                                                 // Appel de la fonction d'affichage du score du match
                                                 $scoreAffiche = formaterScoreMatch($resultat["Matches_ScoreEquipeDomicile"], $resultat["Matches_ScoreAPEquipeDomicile"], $resultat["Matches_ScoreEquipeVisiteur"], $resultat["Matches_ScoreAPEquipeVisiteur"], $resultat["Matches_Vainqueur"]);
-                                                
+
                                                 echo $scoreAffiche;
-                                                
+
                                         echo '</th>';
                                 }
                                 echo '<th>Total</th>';
@@ -333,21 +333,21 @@
                                                                 $scoreTotal = $scoreMatch + $scoreButeur + $scoreBonus;
                                                         else
                                                                 $scoreTotal = '?';
-                                                                
+
                                                         if($pronostics[$indice][6] == '?')
                                                                 $nomButeursDomicile = '?';
                                                         else if($pronostics[$indice][6] == 0)
                                                                 $nomButeursDomicile = 'Aucun';
                                                         else
                                                                 $nomButeursDomicile = $pronostics[$indice][8];
-                                                                
+
                                                         if($pronostics[$indice][7] == '?')
                                                                 $nomButeursVisiteur = '?';
                                                         else if($pronostics[$indice][7] == 0)
                                                                 $nomButeursVisiteur = 'Aucun';
                                                         else
                                                                 $nomButeursVisiteur = $pronostics[$indice][9];
-                                                        
+
                                                         $coefficient = $pronostics[$indice][13];
                                                         if($scoreMatch != '?') {
                                                                 if($scoreMatch / $coefficient < 5)
@@ -359,11 +359,11 @@
                                                         } else {
                                                                 $style = 'blanc';
                                                         }
-                                                                
+
                                                         $pronosticsScoreEquipeDomicile = $pronostics[$indice][3];
                                                         $pronosticsScoreEquipeVisiteur = $pronostics[$indice][4];
                                                         $pronosticsVainqueur = $pronostics[$indice][5];
-                                                        
+
                                                         if($pronosticsVainqueur == '?')
                                                                 $pronosticsAffiches = '?';
                                                         else {
@@ -376,7 +376,7 @@
                                                                                 $pronosticsAffiches = $pronosticsScoreEquipeDomicile . '-' . $pronosticsScoreEquipeVisiteur;
                                                                 }
                                                         }
-                                                        
+
                                                         $coefficientCarreFinal = $pronostics[$indice][14];
                                                         if($coefficientCarreFinal == 2)
                                                                 $coeff = ' coeff2';
@@ -384,7 +384,7 @@
                                                                 $coeff = ' coeff3';
                                                         else
                                                                 $coeff = '';
-                                                                
+
                                                         echo '<td class="' . $style . $coeff . '">';
                                                                 echo '<div title="' . $scoreMatch . ' | ' . $scoreButeur . ' | ' . $scoreBonus . '">' . $scoreTotal . '</div>';
                                                                 echo '<div>' . $pronosticsAffiches . '</div>';
@@ -397,9 +397,9 @@
                                                                                                 echo '<img src="images/ballon_noir.png" alt="Buteur"/>';
                                                                                         else
                                                                                                 echo '<img src="images/ballon.png" alt="Buteur"/>';
-                                                                                        
+
                                                                         echo '<label> - </label>';
-                                                                        
+
                                                                         if($pronostics[$indice][7] == 0)
                                                                                 echo '<label>&Oslash;</label>';
                                                                         else
@@ -422,7 +422,7 @@
                                                                 $style = 'vert';
                                                         else
                                                                 $style = 'blanc';
-                                                                
+
                                                         $coefficientCarreFnalQualifies = $vainqueursPronostics[($i * $nombreConfrontations) + $k][2];
                                                         if($coefficientCarreFnalQualifies == 2)
                                                                 $coeffQualifies = ' coeff2';
@@ -430,7 +430,7 @@
                                                                 $coeffQualifies = ' coeff3';
                                                         else
                                                                 $coeffQualifies = '';
-                                                        
+
                                                         echo '<td class="' . $style . $coeffQualifies . ' ' . ($i * $nombreConfrontations) . '">';
                                                                 echo $vainqueursPronostics[($i * $nombreConfrontations) + $k][0];
                                                         echo '</td>';
@@ -447,18 +447,18 @@
         echo '</table>';
 
         ?>
-        
+
         <script>
-        
+
                 $(function () {
                         var hauteur = '600px';
                         var oTable = $('#tablePronostics').dataTable({"scrollCollapse": true, "scrollY": hauteur, "scrollX": true, "bPaginate": false, "bFilter": false, "bInfo": false, "bSort": false});
                         var obj = new $.fn.dataTable.FixedColumns(oTable);
-                        
+
                         // Changement de l'adresse URL de la page pour qu'elle reflète le numéro de journée
                         var stateObj = { foo: 'bar' };
                         history.pushState(stateObj, "Le Poulpe d'Or", "consulter_resultats.php?journee=" + $('#selectJournee').val());
-                        
+
                 });
         </script>
-                
+

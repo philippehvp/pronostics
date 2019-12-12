@@ -1,12 +1,12 @@
 <?php
 	include_once('commun.php');
 	include_once('consulter_trophees_fonctions.php');
-	
+
 	$journee = isset($_POST["journee"]) ? $_POST["journee"] : 0;
 	$championnat = isset($_POST["championnat"]) ? $_POST["championnat"] : 0;
 
 	// Affichage des trophées pour une journée en particulier
-	
+
 	// Lecture des informations d'une journée
 	function lireJournee($championnat, $journee) {
 		$ordreSQL =		'	SELECT		DISTINCT CASE' .
@@ -36,7 +36,7 @@
 
 		return $ordreSQL;
 	}
-	
+
 	$ordreSQL = lireJournee($championnat, $journee);
 	$req = $bdd->query($ordreSQL);
 	$donnees = $req->fetch();

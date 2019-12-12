@@ -9,7 +9,7 @@
 	if($rafraichissementSection == 1) {
 		// Rafraîchissement automatique de la section
 		include_once('commun.php');
-		
+
 		// Lecture des paramètres passés à la page
 		$journee = isset($_POST["journee"]) ? $_POST["journee"] : 0;
 	}
@@ -138,7 +138,7 @@
 					'	ORDER BY	scores.Journees_Journee DESC';
 	$req = $bdd->query($ordreSQL);
 	$pointsTheoriques = $req->fetchAll();
-	
-	
+
+
 	//echo $pointsTheoriques[0]["Scores_Match"] . ' (' . $pointsTheoriques[0]["Scores_Buteur"] .')';
 ?>

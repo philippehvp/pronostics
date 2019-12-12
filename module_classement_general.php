@@ -1,17 +1,17 @@
 <?php
 	// Module d'affichage des classements
-	
+
 	// Le module peut être appelé de deux manières :
 	// - par une inclusion
 	// - par un appel Ajax (cas du rafraîchissement)
-	
+
 	include_once('classements_pronostiqueurs_fonctions.php');
-	
+
 	$rafraichissementModule = isset($_POST["rafraichissementModule"]) ? $_POST["rafraichissementModule"] : 0;
 	if($rafraichissementModule == 1) {
 		// Rafraîchissement automatique du module
 		include_once('commun.php');
-		
+
 		// Lecture des paramètres passés à la page
 		$championnat = isset($_POST["parametre"]) ? $_POST["parametre"] : 0;
 		$modeRival = isset($_POST["modeRival"]) ? $_POST["modeRival"] : 0;
@@ -32,7 +32,7 @@
 	$dateMAJJournee = $donnees["Journees_DateMAJ"];
 	$dtDateMAJ = new DateTime($dateMAJJournee);
 	$req->closeCursor();
-	
+
 	// On détermine d'abord si la journée suivante est active ou non
 	// Si c'est le cas, on affiche alors le nombre de pronostics déjà saisis par rapport au nombre de pronostics théoriques
 	// Le nombre de pronostics théorique peut changer d'un pronostiqueur à l'autre (cas de la phase finale de la compétition européenne)

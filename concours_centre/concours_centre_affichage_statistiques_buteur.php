@@ -1,11 +1,11 @@
 <?php
 	include_once('../commun.php');
-	
+
 	// Affichage des statistiques buteur pour un championnat
-	
+
 	// Lecture des paramètres passés à la page
 	$championnat = isset($_POST["championnat"]) ? $_POST["championnat"] : 0;
-	
+
 	// Nombre de buteurs pronostiqués et trouvés
 	$ordreSQL =		'	SELECT		pronostiqueurs.Pronostiqueur, Pronostiqueurs_NomUtilisateur' .
 					'				,IFNULL(Nombre_Pronostics_Buteur, 0) AS Nombre_Pronostics_Buteur, IFNULL(Nombre_Buteurs_Trouves, 0) AS Nombre_Buteurs_Trouves, Nombre_Buteurs_Trouves / Nombre_Pronostics_Buteur * 100 AS Ratio_Buteur' .
@@ -99,8 +99,8 @@
 	$req = $bdd->query($ordreSQL);
 	$pronosticsButeur = $req->fetchAll();
 
-	
-	
+
+
 	if(sizeof($pronosticsButeur) > 0) {
 		echo '<div class="cc--statistiques-buteur">';
 			echo '<table class="cc--tableau">';
@@ -124,7 +124,7 @@
 							echo '<td>' . $unPronosticButeur["Nombre_Buteurs_Trouves"] . '</td>';
 							echo '<td>' . $unPronosticButeur["Nombre_Pronostics_Buteur"] . '</td>';
 						echo '</tr>';
-				
+
 					}
 				echo '</tbody>';
 			echo '</table>';

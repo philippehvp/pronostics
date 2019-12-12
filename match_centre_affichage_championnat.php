@@ -14,7 +14,7 @@
 	$req = $bdd->query($ordreSQL);
 	$journees = $req->fetchAll();
 	$journee = $journees[0]["Journee_En_Cours"];
-	
+
 	// Il est nécessaire de lire le nombre de pronostiqueurs pour l'échelle horizontale des graphiques
 	$ordreSQL =		'	SELECT		COUNT(*) AS Nombre_Pronostiqueurs' .
 					'	FROM		inscriptions' .
@@ -22,7 +22,7 @@
 	$req = $bdd->query($ordreSQL);
 	$pronostiqueurs = $req->fetchAll();
 	$nombrePronostiqueurs = $pronostiqueurs[0]["Nombre_Pronostiqueurs"];
-	
+
 	// Dans le cas où le championnat affiché ne concerne pas le pronostiqueur connecté, il est nécessaire :
 	// - de lire la liste des joueurs du championnat
 	// - de mettre le premier de la liste en tant que pronostiqueur consulté
@@ -68,13 +68,13 @@
 	$req = $bdd->query($ordreSQL);
 	$pronostiqueursConsultes = $req->fetchAll();
 	$pronostiqueurConsulte = $pronostiqueursConsultes[0]["Pronostiqueur_Consulte"];
-	
+
 	echo '<input type="hidden" name="nombrePronostiqueurs" value="' . $nombrePronostiqueurs . '" />';
 	echo '<input type="hidden" name="championnat" value="' . $championnat . '" />';
 	echo '<input type="hidden" name="journee" value="' . $journee . '" />';
 	echo '<input type="hidden" name="pronostiqueurConsulte" value="' . $pronostiqueurConsulte . '" />';
 
-	
+
 	// Liste des pronostiqueurs pour le championnat
 	$ordreSQL =		'	SELECT		pronostiqueurs.Pronostiqueur, Pronostiqueurs_NomUtilisateur' .
 					'				,CASE' .
@@ -105,7 +105,7 @@
 					'	ORDER BY	Ordre, Pronostiqueurs_NomUtilisateur';
 	$req = $bdd->query($ordreSQL);
 	$pronostiqueurs = $req->fetchAll();
-	
+
 	// Affichage de la liste des pronostiqueurs du championnat
 	// On identifie trois groupes :
 	// - le pronostiqueur
@@ -130,7 +130,7 @@
 					if($ordrePrecedent == '')
 						echo '<optgroup label="Rivaux">';
 					echo '<option value="' . $unPronostiqueur["Pronostiqueur"] . '">' . $unPronostiqueur["Pronostiqueurs_NomUtilisateur"] . '</option>';
-					
+
 					$ordrePrecedent = '1';
 				}
 				else {
@@ -148,8 +148,8 @@
 				echo '</optgroup>';
 		echo '</select>';
 	echo '</div>';
-	
-	
+
+
 	// La zone d'affichage des données est divisée en 2 parties, l'une au-dessus de l'autre
 	echo '<div class="colle-gauche">';
 		echo '<div class="mc--resultats scroll-pane gauche">';
@@ -169,7 +169,7 @@
 				include_once('match_centre_affichage_classement_general.php');
 			echo '</div>';
 
-			
+
 			// Lecture du nom de la journée
 			$ordreSQL =		'	SELECT		Journees_Nom, Journees_DateMAJ, Journees_DateEvenement FROM journees WHERE Journee = ' . $journee;
 			$req = $bdd->query($ordreSQL);
@@ -177,23 +177,23 @@
 			$nomJournee = $journees[0]["Journees_Nom"];
 			$journeeDateMAJ = $journees[0]["Journees_DateMAJ"];
 			$journeeEvenement = $journees[0]["Journees_DateEvenement"];
-			
+
 			echo '<label class="colle-gauche mc--titre-section">' . $nomJournee . '</label>';
 			echo '<div class="mc--classement-journee scroll-pane">';
 				include_once('match_centre_affichage_classement_journee.php');
 			echo '</div>';
 		echo '</div>';
-			
+
 	echo '<div class="gauche" style="margin-left: 20px;">';
 		// Section graphique général et journée
 		echo '<svg class="mc--graphiques"></svg>';
-		
+
 		// Affichage des statistiques de la journée
 		echo '<div class="mc--statistiques-journee">';
 			include_once('match_centre_affichage_statistiques_journee.php');
 		echo '</div>';
 	echo '</div>';
-	
+
 ?>
 
 <script>
@@ -201,10 +201,10 @@
 		//$('.scroll-pane').getNiceScroll().resize();
 		$('.scroll-pane').niceScroll({cursorcolor: "#0e2c3d", cursorborder: "#0e2c3d"});
 	});
-	
+
 	function afficherPronostiqueur(journee, classeResultats, classeClassementGeneral, classeGraphiques) {
 		var pronostiqueurConsulte = $('#selectPronostiqueurs').val();
 		matchCentre_afficherPronostiqueur(journee, pronostiqueurConsulte, classeResultats, classeClassementGeneral, classeGraphiques);
 	}
-	
+
 </script>

@@ -14,11 +14,11 @@
 <?php
     $nomPage = 'gerer_site.php';
     include_once('bandeau.php');
-    
+
     echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
-    
+
     // Page de gestion des données du site
-    
+
     echo '<div id="divSauvegarde" class="contenu-page">';
         // Sauvegarde de la base de données
         // Réinitialisation de la saison
@@ -92,8 +92,8 @@
                 $selected = $qualificationsLDCDateMaxMinute == $j ? ' selected="selected"' : '';
                 echo '<option' . $selected . ' value="' . $j . '">' . $minutes . '</option>';
             }
-        echo '</select>';        
-        
+        echo '</select>';
+
         echo '<br /><br />';
         // Date max de saisie des qualifications EL
 		$ordreSQL =		'	SELECT				qualifications_date_max.Qualifications_Date_Max AS Qualifications_EL_Date_Max_Date' .
@@ -126,26 +126,26 @@
             }
         echo '</select>';
 
-        
-        
-        
+
+
+
         echo '<br /><br />';
         echo '<h2 class="texte-rouge">Réinitialisation de la saison</h2>';
         echo '<label class="bouton" onclick="gererSite_reinitialiserDonnees();">Réinitialiser la saison</label>';
-        
-        
+
+
     echo '</div>';
-    
+
 ?>
 
 	<script>
 		$(function() {
             $('.date').datepicker({dateFormat: 'dd/mm/yy'});
-            
+
 			afficherTitrePage('divSauvegarde', 'Sauvegarde et gestion des données');
 			retournerHautPage();
 		});
 	</script>
-	
+
 </body>
 </html>

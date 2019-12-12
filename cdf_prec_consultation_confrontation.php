@@ -3,7 +3,7 @@
     include_once('fonctions.php');
 
     // Affichage du détail d'une confrontation
-    
+
     // Lecture des paramètres passés à la page
     $confrontation = isset($_POST["confrontation"]) ? $_POST["confrontation"] : 0;
     $saison = isset($_POST["saison"]) ? $_POST["saison"] : 0;
@@ -89,7 +89,7 @@
     $resultats = $req->fetchAll();
     $nombreMatches = sizeof($resultats);
 
-    
+
     function lirePronostics($bdd, $pronostiqueur, $pronostiqueurDetail, $saison, $match, &$pronostics) {
         // Tous les pronostics et pronostics de buteurs des pronostiqueurs de la confrontation pour la journée
         $ordreSQL =     '       SELECT DISTINCT     matches.Match' .
@@ -475,8 +475,8 @@
         $req = $bdd->query($ordreSQL);
         $pronostics = $req->fetchAll();
     }
-    
-    
+
+
     // Lecture des pronostiqueurs de la confrontation
     $ordreSQL =     '   SELECT      Pronostiqueurs_PronostiqueurA, Pronostiqueurs_PronostiqueurB' .
                     '               ,IFNULL(pronostiqueursA.Pronostiqueurs_NomUtilisateur, \'-\') AS PronostiqueursA_NomUtilisateur' .
@@ -503,7 +503,7 @@
                     '               AND     confrontations.Saisons_Saison = ' . $saison;
     $req = $bdd->query($ordreSQL);
     $pronostiqueurs = $req->fetchAll();
-    
+
     $pronosticsA = $pronosticsB = null;
 
     // Affichage des bons résultats et des pronostics pour chaque pronostiqueur de la confrontation
@@ -595,7 +595,7 @@
                         $scoreBonus = '?';
                         $performance = -1;
                     }
-                    
+
                     if($performance == -1)
                         $style = 'blanc';
                     else if($performance == 0)
@@ -652,7 +652,7 @@
                         $scoreBonus = '?';
                         $performance = -1;
                     }
-                    
+
                     if($performance == -1)
                         $style = 'blanc';
                     else if($performance == 0)

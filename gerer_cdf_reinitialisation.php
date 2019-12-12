@@ -1,7 +1,7 @@
 <?php
     // Placement des pronostiqueurs de 1 à 4
     include_once('commun_administrateur.php');
-    
+
     $ordreSQL =     '   UPDATE      confrontations' .
                     '   SET         Pronostiqueurs_PronostiqueurA = NULL' .
                     '               ,Pronostiqueurs_PronostiqueurB = NULL' .

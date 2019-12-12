@@ -17,11 +17,11 @@
 	<?php
 		$nomPage = 'creer_qualification.php';
 		include_once('bandeau.php');
-		
+
 		echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
-		
+
 		// Page de sélection des équipes qualifiées pour les tours éliminatoires
-	
+
 		// Lecture des groupes et des équipes
 		$ordreSQL =		'	SELECT		groupes.Groupe, groupes.Groupes_Nom, equipes.Equipe, equipes.Equipes_Nom, equipes.Equipes_Fanion' .
 						'				,pronostics_qualifications.PronosticsQualifications_Classement' .
@@ -44,10 +44,10 @@
 
 		$req = $bdd->query($ordreSQL);
 		$groupes = $req->fetchAll();
-		
+
 		// Parcours des différents groupes et équipes
 		$nombreGroupes = sizeof($groupes) / 4;
-		
+
 		// Lecture du numéro du premier groupe concerné par ce championnat
 		$ordreSQL =		'	SELECT		MIN(Groupe) AS Groupe' .
 						'	FROM		groupes' .
@@ -59,11 +59,11 @@
 		$req = $bdd->query($ordreSQL);
 		$groupeMinimum = $req->fetchAll();
 		$numeroPremierGroupe = $groupeMinimum[0]["Groupe"];
-		
+
 		echo '<div id="divClassementGroupes" class="contenu-page">';
 			if($nombreGroupes) {
 				echo '<label>Pour déplacer une équipe vers la gauche ou vers la droite, veuillez faire un cliquer-déplacer sur chacune d\'elles</label>';
-			
+
 				$classe = 'pair';
 				for($i = 0; $i < $nombreGroupes; $i++) {
 					$classe = $classe == 'pair' ? 'impair' : 'pair';
@@ -80,8 +80,8 @@
 						echo '</div>';
 					echo '</div>';
 				}
-			
-			
+
+
 				echo '<div id="divClassementsGroupeValider" class="colle-gauche gauche">';
 					echo '<label id="labelValiderQualification">Valider les qualifications</label>';
 				echo '</div>';
@@ -97,7 +97,7 @@
 														creerQualification_validerQualifiees('ulGroupe', '<?php echo $nombreGroupes; ?>', '<?php echo $numeroPremierGroupe; ?>', 4);
 													}
 			);
-		
+
 			$(function() {
 				$('.listeTriee').sortable({axis: 'x'});
 				$('.listeTriee').disableSelection();

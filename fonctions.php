@@ -7,27 +7,27 @@
 			$cote = 0;
 		else
 			$cote = (floor($coefficient) - 1) * 5;
-		
+
 		return $cote;
 	}
-	
+
 	function jourSemaine($jour) {
 		$jours = array	('Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi');
-		
+
 		if($jour >= 0 && $jour <= 6)
 			return $jours[$jour];
 		else
 			return '';
 	}
 
-	
+
 	// Affiche le score du match selon le format traditionnel
 	function formaterScoreMatch($scoreEquipeDomicile, $scoreAPEquipeDomicile, $scoreEquipeVisiteur, $scoreAPEquipeVisiteur, $vainqueur) {
 		$scoreMatch = '';
 		$separateur = ' - ';
 		$ap = ' AP';
 		$tab = ' TAB';
-	
+
 		if($vainqueur != null && $vainqueur != '' && $vainqueur != '0' && $vainqueur != '?') {
 			if($vainqueur == 1) {
 				$scoreMatch = $scoreAPEquipeDomicile . $tab . $separateur . $scoreAPEquipeVisiteur;
@@ -47,9 +47,9 @@
 				$scoreMatch = $scoreEquipeDomicile . $separateur . $scoreEquipeVisiteur;
 			}
 		}
-		
+
 		return $scoreMatch;
 	}
-	
-	
+
+
 ?>

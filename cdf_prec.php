@@ -16,18 +16,18 @@
 <body class="cdf">
 	<?php
 		$nomPage = 'cdf_prec.php';
-		
+
 		echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
 		echo '<div class="conteneur">';
 			include_once('bandeau.php');
 			echo '<div class="confrontations"></div>';
 			//include_once('pied.php');
 		echo '</div>';
-		
+
 	?>
 	<script>
 		var critereRafraichissement = '';
-		
+
 		function rafraichirPage() {
 			$.ajax(	{
 				url: 'cdf_prec_affichage_confrontations.php',
@@ -39,7 +39,7 @@
 				$('.confrontations').empty().append(html);
 			}).fail(function(html) { console.log('Fonction d\'affichage des confrontations : fail du deuxième appel Ajax'); });
 		}
-	
+
 		$(function() {
 			retournerHautPage();
 			activitePronostiqueur();
@@ -48,8 +48,8 @@
 			// Premier affichage des confrontations forcé
 			rafraichirPage();
 		});
-	
+
 	</script>
-	
+
 </body>
 </html>

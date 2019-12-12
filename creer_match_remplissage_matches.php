@@ -28,7 +28,7 @@
     $document = new DOMDocument();
 	@$document->loadHTMLFile($lien);
 	$tableauErreurs = array();
-	
+
     $xpath = new DOMXpath($document);
 
     $divLiveScore = $xpath->query('//div[@id="livescore"]');
@@ -39,7 +39,7 @@
     $table = $xpath->query('.//table', $divLiveScore->item(0));
     $tableauDates = $xpath->query('.//thead', $table->item(0));
     $tableauMatches = $xpath->query('.//tr', $table->item(0));
-    
+
     $tableauTR = $xpath->query('.//tr', $table->item(0));
     $indiceMatch = 0;
     foreach($tableauTR as $unTR) {

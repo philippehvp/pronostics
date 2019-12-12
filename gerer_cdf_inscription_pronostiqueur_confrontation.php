@@ -2,7 +2,7 @@
     include_once('commun_administrateur.php');
 
     // Inscription d'un pronostiqueur dans une cellule
-    
+
     // Lecture des paramètres passés à la page
     $numeroCase = isset($_POST["numero_case"]) ? $_POST["numero_case"] : 0;
     $pronostiqueur = isset($_POST["pronostiqueur"]) ? $_POST["pronostiqueur"] : 0;

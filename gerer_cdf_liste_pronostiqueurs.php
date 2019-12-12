@@ -2,7 +2,7 @@
     include_once('commun_administrateur.php');
 
     // Sélection d'un pronostiqueur à placer dans une confrontation
-    
+
     // Lecture des paramètres passés à la page
     $exempte = isset($_POST["exempte"]) ? $_POST["exempte"] : -1;
 

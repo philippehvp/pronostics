@@ -13,11 +13,11 @@
 	<?php
 		$nomPage = 'creer_fiche.php';
 		include_once('bandeau.php');
-		
+
 		echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
-		
+
 		// Fiche d'identité d'un pronostiqueur
-		
+
 		// Lecture des données déjà saisies par le pronostiqueur
 		$ordreSQL =		'	SELECT		IFNULL(Pronostiqueurs_Photo, \'_inconnu.png\') AS Pronostiqueurs_Photo, Pronostiqueurs_NomUtilisateur, Pronostiqueurs_Nom, Pronostiqueurs_Prenom, Pronostiqueurs_MEL' .
 						'				,DATE_FORMAT(Pronostiqueurs_DateDeNaissance, \'%d/%m/%Y\') AS Pronostiqueurs_DateDeNaissance, Pronostiqueurs_LieuDeResidence' .
@@ -27,7 +27,7 @@
 
 		$req = $bdd->query($ordreSQL);
 		$fiche = $req->fetchAll();
-		
+
 		if(sizeof($fiche)) {
 			$pronostiqueurPhoto = $fiche[0]["Pronostiqueurs_Photo"] != null ? $fiche[0]["Pronostiqueurs_Photo"] : '';
 			$pronostiqueurNomUtilisateur = $fiche[0]["Pronostiqueurs_NomUtilisateur"] != null ? $fiche[0]["Pronostiqueurs_NomUtilisateur"] : '';
@@ -70,7 +70,7 @@
 					echo '<label class="simple">Date de naissance</label><input type="text" id="txtDateDeNaissance" value="' . $pronostiqueurDateDeNaissance . '" class="date" readonly="true" /><br />';
 					echo '<label class="simple">Lieu de résidence</label><input type="text" id="txtLieuDeResidence" value="' . $pronostiqueurLieuDeResidence . '" /><br />';
 					echo '<label class="simple">Equipe favorite</label><input type="text" id="txtEquipeFavorite" value="' . $pronostiqueurEquipeFavorite . '" />';
-					
+
 				echo '</div>';
 				echo '<div class="gauche">';
 					echo '<label class="zone">Ambitions</label><textarea id="taAmbitions">' . $pronostiqueurAmbitions . '</textarea><br />';
@@ -88,13 +88,13 @@
 		echo '</div>';
 
 	?>
-	
+
 	<script>
 		$(function() {
 			afficherTitrePage('divFicheIdentite', 'Modification de votre fiche d\'identité');
-		
+
 			$('.date').datepicker({dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, yearRange: '-100:+0'	});
-			
+
 			<?php
 				// A l'ouverture de la page, si le paramètre premiereconnexion est égal à 1, cela signifie que l'utilisateur est censé ouvrir cette page depuis la page de première connexion
 				$premiereConnexion = isset($_GET["premiereconnexion"]) ? $_GET["premiereconnexion"] : 0;
@@ -110,7 +110,7 @@
 			<?php
 				}
 			?>
-			
+
 		});
 	</script>
 </body>

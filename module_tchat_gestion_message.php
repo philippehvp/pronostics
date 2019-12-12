@@ -1,16 +1,16 @@
 <?php
 	include_once('commun.php');
-	
+
 	// Envoi d'un message
 
 	$tableau = array();
 
 	// Extraction des variables postées
 	extract($_POST);
-	
+
 	// Si un message vient d'être ajouté
 	if($action == 'ajoutMessage') {
-	
+
 		// Vérification de la longueur du message
 		// Cette vérification double celle qui est faite en amont dans le module mais qui a pu être modifiée par l'utilisateur
 		if(strlen(trim($message)) == 0)
@@ -20,7 +20,7 @@
 		$req = $bdd->prepare($ordreSQL);
 		$req->execute(array($pronostiqueur, $message, $tchatGroupe));
 		$tableau["etat"] = 'OK';
-		
+
 		// A chaque fois qu'une personne envoie un nouveau message, elle incrémente le nombre de messages non lus pour les personnes de ce tchat de groupe
 		// On n'exclut toutefois le tchat public
 		if($tchatGroupe != 1) {
@@ -30,7 +30,7 @@
 							'				AND		TchatGroupes_TchatGroupe = ' . $tchatGroupe;
 			$req = $bdd->exec($ordreSQL);
 		}
-		
+
 	}
 	else if($action == 'lectureMessage') {
 		$dernierMessage = floor($dernierMessage);
@@ -54,10 +54,10 @@
 			$messageAAfficher = $unMessage["Messages_Message"];
 			$nomAAfficher = $unMessage["Pronostiqueurs_Pronostiqueur"] == $_SESSION["pronostiqueur"] ? 'Moi' : $unMessage["Pronostiqueurs_NomUtilisateur"];
 			$tableau["lecture"] = '(' . date('H:i:s', $unMessage["Messages_Date"]) . ') <p style="color: ' . $codeCouleur . ';"><strong>' . $nomAAfficher . '</strong> :&nbsp;' . $messageAAfficher . '</p>';
-			
+
 			$tableau["dernierMessage"] = $unMessage["Message"];
 		}
-		
+
 		// On indique que l'on a lu tous les messages de ce tchat de groupe
 		// On exclut le tchat public
 		if($tchatGroupe != 1) {
@@ -67,12 +67,12 @@
 							'				AND		TchatGroupes_TchatGroupe = ' . $tchatGroupe;
 			$req = $bdd->exec($ordreSQL);
 		}
-		
-		
+
+
 		$tableau["etat"] = 'OK';
 	}
-	
-	
+
+
 	echo json_encode($tableau);
-	
+
 ?>

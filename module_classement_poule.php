@@ -11,7 +11,7 @@
 	if($rafraichissementModule == 1) {
 		// Rafraîchissement automatique du module
 		include_once('commun.php');
-		
+
 		// Lecture des paramètres passés à la page
 		$championnat = isset($_POST["parametre"]) ? $_POST["parametre"] : 0;
 		$modeRival = isset($_POST["modeRival"]) ? $_POST["modeRival"] : 0;
@@ -19,7 +19,7 @@
 	else {
 		$championnat = $parametre;		// Paramètre du module
 	}
-	
+
 	afficherClassementPoule($bdd, $championnat, $modeRival, $modeConcurrentDirect);
 ?>
 

@@ -8,7 +8,7 @@
 	if($rafraichissementSection == 1) {
 		// Rafraîchissement automatique de la section
 		include_once('commun.php');
-		
+
 		// Lecture des paramètres passés à la page
 		$journee = isset($_POST["journee"]) ? $_POST["journee"] : 0;
 	}
@@ -31,7 +31,7 @@
 		$nombreColonnes = floor($nombreClassements / $LIGNES_PAR_COLONNE);
 		if($nombreClassements % $LIGNES_PAR_COLONNE > 0)
 			$nombreColonnes++;
-		
+
 		for($i = 0; $i < $nombreColonnes; $i++) {
 			if($i == 0)							echo '<div class="premiere-colonne">';
 			else								echo '<div class="colonne-suivante">';

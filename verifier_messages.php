@@ -1,14 +1,14 @@
 <?php
 	// Vérification régulière de l'arrivée de nouveaux messages
-	
+
 	// Les données suivantes sont affichées :
 	// - conversations de l'utilisateur (qu'il soit à l'origine ou non de la discussion)
 	// - tchats de groupe créés par l'utilisateur
 	// - tchats de groupe auxquels il participe
-	
+
 	// Rafraîchissement automatique du module
 	include_once('commun.php');
-	
+
 	// Conversations non lues
 	function lireConversationsNonConsultees($bdd) {
 		$ordreSQL =		'	SELECT		TchatGroupe, Pronostiqueurs_NomUtilisateur, MessagesLus_NombreMessages' .
@@ -28,17 +28,17 @@
 						'				ON		pronostiqueurs.Pronostiqueur = conversations.Pronostiqueurs_Pronostiqueur';
 		$req = $bdd->query($ordreSQL);
 		$conversations = $req->fetchAll();
-		
+
 		$nombreMessages = 0;
 		if(sizeof($conversations)) {
 			foreach($conversations as $uneConversation) {
 				$nombreMessages += $uneConversation["MessagesLus_NombreMessages"];
 			}
 		}
-		
+
 		return $nombreMessages;
 	}
-	
+
 	// Tchats de groupe créés par l'utilisateur
 	function lireTchatGroupeProprietaire($bdd) {
 		$ordreSQL =		'	SELECT		TchatGroupe, TchatGroupes_Nom, MessagesLus_NombreMessages' .
@@ -52,7 +52,7 @@
 		$req = $bdd->query($ordreSQL);
 		$tchatGroupes = $req->fetchAll();
 		$nombreTchatGroupes = sizeof($tchatGroupes);
-		
+
 		$nombreMessages = 0;
 		if($nombreTchatGroupes != 0) {
 			foreach($tchatGroupes as $unTchatGroupe) {
@@ -63,7 +63,7 @@
 								'				ON		Pronostiqueurs_Pronostiqueur = Pronostiqueur' .
 								'	WHERE		Pronostiqueurs_Pronostiqueur <> ' . $_SESSION["pronostiqueur"] .
 								'				AND		TchatGroupes_TchatGroupe = ' . $unTchatGroupe["TchatGroupe"];
-								
+
 				$req = $bdd->query($ordreSQL);
 				$membres = $req->fetchAll();
 				$nombreMessagesNonLus = $unTchatGroupe["MessagesLus_NombreMessages"];
@@ -72,8 +72,8 @@
 		}
 		return $nombreMessages;
 	}
-	
-	
+
+
 	// Affichage des tchats de groupe auxquels participe le pronostiqueur
 	// On exclut le tchat public
 	// On en profite pour regarder dans la table messages_lus le nombre de messages qui auraient été postés depuis la dernière fois où il n'a pas ouvert ce tchat de groupe en particulier
@@ -95,7 +95,7 @@
 		$req = $bdd->query($ordreSQL);
 		$discussions = $req->fetchAll();
 		$nombreDiscussions = sizeof($discussions);
-		
+
 		$nombreMessages = 0;
 		if($nombreDiscussions != 0) {
 			foreach($discussions as $uneDiscussion) {
@@ -106,26 +106,26 @@
 								'				ON		Pronostiqueurs_Pronostiqueur = Pronostiqueur' .
 								'	WHERE		Pronostiqueurs_Pronostiqueur <> ' . $_SESSION["pronostiqueur"] .
 								'				AND		TchatGroupes_TchatGroupe = ' . $uneDiscussion["TchatGroupe"];
-								
+
 				$req = $bdd->query($ordreSQL);
 				$membres = $req->fetchAll();
 				$nombreMessagesNonLus = $uneDiscussion["MessagesLus_NombreMessages"];
 				$nombreMessages += $nombreMessagesNonLus;
 			}
 		}
-		
+
 		return $nombreMessages;
 	}
-	
+
 	$tableau = array();
-	
+
 	$tableau['nombreMessagesConversationsNonLues'] = lireConversationsNonConsultees($bdd);
-	
+
 	$nombreMessagesTchatGroupeNonLus = 0;
 	$nombreMessagesTchatGroupeNonLus += lireTchatGroupeProprietaire($bdd);
 	$nombreMessagesTchatGroupeNonLus += lireTchatGroupeParticipant($bdd);
 	$tableau['nombreMessagesTchatGroupeNonLus'] = $nombreMessagesTchatGroupeNonLus;
-	
+
 	echo json_encode($tableau);
 ?>
 

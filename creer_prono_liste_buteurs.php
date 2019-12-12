@@ -2,7 +2,7 @@
 	include_once('commun.php');
 
 	// Page de création de la liste des buteurs dans un match
-	
+
 	// Equipe concernée
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
 	$equipe = isset($_POST["equipe"]) ? $_POST["equipe"] : 0;
@@ -35,7 +35,7 @@
 							'	ORDER BY	joueurs.Postes_Poste DESC, joueurs_equipes.Joueurs_Joueur DESC';
 	$req = $bdd->query($ordreSQL);
 	$joueurs = $req->fetchAll();
-	
+
 	$ordreSQL =		'	SELECT		joueurs_equipes.Joueurs_Joueur' .
 							'				,CONCAT(joueurs.Joueurs_NomFamille, \' \', IFNULL(joueurs.Joueurs_Prenom, \'\')) AS Joueurs_NomComplet' .
 							'				,joueurs.Postes_Poste' .
@@ -85,9 +85,9 @@
 				}
 			echo '</ul>';
 		echo '</div>';
-		
+
 		echo '<div class="fleches-gauche-droite gauche"></div>';
-		
+
 		echo '<div class="gauche">';
 			//echo '<label>Buteurs du match</label><br />';
 			echo '<ul class="effectif-equipe pronostics-buteurs">';

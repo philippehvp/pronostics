@@ -89,10 +89,10 @@
 						'										AND		classements.Classements_PointsJourneeMatch = maximum.Classements_PointsJourneeMatch' .
 						'					WHERE		classements.Journees_Journee = ' . $journee .
 						'				) DjaDjeDje';
-						
+
 		$req = $bdd->query($ordreSQL);
 		$trophees = $req->fetchAll();
-						
+
 		$ordreSQL =		'	SELECT		GROUP_CONCAT(pronostiqueurs.Pronostiqueurs_NomUtilisateur, \' (\', journees.Journees_Nom, \')\' SEPARATOR \', \') AS Nom_Record' .
 						'				,classements.Classements_PointsJourneeMatch' .
 						'	FROM		classements' .
@@ -134,10 +134,10 @@
 						'				AND		journees.Championnats_Championnat = ' . $championnat;
 		$req = $bdd->query($ordreSQL);
 		$recordJourneeButeur = $req->fetchAll();
-		
+
 		echo '<div class="tableau">';
 			echo '<br />';
-		
+
 			echo '<table class="tableau--trophees" style="position: absolute;">';
 				echo '<thead>';
 					echo '<tr>';
@@ -186,6 +186,6 @@
 	$(function() {
 		/* Positionnement du tableau au centre de la page (horizontal uniquement) */
 		centrerObjet('.tableau--trophees', 1, 1);
-		
+
 	});
 </script>

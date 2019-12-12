@@ -108,7 +108,7 @@
 					$i++;
 				}
 			}
-			
+
 	        $joueur = rechercherJoueurInitialePrenomSansPoint($bdd, $prenomNomFamille, $equipeVisiteur, $dateSQL, 3);
 
 	        if($joueur == -1 || $joueur == 0) {

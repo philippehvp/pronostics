@@ -1,14 +1,14 @@
 <?php
 	// Affichage de la liste des joueurs pour lesquels la recherche a été infructueuse
-	
+
 	include_once('commun_administrateur.php');
 	include_once('creer_match_fonctions.php');
-	
+
 	// Lecture des paramètres passés à la page
 	$joueurs = isset($_POST["joueurs"]) ? $_POST["joueurs"] : null;
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
 	$origine = isset($_POST["origine"]) ? $_POST["origine"] : 0;
-	
+
 	// Si le paramètre origine vaut :
 	// - 1 : on modifie la colonne NomCorrespondance
 	// - 2 : on modifie la colonne NomCorrespondanceComplementaire
@@ -31,7 +31,7 @@
 									'	ORDER BY	IFNULL(joueurs.Joueurs_Prenom, joueurs.Joueurs_NomFamille)';
 		return $ordreSQL;
 	}
-	
+
 	// Affichage de la liste des joueurs d'une équipe
 	function afficherListeJoueurs($i, $nomEquipe, $champPrenom, $champNom, $champCorrespondance, $listeJoueurs, $origine) {
 		// On affiche le nom de l'équipe dans la première ligne de la liste
@@ -42,7 +42,7 @@
 			}
 		echo '</select>';
 	}
-	
+
 	// Lecture des équipes du match
 	$ordreSQL =		'	SELECT		Matches_Date, Equipes_EquipeDomicile, Equipes_EquipeVisiteur' .
 								'						,equipes_domicile.Equipes_NomCourt AS EquipesDomicile_NomCourt, equipes_visiteur.Equipes_NomCourt AS EquipesVisiteur_NomCourt' .
@@ -54,16 +54,16 @@
 								'	WHERE			matches.Match = ' . $match;
 	$req = $bdd->query($ordreSQL);
 	$equipes = $req->fetchAll();
-	
+
 	$nomEquipeDomicile = $equipes[0]["EquipesDomicile_NomCourt"];
 	$nomEquipeVisiteur = $equipes[0]["EquipesVisiteur_NomCourt"];
-	
+
 	// Lecture de la liste des joueurs des équipes
 	$req = $bdd->query(lireListeJoueurs($match, $equipes[0]["Equipes_EquipeDomicile"], $equipes[0]["Matches_Date"]));
 	$joueursDomicile = $req->fetchAll();
 	$req = $bdd->query(lireListeJoueurs($match, $equipes[0]["Equipes_EquipeVisiteur"], $equipes[0]["Matches_Date"]));
 	$joueursVisiteur = $req->fetchAll();
-	
+
 	if($joueurs != null) {
 		echo '<table class="tableau--liste-joueurs">';
 			echo '<thead>';
@@ -103,16 +103,16 @@
 								echo '<option value="3">Milieu</option>';
 								echo '<option value="4">Attaquant</option>';
 							echo '</select>';
-						
+
 							echo '<input style="margin-left: 5px;" class="date" id="dateDebutPresence_' . $i . '" type="text" value="' . date('d/m/Y') . '" />';
 							echo '<label style="margin-left: 5px;" class="bouton" onclick="copierPrenomNom(\'' . $unJoueur["joueur"] . '\', \'txtPrenom_' . $i . '\', \'txtNom_' . $i . '\');">Copier</label>';
 							echo '<label style="margin-left: 5px;" class="bouton" onclick="creerMatch_creerJoueur(\'txtPrenom_' . $i . '\', \'txtNom_' . $i . '\', \'txtCorrespondance_' . $i . '\', \'selectPostes_' . $i . '\', \'dateDebutPresence_' . $i . '\', ' . $unJoueur["equipe"] . ');">Créer</label>';
 						echo '</td>';
 
-							
-							
+
+
 					echo '</tr>';
-					
+
 					$i++;
 				}
 			echo '</tbody>';
@@ -141,7 +141,7 @@
 	$(function() {
 		$('.date').datepicker({dateFormat: 'dd/mm/yy'});
 	});
-	
+
 </script>
 
 

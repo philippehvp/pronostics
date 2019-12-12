@@ -19,11 +19,11 @@
 			echo '<div class="confrontations"></div>';
 			//include_once('pied.php');
 		echo '</div>';
-		
+
 	?>
 	<script>
 		var critereRafraichissement = '';
-		
+
 		function rafraichirPage() {
 			// On regarde ici s'il est nécessaire de rafraîchir la page (la première fois, c'est évidemment obligatoire)
 			$.ajax({
@@ -45,7 +45,7 @@
 				console.log('Fonction de vérification des confrontations : fail du premier appel Ajax');
 			});
 		}
-	
+
 		$(function() {
 			retournerHautPage();
 			activitePronostiqueur();
@@ -53,7 +53,7 @@
 
 			// Premier affichage des confrontations forcé
 			rafraichirPage();
-			
+
 			// Mise en place du timer de rafraîchissement
 			var intervalle = setInterval(function() {
 				rafraichirPage();

@@ -1,13 +1,13 @@
 <?php
 	// Affichage des buteurs d'un match d'une équipe
 	include_once('commun.php');
-	
+
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
 	$equipe = isset($_POST["equipe"]) ? $_POST["equipe"] : 0;
-	
+
 	$ordreSQL = 'SET @@session.group_concat_max_len=2048';
 	$req = $bdd->exec($ordreSQL);
-	
+
 	$ordreSQL =		'	SELECT		IF(Pronostics_Buts IS NULL, 0, COUNT(*)) AS Nombre_Pronostiqueurs' .
 					'				,CONCAT(joueurs.Joueurs_NomFamille, \' \', IFNULL(joueurs.Joueurs_Prenom, \'\')) AS Joueurs_NomComplet' .
 					'				,Matches_Buts' .
@@ -68,14 +68,14 @@
 						echo '<td>&nbsp;</td>';
 						echo '<td>&nbsp;</td>';
 					}
-					
+
 					// Pronostics
 					echo '<td>' . $uneLigneButeur["Pronostics_Buts"] . '</td>';
 					if($uneLigneButeur["Nombre_Pronostiqueurs"] > 0)
 						echo '<td class="aligne-gauche retour-ligne tableau--classement-buteurs--colonne-pronostiqueurs">' . $uneLigneButeur["Nombre_Pronostiqueurs"] . ' : ' . $uneLigneButeur["Pronostiqueurs_NomUtilisateur"] . '</td>';
 					else
 						echo '<td class="aligne-gauche retour-ligne tableau--classement-buteurs--colonne-pronostiqueurs">' . $uneLigneButeur["Pronostiqueurs_NomUtilisateur"] . '</td>';
-					
+
 				echo '</tr>';
 			}
 		echo '</table>';

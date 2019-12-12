@@ -2,12 +2,12 @@
 
 	// Lecture des compositions des deux équipes d'un match
 	include_once('creer_match_fonctions.php');
-	
+
 	// Lecture des paramètres passés à la page
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
-	
+
 	$tableauErreurs = array();
-	
+
 	$ordreSQL =		'	SELECT		Matches_Date, Equipes_EquipeDomicile, Equipes_EquipeVisiteur' .
 					'				,IFNULL(Matches_LienPageComplementaire, \'\') AS Matches_LienPageComplementaire' .
 					'	FROM		matches' .
@@ -18,9 +18,9 @@
 					'	WHERE		matches.Match = ' . $match;
 	$req = $bdd->query($ordreSQL);
 	$matches = $req->fetchAll();
-	
+
 	$adresseComposition = 'http://www.scorespro.com/soccer/ajax-matchcenter.php?link=';
-	
+
 	if(strlen(trim($matches[0]["Matches_LienPageComplementaire"])) > 0) {
 
 		$documentComposition = new DOMDocument();
@@ -30,9 +30,9 @@
 		$dateMatch = $matches[0]["Matches_Date"];
 		$equipeDomicile = $matches[0]["Equipes_EquipeDomicile"];
 		$equipeVisiteur = $matches[0]["Equipes_EquipeVisiteur"];
-		
+
 		$xpathComposition = new DOMXpath($documentComposition);
-		
+
 		// Lecture des joueurs de l'équipe domicile
 		$baliseCompo1 = $xpathComposition->query('//td[@class="h_player"]');
 		$i = 0;
@@ -46,7 +46,7 @@
 						array_push($tableauErreurs, array('equipe'=>$equipeDomicile, 'joueur'=>trim($unJoueur->textContent)));
 					else if($retour == 0)
 						array_push($tableauErreurs, array('equipe'=>$equipeDomicile, 'joueur'=>trim($unJoueur->textContent)));
-					
+
 					$i++;
 				}
 			}
@@ -67,7 +67,7 @@
 						array_push($tableauErreurs, array('equipe'=>$equipeVisiteur, 'joueur'=>trim($unJoueur->textContent)));
 					else if($retour == 0)
 						array_push($tableauErreurs, array('equipe'=>$equipeVisiteur, 'joueur'=>trim($unJoueur->textContent)));
-					
+
 					$i++;
 				}
 			}
@@ -75,6 +75,6 @@
 				break;
 		}
 	}
-	
+
 	echo json_encode($tableauErreurs);
 ?>

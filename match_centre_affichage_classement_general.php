@@ -8,12 +8,12 @@
 	if($rafraichissementSection == 1) {
 		// Rafraîchissement automatique de la section
 		include_once('commun.php');
-		
+
 		// Lecture des paramètres passés à la page
 		$journee = isset($_POST["journee"]) ? $_POST["journee"] : 0;
 		$pronostiqueurConsulte = isset($_POST["pronostiqueurConsulte"]) ? $_POST["pronostiqueurConsulte"] : 0;
 	}
-	
+
 	// Lecture du championnat et des informations de la journée
 	$ordreSQL =		'	SELECT		Championnats_Championnat, Journees_DateMAJ, Journees_DateEvenement' .
 					'	FROM		journees' .
@@ -23,8 +23,8 @@
 	$championnat = $journees[0]["Championnats_Championnat"];
 	$journeeDateMAJ = $journees[0]["Journees_DateMAJ"];
 	$journeeDateEvenement = $journees[0]["Journees_DateEvenement"];
-	
-	
+
+
 	echo '<input type="hidden" name="dateMAJJourneeTemporaire" value="' . $journeeDateMAJ . '">';
 	echo '<input type="hidden" name="date_evenement_journee_temporaire" value="' . $journeeDateEvenement . '">';
 
@@ -58,7 +58,7 @@
 		$nombreColonnes = floor($nombreClassements / $LIGNES_PAR_COLONNE);
 		if($nombreClassements % $LIGNES_PAR_COLONNE > 0)
 			$nombreColonnes++;
-		
+
 		for($i = 0; $i < $nombreColonnes; $i++) {
 			if($i == 0)							echo '<div class="premiere-colonne">';
 			else								echo '<div class="colonne-suivante">';
@@ -98,11 +98,11 @@
 
 <script>
 	$(function() {
-		
+
 		// Création d'un timer de rafraîchissement si celui-ci n'existe pas déjà
 		var intervalle = $('input[name="minuteur_journee"]').val();
 		var pronostiqueurConsulte;
-		
+
 		if(intervalle == 0) {
 			intervalle = setInterval(function() {
 				// Vérification des données affichées pour rafraîchissement si nécessaire
@@ -118,21 +118,21 @@
 				matchCentre_rafrichirJournee(journee, pronostiqueurConsulte, dateMAJJournee, dateEvenementJournee, 'mc--resultats');
 				matchCentre_rafrichirClassements(journee, dateMAJJournee, 'mc--classement-general', 'mc--classement-journee', 'mc--graphiques', 'mc--statistiques-journee');
 			}, 5000);
-			
+
 			$('input[name="minuteur_journee"]').val(intervalle);
 		}
-		
+
 		pronostiqueurConsulte = $('input[name="pronostiqueurConsulte"]').val();
-		
+
 		// Championnat en cours
 		var championnat = $('input[name="championnat"]').val();
-		
+
 		// Journée en cours
 		var journee = $('input[name="journee"]').val();
 
 		// Nombre de pronostiqueurs
 		var nombrePronostiqueurs = $('input[name="nombrePronostiqueurs"]').val();
-		
+
 		// Calcul des dimensions de la zone de dessin
 		var		marges = { haut: 20, droite: 30, bas: 60, gauche: 40 }
 				,largeurGraphique = $('.mc--graphiques').width() - (marges.gauche + marges.droite)
@@ -176,7 +176,7 @@
 			.interpolate('cardinal')
 			.x(function(d) { return echelleXGeneral(parseInt(d.J)); })
 			.y(function(d) { return echelleYGeneral(parseInt(d.CG)); });
-			
+
 		// Ajout d'une ombre à la courbe
 		var defs = graphiques.append('defs');
 
@@ -187,7 +187,7 @@
 			.attr('in', 'SourceAlpha')
 			.attr('stdDeviation', 1)
 			.attr('result', 'blur');
-			
+
 		filtre.append('feOffset')
 			.attr('in', 'blur')
 			.attr('dx', 0)
@@ -198,10 +198,10 @@
 
 		feMerge.append('feMergeNode')
 			.attr('in', 'offsetBlur');
-			
+
 		feMerge.append('feMergeNode')
 			.attr('in', 'SourceGraphic');
-			
+
 		function creerAxeY() {
 			return d3.svg.axis()
 				.scale(echelleYJournee)
@@ -213,7 +213,7 @@
 			// Une fois toutes les données lues, on est capable de savoir quel est le nombre de journées
 			// Ce qui va nous permettre de modifier l'étendue visuelle (range) du graphique
 			var largeurBarre = Math.round(largeurGraphique / donnees.length);
-            
+
             if(donnees.length <= 1)
                 return;
 
@@ -233,7 +233,7 @@
 				.datum(donnees)
 				.attr('class', 'mc--graphique-courbe-pleine')
 				.attr('d', courbePleine);
-				
+
 			// Création des barres du graphique
 			// Création d'un conteneur groupe
 			var barres = graphiques.selectAll('mc--graphique-barre')
@@ -316,8 +316,8 @@
 				.attr('class', 'mc--graphique-grille')
 				.call(creerAxeY().tickSize(-(donnees.length * largeurBarre), 0, 0).tickFormat('').ticks(Math.floor(nombrePronostiqueurs / 8)));
 
-			
-				
+
+
 			// Ajout du titre pour les axes
 
 			// Axe des x

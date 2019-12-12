@@ -1,19 +1,19 @@
 <?php
 	include_once('../commun.php');
-    
+
     // Lecture des paramètres passés à la page
     $largeur = isset($_POST["largeur"]) ? $_POST["largeur"] : 0;
 	$championnat = isset($_POST["championnat"]) ? $_POST["championnat"] : 0;
-	
+
 	// Affichage des journées terminées du championnat
     $ordreSQL =		'	SELECT	    journees.Journee, journees.Journees_NumeroInterne' .
-                    '   FROM        journees' . 
+                    '   FROM        journees' .
                     '   WHERE       journees.Championnats_Championnat  = ' . $championnat .
 					'               AND     journees.Journees_MatchCanalSelectionnable = 1' .
 					'				AND		fn_journeeterminee(journees.Journee) = 1';
 	$req = $bdd->query($ordreSQL);
     $journees = $req->fetchAll();
-    
+
     $NOMBRE_JOURNEES_PAR_LIGNE = 23;
 
 	// Affichage des onglets de sélection des journées du choix de match Canal
@@ -30,7 +30,7 @@
 	echo '</div>';
 
 	echo '<div class="colle-gauche cc--conteneur-canal"></div>';
-	
+
 ?>
 
 <script>

@@ -1,6 +1,6 @@
 <?php
 	include_once('../commun.php');
-	
+
 	// Affichage des onglets de sélection des équipes
 	echo '<div class="colle-gauche gauche cc--sous-onglets" style="margin-top: 5px;">';
 		echo '<label class="cc--nom-sous-onglet" onclick="concoursCentre_afficherEquipes(\'cc--conteneur-equipes\', 1);">LIGUE 1</label>';
@@ -10,7 +10,7 @@
 	echo '</div>';
 
 	echo '<div class="colle-gauche cc--conteneur-equipes"></div>';
-	
+
 ?>
 
 <script>
@@ -25,7 +25,7 @@
 				$(this).addClass('cc--selectionne');
 			}
 		});
-		
+
 	});
 
 </script>

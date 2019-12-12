@@ -10,7 +10,7 @@
 ?>
 	<script type="text/javascript" src="js/datatables/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="js/datatables/extensions/dataTables.fixedColumns.min.js"></script>
-	
+
 </head>
 
 <body>
@@ -29,7 +29,7 @@
 					echo '<label>AUCUN PARAMETRE N\'A ETE RENSEIGNE</label>';
 					return;
 				}
-				
+
 				// Nom du championnat
 				// La page peut avoir été appelée avec un numéro de journée ou par un numéro de championnat (le numéro de journée est prioritaire)
 				if($journee != 0) {
@@ -51,7 +51,7 @@
 					$unChampionnat = $req->fetch();
 					$nomChampionnat = $unChampionnat["Championnats_Nom"];
 				}
-				
+
 				// Liste des journées, dans l'ordre décroissant, du championnat demandé
 				// On affiche uniquement les journées dont l'heure max de pronostic d'au moins un match est dépassée
 				$ordreSQL =		'		SELECT			DISTINCT Journee, Journees_Nom, Championnats_Nom' .
@@ -73,13 +73,13 @@
 					echo '<label>Aucune donnée à afficher</label>';
 				else {
 					$parcoursJournees = null;
-					
+
 					echo '<label>' . $nomChampionnat . ' - Résultats de la journée :</label>';
 					echo '<select id="selectJournee">';
 						foreach($championnats as $unChampionnat) {
 							if($parcoursJournees == null)
 								$parcoursJournees = $unChampionnat["Journee"];
-								
+
 							if($journee == 0)
 								$journee = $parcoursJournees;
 
@@ -89,7 +89,7 @@
 							echo '<option value="' . $unChampionnat["Journee"] . '"' . $selected . '>' . $unChampionnat["Journees_Nom"] . '</option>';
 						}
 					echo '</select>';
-					
+
 					echo '<div id="divResultatsPronostics">';
 						include_once('consulter_resultats_resultats_pronostics.php');
 					echo '</div>';
@@ -98,7 +98,7 @@
 			//include_once('pied.php');
 		echo '</div>';
 	?>
-	
+
 	<script>
 		$(function() {
 			afficherTitrePage('divResultats', 'Consultation des résultats');
@@ -108,6 +108,6 @@
 		});
 
 	</script>
-	
+
 </body>
 </html>

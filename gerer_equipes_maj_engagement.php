@@ -2,7 +2,7 @@
 	include_once('commun_administrateur.php');
 
 	// Engagement / désengagement d'une équipe à un championnat ou ajout / suppression de l'équipe dans le match européen de ligue 1
-	
+
 	// Lecture des paramètres passés à la page
 	$equipe = isset($_POST["equipe"]) ? $_POST["equipe"] : 0;
 	$championnat = isset($_POST["championnat"]) ? $_POST["championnat"] : 0;
@@ -11,7 +11,7 @@
 
 	if($action == -1)
 		return;
-	
+
 	if($action == 1) {
 		// Engagement dans un championnat ou au match européen de ligue 1
 		if($championnat == 1 && $l1Europe == 1)
@@ -35,7 +35,7 @@
 							'	WHERE		Championnats_Championnat = ' . $championnat .
 							'				AND		Equipes_Equipe = ' . $equipe;
 	}
-	
+
 	$bdd->exec($ordreSQL);
 
 ?>

@@ -6,7 +6,7 @@
 
 	// Lecture des paramètres passés à la page
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
-    
+
     // Lecture des informations du match (date, équipes concernées)
     $ordreSQL =     '   SELECT      Matches_Date' .
                     '   FROM        matches' .
@@ -16,9 +16,9 @@
     $matches = $req->fetchAll();
     if(count($matches) == 0)
         return;
-    
+
     $dateMatch = $matches[0]["Matches_Date"];
-    
+
     // Ajout des cotes buteurs non existantes pour les deux équipes
     $ordreSQL =     '   INSERT INTO joueurs_cotes(Joueurs_Joueur, Equipes_Equipe, Matches_Match, JoueursCotes_Cote)' .
                     '   SELECT      joueurs_equipes.Joueurs_Joueur, joueurs_equipes.Equipes_Equipe, ' . $match . ' AS Matches_Match' .
@@ -85,8 +85,8 @@
                     '                       )' .
                     '               AND     joueurs_cotes.Joueurs_Joueur IS NULL';
     $bdd->exec($ordreSQL);
-    
-    
-    
- 
+
+
+
+
 ?>

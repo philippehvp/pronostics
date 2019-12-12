@@ -28,15 +28,15 @@
 				echo '<div id="divReglement-1">';
 					include_once('reglement_general.php');
 				echo '</div>';
-				
+
 				echo '<div id="divReglement-2">';
 					include_once('reglement_ldc.php');
 				echo '</div>';
-				
+
 				echo '<div id="divReglement-3">';
 					include_once('reglement_el.php');
 				echo '</div>';
-				
+
 				echo '<div id="divReglement-4">';
 					include_once('reglement_cdf.php');
 				echo '</div>';
@@ -44,17 +44,17 @@
 			//include_once('pied.php');
 		echo '</div>';
 ?>
-	
+
 	<script>
 		$(function() {
 			afficherTitrePage('divEnteteReglement', 'Règlement du concours');
-			
+
 			$('#divReglement').tabs();
 			$('.ui-tabs-anchor').prepend('<em class="icones icones-grandes">&#10150;</em>');
-			
+
 		});
-		
+
 	</script>
-	
+
 </body>
 </html>

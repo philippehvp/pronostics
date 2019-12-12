@@ -437,7 +437,7 @@
 
 		$req = $bdd->query($ordreSQL);
 		$equipe_championne = $req->fetchAll();
-		
+
 		// Trois premières et trois dernières places du championnat
 		$ordreSQL =		'	SELECT		equipes.Equipes_NomCourt' .
 						'				,CASE' .
@@ -471,7 +471,7 @@
 
 		$req = $bdd->query($ordreSQL);
 		$equipes_relegation = $req->fetchAll();
-		
+
 		// Meilleur(s) buteur(s)
 		$ordreSQL =		'	SELECT		GROUP_CONCAT(joueurs.Joueurs_NomFamille SEPARATOR \', \') AS Joueurs_NomFamille' .
 						'	FROM		(' .
@@ -506,7 +506,7 @@
 						'				ON		meilleurs_buteurs.Joueurs_Joueur = joueurs.Joueur';
 		$req = $bdd->query($ordreSQL);
 		$meilleur_buteur = $req->fetchAll();
-		
+
 		$ordreSQL =		'	SELECT		GROUP_CONCAT(joueurs.Joueurs_NomFamille SEPARATOR \', \') AS Joueurs_NomFamille' .
 						'	FROM		bonus_meilleur_passeur' .
 						'	JOIN		joueurs' .
@@ -567,7 +567,7 @@
 						'	ORDER BY	ClassementsVirtuels_PointsGeneralMatch DESC, ClassementsVirtuels_PointsGeneralButeur ASC, Pronostiqueurs_NomUtilisateur';
 		$req = $bdd->query($ordreSQL);
 		$pronostics_bonus = $req->fetchAll();
-		
+
 		// Pour le mode concurrent direct, on limite à 5 places au-dessus et en-dessous du pronostiqueur
 		$nombrePlaces = 5;
 

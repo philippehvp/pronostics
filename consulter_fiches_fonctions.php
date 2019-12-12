@@ -4,7 +4,7 @@
 	function consulterFiche($bdd, $pronostiqueurConsulte, $modeFenetre) {
 		// Recherche des pronostiqueurs précédent et suivant
 		// Le classement se fait par le nom utilisateur et non par le numéro de pronostiqueur
-		
+
 		$administrateur = isset($_SESSION["administrateur"]) ? $_SESSION["administrateur"] : 0;
 		$ordreSQL =		'	SELECT		Pronostiqueurs_NomUtilisateur, IFNULL(Pronostiqueurs_Photo, \'_inconnu.png\') AS Pronostiqueurs_Photo, Pronostiqueurs_Nom, Pronostiqueurs_Prenom, Pronostiqueurs_MEL' .
 						'				,DATE_FORMAT(Pronostiqueurs_DateDeNaissance, \'%d/%m/%Y\') AS Pronostiqueurs_DateDeNaissance, Pronostiqueurs_LieuDeResidence' .
@@ -22,7 +22,7 @@
 
 		$req = $bdd->query($ordreSQL);
 		$fiche = $req->fetchAll();
-		
+
 		if(sizeof($fiche)) {
 			$pronostiqueurPhoto = $fiche[0]["Pronostiqueurs_Photo"] != null ? $fiche[0]["Pronostiqueurs_Photo"] : '';
 			$pronostiqueurNomUtilisateur = $fiche[0]["Pronostiqueurs_NomUtilisateur"] != null ? $fiche[0]["Pronostiqueurs_NomUtilisateur"] : '';
@@ -51,7 +51,7 @@
 			$pronostiqueurPalmares = '';
 			$pronostiqueurCarriere = '';
 			$pronostiqueurCommentaire = '';
-		}		
+		}
 
 		// Pronostiqueurs précédent et suivant
 		$ordreSQL =		'	SELECT		DISTINCT IFNULL(' .
@@ -102,8 +102,8 @@
 		$precedentSuivant = $req->fetchAll();
 		$pronostiqueurPrecedent = $precedentSuivant[0]["Pronostiqueur_Precedent"];
 		$pronostiqueurSuivant = $precedentSuivant[0]["Pronostiqueur_Suivant"];
-		
-		
+
+
 		// Palmarès de l'année, toutes compétitions confondues
 		$ordreSQL =		'	SELECT		GROUP_CONCAT(Trophee SEPARATOR \', \') AS Trophees' .
 						'	FROM		(' .
@@ -142,7 +142,7 @@
 						'				) trophees';
 		$req = $bdd->query($ordreSQL);
 		$tropheesPoulpeArgent = $req->fetchAll();
-		
+
 		$ordreSQL =		'	SELECT		GROUP_CONCAT(Trophee SEPARATOR \', \') AS Trophees' .
 						'	FROM		(' .
 						'					SELECT		CONCAT(Championnats_NomCourt, \' (\', COUNT(*), \')\') AS Trophee' .
@@ -161,7 +161,7 @@
 						'				) trophees';
 		$req = $bdd->query($ordreSQL);
 		$tropheesPoulpeBronze = $req->fetchAll();
-		
+
 		$ordreSQL =		'	SELECT		GROUP_CONCAT(Trophee SEPARATOR \', \') AS Trophees' .
 						'	FROM		(' .
 						'					SELECT		CONCAT(Championnats_NomCourt, \' (\', COUNT(*), \')\') AS Trophee' .
@@ -256,19 +256,19 @@
 						'				) trophees';
 		$req = $bdd->query($ordreSQL);
 		$tropheesRecordPointsButeur = $req->fetchAll();
-		
+
 		echo '<div class="photo gauche">';
 			echo '<img src="images/pronostiqueurs/' . $pronostiqueurPhoto . '" alt="" /><br />';
-			
+
 			if($administrateur)
 				echo '<label class="bouton" onclick="consulterFiches_majPronostiqueur(' . $pronostiqueurConsulte . ');">Mettre à jour</label>';
-			
+
 			echo '<br /><br />';
 			echo '<input type="hidden" name="pronostiqueurConsulte" value="' . $pronostiqueurConsulte . '">';
 			echo '<label class="bouton-precedent curseur-main" onclick="consulterFiches_consulterFiche(' . $pronostiqueurPrecedent . ');">&nbsp;</label>';
 			echo '&nbsp;';
 			echo '<label class="bouton-suivant curseur-main" onclick="consulterFiches_consulterFiche(' . $pronostiqueurSuivant . ');">&nbsp;</label>';
-			
+
 			// Zone d'ajout aux rivaux
 			echo '<br /><br />';
 			if($pronostiqueurConsulte != $_SESSION["pronostiqueur"]) {
@@ -278,7 +278,7 @@
 				else
 					echo '<input type="checkbox" name="ajoutRival" value="" /><label>Rival</label>';
 			}
-			
+
 		echo '</div>';
 
 		echo '<div class="gauche">';
@@ -294,7 +294,7 @@
 			echo '<div class="gauche">';
 				echo '<label class="zone">Ambitions</label><textarea id="taAmbitions" class="lecture-seule" readonly="true">' . $pronostiqueurAmbitions . '</textarea><br />';
 				echo '<label class="zone">Commentaire</label><textarea id="taCommentaire" class="lecture-seule" readonly="true">' . $pronostiqueurCommentaire . '</textarea><br />';
-				
+
 				if($administrateur) {
 					echo '<label class="zone">Palmarès</label><textarea id="taPalmares" class="grandeZone">' . $pronostiqueurPalmares . '</textarea><br />';
 					echo '<label class="zone">Carrière</label><textarea id="taCarriere" class="grandeZone">' . $pronostiqueurCarriere . '</textarea>';
@@ -304,7 +304,7 @@
 					echo '<label class="zone">Carrière</label><textarea id="taCarriere" class="lecture-seule grandeZone" readonly="true">' . $pronostiqueurCarriere . '</textarea>';
 				}
 			echo '</div>';
-			
+
 			echo '<div class="colle-gauche">';
 				echo '<label class="simple">Poulpe d\'Or</label><input type="text" value="' . (sizeof($tropheesPoulpeOr) == 0 ? '-' : $tropheesPoulpeOr[0]["Trophees"]) . '" class="lecture-seule" readonly="true" />';
 				echo '<label class="simple">Poulpe d\'Argent</label><input type="text" value="' . (sizeof($tropheesPoulpeArgent) == 0 ? '-' : $tropheesPoulpeArgent[0]["Trophees"]) . '" class="lecture-seule" readonly="true" /><br />';
@@ -323,7 +323,7 @@
 	$(function() {
 		$('input[type="checkbox"][name="ajoutRival"]').change(function() {
 			var cochee = $(this).prop('checked') == true ? 1 : 0;
-			
+
 			consulterFiches_ajoutRival($('input[type="hidden"][name="pronostiqueurConsulte"]').val(), cochee);
 		});
 	});

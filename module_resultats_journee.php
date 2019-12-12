@@ -6,12 +6,12 @@
 	// - par un appel Ajax (cas du rafraîchissement)
 
 	include_once('classements_pronostiqueurs_fonctions.php');
-	
+
 	$rafraichissementModule = isset($_POST["rafraichissementModule"]) ? $_POST["rafraichissementModule"] : 0;
 	if($rafraichissementModule == 1) {
 		// Rafraîchissement automatique du module
 		include_once('commun.php');
-		
+
 		// Lecture des paramètres passés à la page
 		$championnat = isset($_POST["parametre"]) ? $_POST["parametre"] : 0;
 		$modeRival = isset($_POST["modeRival"]) ? $_POST["modeRival"] : 0;
@@ -20,7 +20,7 @@
 	else {
 		$championnat = $parametre;		// Paramètre du module
 	}
-	
+
 	// Parcours du championnat
 	// Quelle est la journée en cours ?
 	// Spécificité du calcul de la journée à afficher : une heure avant le début d'une journée, on affiche cette journée
@@ -28,7 +28,7 @@
 	$req = $bdd->query($ordreSQL);
 	$donnees = $req->fetchAll();
 	$journeeAffichee = $donnees[0]["Journee_Affichee"];
-	
+
 	// Lecture des résultats des matches de la journée en cours ou, si elle n'existe pas, de la dernière journée complète
 	$ordreSQL =		'	SELECT		Journees_Nom, matches.Match, matches.Matches_Direct' .
 					'				,matches.Matches_Date, HOUR(Matches_Date) AS Matches_Heure, MINUTE(Matches_Date) AS Matches_Minute' .
@@ -102,10 +102,10 @@
 	$req = $bdd->query($ordreSQL);
 	$resultats = $req->fetchAll();
 	$nombreResultats = sizeof($resultats);
-	
+
 	if($nombreResultats) {
 		$nomJournee = $resultats[0]["Journees_Nom"];
-	
+
 		echo '<table class="tableau--resultat-journee">';
 			echo '<thead>';
 				echo '<tr>';
@@ -114,7 +114,7 @@
 					echo '</th>';
 				echo '</tr>';
 			echo '</thead>';
-			
+
 			echo '<tbody>';
 				foreach($resultats as $unResultat) {
 
@@ -154,12 +154,12 @@
 								$scoreAffiche = $scoreAPEquipeDomicile . ' - ' . $scoreAPEquipeVisiteur . ' AP';
 							else
 								$scoreAffiche = $scoreAPEquipeDomicile . ' AP - ' . $scoreAPEquipeVisiteur . ' AP';
-						
+
 						}
 						else
 							$scoreAffiche = $scoreEquipeDomicile . ' - ' . $scoreEquipeVisiteur;
 					}
-					
+
 					echo '<tr>';
 						// Equipe domicile
 						echo '<td>';
@@ -171,13 +171,13 @@
 								echo '<label>' . $unResultat["EquipesDomicile_Nom"] . '</label><br />';
 								echo '<img class="tableau--resultat-journee--fanion" src="images/equipes/' . $unResultat["EquipesDomicile_Fanion"] . '" alt="" /><br />';
 							echo '</span>';
-							
+
 							if($unResultat["Buteurs_Domicile"] != null)
 								echo '<label class="texte-petit curseur-main" onclick="afficherButeurs(' . $unResultat["Match"] . ', ' . $unResultat["Equipes_EquipeDomicile"] . ');">' . str_replace(', ', '<br />', $unResultat["Buteurs_Domicile"]) . '</label>';
 							else
 								echo '<label class="texte-petit">&nbsp;</label>';
 						echo '</td>';
-					
+
 						// Logistique et score
 						if($unResultat["Matches_Direct"] == 1)				$classe = 'match-en-direct';
 						else												$classe = 'match-non-en-direct';
@@ -187,7 +187,7 @@
 							echo '<label class="texte-petit curseur-main" onclick="consulterMatch_afficherMatch(' . $unResultat["Match"] . ');">Détails</label><br />';
 							echo '<label class="texte-petit curseur-main" onclick="afficherMatch($(this), ' . $unResultat["Match"] . ', \'' . $unResultat["EquipesDomicile_Nom"] . '\', \'' . $unResultat["EquipesVisiteur_Nom"] . '\');">Pronostics</label>';
 						echo '</td>';
-						
+
 						// Equipe visiteur
 						echo '<td>';
 							if($_SESSION["administrateur"] == 1) {
@@ -198,7 +198,7 @@
 								echo '<label>' . $unResultat["EquipesVisiteur_Nom"] . '</label><br />';
 								echo '<img class="tableau--resultat-journee--fanion" src="images/equipes/' . $unResultat["EquipesVisiteur_Fanion"] . '" alt="" /><br />';
 							echo '</span>';
-							
+
 							if($unResultat["Buteurs_Visiteur"] != null)
 								echo '<label class="texte-petit curseur-main" onclick="afficherButeurs(' . $unResultat["Match"] . ', ' . $unResultat["Equipes_EquipeVisiteur"] . ');">' . str_replace(', ', '<br />', $unResultat["Buteurs_Visiteur"]) . '</label>';
 							else
@@ -215,9 +215,9 @@
 
 <script>
 	$(function() {
-		
+
 	});
-	
+
 	// Affichage des détails d'un match
 	// Prise en compte du mode rival
 	function afficherMatch(element, match, equipeDomicile, equipeVisiteur) {

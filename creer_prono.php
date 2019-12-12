@@ -23,12 +23,12 @@
 			if($fanion == null)
 				$fanion = '_inconnu.png';
 			$coteEquipe = $domicileVisiteur == 1 ? calculerCote($unMatch["Matches_CoteEquipeDomicile"]) : calculerCote($unMatch["Matches_CoteEquipeVisiteur"]);
-		
+
 			echo '<label>' . $nomEquipe . '</label>';
 			echo '<br />';
 			echo '<img src="images/equipes/' . $fanion . '" alt="Fanion" />';
 		}
-		
+
 		// Affichage des informations du match (type de match, horaires, etc.)
 		function afficherLogistique($unMatch) {
 			setlocale (LC_TIME, 'fr_FR.utf8','fra');
@@ -37,7 +37,7 @@
 			$jourSemaineDebut = strtolower(jourSemaine($jourDebut));
 			$heureDebut = $unMatch["Matches_Heure"] != null ? sprintf('%02u', $unMatch["Matches_Heure"]) : sprintf('%02u', date("G"));
 			$minuteDebut = $unMatch["Matches_Minute"] != null ? sprintf('%02u', $unMatch["Matches_Minute"]) : sprintf('%02u', (date("i") + 5 - (date("i") % 5)));
-			
+
 			$dateMax = $unMatch["Matches_DateMax"] != null ? date("d/m/Y", strtotime($unMatch["Matches_DateMax"])) : null;
 			$jourMax = $unMatch["Matches_DateMax"] != null ? date("w", strtotime($unMatch["Matches_DateMax"])) : date("w");
 			$jourSemaineMax = strtolower(jourSemaine($jourMax));
@@ -50,7 +50,7 @@
 				echo '<label>Match le ' . $jourSemaineDebut . ' ' . $dateDebut . ' à ' . $heureDebut . 'h' . $minuteDebut . '</label>';
 				echo '<label class="texte-rouge"> (pronostic avant le ' . $jourSemaineMax . ' ' . $dateMax . ' à ' . $heureMax . 'h' . $minuteMax . ')</label>';
 			}
-			
+
 			if($unMatch["Matches_L1EuropeNom"] != null)
 				echo '<br /><label class="matchEuropeen">' . $unMatch["Matches_L1EuropeNom"] . '</label>';
 		}
@@ -66,7 +66,7 @@
 				echo '<button id="btnCanal_match_' . $unMatch["Match"] . '" class="selectionMatchCanal matchCanal" onclick="creerProno_selectionnerMatchCanal(' . $unMatch["Journee"] . ', ' . $unMatch["Match"] . ');"' . $disabled . '></button>';
 			}
 		}
-		
+
 		// Affichage des cotes de l'équipe (et du nul)
 		// On affiche les points de qualification et non les cotes dans les trois cas spécifiques suivants :
 		// - Coupe de France (championnat numéro 5)
@@ -79,7 +79,7 @@
 					$cote = $unMatch["Matches_PointsQualificationEquipeDomicile"];
 				else if($nulDomicileVisiteur == 2)
 					$cote = $unMatch["Matches_PointsQualificationEquipeVisiteur"];
-				
+
 				if($cote != 0) {
 					echo '<label>Points qualification : ' . $cote . '</label>';
 				}
@@ -91,7 +91,7 @@
 					$cote = calculerCote($unMatch["Matches_CoteEquipeDomicile"]);
 				else if($nulDomicileVisiteur == 2)
 					$cote = calculerCote($unMatch["Matches_CoteEquipeVisiteur"]);
-				
+
 				if($nulDomicileVisiteur == 0)
 					echo '<label>Cote du nul : ' . $cote . '</label>';
 				else
@@ -106,7 +106,7 @@
 				$coteQualification = $unMatch["Matches_PointsQualificationEquipeDomicile"];
 			else if($nulDomicileVisiteur == 2)
 				$coteQualification = $unMatch["Matches_PointsQualificationEquipeVisiteur"];
-			
+
 			echo '<label>Points qualification : ' . $coteQualification . '</label>';
 		}
 
@@ -114,7 +114,7 @@
 		function afficherScoreEquipe($unMatch, $domicileVisiteur, $matchLie) {
 			$disabled = $unMatch["Matches_Pronostiquable"] == 0 ? ' disabled' : '';
 			$typeEquipe = $domicileVisiteur == 1 ? 'D' : 'V';
-			
+
 			if($domicileVisiteur == 1)
 				$scoreEquipe = $unMatch["Pronostics_ScoreEquipeDomicile"] != null ? $unMatch["Pronostics_ScoreEquipeDomicile"] : -1;
 			else
@@ -127,7 +127,7 @@
 				}
 			echo '</select>';
 		}
-		
+
 		function afficherButeurs($unMatch, $domicileVisiteur, $buteurs) {
 			$disabled = ($unMatch["Matches_SansButeur"] == 1 || $unMatch["Buteurs_Pronostiquables"] == 0) ? ' disabled' : '';
 			$typeEquipe = $domicileVisiteur == 1 ? 'D' : 'V';
@@ -144,13 +144,13 @@
 						$listeButeurs .= $buteur["Joueurs_NomComplet"] . ', ';
 					else
 						$listeButeurs .= $buteur["Joueurs_NomComplet"] . ' (x' . $buteur["Buteurs_NombreButs"] . '), ';
-					
+
 				}
 			}
-			
+
 			if($listeButeurs != '')
 				$listeButeurs = substr($listeButeurs, 0, strlen($listeButeurs) - 2);
-			
+
 			echo '<br />';
 			echo '<span style="overflow: scroll;">';
 				if($listeButeurs != '')
@@ -159,7 +159,7 @@
 					echo '<label id="labelButeurs' . $typeEquipe .'_match_' . $unMatch["Match"] . '" class="buteurs">Aucun</label>';
 			echo '</span>';
 		}
-		
+
 		// Affichage des scores AP de l'équipe
 		function afficherScoreAPEquipe($unMatch, $domicileVisiteur, $typeMatch, $matchRetour, $matchLie, $pronostiqueur, $bdd) {
 			// Scores AP
@@ -167,7 +167,7 @@
 			$style = ' style="visibility: hidden;"';
 			$disabled = $unMatch["Matches_Pronostiquable"] == 0 ? ' disabled' : '';
 			$typeEquipe = $domicileVisiteur == 1 ? 'D' : 'V';
-			
+
 			$pronostics_ScoreEquipeDomicile = $unMatch["Pronostics_ScoreEquipeDomicile"] != null ? $unMatch["Pronostics_ScoreEquipeDomicile"] : -1;
 			$pronostics_ScoreEquipeVisiteur = $unMatch["Pronostics_ScoreEquipeVisiteur"] != null ? $unMatch["Pronostics_ScoreEquipeVisiteur"] : -1;
 			$pronostics_ScoreAPEquipeDomicile = $unMatch["Pronostics_ScoreAPEquipeDomicile"] != null ? $unMatch["Pronostics_ScoreAPEquipeDomicile"] : -1;
@@ -190,14 +190,14 @@
 				if($pronostics_ScoreEquipeDomicile != -1 && $pronostics_ScoreEquipeVisiteur != -1)
 					if($pronostics_ScoreEquipeDomicile == $pronostics_ScoreEquipeVisiteur)
 						$style = '';
-			
+
 				// Arrivé ici, on va peut-être afficher les scores AP
 				// Si ceux-ci n'ont jamais été saisis, il faut les pré-remplir avec le score du match retour
 				// Et faire la mise à jour en base de données
 				if($pronostics_ScoreEquipeDomicile != -1 && $pronostics_ScoreEquipeVisiteur != -1 && $pronostics_ScoreEquipeDomicile == $pronostics_ScoreEquipeVisiteur && ($pronostics_ScoreAPEquipeDomicile == -1 || $pronostics_ScoreAPEquipeVisiteur == -1)) {
 					$pronostics_ScoreAPEquipeDomicile = $pronostics_ScoreEquipeDomicile;
 					$pronostics_ScoreAPEquipeVisiteur = $pronostics_ScoreEquipeVisiteur;
-					
+
 					$ordreSQL =		'	UPDATE		pronostics' .
 									'	SET			Pronostics_ScoreAPEquipeDomicile = Pronostics_ScoreEquipeDomicile' .
 									'				,Pronostics_ScoreAPEquipeVisiteur = Pronostics_ScoreEquipeVisiteur' .
@@ -207,7 +207,7 @@
 					$bdd->exec($ordreSQL);
 				}
 			}
-		
+
 			$scoreAPEquipe = $domicileVisiteur == 1 ? $pronostics_ScoreAPEquipeDomicile : $pronostics_ScoreAPEquipeVisiteur;
 			$scoreAPMinimumEquipe = $domicileVisiteur == 1 ? $pronostics_ScoreEquipeDomicile : $pronostics_ScoreEquipeVisiteur;
 			echo '<span id="spanProlongation' . $typeEquipe . '_match_' . $matchRetour . '"' . $style . '>';
@@ -219,13 +219,13 @@
 				echo '</select>';
 			echo '</span>';
 		}
-		
+
 		// Affichage de la zone TAB
 		function afficherTAB($unMatch, $typeMatch, $matchLie) {
 			// TAB
 			$style = ' style="visibility: hidden;"';
 			$disabled = $unMatch["Matches_Pronostiquable"] == 0 ? ' disabled' : '';
-			
+
 			$pronostics_ScoreEquipeDomicile = $unMatch["Pronostics_ScoreEquipeDomicile"] != null ? $unMatch["Pronostics_ScoreEquipeDomicile"] : -1;
 			$pronostics_ScoreEquipeVisiteur = $unMatch["Pronostics_ScoreEquipeVisiteur"] != null ? $unMatch["Pronostics_ScoreEquipeVisiteur"] : -1;
 			$pronostics_ScoreAPEquipeDomicile = $unMatch["Pronostics_ScoreAPEquipeDomicile"] != null ? $unMatch["Pronostics_ScoreAPEquipeDomicile"] : -1;
@@ -249,7 +249,7 @@
 				echo '$pronostics_ScoreEquipeVisiteur = ' . $pronostics_ScoreEquipeVisiteur . '<br />';
 				echo '$pronostics_ScoreAPEquipeDomicile = ' . $pronostics_ScoreAPEquipeDomicile . '<br />';
 				echo '$pronostics_ScoreAPEquipeVisiteur = ' . $pronostics_ScoreAPEquipeVisiteur . '<br />';*/
-				
+
 				if($pronostics_ScoreEquipeDomicile != -1 && $pronostics_ScoreEquipeVisiteur != -1)
 					if($pronostics_ScoreEquipeDomicile == $pronostics_ScoreEquipeVisiteur)
 						if($pronostics_ScoreAPEquipeDomicile != -1 && $pronostics_ScoreAPEquipeVisiteur != -1)
@@ -270,23 +270,23 @@
 
 					$selected = $pronostics_Vainqueur == 1 ? ' selected="selected"' : '';
 					echo '<option value="1"' . $selected . '>' . $unMatch["EquipesDomicile_Nom"] . '</option>';
-					
+
 					$selected = $pronostics_Vainqueur == 2 ? ' selected="selected"' : '';
 					echo '<option value="2"' . $selected . '>' . $unMatch["EquipesVisiteur_Nom"] . '</option>';
 				echo '</select>';
 			echo '</span>';
 
 		}
-		
+
 		// Page de saisie des pronostics
-		
+
 		// Liste des journées
-		
-		
+
+
 		// Ajout des spécificités de la Coupe de France :
 		// - un joueur peut être exempté de faire une journée
 		// - un joueur ayant été éliminé de la compétition ne peut plus pronostiquer
-		
+
 		$ordreSQL =		'	SELECT			DISTINCT Journee, journees.Championnats_Championnat, Championnats_Nom, Journees_Nom, Journees_MatchCanalSelectionnable' .
 						'	FROM			matches' .
 						'	JOIN			journees' .
@@ -320,7 +320,7 @@
 
 		$req = $bdd->query($ordreSQL);
 		$journees = $req->fetchAll();
-		
+
 		// Liste des matches
 		// Spécificité des coupes européennes : dans le cas d'un match retour d'une confrontation directe, la date max de pronostic est celle du match aller
 		$ordreSQL =		'	SELECT DISTINCT			journees.Journee, journees.Journees_Nom, journees.Championnats_Championnat, matches.Match, matches.Matches_Nom' .
@@ -412,11 +412,11 @@
 
 		$req = $bdd->query($ordreSQL);
 		$matches = $req->fetchAll();
-		
+
 		$ordreSQL =		'	SELECT			CONCAT(joueurs.Joueurs_NomFamille, \' \', IFNULL(joueurs.Joueurs_Prenom, \'\')) AS Joueurs_NomComplet, pronostics_buteurs.Matches_Match, joueurs_equipes.Equipes_Equipe, COUNT(*) AS Buteurs_NombreButs' .
 						'	FROM			pronostics_buteurs' .
 						'	JOIN			joueurs_equipes' .
-						'					ON		pronostics_buteurs.Joueurs_Joueur = joueurs_equipes.Joueurs_Joueur' .					
+						'					ON		pronostics_buteurs.Joueurs_Joueur = joueurs_equipes.Joueurs_Joueur' .
 						'	JOIN			joueurs' .
 						'					ON		joueurs_equipes.Joueurs_Joueur = joueurs.Joueur' .
 						'	JOIN			matches' .
@@ -442,7 +442,7 @@
 			include_once('bandeau.php');
 			echo '<div id="divPronostics" class="contenu-page">';
 				echo '<ul class="ulNavigation"></ul>';
-				
+
 				foreach($journees as $journee) {
 					echo '<div id="divPronostics-' . $journee["Journee"] . '" class="journee" title="' . $journee["Championnats_Nom"] . ' - ' . $journee["Journees_Nom"] . '">';
 						// Parcours des matches
@@ -450,7 +450,7 @@
 						foreach($matches as $unMatch) {
 							if($unMatch["Journee"] != $journee["Journee"])
 								continue;
-							
+
 							$match = $unMatch["Match"];
 							$matchLie = $unMatch["Matches_MatchLie"] != null ? $unMatch["Matches_MatchLie"] : 0;
 							$matchCS = $unMatch["Matches_MatchCS"] != null ? $unMatch["Matches_MatchCS"] : 0;
@@ -465,25 +465,25 @@
 							else												{	$typeMatch = 4; $classeMatch = 'matchCoupe';	}
 							if($matchLie < $match)
 								$matchLie = $match;
-							
+
 							$finaleEuropeenne = $unMatch["Matches_FinaleEuropeenne"] != null ? $unMatch["Matches_FinaleEuropeenne"] : 0;
-							
+
 							// Pronostic
 							// Changement de couleur de fond si l'on passe d'un match à l'autre (sauf dans le cas d'un match retour d'une confrontation directe)
 							if($typeMatch != 3)
 								$classe = $classe == 'pair' ? 'impair' : 'pair';
-							
+
 							echo '<div id="match' . $match . '" class="' . $classe . ' tuile">';
 								// Informations sur le match (nom du match, horaires, etc.)
 								echo '<div id="divInformations_match_' . $match . '" class="pronosticLogistique">';
 									afficherLogistique($unMatch);
 								echo '</div>';
-							
+
 								// Informations sur l'équipe domicile
 								echo '<div id="divEquipeDomicile_match_' . $match . '" class="pronosticEquipe gauche">';
 									afficherEquipe($unMatch, 1);
 								echo '</div>';
-								
+
 								echo '<div class="pronosticZoneScore gauche">';
 									if($unMatch["Afficher_CoefficientCarreFinal"] == 1) {
 										if($unMatch["PronosticsCarreFinal_Coefficient"] == 0)
@@ -497,7 +497,7 @@
 										echo '<label>&nbsp;-&nbsp;</label><label class="curseur-main" onclick="creerProno_afficherDerniersResultats(' . $unMatch["Match"] . ');">Statistiques</label>';
 									}
 									echo '<br />';
-								
+
 									// Score de l'équipe domicile
 									echo '<div id="divScoreEquipeDomicile_match_' . $match . '" class="pronosticScore gauche">';
 										afficherScoreEquipe($unMatch, 1, $matchLie);
@@ -514,12 +514,12 @@
 										echo '<div id="divScoreAPEquipeDomicile_match_' . $match . '" class="pronosticScoreAP gauche">';
 											afficherScoreAPEquipe($unMatch, 1, $typeMatch, $matchRetour, $matchLie, $pronostiqueur, $bdd);
 										echo '</div>';
-										
+
 										echo '<div id="divScoreAPEquipeVisiteur_match_' . $match . '" class="pronosticScoreAP gauche">';
 											afficherScoreAPEquipe($unMatch, 2, $typeMatch, $matchRetour, $matchLie, $pronostiqueur, $bdd);
 										echo '</div>';
 									}
-									
+
 									// Les TAB s'affichent si l'on n'est pas dans les matches de type 1 et 2
 									if($typeMatch != 1 && $typeMatch != 2) {
 										echo '<br />';
@@ -528,7 +528,7 @@
 										echo '</div>';
 									}
 								echo '</div>';
-								
+
 								// Informations sur l'équipe visiteur
 								echo '<div id="divEquipeVisiteur_match_' . $match . '" class="pronosticEquipe gauche">';
 									afficherEquipe($unMatch, 2);
@@ -556,7 +556,7 @@
 								echo '<div id="divCoteEquipeVisiteur_match_' . $match . '" class="pronosticCoteEquipe gauche">';
 									afficherCote($unMatch, 2, $finaleEuropeenne);
 								echo '</div>';
-								
+
 								// Cote de qualification pour les match
 								if($typeMatch == 3) {
 									// Cote de l'équipe domicile
@@ -592,7 +592,7 @@
 							echo '</div>';
 						} // foreach sur les matches
 					echo '</div>';
-					
+
 				} // foreach sur les championnats et les journées
 				if(count($journees) == 0) {
 					echo '<label>Aucun pronostic à effectuer actuellement</label>';
@@ -603,7 +603,7 @@
 		echo '</div>';
 
 	?>
-	
+
 	<script>
 		$(function() {
 			afficherTitrePage('divPronostics', 'Saisie de pronostics');
@@ -611,21 +611,21 @@
 												event.preventDefault();
 											}
 										);
-										
+
 			// Création dynamique des onglets selon le contenu
 			$('.journee').each(function() {
 				$('.ulNavigation').append('<li><a href="#' + $(this).attr('id') + '">' + $(this).attr('title') + '</a></li>');
 			});
 			$('#divPronostics').tabs();
-			
+
 			$('.ui-tabs-anchor').prepend('<em class="icones icones-grandes">&#10150;</em>');
-			
+
 			$('.matchLigue1').each(	function() {	$(this).html("VS");	});
 			$('.matchCS').each(		function() {	$(this).html("COMMUNITY SHIELD");	});
 			$('.matchAller').each(	function() {	$(this).html("ALLER");	});
 			$('.matchRetour').each(	function() {	$(this).html("RETOUR");	});
 			$('.matchCoupe').each(	function() {	$(this).html("COUPE");	});
-			
+
 			// Ajout d'une indication si le vainqueur des TAB n'a pas été sélectionné
 			if($('.liste-vainqueur-tab').val() == 0)
 				$('.liste-vainqueur-tab').addClass('blanc-fond-rouge');
@@ -654,11 +654,11 @@
 					if($(this).find(ancre).size() > 0) {
 						// Lecture de l'onglet (tab) contenant le lien pour l'activer
 						ongletParent = $(this).attr('id');
-						
+
 						// Sélection du bon onglet
 						var index = $('#divPronostics a[href="#' + ongletParent + '"]').parent().index();
 						$('#divPronostics').tabs('option', 'active', index);
-						
+
 						// Arrêt de la boucle
 						return false;
 					}
@@ -673,7 +673,7 @@
 					var hauteurBandeau = $('.bandeau').height();
 					if(hauteurBandeau == null)
 						hauteurBandeau = 0;
-					
+
 					$('html,body').animate({
 						scrollTop: $(ancre).offset().top - hauteurBandeau
 					}, 500);
@@ -685,7 +685,7 @@
 				$('.ulNavigation li:first').addClass('active');
 			}
 		});
-		
+
 	</script>
 </body>
 </html>

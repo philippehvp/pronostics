@@ -20,7 +20,7 @@
 		$(function() {
 			retournerHautPage();
 			activitePronostiqueur();
-			verificationMessage();			
+			verificationMessage();
 		});
 	</script>
 </body>

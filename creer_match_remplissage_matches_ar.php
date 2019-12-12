@@ -18,7 +18,7 @@
 	@$documentRetour->loadHTMLFile($lienRetour);
 
 	$tableauErreurs = array();
-	
+
     $xpathAller = new DOMXpath($documentAller);
     $xpathRetour = new DOMXpath($documentRetour);
 
@@ -34,7 +34,7 @@
     $tableauDatesRetour = $xpathRetour->query('.//thead', $tableRetour->item(0));
     $tableauMatchesAller = $xpathAller->query('.//tr', $tableAller->item(0));
     $tableauMatchesRetour = $xpathRetour->query('.//tr', $tableRetour->item(0));
-    
+
     $tableauTRAller = $xpathAller->query('.//tr', $tableAller->item(0));
     $tableauTRRetour = $xpathRetour->query('.//tr', $tableRetour->item(0));
 
@@ -57,7 +57,7 @@
                 } else {
                     if($equipe1Aller == 0)
                         echo 'Pas de correspondance pour ' . $equipesAller[0];
-                    
+
                     if($equipe2Aller == 0)
                         echo 'Pas de correspondance pour ' . $equipesAller[1];
                 }
@@ -93,7 +93,7 @@
                 } else {
                     if($equipe1Retour == 0)
                         echo 'Pas de correspondance pour ' . $equipesRetour[0];
-                    
+
                     if($equipe2Retour == 0)
                         echo 'Pas de correspondance pour ' . $equipesRetour[1];
                 }

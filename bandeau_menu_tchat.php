@@ -9,7 +9,7 @@
 		// En priorité, on affiche les pronostiqueurs ayant laissé un ou plusieurs messages non lus
 		// Puis les pronostiqueurs connectés (s'ils ne sont pas déjà ci-dessus)
 		// Enfin, les autres
-		
+
 		$ordreSQL =		'	SELECT		Pronostiqueur, Pronostiqueurs_NomUtilisateur, MessagesLus_NombreMessages' .
 						'				,CASE' .
 						'					WHEN	messages_non_lus.Pronostiqueurs_Pronostiqueur IS NOT NULL AND pronostiqueurs_connectes.Pronostiqueurs_Pronostiqueur IS NOT NULL' .
@@ -50,7 +50,7 @@
 		$nombrePronostiqueurs = sizeof($pronostiqueurs);
 		$NOMBRE_COLONNES = 3;
 		$nombrePronostiqueursParColonne = ceil($nombrePronostiqueurs / $NOMBRE_COLONNES);
-		
+
 		// Parcours des pronostiqueurs
 		if($nombrePronostiqueurs) {
 			echo '<label class="titre">Tchat privé</label>';
@@ -68,8 +68,8 @@
 							$classe .= 'lien--actif texte-gras ';
 						else
 							$classe .= 'texte-italique ';
-						
-						
+
+
 						if($nombreMessagesNonLus != null && $nombreMessagesNonLus > 0)
 							echo '<label class="' . $classe . 'texte-gras" onclick="moduleTchat_creerConversation(\'' . $pronostiqueurs[$indice]["Pronostiqueurs_NomUtilisateur"] . '\');">' . $pronostiqueursNomUtilisateur . ' (' . $nombreMessagesNonLus . ')</label>';
 						else
@@ -78,7 +78,7 @@
 				echo '</div>';
 			}
 		}
-		
+
 	echo '</div>';
 	echo '<div class="colle-gauche"></div>';
 

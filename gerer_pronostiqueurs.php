@@ -14,14 +14,14 @@
 	<?php
 		$nomPage = 'gerer_pronostiqueurs.php';
 		include_once('bandeau.php');
-		
+
 		echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
-		
+
 		// Page de gestion des pronostiqueurs
 		// Seuls la Ligue 1, la Ligue des Champions, l'Europa League et les barrages sont concernés
-		
+
 		echo '<div id="divGestionPronostiqueurs" class="contenu-page">';
-    
+
       // Création d'un nouveau pronostiqueur
       echo '<h2>Création d\'un nouveau pronostiqueur</h2>';
       echo '<table>';
@@ -44,7 +44,7 @@
           echo '</tr>';
         echo '</tbody>';
       echo '</table>';
-      
+
       echo '<br />';
       echo '<hr />';
       echo '<h2>Pronostiqueurs actuels</h2>';
@@ -55,7 +55,7 @@
 							'	ORDER BY	Pronostiqueurs_NomUtilisateur';
 			$req = $bdd->query($ordreSQL);
 			$pronostiqueurs = $req->fetchAll();
-			
+
 			if(count($pronostiqueurs) == 0) {
 				echo '<label>Aucun pronostiqueur présent</label>';
 			}
@@ -79,10 +79,10 @@
 								'				ON		pronostiqueurs_championnats.Pronostiqueur = inscriptions.Pronostiqueurs_Pronostiqueur' .
 								'						AND		pronostiqueurs_championnats.Championnat = inscriptions.Championnats_Championnat' .
 								'	ORDER BY	Pronostiqueurs_NomUtilisateur, Championnat';
-				
+
 				$req = $bdd->query($ordreSQL);
 				$inscriptions = $req->fetchAll();
-				
+
 				echo '<h1 style="color: #f00 !important;">ATTENTION, TOUTE DESINSCRIPTION EFFACE AUSSI LES PRONOSTICS !!!</h1>';
 				echo '<table class="tableau--liste">';
 					echo '<thead>';
@@ -110,7 +110,7 @@
 									$championnat = $inscriptions[$i * $nombreChampionnats + $j]["Championnat"];
 									echo '<td class="aligne-centre"><input type="checkbox" id="pc_' . $unPronostiqueur["Pronostiqueur"] . '_' . $championnat . '" onclick="gererPronostiqueur_modifierInscription($(this), ' . $unPronostiqueur["Pronostiqueur"] . ', ' . $championnat . ');" ' . $estInscrit . '/></td>';
 								}
-								
+
 							echo '</tr>';
 							$i++;
 						}
@@ -128,7 +128,7 @@
                     '	ORDER BY	Pronostiqueurs_NomUtilisateur';
 			$req = $bdd->query($ordreSQL);
 			$pronostiqueursAnciens = $req->fetchAll();
-			
+
 			if(count($pronostiqueursAnciens) == 0) {
 				echo '<label>Aucun pronostiqueur ancien présent</label>';
 			}
@@ -152,9 +152,9 @@
 					echo '</tbody>';
 				echo '</table>';
 			}
-			
+
 		echo '</div>';
-		
+
 	?>
 
 	<script>
@@ -163,6 +163,6 @@
 			retournerHautPage();
 		});
 	</script>
-	
+
 </body>
 </html>

@@ -1,6 +1,6 @@
 <?php
 	// Module d'affichage des pronostics
-	
+
 	include_once('classements_pronostiqueurs_fonctions.php');
 
 	// Parcours du championnat
@@ -10,7 +10,7 @@
 	$req = $bdd->query($ordreSQL);
 	$donnees = $req->fetchAll();
 	$journeeAffichee = $donnees[0]["Journee_EnCours"];*/
-	
+
 	// On affiche les pronostics de la journée suivante si les trois conditions suivantes sont remplies :
 	// - la journée suivante est active
 	// - la date du jour du dernier match est passée (changement de jour)
@@ -43,7 +43,7 @@
 	$req = $bdd->query($ordreSQL);
 	$journees = $req->fetchAll();
 	$journeeAffichee = $journees[0]["Journee_Affichee"];
-	
+
 	// Lecture des pronostics de la dernière journée du championnat
 	$ordreSQL =		'	    SELECT		matches.Match, Journees_Nom' .
 					'					,IFNULL(equipesdomicile.Equipes_NomCourt, equipesdomicile.Equipes_Nom) AS EquipesDomicile_NomCourt' .
@@ -81,7 +81,7 @@
 					'		WHERE		Journees_Journee = ' . $journeeAffichee .
 					'					AND		Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
 					'		ORDER BY	matches.Matches_Date, matches.Match';
-					
+
 	$req = $bdd->query($ordreSQL);
 	$pronostics = $req->fetchAll();
 	$nombrePronostics = sizeof($pronostics);
@@ -105,7 +105,7 @@
 							$scores = $pronostics[$i]["Pronostics_ScoreEquipeDomicile"] . ' - ' . $pronostics[$i]["Pronostics_ScoreEquipeVisiteur"] . ' (' . $pronostics[$i]["Pronostics_ScoreAPEquipeDomicile"] . ' - ' . $pronostics[$i]["Pronostics_ScoreAPEquipeVisiteur"] . ' AP)';
 						else
 							$scores = $pronostics[$i]["Pronostics_ScoreEquipeDomicile"] . ' - ' . $pronostics[$i]["Pronostics_ScoreEquipeVisiteur"];
-						
+
 						if($pronostics[$i]["Pronostics_Vainqueur"] != null && $pronostics[$i]["Pronostics_Vainqueur"] != 0)
 							$scores .= ' TAB(' . ($pronostics[$i]["Pronostics_Vainqueur"] == 1 ? $pronostics[$i]["EquipesDomicile_Nom"] : $pronostics[$i]["EquipesVisiteur_Nom"]) . ')';
 

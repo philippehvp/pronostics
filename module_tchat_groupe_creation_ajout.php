@@ -1,15 +1,15 @@
 <?php
 	include_once('commun.php');
-	
+
 	// Création d'un nouveau groupe de tchat ou d'une conversation avec un interlocuteur unique
 	// La liste des pronostiqueurs contient en fait le champ nom utilisateur des pronostiqueurs séparés par le caractère ;
 	$tableau = array();
-	
+
 	// Lecture des paramètres passés à la page
 	$typeTchat = isset($_POST["typeTchat"]) ? $_POST["typeTchat"] : 1;
 	$nomTchatGroupe = isset($_POST["nomTchatGroupe"]) ? $_POST["nomTchatGroupe"] : '';
 	$listePronostiqueurs = isset($_POST["listePronostiqueurs"]) ? $_POST["listePronostiqueurs"] : '';
-	
+
 
 	// Création d'un groupe de tchat
 	function creerTchatGroupe($bdd, $typeTchat, $nomTchatGroupe, $listePronostiqueurs) {
@@ -20,7 +20,7 @@
 		// Lecture de l'identifiant nouvellement créé
 		//$tchatGroupe = $req->fetch(PDO::FETCH_ASSOC);
 		$tchatGroupe = $bdd->lastInsertId();
-		
+
 		// Ajout des pronostiqueurs (et le pronostiqueur en cours également) dans la liste des membres de ce tchat de groupe ou de cette conversation
 		// La liste des pronostiqueurs doit être scannée
 		$unPronostiqueur = strtok($listePronostiqueurs, ';');
@@ -34,7 +34,7 @@
 
 			$req = $bdd->prepare($ordreSQL);
 			$req->execute(array($unPronostiqueur));
-			
+
 			// La table messages_lus permet de savoir pour chaque tchat de groupe le nombre de messages lus et non encore lus pour chaque membre
 			$ordreSQL =		'	INSERT INTO		messages_lus(TchatGroupes_TchatGroupe, Pronostiqueurs_Pronostiqueur, MessagesLus_NombreMessages)' .
 							'	SELECT			' . $tchatGroupe . ', Pronostiqueur, 0' .
@@ -43,26 +43,26 @@
 
 			$req = $bdd->prepare($ordreSQL);
 			$req->execute(array($unPronostiqueur));
-			
+
 			$unPronostiqueur = strtok(';');
 		}
-		
+
 		// Ajout du pronostiqueur ayant créé le tchat de groupe
 		$ordreSQL =		'	INSERT INTO		tchat_groupes_membres(TchatGroupes_TchatGroupe, Pronostiqueurs_Pronostiqueur)' .
 						'	SELECT			' . $tchatGroupe . ', ' . $_SESSION["pronostiqueur"];
 		$req = $bdd->exec($ordreSQL);
-		
+
 		$ordreSQL =		'	INSERT INTO		messages_lus(TchatGroupes_TchatGroupe, Pronostiqueurs_Pronostiqueur, MessagesLus_NombreMessages)' .
 						'	SELECT			' . $tchatGroupe . ', ' . $_SESSION["pronostiqueur"] . ', 0';
 
 		$req = $bdd->exec($ordreSQL);
-		
+
 		// En retour, l'ajout d'un groupe de tchat retourne le numéro de tchat de groupe
 		$tableau["tchatGroupe"] = $tchatGroupe;
-		
+
 		echo json_encode($tableau);
 	}
-	
+
 	// Création d'une conversation
 	// Si celle-ci existe déjà entre le pronostiqueur et l'interlocuteur, on n'en crée pas de nouvelle mais on la réouvre
 	function creerConversation($bdd, $typeTchat, $nomTchatGroupe, $listePronostiqueurs, $tableau) {
@@ -87,7 +87,7 @@
 
 		$req->execute(array($listePronostiqueurs));
 		$conversation = $req->fetchAll();
-		
+
 		if($conversation == null) {
 			// Création d'un nouveau tchat de groupe de type conversation
 			creerTchatGroupe($bdd, $typeTchat, $nomTchatGroupe, $listePronostiqueurs, $tableau);
@@ -97,10 +97,10 @@
 			$tableau["tchatGroupe"] = $conversation[0]["TchatGroupe"];
 			echo json_encode($tableau);
 		}
-		
-		
+
+
 	}
-	
+
 	// Création du groupe
 	if($typeTchat == 1) {
 		creerTchatGroupe($bdd, $typeTchat, $nomTchatGroupe, $listePronostiqueurs, $tableau);
@@ -109,5 +109,5 @@
 		creerConversation($bdd, $typeTchat, $nomTchatGroupe, $listePronostiqueurs, $tableau);
 	}
 
-	
+
 ?>

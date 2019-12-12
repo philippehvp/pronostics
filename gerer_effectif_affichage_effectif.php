@@ -1,10 +1,10 @@
 <?php
 	include_once('commun_administrateur.php');
-	
+
 	// Affichage de l'effectif d'une équipe
-	
+
 	$equipe = isset($_POST["equipe"]) ? $_POST["equipe"] : 0;
-	
+
 	$ordreSQL =		'	SELECT		Joueur, IFNULL(Postes_Poste, 0) AS Postes_Poste' .
 					'				,CONCAT(joueurs.Joueurs_NomFamille, \' \', IFNULL(joueurs.Joueurs_Prenom, \'\')) AS Joueurs_NomComplet' .
                     '               ,joueurs.Joueurs_NomCourt, joueurs.Joueurs_NomFamille, joueurs.Joueurs_Prenom' .
@@ -20,7 +20,7 @@
 
 	$req = $bdd->query($ordreSQL);
 	$joueurs = $req->fetchAll();
-	
+
 	// Postes différents
 	$ordreSQL =		'	SELECT		Poste, Postes_NomCourt' .
 					'	FROM		(' .
@@ -32,8 +32,8 @@
 					'	ORDER BY	Poste';
 	$req = $bdd->query($ordreSQL);
 	$postes = $req->fetchAll();
-	
-	
+
+
 	echo '<label>Effectif</label><br />';
 	echo '<table class="tableau--classement">';
 		echo '<thead>';
@@ -47,7 +47,7 @@
             echo '<th>Correspondance cote</th>';
 			echo '<th>Début</th>';
 		echo '</thead>';
-		
+
 		echo '<tbody>';
 			foreach($joueurs as $unJoueur) {
 				echo '<tr>';
@@ -86,8 +86,8 @@
 			if($(this).find('option:selected').val() == 0)
 				$(this).addClass('blanc-fond-rouge');
 		});
-		
+
 	});
-	
-	
+
+
 </script>

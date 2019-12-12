@@ -16,11 +16,11 @@
 	<?php
 		$nomPage = 'gerer_bareme_bonus_equipes.php';
 		include_once('bandeau.php');
-		
+
 		echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
-		
+
 		// Gestion du barème des bonus des équipes ainsi que des bonus anticipés
-		
+
 		// Lecture des équipes et des barèmes
 		$ordreSQL =		'	SELECT      equipes.Equipe, IFNULL(equipes.Equipes_NomCourt, equipes.Equipes_Nom) AS Equipes_NomCourt, equipes.Equipes_Fanion' .
                         '               ,IFNULL(bonus_equipe_championne.Bonus_Points, 0) AS Bonus_Championne' .
@@ -68,14 +68,14 @@
                         echo '<th>Pénalités</th>';
                     echo '</tr>';
                 echo '</thead>';
-                
+
                 echo '<tbody>';
                     for($i = 0; $i < $nombreEquipes; $i++) {
                         echo '<tr>';
                             $bonusAnticipeEquipeChampionne = $baremesBonus[$i]["BonusAnticipes_Championne"] == 1 ? ' checked' : '';
                             $bonusAnticipeEquipePodium = $baremesBonus[$i]["BonusAnticipes_Podium"] == 1 ? ' checked' : '';
                             $bonusAnticipeEquipeRelegation = $baremesBonus[$i]["BonusAnticipes_Relegation"] == 1 ? ' checked' : '';
-                        
+
                             echo '<td><img src="images/equipes/' . $baremesBonus[$i]["Equipes_Fanion"] . '" alt="Fanion" class="fanion" />';
                             echo '<td>' . $baremesBonus[$i]["Equipes_NomCourt"]. '</td>';
                             echo '<td>';
@@ -100,11 +100,11 @@
 		echo '</div>';
 
 	?>
-	
+
 	<script>
 		$(function() {
 			afficherTitrePage('divBonus', 'Gérer le barème des bonus équipes');
-            
+
             $('.tableau--bonus').dataTable({"bPaginate": false, "bFilter": false, "bInfo": false});
 		});
 	</script>

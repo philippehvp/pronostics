@@ -2,7 +2,7 @@
 	include_once('commun_administrateur.php');
 
 	// Sauvegarde des informations d'un match
-	
+
 	// Lecture des paramètres passés à la page
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
 	$action = isset($_POST["action"]) ? $_POST["action"] : 0;

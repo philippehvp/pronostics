@@ -13,12 +13,12 @@
 	<?php
 		$nomPage = 'modifier_mot_de_passe.php';
 		include_once('bandeau.php');
-		
+
 		echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
-		
-		
+
+
 		$erreurModification = isset($_SESSION["erreurModification"]) ? $_SESSION["erreurModification"] : 0;
-		
+
 		// Modification du mot de passe
 		echo '<div id="divModificationMotDePasse" class="connexion contenu-page">';
 			if($erreurModification) {
@@ -26,28 +26,28 @@
 					echo '<label>Erreur de modification de mot de passe !</label>';
 				echo '</div>';
 			}
-			
+
 			$_SESSION["erreurModification"] = 0;
-			
+
 
 			echo '<form name="formModificationMotDePasse" id="formModificationMotDePasse" method="post" action="modifier_mot_de_passe_validation.php">';
 				echo '<label>Mot de passe actuel</label>';
 				echo '<br />';
 				echo '<input type="password" name="motDePasseActuel" id="motDePasseActuel" placeholder="Mot de passe actuel" /><br />';
-			
+
 				echo '<label>Nouveau mot de passe</label>';
 				echo '<br />';
 				echo '<input type="password" name="motDePasse" id="motDePasse" placeholder="Nouveau mot de passe" /><br />';
-				
+
 				echo '<label>Confirmation</label>';
 				echo '<br />';
 				echo '<input class="gauche" type="password" name="motDePasseConfirmation" id="motDePasseConfirmation" placeholder="Confirmation" /><br />';
-				
+
 				echo '<div class="validation">Modifier le mot de passe</div>';
 			echo '</form>';
 		echo '</div>';
 	?>
-	
+
 	<script>
 		$(function() {
 			afficherTitrePage('divModificationMotDePasse', 'Modification du mot de passe');
@@ -65,7 +65,7 @@
 				}
 			?>
 
-			
+
 			$('.validation').button().click(function(event) {	modifierMotDePasse_validerMotDePasse();	});
 		});
 	</script>

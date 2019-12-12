@@ -16,11 +16,11 @@
 	<?php
 		$nomPage = 'gerer_bareme_bonus_buteurs.php';
 		include_once('bandeau.php');
-		
+
 		echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
-		
+
 		// Gestion du barème des bonus des buteurs
-		
+
 		// Lecture des barèmes des buteurs
 		$ordreSQL =		'	SELECT      joueurs.Joueur, IFNULL(joueurs.Joueurs_NomCourt, joueurs.Joueurs_NomFamille) AS Joueurs_NomFamille' .
                         '               ,bonus_meilleur_buteur.Bonus_Points' .
@@ -43,7 +43,7 @@
                         echo '<th>Bonus meilleur buteur</th>';
                     echo '</tr>';
                 echo '</thead>';
-                
+
                 echo '<tbody>';
                     for($i = 0; $i < $nombreJoueurs; $i++) {
                         echo '<tr>';
@@ -54,7 +54,7 @@
                     }
                 echo '</tbody>';
             echo '</table>';
-            
+
             // Liste de tous les joueurs des équipes de Ligue 1, classés par équipe
             $ordreSQL =		'	SELECT      equipes.Equipe, IFNULL(equipes.Equipes_NomCourt, equipes.Equipes_Nom) AS Equipes_NomCourt' .
                             '   FROM        equipes' .
@@ -65,7 +65,7 @@
                             '   ORDER BY    IFNULL(equipes.Equipes_NomCourt, equipes.Equipes_Nom)';
             $req = $bdd->query($ordreSQL);
             $equipes = $req->fetchAll();
-            
+
             // Parcours des équipes et de leurs joueurs pour qui on n'a pas de bonus
             foreach($equipes as $uneEquipe) {
                 $ordreSQL =     '   SELECT      joueurs.Joueur, IFNULL(joueurs.Joueurs_NomCourt, joueurs.Joueurs_NomFamille) AS Joueurs_NomFamille' .
@@ -82,22 +82,22 @@
                                 '                       )';
                 $req = $bdd->query($ordreSQL);
                 $joueurs = $req->fetchAll();
-                
+
                 echo '<h2>' . $uneEquipe["Equipes_NomCourt"] . '</h2>';
                 foreach($joueurs as $unJoueur) {
                     echo '<label onclick="gererBaremeBonusButeurs_ajouterJoueur(' . $unJoueur["Joueur"] . ')">' . $unJoueur["Joueurs_NomFamille"] . ' - </label>';
                 }
             }
-            
-            
+
+
 		echo '</div>';
 
 	?>
-	
+
 	<script>
 		$(function() {
 			afficherTitrePage('divBonus', 'Gérer le barème des bonus buteurs');
-            
+
             $('.tableau--bonus').dataTable({"bPaginate": false, "bFilter": false, "bInfo": false});
 		});
 	</script>

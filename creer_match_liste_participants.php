@@ -2,13 +2,13 @@
 	include_once('commun_administrateur.php');
 
 	// Page de création de la liste des joueurs ayant joué à un match
-	
+
 	// Equipe concernée
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
 	$equipe = isset($_POST["equipe"]) ? $_POST["equipe"] : 0;
 	$date = isset($_POST["date"]) ? $_POST["date"] : '';
 	$dateSQL = date('Y-m-d', strtotime(str_replace('/', '-', $date)));
-	
+
 	// La page contient à gauche la liste des joueurs de l'équipe n'ayant pas joué
 	// et à droite la liste de ceux qui ont joué
 	$ordreSQL =	'	SELECT			joueurs_equipes.Joueurs_Joueur, CONCAT(joueurs.Joueurs_NomFamille, \' \', IFNULL(joueurs.Joueurs_Prenom, \'\')) AS Joueurs_NomComplet, joueurs.Postes_Poste' .
@@ -56,7 +56,7 @@
 				}
 			echo '</ul>';
 		echo '</div>';
-		
+
 		echo '<div class="gauche" style="margin-left: 10px;">';
 			echo '<label>Joueurs du match (' . count($participants) . ')</label><br />';
 			echo '<ul class="effectif-equipe participants">';

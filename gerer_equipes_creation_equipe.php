@@ -2,7 +2,7 @@
 	include_once('commun_administrateur.php');
 
 	// Page de création d'une équipe
-	
+
 	echo '<table class="tableau--liste">';
 		echo '<tbody>';
 			echo '<tr>';
@@ -43,5 +43,5 @@
 			echo '</tr>';
 		echo '</tbody>';
 	echo '</table>';
-		
+
 ?>

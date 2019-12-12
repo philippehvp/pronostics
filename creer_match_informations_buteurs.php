@@ -8,9 +8,9 @@
 	$joueur = isset($_POST["joueur"]) ? $_POST["joueur"] : 0;
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
 	$equipe = isset($_POST["equipe"]) ? $_POST["equipe"] : 0;
-	
-	
-	
+
+
+
 	if($demanderCote) {
 
 		// Lecture de la cote du buteur si elle existe dans la table
@@ -26,7 +26,7 @@
 			$cote = $cotes[0]["JoueursCotes_Cote"];
 		else
 			$cote = '';
-		
+
 		echo '<label>Cote : </label>';
 		echo '<input type="text" id="inputCote" value="' . $cote . '" />';
 		echo '<br />';

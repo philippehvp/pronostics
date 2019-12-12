@@ -8,12 +8,12 @@
 	if($rafraichissementSection == 1) {
 		// Rafraîchissement automatique de la section
 		include_once('commun.php');
-		
+
 		// Lecture des paramètres passés à la page
 		$journee = isset($_POST["journee"]) ? $_POST["journee"] : 0;
 		$pronostiqueurConsulte = isset($_POST["pronostiqueurConsulte"]) ? $_POST["pronostiqueurConsulte"] : 0;
 	}
-	
+
 	// Données de la journée
 	$ordreSQL =		'	SELECT		Journees_DateMAJ, Journees_DateEvenement' .
 					'	FROM		journees' .
@@ -22,7 +22,7 @@
 	$journees = $req->fetchAll();
 	$dateMAJ = $journees[0]["Journees_DateMAJ"];
 	$dateEvenement = $journees[0]["Journees_DateEvenement"];
-	
+
 	// Données des matches
 	$ordreSQL =		'	SELECT		matches.Match, matches.Matches_Direct, matches.Matches_Coefficient' .
 					'				,CASE' .
@@ -149,7 +149,7 @@
 					'	ORDER BY	matches.Match, matches.Matches_Date';
 	$req = $bdd->query($ordreSQL);
 	$scores = $req->fetchAll();
-	
+
 	// Affichage des résultats
 	echo '<table class="mc--tableau-resultats">';
 		echo '<thead>';
@@ -215,7 +215,7 @@
 						else
 							$scoreReelAffiche = $matches[$i]["Matches_ScoreEquipeDomicile"] . ' - ' . $matches[$i]["Matches_ScoreEquipeVisiteur"];
 					}
-					
+
 					if($scoreReelAffiche == ' - ')
 						$scoreReelAffiche = $matches[$i]["Matches_Date"];
 
@@ -284,20 +284,20 @@
 	$(function() {
 		//$('.scroll-pane').getNiceScroll().remove();
 		$('.scroll-pane').niceScroll({cursorcolor: "#0e2c3d", cursorborder: "#0e2c3d"});
-		
+
 		// Mise en surbrillance du match précédemment sélectionné si nécessaire lors du rafraîchissement automatique de la page
 		var matchSelectionne = $('input[name="matchSelectionne"]').val();
 		if(matchSelectionne) {
 			$('#match_' + matchSelectionne).addClass('selectionne');
 		}
-		
+
 		$('.mc--tableau-resultats tr').click(
 			function() {
 				$('.mc--tableau-resultats tr.mc--match.selectionne').removeClass('selectionne');
 				$(this).addClass('selectionne');
 			}
 		);
-		
+
 	});
-	
+
 </script>

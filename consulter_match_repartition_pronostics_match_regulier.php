@@ -1,7 +1,7 @@
 <?php
 	// Affichage de la répartition des pronostics de vainqueur (victoire, match nul, défaite)
 	include_once('commun.php');
-	
+
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
 
 	$ordreSQL = 'SET @@session.group_concat_max_len=2048';
@@ -103,7 +103,7 @@
 	$req = $bdd->query($ordreSQL);
 	$defaites = $req->fetchAll();
 	$pronostiqueursDefaite = $defaites[0]["Pronostiqueurs_NomUtilisateur"];
-					
+
 	// Joueurs n'ayant pas encore effectué leur pronostic
 	$ordreSQL =		'	SELECT		IFNULL(GROUP_CONCAT(Pronostiqueurs_NomUtilisateur SEPARATOR \', \'), \'Aucun\') AS Pronostiqueurs_NomUtilisateur' .
 					'	FROM		(' .
@@ -143,7 +143,7 @@
 				echo '<th class="aligne-gauche">Joueurs</th>';
 			echo '</tr>';
 		echo '</thead>';
-		
+
 		echo '<tbody>';
 			echo '<tr class="aligne-haut neutre">';
 				echo '<td class="aligne-gauche">Victoire</td>';
@@ -163,7 +163,7 @@
 					echo '<td class="aligne-gauche retour-ligne" style="width: 600px;">' . $pronostiqueursOubli . '</td>';
 				echo '</tr>';
 			}
-			
+
 		echo '</tbody>';
 	echo '</table>';
 ?>

@@ -2,7 +2,7 @@
 	include_once('commun.php');
 
 	// Mise à jour des buteurs
-	
+
 	// Lecture des paramètres passés à la page
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
 	$joueurs = isset($_POST["joueurs"]) ? $_POST["joueurs"] : 0;
@@ -28,15 +28,15 @@
 	if($buteursPronostiquables == 0) {
 		exit();
 	}
-	
+
 	// Suppression des buteurs déjà existants
 	$ordreSQL =		'	DELETE FROM		pronostics_buteurs' .
 					'	WHERE			Pronostiqueurs_Pronostiqueur = ' . $pronostiqueur .
 					' 					AND		Matches_Match = ' . $match .
 					'					AND		Equipes_Equipe = ' . $equipe;
-	
+
 	$bdd->exec($ordreSQL);
-	
+
 	// Ajout des buteurs
 	// Pour les traces, les numéros de buteurs sont stockés dans une chaîne de caractères
 	$trace = "";
@@ -49,7 +49,7 @@
 		$bdd->exec($ordreSQL);
 
 	}
-	
+
 	// On doit afficher à l'utilisateur un récapitulatif des buteurs qu'il a sélectionnés
 	$ordreSQL =		'	SELECT		joueurs.Joueurs_NomFamille, IFNULL(joueurs.Joueurs_Prenom, \'\') AS Joueurs_Prenom, COUNT(*) AS Buteurs_NombreButs' .
 					'	FROM		pronostics_buteurs' .
@@ -79,14 +79,14 @@
 		else
 			$listeButeurs .= $unButeur["Joueurs_NomFamille"] . ($unButeur["Joueurs_Prenom"] != '' ? (' ' . $unButeur["Joueurs_Prenom"]) : '') . ' (x' . $unButeur["Buteurs_NombreButs"] . '), ';
 	}
-	
+
 	if($listeButeurs != '')
 		$listeButeurs = substr($listeButeurs, 0, strlen($listeButeurs) - 2);
-	
+
 	$tableau = array();
-	
+
 	$tableau['buteurs'] = $listeButeurs;
-	
+
 	// Création de la trace
 	$nomFichier = '../traces/buteurs/' . $match . '_' . $_SESSION["pronostiqueur"] . '_' . $equipe . '.txt';
 	file_put_contents($nomFichier, $trace);

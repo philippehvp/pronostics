@@ -1,11 +1,11 @@
 <?php
 	include_once('../commun.php');
-	
+
 	// Affichage des palmarès pour un championnat
-	
+
 	// Lecture des paramètres passés à la page
 	$championnat = isset($_POST["championnat"]) ? $_POST["championnat"] : 0;
-	
+
 	// Liste des pronostiqueurs pour le championnat en question
 	$ordreSQL =		'	SELECT		pronostiqueurs.Pronostiqueur, Pronostiqueurs_NomUtilisateur' .
 					'				,CASE' .
@@ -23,7 +23,7 @@
 					'	ORDER BY	Pronostiqueurs_NomUtilisateur';
 	$req = $bdd->query($ordreSQL);
 	$pronostiqueurs = $req->fetchAll();
-	
+
 	$ordreSQL =		'	SELECT		pronostiqueurs_trophees.Trophees_CodeTrophee, IFNULL(Nombre_Trophees, 0) AS Nombre_Trophees' .
 					'	FROM		(' .
 					'					SELECT		Pronostiqueur, Trophees_CodeTrophee' .
@@ -54,7 +54,7 @@
 
 	$NOMBRE_TROPHEES = 8;
 	$nombrePronostiqueurs = sizeof($palmares) / $NOMBRE_TROPHEES;
-	
+
 	if(sizeof($palmares) > 0) {
 		echo '<div class="cc--palmares">';
 			echo '<table class="cc--tableau">';

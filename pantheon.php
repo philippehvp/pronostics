@@ -19,7 +19,7 @@
 
 	echo '<div class="conteneur">';
 		include_once('bandeau.php');
-		
+
 		// Lecture des données de la table des points du panthéon des pronostiqueurs du top 3 (actuels et anciens)
 		// Attention, compte tenu des égalités, le fait de ramener les joueurs ayant un classement inférieur ou égal à 3 peut ramener plus de 3 joueurs
 		$ordreSQL =		'	SELECT		classements_pantheon.Pronostiqueurs_Pronostiqueur' .
@@ -49,7 +49,7 @@
 						'	ORDER BY	Classements_Classement, classements_pantheon.Pronostiqueurs_Pronostiqueur';
 		$req = $bdd->query($ordreSQL);
 		$pronostiqueursTop3 = $req->fetchAll();
-		
+
 		// Lecture des données de la table des points du panthéon des pronostiqueurs hors top 3 (actuels et anciens)
 		$ordreSQL =		'	SELECT		classements_pantheon.Pronostiqueurs_Pronostiqueur' .
 						'				,CASE' .
@@ -105,14 +105,14 @@
 					echo '</div>';
 				}
 			echo '</div>';
-			
+
 			echo '<div class="colle-gauche"></div>';
-		
+
 			// Calcul du nombre de colonnes qui seront occupées pour afficher l'ensemble des pronostiqueurs actuels et anciens)
 			// On n'exclut de cette liste le top 3
 			$nombreColonnes = ($nombrePronostiqueurs % $NOMBRE_PRONOSTIQUEURS_PAR_COLONNE > 0) ? (floor($nombrePronostiqueurs / $NOMBRE_PRONOSTIQUEURS_PAR_COLONNE + 1)) : (floor($nombrePronostiqueurs / $NOMBRE_PRONOSTIQUEURS_PAR_COLONNE));
 			for($i = 0; $i < $nombreColonnes; $i++) {
-				
+
 				if($i == 0)					echo '<div class="colle-gauche gauche pantheon--liste">';
 				else						echo '<div class="gauche pantheon--liste">';
 
@@ -180,7 +180,7 @@
 		$('.pantheon--liste--donnees.selectionne').removeClass('selectionne');
 		$(elt).addClass('selectionne');
 	}
-	
+
 	$(function() {
 		// La largeur des cellules du top 3 dépend du nombre de pronostiqueurs classés dans le top 3
 		// En effet, avec les égalités, on peut avoir plus de 3 pronostiqueurs dans cette liste
@@ -192,7 +192,7 @@
 		var nombre_cellules = $('.pantheon--top3--pronostiqueur').length;
 		var largeur_cellule = Math.floor((largeur_conteneur / nombre_cellules) - (marges_cellule + bordures_cellule));
 		$('.pantheon--top3--pronostiqueur').width(largeur_cellule);
-		
+
 		// Même chose pour la liste des pronostiqueurs classés à partir de la 4ème place
 		var largeur_liste = $('.pantheon--liste').width();
 		var bordures_liste = parseInt($('.pantheon--liste').css('border-left-width')) + parseInt($('.pantheon--liste').css('border-right-width'));
@@ -200,11 +200,11 @@
 		var espacement_liste = Math.floor(((largeur_conteneur / nombre_listes) - (largeur_liste + bordures_liste)) / 1);
 		//$('.pantheon--liste').css('margin-left', espacement_liste + 'px');
 		$('.pantheon--liste').css('margin-right', espacement_liste + 'px');
-		
-		
+
+
 	});
-	
-	
+
+
 </script>
 
 </body>

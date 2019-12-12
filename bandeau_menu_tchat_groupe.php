@@ -1,6 +1,6 @@
 <?php
 	include_once('commun.php');
-	
+
 	$nomMenu = isset($_POST["nomMenu"]) ? $_POST["nomMenu"] : '';
 
 	// Tchats de groupe créés par l'utilisateur
@@ -83,7 +83,7 @@
 		$req = $bdd->query($ordreSQL);
 		$discussions = $req->fetchAll();
 		$nombreDiscussions = sizeof($discussions);
-		
+
 		$nombreMessages = 0;
 		if($nombreDiscussions != 0) {
 			echo '<hr />';
@@ -105,7 +105,7 @@
 										'				ON		Pronostiqueurs_Pronostiqueur = Pronostiqueur' .
 										'	WHERE		Pronostiqueurs_Pronostiqueur <> ' . $_SESSION["pronostiqueur"] .
 										'				AND		TchatGroupes_TchatGroupe = ' . $uneDiscussion["TchatGroupe"];
-										
+
 						$req = $bdd->query($ordreSQL);
 						$membres = $req->fetchAll();
 						$nombreMessagesNonLus = $uneDiscussion["MessagesLus_NombreMessages"];
@@ -120,13 +120,13 @@
 						echo '</tr>';
 					}
 				echo '</tbody>';
-					
+
 			echo '</table>';
 		}
-		
+
 		return $nombreMessages;
-	}	
-	
+	}
+
 	echo '<div>';
 		echo '<img class="curseur-main" onclick="moduleTchatGroupe_creerTchatGroupe(\'txtNomTchatGroupe\', \'taPronostiqueurs\');" src="images/tchat_groupe.png" alt="" title="Nouveau tchat de groupe" />';
 

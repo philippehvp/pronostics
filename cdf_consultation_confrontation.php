@@ -3,7 +3,7 @@
 	include_once('fonctions.php');
 
 	// Affichage du détail d'une confrontation
-	
+
 	// Lecture des paramètres passés à la page
 	$confrontation = isset($_POST["confrontation"]) ? $_POST["confrontation"] : 0;
 	$journee = 61;
@@ -34,7 +34,7 @@
 	$resultats = $req->fetchAll();
 	$nombreMatches = sizeof($resultats);
 
-	
+
 	function lirePronostics($bdd, $pronostiqueur, $pronostiqueurDetail, $journee, &$pronostics) {
 		// Tous les pronostics et pronostics de buteurs des pronostiqueurs de la confrontation pour la journée
 		$ordreSQL =		'	    SELECT DISTINCT		matches.Match' .
@@ -390,8 +390,8 @@
 		$req = $bdd->query($ordreSQL);
 		$pronostics = $req->fetchAll();
 	}
-	
-	
+
+
 	// Lecture des pronostiqueurs de la confrontation
 	$ordreSQL =		'	SELECT		Pronostiqueurs_PronostiqueurA, Pronostiqueurs_PronostiqueurB' .
 					'				,IFNULL(pronostiqueursA.Pronostiqueurs_NomUtilisateur, \'-\') AS PronostiqueursA_NomUtilisateur' .
@@ -405,15 +405,15 @@
 					'	WHERE		Confrontation = ' . $confrontation;
 	$req = $bdd->query($ordreSQL);
 	$donnees = $req->fetchAll();
-	
+
 	$pronosticsA = $pronosticsB = null;
-	
+
 	if($donnees[0]["Pronostiqueurs_PronostiqueurA"] != null)
 		lirePronostics($bdd, $pronostiqueur, $donnees[0]["Pronostiqueurs_PronostiqueurA"], $donnees[0]["Journees_Journee"], $pronosticsA);
 
 	if($donnees[0]["Pronostiqueurs_PronostiqueurB"] != null)
 		lirePronostics($bdd, $pronostiqueur, $donnees[0]["Pronostiqueurs_PronostiqueurB"], $donnees[0]["Journees_Journee"], $pronosticsB);
-	
+
 	// Affichage des bons résultats et des pronostics pour chaque pronostiqueur de la confrontation
 	echo '<table class="tableau--resultat" id="tablePronostics">';
 		echo '<thead>';
@@ -452,7 +452,7 @@
 					$pointsQualificationEquipeDomicile = $resultats[$i]["Matches_PointsQualificationEquipeDomicile"];
 					$pointsQualificationEquipeVisiteur = $resultats[$i]["Matches_PointsQualificationEquipeVisiteur"];
 					$coefficient = $resultats[$i]["Matches_Coefficient"];
-					
+
 					echo '<td title="' . $equipeDomicileNom . ' - ' . $equipeVisiteurNom . '">';
 						echo '<label>' . $equipeDomicileNomCourt . ' - ' . $equipeVisiteurNomCourt . '</label><br />';
 						echo '<label>Points qualification : ' . $pointsQualificationEquipeDomicile . '-' . $pointsQualificationEquipeVisiteur . '</label>';
@@ -461,7 +461,7 @@
 						$scoreAffiche = formaterScoreMatch($scoreEquipeDomicile, $scoreAPEquipeDomicile, $scoreEquipeVisiteur, $scoreAPEquipeVisiteur, $vainqueur);
 						echo $scoreAffiche . '<br />' . $equipeDomicileButeurs . '<br />' . $equipeVisiteurButeurs;
 					echo '</td>';
-					
+
 					// Pronostiqueur A
 					if($pronosticsA != null) {
 						$pronosticScoreEquipeDomicile = $pronosticsA[$i]["Pronostics_ScoreEquipeDomicile"];
@@ -496,7 +496,7 @@
 						$scoreButeur = '?';
 						$scoreBonus = '?';
 					}
-					
+
 					if($performance == -1)
 						$style = 'blanc';
 					else if($performance == 0)
@@ -552,7 +552,7 @@
 						$scoreButeur = '?';
 						$scoreBonus = '?';
 					}
-					
+
 					if($performance == -1)
 						$style = 'blanc';
 					else if($performance == 0)

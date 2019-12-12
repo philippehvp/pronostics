@@ -1,23 +1,23 @@
 <?php
-	
+
 	// Page d'affichage de la liste des équipes selon un critère de recherche
-	
+
 	// La page peut être appelée de deux manières :
 	// - par une inclusion
 	// - par un appel Ajax (cas du rafraîchissement)
-	
+
 	$rafraichissement = isset($_POST["rafraichissement"]) ? $_POST["rafraichissement"] : 0;
 	if($rafraichissement == 1) {
 		// Rafraîchissement de la page
 		include_once('commun_administrateur.php');
-		
+
 		// Lecture des paramètres passés à la page
 		$nomEquipe = isset($_POST["nomEquipe"]) ? $_POST["nomEquipe"] : '';
 	}
 	else {
 		$nomEquipe = '';
 	}
-	
+
 	$ordreSQL =		'	SELECT		DISTINCT Equipe, Equipes_Nom, IFNULL(Equipes_NomCourt, \'-\') AS Equipes_NomCourt, Equipes_Fanion' .
 					'				,CASE WHEN l1.Equipes_Equipe IS NOT NULL THEN 1 ELSE 0 END AS Equipes_L1' .
 					'				,IFNULL(Equipes_L1Europe, 0) AS Equipes_L1Europe' .
@@ -47,7 +47,7 @@
 
 	$req = $bdd->query($ordreSQL);
 	$equipes = $req->fetchAll();
-	
+
 	if(count($equipes) == 0) {
 		echo '<label>Aucune donnée à afficher</label>';
 	}
@@ -65,7 +65,7 @@
 				echo '<th>Barrages</th>';
 				echo '<th>CDF</th>';
 			echo '</thead>';
-			
+
 			echo '<tbody>';
 				foreach($equipes as $uneEquipe) {
 					echo '<tr>';
@@ -75,7 +75,7 @@
 						$el = $uneEquipe["Equipes_EL"] == 1 ? ' checked' : '';
 						$barrages = $uneEquipe["Equipes_Barrages"] == 1 ? ' checked' : '';
 						$cdf = $uneEquipe["Equipes_CDF"] == 1 ? ' checked' : '';
-					
+
 						echo '<td class="aligne-centre">' . $uneEquipe["Equipe"] . '</td>';
 						echo '<td><input type="text" id="txtEquipeNom_' . $uneEquipe["Equipe"] . '" value="' . $uneEquipe["Equipes_Nom"] . '" onchange="gererEquipe_modifierEquipe($(this), ' . $uneEquipe["Equipe"] . ', 0);" /></td>';
 						echo '<td><input type="text" id="txtEquipeNomCourt_' . $uneEquipe["Equipe"] . '" value="' . $uneEquipe["Equipes_NomCourt"] . '" onchange="gererEquipe_modifierEquipe($(this), ' . $uneEquipe["Equipe"] . ', 1);" /></td>';
@@ -90,7 +90,7 @@
 						echo '<td class="aligne-centre"><input type="checkbox" id="cbEL_' . $uneEquipe["Equipe"] . '"' . $el . ' onclick="gererEquipe_modifierEngagement($(this), ' . $uneEquipe["Equipe"] . ', 3, 0);" /></td>';
 						echo '<td class="aligne-centre"><input type="checkbox" id="cbBarrages_' . $uneEquipe["Equipe"] . '"' . $barrages . ' onclick="gererEquipe_modifierEngagement($(this), ' . $uneEquipe["Equipe"] . ', 4, 0);" /></td>';
 						echo '<td class="aligne-centre"><input type="checkbox" id="cbCDF_' . $uneEquipe["Equipe"] . '"' . $cdf . ' onclick="gererEquipe_modifierEngagement($(this), ' . $uneEquipe["Equipe"] . ', 5, 0);" /></td>';
-                        
+
 					echo '</tr>';
 				}
 			echo '</tbody>';

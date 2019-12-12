@@ -2,14 +2,14 @@
 	include_once('commun_administrateur.php');
 
 	// Sauvegarde de la cote buteur d'un joueur
-	
+
 	// Lecture des paramètres passés à la page
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
 	$equipe = isset($_POST["equipe"]) ? $_POST["equipe"] : 0;
 	$joueur = isset($_POST["joueur"]) ? $_POST["joueur"] : 0;
 	$cote = isset($_POST["cote"]) ? $_POST["cote"] : '';
 	$poste = isset($_POST["poste"]) ? $_POST["poste"] : -1;
-	
+
 	// Si la ligne existe déjà, il faut la mettre à jour
 	// Dans le cas inverse, il faut créer la ligne
 	// Cas spécifique : si la cote est vide, on la supprime de la table
@@ -23,7 +23,7 @@
 						'	VALUES(' . $joueur . ', ' . $equipe . ', ' . $match . ', ' . $cote . ')';
 
 	$bdd->exec($ordreSQL);
-	
+
 	// Mise à jour du poste
 	$ordreSQL =			'	UPDATE		joueurs' .
 						'	JOIN		(' .

@@ -4,7 +4,7 @@
 	// Lecture des paramètres passés à la page
 	$journee = isset($_POST["journee"]) ? $_POST["journee"] : 0;
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
-	
+
 	// Lecture des informations du match
 	$ordreSQL =		'	SELECT				vue_matches.Match' .
 					'						,EquipeDomicile, EquipesDomicile_Nom' .

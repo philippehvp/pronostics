@@ -2,7 +2,7 @@
 	include_once('commun.php');
 
 	// Mise à jour de la fiche d'identité
-	
+
 	// Lecture des paramètres passés à la page
 	$nom = isset($_POST["nom"]) ? $_POST["nom"] : '';
 	$prenom = isset($_POST["prenom"]) ? $_POST["prenom"] : '';
@@ -13,7 +13,7 @@
 	$ambitions = isset($_POST["ambitions"]) ? $_POST["ambitions"] : '';
 	$carriere = isset($_POST["carriere"]) ? $_POST["carriere"] : '';
 	$commentaire = isset($_POST["commentaire"]) ? $_POST["commentaire"] : '';
-	
+
 	$ordreSQL =		'	UPDATE		pronostiqueurs' .
 					'	SET			Pronostiqueurs_Nom = ?' .
 					'				,Pronostiqueurs_Prenom = ?' .
@@ -25,7 +25,7 @@
 					'				,Pronostiqueurs_Carriere = ?' .
 					'				,Pronostiqueurs_Commentaire = ?' .
 					'	WHERE		Pronostiqueur = ' . $_SESSION["pronostiqueur"];
-					
+
 	$req = $bdd->prepare($ordreSQL);
 	$req->execute(array($nom, $prenom, $mel, $dateDeNaissance, $lieuDeResidence, $equipeFavorite, $ambitions, $carriere, $commentaire));
 ?>

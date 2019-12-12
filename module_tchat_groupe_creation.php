@@ -2,7 +2,7 @@
 	include_once('commun.php');
 
 	// Page de création d'un tchat de groupe
-	
+
 	echo '<label class="libelle">Nom du groupe </label>';
 	echo '<br />';
 	echo '<input type="text" value="" id="txtNomTchatGroupe" />';

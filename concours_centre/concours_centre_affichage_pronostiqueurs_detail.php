@@ -1,6 +1,6 @@
 <?php
 	include_once('../commun.php');
-	
+
 	// Affichage des détails d'un pronostiqueur du concours
 	// Lecture des paramètres passés à la page
 	$pronostiqueurConsulte = isset($_POST["pronostiqueurConsulte"]) ? $_POST["pronostiqueurConsulte"] : 0;
@@ -28,7 +28,7 @@
 
 		$req = $bdd->query($ordreSQL);
 		$fiche = $req->fetchAll();
-		
+
 		$pronostiqueurPhoto = $fiche[0]["Pronostiqueurs_Photo"] != null ? $fiche[0]["Pronostiqueurs_Photo"] : '';
 		$pronostiqueurMEL = $fiche[0]["Pronostiqueurs_MEL"] != null ? $fiche[0]["Pronostiqueurs_MEL"] : '';
 		$pronostiqueurDateDeNaissance = $fiche[0]["Pronostiqueurs_DateDeNaissance"] != null ? $fiche[0]["Pronostiqueurs_DateDeNaissance"] : '';
@@ -42,7 +42,7 @@
 
 		echo '<div class="colle-gauche gauche aligne-centre">';
 			echo '<img class="photo cc--vignette--bordure-grise" src="images/pronostiqueurs/' . $pronostiqueurPhoto . '" alt="" /><br />';
-			
+
 			if($administrateur)
 				echo '<label class="bouton" onclick="consulterFiches_majPronostiqueur(' . $pronostiqueurConsulte . ');">Mettre à jour</label>';
 		echo '</div>';
@@ -51,13 +51,13 @@
 			echo '<label>Né(e) le ' . $pronostiqueurDateDeNaissance . ', habite ' .  $pronostiqueurLieuDeResidence . '.</label>';
 			echo '<label> Adresse mail : <b>' . $pronostiqueurMEL . '</b></label><br />';
 			echo '<label>Equipe favorite : ' . $pronostiqueurEquipeFavorite . '.</label>';
-		
+
 			echo '<div class="colle-gauche">';
 				echo '<div class="gauche">';
 					echo '<label class="cc--pronostiqueurs-detail--section">Ambitions</label><textarea id="taAmbitions" class="grande-zone">' . $pronostiqueurAmbitions . '</textarea><br />';
 					echo '<label class="cc--pronostiqueurs-detail--section">Commentaire</label><textarea id="taCommentaire" class="grande-zone">' . $pronostiqueurCommentaire . '</textarea>';
 				echo '</div>';
-			
+
 				echo '<div class="gauche" style="margin-left: 20px;">';
 					if($administrateur) {
 						echo '<label class="cc--pronostiqueurs-detail--section">Palmarès</label><textarea id="taPalmares" class="grande-zone">' . $pronostiqueurPalmares . '</textarea><br />';
@@ -71,7 +71,7 @@
 			echo '</div>';
 		echo '</div>';
 	}
-	
+
 	// Palmarès de la saison par championnat
 	function afficherPalmares($bdd, $pronostiqueurConsulte) {
 		// Lecture des différents trophées du pronostiqueur pour ses championnats
@@ -84,7 +84,7 @@
 						'	ORDER BY	Championnats_Championnat';
 		$req = $bdd->query($ordreSQL);
 		$championnats = $req->fetchAll();
-		
+
 		// Parcours des championnats du pronostiqueur
 		foreach($championnats as $unChampionnat) {
 			echo '<div style="margin-bottom: 20px;">';
@@ -135,7 +135,7 @@
 					$nombrePoulpeBronze = $tropheesPoulpeBronze[0]["Nombre"];
 					$journeesPoulpeBronze = $tropheesPoulpeBronze[0]["Journees_Journees"];
 				}
-				
+
 				// Journées soulier d'or
 				$ordreSQL =		'	SELECT		GROUP_CONCAT(IFNULL(Journees_NomCourt, Journees_Journee) SEPARATOR \', \') AS Journees_Journees, COUNT(*) AS Nombre' .
 								'	FROM		trophees' .
@@ -183,7 +183,7 @@
 					$nombreDjaDjedje = $tropheesDjaDjedje[0]["Nombre"];
 					$journeesDjaDjedje = $tropheesDjaDjedje[0]["Journees_Journees"];
 				}
-				
+
 				// Journées record de points
 				$ordreSQL =		'	SELECT		GROUP_CONCAT(IFNULL(Journees_NomCourt, Journees_Journee) SEPARATOR \', \') AS Journees_Journees, COUNT(*) AS Nombre' .
 								'	FROM		trophees' .
@@ -217,7 +217,7 @@
 				}
 
 				echo '<label><b>' . $unChampionnat["Championnats_Nom"] . '</b></label><br />';
-				
+
 				echo '<table class="cc--pronostiqueurs-detail--legende">';
 					echo '<thead>';
 						echo '<tr>';
@@ -259,7 +259,7 @@
 						'	ORDER BY	Championnats_Championnat';
 		$req = $bdd->query($ordreSQL);
 		$championnats = $req->fetchAll();
-		
+
 		// Légende
 		echo '<label><b>Légende</b></label><br />';
 		echo '<table class="cc--pronostiqueurs-detail--legende">';
@@ -306,7 +306,7 @@
 				$req = $bdd->query($ordreSQL);
 				$pronosticsButeur = $req->fetchAll();
 				$nombrePronosticsButeur = $pronosticsButeur[0]["Nombre_Pronostics_Buteur"];
-				
+
 				// Nombre de buteurs trouvés
 				$ordreSQL =		'	SELECT		COUNT(*) AS Nombre_Buteurs_Trouves' .
 								'	FROM		(' .
@@ -360,7 +360,7 @@
 				$req = $bdd->query($ordreSQL);
 				$buteursTrouves = $req->fetchAll();
 				$nombreButeursTrouves = $buteursTrouves[0]["Nombre_Buteurs_Trouves"];
-				
+
 				// Répartition des points marqués pour un match
 				$ordreSQL =		'	SELECT		fn_calculpointsmatch	(	IFNULL(matches.Matches_ScoreAPEquipeDomicile, matches.Matches_ScoreEquipeDomicile),' .
 								'											IFNULL(matches.Matches_ScoreAPEquipeVisiteur, matches.Matches_ScoreEquipeVisiteur),' .
@@ -387,8 +387,8 @@
 								'	ORDER BY	ScoreMatch DESC';
 
 				$req = $bdd->query($ordreSQL);
-				
-				
+
+
 				$points10 = $points8 = $points7 = $points6 = $points5 = $points3 = $points2 = $points1 = $points0 = 0;
 				if($req != null) {
 					$scoresMarques = $req->fetchAll();
@@ -406,7 +406,7 @@
 						}
 					}
 				}
-				
+
 				// Nombre de pronostics oubliés
 				$ordreSQL =		'	SELECT		COUNT(*) AS Nombre_Oublis' .
 								'	FROM		matches' .
@@ -424,12 +424,12 @@
 								'				AND		pronostics.Pronostics_ScoreEquipeDomicile IS NULL' .
 								'				AND		pronostics.Pronostics_ScoreEquipeVisiteur IS NULL' .
 								'				AND		pronostiqueurs.Pronostiqueur = ' . $pronostiqueurConsulte;
-								
-								
+
+
 				$req = $bdd->query($ordreSQL);
 				$pronosticsOublies = $req->fetchAll();
 				$nombreOublis = $pronosticsOublies[0]["Nombre_Oublis"];
-				
+
 				echo '<label><b>' . $unChampionnat["Championnats_Nom"] . '</b></label><br />';
 				echo '<table class="cc--tableau">';
 					echo '<thead>';
@@ -470,7 +470,7 @@
 			echo '</div>';
 		}
 	}
-	
+
 	// Evolution du classement par championnat
 	function afficherEvolutionClassement($bdd, $pronostiqueurConsulte, $zoneDessinLargeur, $zoneDessinHauteur, &$imagesClassement) {
 		// Lecture de l'évolution du classement du pronostiqueur pour ses championnats
@@ -483,7 +483,7 @@
 						'	ORDER BY	Championnats_Championnat';
 		$req = $bdd->query($ordreSQL);
 		$championnats = $req->fetchAll();
-		
+
 		// Parcours des championnats du pronostiqueur
 		foreach($championnats as $unChampionnat) {
 			// Nombre de pronostiqueurs (et qui donne l'échelle verticale)
@@ -525,20 +525,20 @@
 			else {
 				if($classementMin == 1)					$classementMinAffiche = 'premier';
 				else									$classementMinAffiche = $classementMin . '<sup>ème</sup>';
-				
+
 				if($classementMax == $nombrePronostiqueurs)					$classementMaxAffiche = 'dernier';
 				else														$classementMaxAffiche = $classementMax . '<sup>ème</sup>';
-				
+
 				echo '<label><b>' . $unChampionnat["Championnats_Nom"] . '</b> (' . $nombrePronostiqueurs . ' joueurs) - Meilleur classement : ' . $classementMinAffiche . ', performance la moins élevée : ' . $classementMaxAffiche . '</label><br />';
-				
+
 				$dossierImages = '../images/evolution/';
 				$dossierImagesHTML = 'images/evolution/';
-				
+
 				// Effacement d'images qui pourraient exister dans ce dossier pour ce pronostiqueur
 				foreach(glob($dossierImagesHTML . $unChampionnat["Championnat"] . '_' . $pronostiqueurConsulte . '_*.png') as $f) {
 					unlink($f);
 				}
-				
+
 				include('concours_centre_affichage_pronostiqueurs_classement.php');
 				echo '<img src="' . $nomFichierHTML . '" alt="" />';
 			}
@@ -558,7 +558,7 @@
 						'	ORDER BY	Championnats_Championnat';
 		$req = $bdd->query($ordreSQL);
 		$championnats = $req->fetchAll();
-	
+
 		// Parcours des championnats du pronostiqueur
 		foreach($championnats as $unChampionnat) {
 			echo '<div style="margin-bottom: 10px;">';
@@ -567,7 +567,7 @@
 				$req = $bdd->query($ordreSQL);
 				$pronostiqueurs = $req->fetchAll();
 				$nombrePronostiqueurs = $pronostiqueurs[0]["Nombre_Pronostiqueurs"];
-			
+
 				// Meilleur et plus mauvais classements
 				$ordreSQL =		'	SELECT		MAX(Classements_ClassementJourneeMatch) AS Classement_Max' .
 								'				,MIN(Classements_ClassementJourneeMatch) AS Classement_Min' .
@@ -591,38 +591,38 @@
 								'				AND		vue_classements_uniques.Pronostiqueurs_Pronostiqueur = ' . $pronostiqueurConsulte .
 								'				AND		vue_classements_uniques.Classements_ClassementJourneeMatch IS NOT NULL' .
 								'	ORDER BY	vue_classements_uniques.Journees_Journee';
-								
+
 				$req = $bdd->query($ordreSQL);
 				$classements = $req->fetchAll();
 				$nombrePoints = sizeof($classements);
-				
+
 				if($nombrePoints == 0) {
 					echo '<label><b>' . $unChampionnat["Championnats_Nom"] . '</b> (' . $nombrePronostiqueurs . ' joueurs) - Aucun match n\'a encore débuté pour ce championnat</label><br />';
 				} else {
 					if($classementMin == 1)					$classementMinAffiche = 'premier';
 					else									$classementMinAffiche = $classementMin . '<sup>ème</sup>';
-					
+
 					if($classementMax == $nombrePronostiqueurs)					$classementMaxAffiche = 'dernier';
 					else														$classementMaxAffiche = $classementMax . '<sup>ème</sup>';
-					
+
 					echo '<label><b>' . $unChampionnat["Championnats_Nom"] . '</b> (' . $nombrePronostiqueurs . ' joueurs) - Meilleur classement : ' . $classementMinAffiche . ', performance la moins élevée : ' . $classementMaxAffiche . '</label><br />';
-					
+
 					$dossierImages = '../images/journee/';
 					$dossierImagesHTML = 'images/journee/';
 
 					// Effacement d'images qui pourraient exister dans ce dossier pour ce pronostiqueur
 					foreach(glob($dossierImagesHTML . $unChampionnat["Championnat"] . '_' . $pronostiqueurConsulte . '_*.png') as $f) {
 						unlink($f);
-					}					
-					
+					}
+
 					include('concours_centre_affichage_pronostiqueurs_classement.php');
 					echo '<img src="' . $nomFichierHTML . '" alt="" />';
 				}
-			
+
 			echo '</div>';
 		}
 	}
-	
+
 	// Le sous-onglet permet de savoir quelle section on doit afficher
 	// - 1 : fiche d'identité du pronostiqueur
 	// - 2 : palmarès de l'année (trophées gagnés)
@@ -643,6 +643,6 @@
 			afficherClassementJournee($bdd, $pronostiqueurConsulte, $zoneDessinLargeur, $zoneDessinHauteur, $imagesClassement);
 		break;
 	}
-	
+
 ?>
 

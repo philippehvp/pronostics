@@ -5,6 +5,6 @@
 	$req = $bdd->query($ordreSQL);
 	$reglements = $req->fetchAll();
 	$reglement = $reglements[0]["Reglements_Texte"];
-	
+
 	echo $reglement;
 ?>

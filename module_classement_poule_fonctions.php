@@ -38,7 +38,7 @@
 
 		$req = $bdd->query($ordreSQL);
 		$classements = $req->fetchAll();
-		
+
 		if(sizeof($classements) > 0) {
 			if($championnat == 2)
 				$nombrePoules = 8;
@@ -46,9 +46,9 @@
 				$nombrePoules = 12;
 			else
 				$nombrePoules = 1;
-				
+
 			$nombrePronostiqueurs = sizeof($classements) / $nombrePoules;
-			
+
 			echo '<table class="tableau--classement">';
 				echo '<thead>';
 					echo '<tr class="tableau--classement-nom-colonnes">';
@@ -58,7 +58,7 @@
 						echo '<th>Total</th>';
 					echo '</tr>';
 				echo '</thead>';
-				
+
 				echo '<tbody>';
 					for($j = 0; $j < $nombrePronostiqueurs; $j++) {
 						echo '<tr>';
@@ -66,7 +66,7 @@
 								echo '<td class="surbrillance">' . $classements[$j * $nombrePoules]["Pronostiqueurs_NomUtilisateur"] . '</td>';
 							else
 								echo '<td>' . $classements[$j * $nombrePoules]["Pronostiqueurs_NomUtilisateur"] . '</td>';
-								
+
 							for($i = 0; $i < $nombrePoules; $i++) {
 								if($_SESSION["pronostiqueur"] == $classements[$j * $nombrePoules + $i]["Pronostiqueur"])
 									echo '<td class="surbrillance">' . $classements[$j * $nombrePoules + $i]["PronosticsQualificationsPoints_Points"] . '</td>';
@@ -82,8 +82,8 @@
 						echo '</tr>';
 					}
 				echo '</tbody>';
-			
+
 			echo '</table>';
 		}
 	}
-	
+

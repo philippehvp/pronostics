@@ -16,10 +16,10 @@
 	// Module d'affichage des classements
 	$nomPage = 'classements_pronostiqueurs.php';
 	echo '<input id="nomPage" type="hidden" value="' . $nomPage . '" />';
-	
+
 	// Le paramètre "affichageNeutre" passé dans l'URL permet d'empêcher le tableau de faire apparaître le pronostiqueur connecté en surbrillance
 	$affichageNeutre = isset($_GET["neutre"]) ? $_GET["neutre"] : 0;
-	
+
 	// Parcours des championnats avec affichage :
 	// - du classement général
 	// - du classement de la dernière journée
@@ -42,22 +42,22 @@
 	// Pour cela, on compte le nombre de journées détectées pour tous les championnats
 	// Si ce nombre de journées vaut 0, alors aucune journée n'a été trouvée
 	$nombreTotalJournees = 0;
-	
+
 	if(count($championnats)) {
 		// Les championnats sont mis dans des onglets différents pour une meilleure lisibilité
 		echo '<div class="conteneur">';
 			include_once('bandeau.php');
-		
+
 			echo '<div id="divClassements" class="contenu-page">';
 				echo '<ul></ul>';
-		
+
 				// Parcours de chaque championnat lu
 				$indice = 0;
 				foreach($championnats as $unChampionnat) {
 					$indice++;
 					$championnat = $unChampionnat["Championnat"];
 					$sansButeur = $unChampionnat["Sans_Buteur"];
-					
+
 					$ordreSQL = lireDerniereJournee($bdd, $championnat);
 					$req = $bdd->query($ordreSQL);
 					$donnees = $req->fetchAll();
@@ -95,9 +95,9 @@
 											echo '<label class="texteJournee"> - </label>';
 									}
 								echo '</div>';
-								
+
 								echo '<br />';
-								
+
 								if($journee != null) {
 									echo '<div id="divClassementsTableaux-' . $indice . '">';
 										$afficherClassementButeur = 1;
@@ -119,23 +119,23 @@
 
 			echo '</div>';
 			//include_once('pied.php');
-			
+
 		echo '</div>';
 	}
-	
+
 ?>
 
 	<script>
 		$(function() {
 			afficherTitrePage('.contenu-page', 'Classements');
-		
+
 			$('#divClassements .championnat').each	(	function() {
 					var nombreTab = $("div#divClassements ul li").length + 1;
 					$('div#divClassements ul').append('<li><a href="#divClassements-' + nombreTab + '">' + $(this).attr('title') + '</a></li>');
 				}
 			);
 			$('#divClassements').tabs();
-			
+
 			// Dans le cas d'un affichage neutre, ne pas mettre en surbrillance les lignes du pronostiqueur connecté
 			var affichageNeutre = '<?php echo $affichageNeutre; ?>';
 			if(affichageNeutre == '1') {

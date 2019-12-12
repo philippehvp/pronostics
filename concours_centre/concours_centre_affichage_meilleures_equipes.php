@@ -1,11 +1,11 @@
 <?php
 	include_once('../commun.php');
-	
+
 	// Affichage des pronostiqueurs et des points marqués par équipe par ordre décroissant
-	
+
 	// Lecture des paramètres passés à la page
 	$championnat = isset($_POST["championnat"]) ? $_POST["championnat"] : 0;
-	
+
 	// Liste des pronostiqueurs pour le championnat en question
 	$ordreSQL =		'	SELECT		pronostiqueurs.Pronostiqueur, Pronostiqueurs_NomUtilisateur' .
 					'				,CASE' .
@@ -58,7 +58,7 @@
 	$req = $bdd->query($ordreSQL);
 	$scores = $req->fetchAll();
 	$nombreEquipes = sizeof($scores) / $nombrePronostiqueurs;
-	
+
 	if($nombrePronostiqueurs > 0 && $nombreEquipes > 0) {
 		echo '<div class="cc--points-par-equipe">';
 			echo '<table class="cc--tableau">';
@@ -76,15 +76,15 @@
 						else if($unPronostiqueur["Pronostiqueurs_Rival"] == 1)						echo '<tr class="rival">';
 						else																		echo '<tr>';
 							echo '<td class="pas-de-bordure-droite">' . $unPronostiqueur["Pronostiqueurs_NomUtilisateur"] . '</td>';
-							
+
 							for($j = 0; $j < $nombreEquipes; $j++) {
 								echo '<td>' . $scores[$i * $nombreEquipes + $j]["Equipes_NomCourt"] . ' (' . $scores[$i * $nombreEquipes + $j]["Scores"] . ')</td>';
 							}
 						echo '</tr>';
-						
+
 						$i++;
 					}
-					
+
 				echo '</tbody>';
 			echo '</table>';
 		echo '</div>';

@@ -2,25 +2,25 @@
 
 	// Lecture des compositions des deux équipes d'un match
 	include_once('creer_match_fonctions.php');
-	
+
 	// Lecture des paramètres passés à la page
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
-	
+
 	$ordreSQL =		'	SELECT		Matches_Date, Equipes_EquipeDomicile, Equipes_EquipeVisiteur, Matches_LienPage' .
 					'	FROM		matches' .
 					'	WHERE		matches.Match = ' . $match;
 	$req = $bdd->query($ordreSQL);
 	$matches = $req->fetchAll();
-	
+
 	$tableauErreurs = array();
-	
+
 	if(sizeof($matches) == 1 && strlen($matches[0]["Matches_LienPage"]) > 0) {
 		$document = new DOMDocument();
 		@$document->loadHTMLFile($matches[0]["Matches_LienPage"]);
 		$dateMatch = $matches[0]["Matches_Date"];
 		$equipeDomicile = $matches[0]["Equipes_EquipeDomicile"];
 		$equipeVisiteur = $matches[0]["Equipes_EquipeVisiteur"];
-		
+
 		$xpath = new DOMXpath($document);
 
 		$divComposition = $xpath->query('//div[contains(@class, "MEDpanelcomposition")]');
@@ -53,7 +53,7 @@
 					break;
 			}
 		}
-		
+
 		// Lecture des joueurs de l'équipe visiteur
 		$i = 0;
 		foreach($joueursEquipeVisiteur as $unJoueur) {

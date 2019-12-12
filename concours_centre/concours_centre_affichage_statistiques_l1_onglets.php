@@ -1,6 +1,6 @@
 <?php
 	include_once('../commun.php');
-	
+
 	// Affichage des onglets des championnats
 	echo '<div class="colle-gauche gauche cc--sous-onglets" style="margin-top: 5px;">';
 		echo '<label class="cc--nom-sous-onglet" onclick="concoursCentre_afficherVictoiresNulsDefaites(\'cc--conteneur-statistiques-l1\', 1);">VICT. DOM/ NULS / DEFAITES DOM</label>';
@@ -12,7 +12,7 @@
 	echo '</div>';
 
 	echo '<div class="colle-gauche cc--conteneur-statistiques-l1"></div>';
-	
+
 ?>
 
 <script>
@@ -27,7 +27,7 @@
 				$(this).addClass('cc--selectionne');
 			}
 		});
-		
+
 	});
 
 </script>

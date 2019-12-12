@@ -1,13 +1,13 @@
 <?php
 	// Module de tchat
 	// Vérification de la nécessité de faire le rafraîchissement ou non
-	
+
 	// La page est forcément appelée par de l'Ajax
 	include_once('commun.php');
 
 	// Lecture des paramètres passés à la page
 	$tchatGroupe = isset($_POST["parametre"]) ? $_POST["parametre"] : 0;
-	$critereRafraichissement = isset($_POST["critereRafraichissement"]) ? $_POST["critereRafraichissement"] : '';	
+	$critereRafraichissement = isset($_POST["critereRafraichissement"]) ? $_POST["critereRafraichissement"] : '';
 
 	// Lecture de l'identifiant du dernier message
 	$ordreSQL =	'	SELECT		MAX(Message) AS Message' .
@@ -27,5 +27,5 @@
 		$tableau['critereRafraichissement'] = $dernierMessage;
 	}
 
-	echo json_encode($tableau);	
+	echo json_encode($tableau);
 ?>

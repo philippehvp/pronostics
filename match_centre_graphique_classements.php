@@ -1,9 +1,9 @@
 <?php
 	include_once('commun.php');
-	
+
 	$championnat = isset($_GET["championnat"]) ? $_GET["championnat"] : 0;
 	$pronostiqueur = isset($_GET["pronostiqueur"]) ? $_GET["pronostiqueur"] : $_SESSION["pronostiqueur"];
-	
+
 	// Lecture des classements au général des différentes journées
 	$ordreSQL =		'	SELECT		Journees_Journee - Min_Journee + 1 AS J' .
 					'				,Classements_ClassementGeneralMatch AS CG, Classements_ClassementJourneeMatch AS CJ' .

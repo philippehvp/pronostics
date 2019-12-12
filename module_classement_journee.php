@@ -11,7 +11,7 @@
 	if($rafraichissementModule == 1) {
 		// Rafraîchissement automatique du module
 		include_once('commun.php');
-		
+
 		// Lecture des paramètres passés à la page
 		$championnat = isset($_POST["parametre"]) ? $_POST["parametre"] : 0;
 		$modeRival = isset($_POST["modeRival"]) ? $_POST["modeRival"] : 0;
@@ -20,7 +20,7 @@
 	else {
 		$championnat = $parametre;		// Paramètre du module
 	}
-	
+
 	$ordreSQL =		'	SELECT		MIN(Journee) AS Journee' .
 					'	FROM		journees' .
 					'	WHERE		Championnats_Championnat = ' . $championnat;
@@ -28,7 +28,7 @@
 	$donnees = $req->fetchAll();
 	$journeeMin = $donnees[0]["Journee"];
 
-	
+
 	// Parcours de la Ligue 1
 	// Quelle est la dernière journée complète et quelle est la journée en cours de L1 ?
 	$ordreSQL = lireJournee($championnat);
@@ -43,11 +43,11 @@
 	$sansButeur = 0;
 
 	$modeModule = 1;
-	
+
 	echo '<div style="margin-left: 8px;">';
 		afficherClassementJournee($bdd, $championnat, $journee, $dateReference, $dtDateMAJ, $journeeNom, $modeModule, $modeRival, $modeConcurrentDirect, $sansButeur);
 	echo '</div>';
-		
+
 ?>
 
 <script>
