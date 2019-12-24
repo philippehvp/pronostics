@@ -326,7 +326,7 @@ function creerMatch_activerDesactiverJournee(nouvelEtatEstActif, matchCanalSelec
 	}).done(function(html) {
 		$('#labelEtatJournee').html(html);
 
-		// Dans le cas où l'on active la journée et que la journée possède permet de sélectionner
+		// Dans le cas où l'on active la journée et que la journée permet de sélectionner
 		// le match Canal, alors on initialise la liste des matches Canal pour les pronostiqueurs
 		if(nouvelEtatEstActif == 1 && matchCanalSelectionnable == 1) {
 			creerMatch_initialiserMatchCanal(numeroJournee);
