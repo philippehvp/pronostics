@@ -71,18 +71,22 @@
 					'																		IFNULL(pronostics.Pronostics_ScoreAPEquipeVisiteur, pronostics.Pronostics_ScoreEquipeVisiteur)' .
 					'																	)' .
 					'					UNION ALL' .
-					'					SELECT		Pronostiqueurs_Pronostiqueur, -1 AS Points_Marques, COUNT(*) AS Nombre' .
+					'					SELECT		Pronostiqueur AS Pronostiqueurs_Pronostiqueur, -1 AS Points_Marques, COUNT(*) AS Nombre' .
 					'					FROM		matches' .
 					'					JOIN		journees' .
 					'								ON		matches.Journees_Journee = journees.Journee' .
+					'					JOIN		pronostiqueurs' .
+					'								ON		matches.Matches_Date >= pronostiqueurs.Pronostiqueurs_DateDebutPresence' .
+					'										AND		(pronostiqueurs.Pronostiqueurs_DateFinPresence IS NULL OR matches.Matches_Date <= pronostiqueurs.Pronostiqueurs_DateFinPresence)' .
 					'					LEFT JOIN	pronostics' .
 					'								ON		matches.Match = pronostics.Matches_Match' .
+					'										AND		pronostiqueurs.Pronostiqueur = pronostics.Pronostiqueurs_Pronostiqueur' .
 					'					WHERE		journees.Championnats_Championnat = ' . $championnat .
 					'								AND		matches.Matches_ScoreEquipeDomicile IS NOT NULL' .
 					'								AND		matches.Matches_ScoreEquipeVisiteur IS NOT NULL' .
 					'								AND		pronostics.Pronostics_ScoreEquipeDomicile IS NULL' .
 					'								AND		pronostics.Pronostics_ScoreEquipeVisiteur IS NULL' .
-					'					GROUP BY	Pronostiqueurs_Pronostiqueur' .
+					'					GROUP BY	Pronostiqueur' .
 					'				) points_marques' .
 					'				ON		pronostiqueurs_points_marques.Pronostiqueur = points_marques.Pronostiqueurs_Pronostiqueur' .
 					'						AND		pronostiqueurs_points_marques.Points_Marques = points_marques.Points_Marques' .
