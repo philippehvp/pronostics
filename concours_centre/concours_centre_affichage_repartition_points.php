@@ -84,8 +84,10 @@
 					'					WHERE		journees.Championnats_Championnat = ' . $championnat .
 					'								AND		matches.Matches_ScoreEquipeDomicile IS NOT NULL' .
 					'								AND		matches.Matches_ScoreEquipeVisiteur IS NOT NULL' .
-					'								AND		pronostics.Pronostics_ScoreEquipeDomicile IS NULL' .
-					'								AND		pronostics.Pronostics_ScoreEquipeVisiteur IS NULL' .
+					'								AND		(' .
+					'											pronostics.Pronostics_ScoreEquipeDomicile IS NULL' .
+					'											OR		pronostics.Pronostics_ScoreEquipeVisiteur IS NULL' .
+					'										)' .
 					'					GROUP BY	Pronostiqueur' .
 					'				) points_marques' .
 					'				ON		pronostiqueurs_points_marques.Pronostiqueur = points_marques.Pronostiqueurs_Pronostiqueur' .
