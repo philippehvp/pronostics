@@ -77,10 +77,10 @@
 		echo '<table class="tableau--administration-match">';
 			echo '<tbody>';
 				echo '<tr>';
-					$dateDebut = $matchDate != null ? date("d/m/Y", strtotime($matchDate)) : date("d/m/Y");
-					$heureDebut = $matchHeure != null ? $matchHeure : date("G");
+					$dateDebut = $matchDate != null ? date("d/m/Y", strtotime($matchDate)) : null;
+					$heureDebut = $matchHeure != null ? $matchHeure : null;
 					// Les minutes doivent être un multiple de 5
-					$minuteDebut = $matchMinute != null ? $matchMinute : (date("i") + 5 - (date("i") % 5));
+					$minuteDebut = $matchMinute != null ? $matchMinute : null;
 
 					echo '<td class="colonne-theme">Match n° ' . $numeroMatch;
 					echo '</td>';
