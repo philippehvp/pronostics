@@ -17,7 +17,7 @@
             if ($fileInfo->isDot()) {
                 continue;
             }
-            if ($fileInfo->isFile() && time() - $fileInfo->getCTime() >= 7*24*60*60) {
+            if ($fileInfo->isFile() && time() - $fileInfo->getCTime() >= 4*24*60*60) {
                 unlink($fileInfo->getRealPath());
             }
         }
@@ -29,7 +29,7 @@
             if ($fileInfo->isDot()) {
                 continue;
             }
-            if ($fileInfo->isFile() && time() - $fileInfo->getCTime() >= 7*24*60*60) {
+            if ($fileInfo->isFile() && time() - $fileInfo->getCTime() >= 4*24*60*60) {
                 unlink($fileInfo->getRealPath());
             }
         }
@@ -41,7 +41,7 @@
             if ($fileInfo->isDot()) {
                 continue;
             }
-            if ($fileInfo->isFile() && time() - $fileInfo->getCTime() >= 7*24*60*60) {
+            if ($fileInfo->isFile() && time() - $fileInfo->getCTime() >= 4*24*60*60) {
                 unlink($fileInfo->getRealPath());
             }
         }
