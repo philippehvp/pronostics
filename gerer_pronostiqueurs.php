@@ -60,7 +60,7 @@
 				echo '<label>Aucun pronostiqueur présent</label>';
 			}
 			else {
-				// Lecture de tous les pronostiqueurs et des championnats existants pour savoir auxquels le pronostiqueur est inscrit
+				// Lecture de tous les pronostiqueurs et des championnats existants pour savoir ceux auxquels le pronostiqueur est inscrit
 				$ordreSQL =		'	SELECT		pronostiqueurs.Pronostiqueur, Championnat' .
 								'				,CASE' .
 								'					WHEN	inscriptions.Championnats_Championnat IS NOT NULL' .
@@ -68,7 +68,7 @@
 								'					ELSE	0' .
 								'				END AS Pronostiqueurs_Championnats' .
 								'	FROM		(' .
-								'					SELECT		DISTINCT Pronostiqueur, Championnat' .
+								'					SELECT		DISTINCT Pronostiqueur, Championnat, Championnats_Nom ' .
 								'					FROM		pronostiqueurs' .
 								'					CROSS JOIN	championnats' .
 								'					WHERE		Championnat <> 5 AND Championnat <> 1' .
@@ -87,10 +87,11 @@
 				echo '<table class="tableau--liste">';
 					echo '<thead>';
 						echo '<tr>';
-              echo '<th>Suppression</th>';
+              				echo '<th>Suppression</th>';
 							echo '<th>Identifiant</th>';
 							echo '<th>Login</th>';
 							echo '<th>Prénom Nom</th>';
+							echo '<th>Ligue 1</th>';
 							echo '<th>Ligue des Champions</th>';
 							echo '<th>Europa League</th>';
 							echo '<th>Barrages</th>';
@@ -101,7 +102,7 @@
 						$i = 0;
 						foreach($pronostiqueurs as $unPronostiqueur) {
 							echo '<tr>';
-                echo '<td class="aligne-centre curseur-main" style="color: #f00 !important;" onclick="gererPronostiqueur_effacerPronostiqueur(' . $unPronostiqueur["Pronostiqueur"] . ', 1);">Supprimer !</td>';
+                				echo '<td class="aligne-centre curseur-main" style="color: #f00 !important;" onclick="gererPronostiqueur_effacerPronostiqueur(' . $unPronostiqueur["Pronostiqueur"] . ', 1);">Supprimer !</td>';
 								echo '<td class="aligne-centre">' . $unPronostiqueur["Pronostiqueur"] . '</td>';
 								echo '<td>' . $unPronostiqueur["Pronostiqueurs_NomUtilisateur"] . '</td>';
 								echo '<td>' . $unPronostiqueur["Pronostiqueurs_Prenom"] . ' ' . $unPronostiqueur["Pronostiqueurs_Nom"] . '</td>';

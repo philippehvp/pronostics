@@ -116,7 +116,6 @@
 
                                         echo '<label class="titre espacement-haut">Surveillance du direct</label>';
                                         echo '<label class="lien" onclick="window.open(\'creer_match_surveillance_direct.php\', \'_blank\');" title="Surveillance des compositions et du direct"><span>Surveillance sur Match en Direct</span></label>';
-                                        //echo '<label class="lien" onclick="window.open(\'creer_match_surveillance_direct_flashresultats.php\', \'_blank\');" title="Surveillance des compositions et du direct">Surveillance sur FR</label>';
                                         echo '<label class="titre espacement-haut">Classements neutres</label>';
                                         echo '<label class="lien" onclick="window.open(\'classements_pronostiqueurs.php?neutre=1\', \'_self\');" title="Affichage neutre de la page des classements"><span>Classements neutres</span></label>';
                                         echo '<label class="titre espacement-haut">Gestion des effectifs</label>';
@@ -127,12 +126,13 @@
 
                                         echo '<label class="titre espacement-haut">Coupe de France</label>';
                                         echo '<label class="lien" onclick="window.open(\'gerer_cdf.php\', \'_self\');" title="Gérer la Coupe de France"><span>Gestion de la Coupe</span></label>';
-                                        echo '<label class="lien" onclick="window.open(\'cdf_prec.php?saison=2016\', \'_self\');" title="Coupe de France 2016"><span>Coupe de France 2016</span></label>';
+                                        echo '<label class="lien" onclick="window.open(\'cdf_prec.php?saison=2019\', \'_self\');" title="Coupe de France 2019"><span>Coupe de France 2019</span></label>';
 
                                         echo '<label class="titre espacement-haut">Historique</label>';
                                         echo '<label class="lien" onclick="window.open(\'poulpe/index.php\', \'_blank\');" title="Historique"><span>Historique</span></label>';
 
-
+                                        echo '<label class="titre espacement-haut">Ligue 1</label>';
+                                        echo '<label class="lien" onclick="ligue1_initialiserJ1();" title="Initialiser classements J1"><span>Initialiser classements J1</span></label>';
 
                                     echo '</div>';
                                     echo '<div class="groupe-menu gauche">';
@@ -141,7 +141,6 @@
                                         echo '<label class="lien" title="Gestion des qualifications">Qualifications <span onclick="window.open(\'gerer_qualification.php?championnat=2\', \'_self\');">LDC</span> - <span onclick="window.open(\'gerer_qualification.php?championnat=3\', \'_self\');">EL</span></label>';
 
                                         echo '<label class="titre espacement-haut">Divers</label>';
-                                        //echo '<label class="lien" onclick="window.open(\'calculer_points_anticipes.php\', \'_self\');" title="Calcul des points de bonus anticipés de ligue 1">Calcul points bonus anticipés L1</label>';
 
                                         if($menu100 == 1)               echo '<label class="lien" onclick="menu_basculerAffichage(100);" title="Masquer page de consultation des bonus"><span>Masquer "Consultation de bonus"</span></label>';
                                         else                            echo '<label class="lien" onclick="menu_basculerAffichage(100);" title="Afficher page de consultation des bonus"><span>Afficher "Consultation de bonus"</span></label>';

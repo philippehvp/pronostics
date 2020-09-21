@@ -126,7 +126,7 @@
 	}
 
 	/*
-		-- Dans un deuxième, on détermine quel est le type de match :
+		-- Dans un deuxième temps, on détermine quel est le type de match :
 		-- - 1 : match régulier (pas de prolongation, pas de match lié)
 		-- - 2 : match aller (pas de prolongation, match lié)
 		-- - 3 : match retour (prolongation, match lié)

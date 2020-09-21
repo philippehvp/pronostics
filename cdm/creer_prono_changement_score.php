@@ -94,18 +94,17 @@
 				echo '<option value="0"' . $selected0 . '>Vainqueur</option>';
 
 				echo '<option value="' . $unMatch["EquipeA"] . '"' . $selected1 . '>' . $unMatch["EquipeA_Nom"] . '</option>';
-				
+
 				echo '<option value="' . $unMatch["EquipeB"] . '"' . $selected2 . '>' . $unMatch["EquipeB_Nom"] . '</option>';
 			echo '</select>';
 		echo '</span>';
 	}
 
-	
 	if($_SESSION["cdm_pronostiqueur"] != 1 && time() > 1528988400) {
 		echo 'Désolé, il n\'est plus possible d\'effectuer de pronostic';
 		exit();
 	}
-	
+
 	// Lecture des paramètres passés à la page
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
 	//$ordre = isset($_POST["ordre"]) ? $_POST["ordre"] : 0;

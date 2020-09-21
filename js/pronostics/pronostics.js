@@ -234,6 +234,16 @@ function enregistrerCompteRendu() {
 	});
 }
 
+// Ligue 1 - Initialisation de la journée 1
+function ligue1_initialiserJ1() {
+	$.ajax({
+		url: 'initialiser_j1.php',
+		type: 'POST'
+	}).done(function () {
+		afficherMessageInformationBandeau('Classements de la journée 1 initialisés avec succès', 2000);
+	});
+}
+
 // Connexion - Soumission de formulaire
 function connexion_connecter() {
     var element = document.forms['formConnexion'];

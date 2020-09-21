@@ -72,8 +72,8 @@
 		// - Coupe de France (championnat numéro 5)
 		// - en finale de coupe européenne
 		// - en Ligue 1, match européen, avec prolongation
-		function afficherCote($unMatch, $nulDomicileVisiteur, $finaleEuropeenne) {
-			if($unMatch["Championnats_Championnat"] == 5 || $finaleEuropeenne == 1 || ($unMatch["Championnats_Championnat"] == 1 && $unMatch["Matches_L1Europe"] == 1 && $unMatch["Matches_AvecProlongation"] == 1)) {
+		function afficherCote($unMatch, $typeMatch, $nulDomicileVisiteur, $finaleEuropeenne) {
+			if($finaleEuropeenne == 1 || $typeMatch == 4 || ($unMatch["Championnats_Championnat"] == 1 && $unMatch["Matches_L1Europe"] == 1 && $unMatch["Matches_AvecProlongation"] == 1)) {
 				$cote = 0;
 				if($nulDomicileVisiteur == 1)
 					$cote = $unMatch["Matches_PointsQualificationEquipeDomicile"];
@@ -544,17 +544,17 @@
 
 								// Cote de l'équipe domicile
 								echo '<div id="divCoteEquipeDomicile_match_' . $match . '" class="pronosticCoteEquipe colle-gauche gauche">';
-									afficherCote($unMatch, 1, $finaleEuropeenne);
+									afficherCote($unMatch, $typeMatch, 1, $finaleEuropeenne);
 								echo '</div>';
 
 								// Cote du match nul
 								echo '<div id="divCoteNul_match_' . $match . '" class="pronosticCoteNul gauche">';
-									afficherCote($unMatch, 0, $finaleEuropeenne);
+									afficherCote($unMatch, $typeMatch, 0, $finaleEuropeenne);
 								echo '</div>';
 
 								// Cote de l'équipe visiteur
 								echo '<div id="divCoteEquipeVisiteur_match_' . $match . '" class="pronosticCoteEquipe gauche">';
-									afficherCote($unMatch, 2, $finaleEuropeenne);
+									afficherCote($unMatch, $typeMatch, 2, $finaleEuropeenne);
 								echo '</div>';
 
 								// Cote de qualification pour les match
