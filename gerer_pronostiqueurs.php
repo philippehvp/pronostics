@@ -91,7 +91,6 @@
 							echo '<th>Identifiant</th>';
 							echo '<th>Login</th>';
 							echo '<th>Prénom Nom</th>';
-							echo '<th>Ligue 1</th>';
 							echo '<th>Ligue des Champions</th>';
 							echo '<th>Europa League</th>';
 							echo '<th>Barrages</th>';
