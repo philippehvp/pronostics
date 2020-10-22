@@ -3207,7 +3207,9 @@ function modules_sauvegarderEtatModule(moduleActif, module, parametre) {
 function modules_sauvegarderPositionModule(module, nomConteneur, parametre) {
     // Cette fonction regarde la position en X et en Y d'un module et l'écrit en base de données
     // Lecture des coordonnées du module
-    var coordonnees = $('#' + nomConteneur + parametre).position();
+	var coordonnees = $('#' + nomConteneur + parametre).position();
+	console.log('#' + nomConteneur + parametre, coordonnees);
+
     if(coordonnees != null) {
         $.ajax({
 			url: 'modules_sauvegarde_position.php',
@@ -3215,8 +3217,8 @@ function modules_sauvegarderPositionModule(module, nomConteneur, parametre) {
 			data: {
 				module: module,
 				parametre: parametre,
-				x: coordonnees.left,
-				y: coordonnees.top
+				x: coordonnees.left < 5000 ? coordonnees.left : 5000,
+				y: coordonnees.top < 3000 ? coordonnees.top : 3000
 			}
 		});
     }
