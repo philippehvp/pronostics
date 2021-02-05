@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	include_once('commun.php');
 
 	if($administrateur == 0)

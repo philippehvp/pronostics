@@ -1,10 +1,11 @@
-﻿<?php
+<?php
+
 	session_start();
 
 	// Connexion à la base de données
 	try {
-		if($_SERVER['HTTP_HOST'] == 'localhost') {
-			$bdd = new PDO('mysql:host=localhost;dbname=lepoulpeg', 'root', '', array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
+		if(substr($_SERVER['HTTP_HOST'], 0, 9) == 'localhost') {
+			$bdd = new PDO('mysql:host=db;port=3306;dbname=lepoulpeg', 'root', 'Allezlom2014', array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
 		} else {
 			$bdd = new PDO('mysql:host=mysql51-119.perso;dbname=lepoulpeg', 'lepoulpeg', 'Allezlom2014', array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
 		}

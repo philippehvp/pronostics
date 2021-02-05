@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	include_once('commun_administrateur.php');
 
 	// Sauvegarde de la liste des participants à un match

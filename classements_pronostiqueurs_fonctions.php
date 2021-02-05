@@ -310,6 +310,7 @@
 						'				AND		pronostiqueurs.Pronostiqueurs_DateDebutPresence <= \'' . $dateReference . '\'' .
 						'				AND		(pronostiqueurs.Pronostiqueurs_DateFinPresence IS NULL OR pronostiqueurs.Pronostiqueurs_DateFinPresence > \'' . $dateReference . '\')' .
 						'	ORDER BY	Classements_PointsGeneralMatch DESC, Classements_PointsGeneralButeur ASC, Pronostiqueurs_NomUtilisateur';
+
 		$req = $bdd->query($ordreSQL);
 		$classementGeneral = $req->fetchAll();
 

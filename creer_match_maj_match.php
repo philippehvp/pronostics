@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	include_once('commun_administrateur.php');
 
 	// Sauvegarde des informations d'un match
