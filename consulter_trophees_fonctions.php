@@ -135,6 +135,15 @@
 		$req = $bdd->query($ordreSQL);
 		$recordJourneeButeur = $req->fetchAll();
 
+		$ordreSQL =		'	SELECT		GROUP_CONCAT(Pronostiqueurs_NomUtilisateur SEPARATOR \', \') AS Nom_Record' .
+						'	FROM		trophees' .
+						'	JOIN		pronostiqueurs' .
+						'				ON		trophees.Pronostiqueurs_Pronostiqueur = pronostiqueurs.Pronostiqueur' .
+						'	WHERE		trophees.Journees_Journee = ' . $journee .
+						'				AND		trophees.Trophees_CodeTrophee = 9';
+		$req = $bdd->query($ordreSQL);
+		$dixOuOnze = $req->fetchAll();
+
 		echo '<div class="tableau">';
 			echo '<br />';
 
@@ -175,6 +184,10 @@
 					echo '<tr>';
 						echo '<td>Record de points buteur</td>';
 						echo '<td class="aligne-gauche">' . $recordJourneeButeur[0]["Nom_Record"] . ' avec ' . $recordJourneeButeur[0]["Classements_PointsJourneeButeur"] . ' points</td>';
+					echo '</tr>';
+					echo '<tr>';
+						echo '<td>Dix ou onze sur onze</td>';
+						echo '<td class="aligne-gauche">' . $dixOuOnze[0]["Nom_Record"] . '</td>';
 					echo '</tr>';
 				echo '</tbody>';
 			echo '</table>';
