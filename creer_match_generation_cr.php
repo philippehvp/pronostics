@@ -9,8 +9,7 @@
                     '   FROM        compte_rendu_modeles' .
                     '   LIMIT       1';
     $req = $bdd->query($ordreSQL);
-    $modele = $req->fetchAll()[0]["CompteRenduModeles_Modele"];
-    $texteFinal = $modele;
+    $texteFinal = $req->fetchAll()[0]["CompteRenduModeles_Modele"];
 
     // Lecture des différentes requêtes
 	$ordreSQL =		'	SELECT      CompteRenduRequete, CompteRenduRequetes_Requete' .
@@ -26,7 +25,7 @@
         if(strpos($texteFinal, $identifiant)) {
             // Exécution de la requête
             // Dans une requête, il est possible qu'un champ p_Journee soit présent
-            // Dans ce cas, il est nécessaire de le remplacer par le numéro de la journée avant de lancer l'exécution de la requête
+            // Dans ce cas, il est nécessaire de le remplacer par le numéro de la journée avant de lancer la requête
             $ordreSQL = str_replace("p_Journee", $journee, $uneRequete["CompteRenduRequetes_Requete"]);
             $req = $bdd->query($ordreSQL);
             $resultats = $req->fetchAll();

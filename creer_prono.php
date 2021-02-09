@@ -621,7 +621,7 @@
 			$('.ui-tabs-anchor').prepend('<em class="icones icones-grandes">&#10150;</em>');
 
 			$('.matchLigue1').each(	function() {	$(this).html("VS");	});
-			$('.matchCS').each(		function() {	$(this).html("COMMUNITY SHIELD");	});
+			//$('.matchCS').each(		function() {	$(this).html("COMMUNITY SHIELD");	});
 			$('.matchAller').each(	function() {	$(this).html("ALLER");	});
 			$('.matchRetour').each(	function() {	$(this).html("RETOUR");	});
 			$('.matchCoupe').each(	function() {	$(this).html("COUPE");	});

@@ -88,7 +88,7 @@
 
 		echo '<span id="spanVainqueur_match_' . $unMatch["Matches_Match"] . '"' . $style . '>';
 			echo '<select id="selectVainqueur" onchange="creerProno_sauvegarderScoreMatch(this, \'vainqueur\',' . $unMatch["Matches_Match"] . ', \'V\');" id="selectVainqueur_match_' . $unMatch["Matches_Match"] . '"' . $disabled . '>';
-				$selected0 = $pronostics_Vainqueur == null ? ' selected="selected"' : '';
+				$selected0 = $pronostics_Vainqueur != 1 && $pronostics_Vainqueur != 2 ? ' selected="selected"' : '';
 				$selected1 = $pronostics_Vainqueur == $unMatch["EquipeA"] ? ' selected="selected"' : '';
 				$selected2 = $pronostics_Vainqueur == $unMatch["EquipeB"] ? ' selected="selected"' : '';
 				echo '<option value="0"' . $selected0 . '>Vainqueur</option>';
@@ -158,7 +158,7 @@
 				afficherScoreAPEquipe($unMatch, 'B');
 			echo '</div>';
 		echo '</div>';
-		
+
 		echo '<div class="vainqueur colle-gauche">';
 			afficherTAB($unMatch);
 		echo '</div>';

@@ -1598,8 +1598,11 @@ function creerProno_sauvegarderPronostic(el, type, numeroMatch, numeroEquipe, nu
 				// Le fait de ne pas afficher les TAB ne signifie pas forcément qu'il faille les effacer
 				// En effet, dans les types de matches 1 et 2 (respectivement match de ligue 1 et match aller de LDC)
 				// les TAB n'apparaissent jamais
-				if($('#spanVainqueur_match_' + numeroMatchLie).length != 0)
+				if($('#spanVainqueur_match_' + numeroMatchLie).length != 0) {
 					$('#spanVainqueur_match_' + numeroMatchLie).css({'visibility': 'hidden'});
+					// Remise de la valeur à 0
+					$('#selectVainqueur_match_' + numeroMatchLie).val('0');
+				}
 			}
 		} else if(type == 'scoreAP') {
 			// TAB ?
