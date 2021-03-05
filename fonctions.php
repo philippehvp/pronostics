@@ -22,6 +22,7 @@
 
 
 	// Affiche le score du match selon le format traditionnel
+	// Pour la CDF, il est possible que le score AP soit vide, même en cas de TAB
 	function formaterScoreMatch($scoreEquipeDomicile, $scoreAPEquipeDomicile, $scoreEquipeVisiteur, $scoreAPEquipeVisiteur, $vainqueur) {
 		$scoreMatch = '';
 		$separateur = ' - ';
@@ -30,10 +31,16 @@
 
 		if($vainqueur != null && $vainqueur != '' && $vainqueur != '0' && $vainqueur != '?') {
 			if($vainqueur == 1) {
-				$scoreMatch = $scoreAPEquipeDomicile . $tab . $separateur . $scoreAPEquipeVisiteur;
+				if ($scoreAPEquipeDomicile != null && $scoreAPEquipeVisiteur != null)
+					$scoreMatch = $scoreAPEquipeDomicile . $tab . $separateur . $scoreAPEquipeVisiteur;
+				else
+					$scoreMatch = $scoreEquipeDomicile . $tab . $separateur . $scoreEquipeVisiteur;
 			}
 			else if($vainqueur == 2) {
-				$scoreMatch = $scoreAPEquipeDomicile . $separateur . $scoreAPEquipeVisiteur . $tab;
+				if ($scoreAPEquipeDomicile != null && $scoreAPEquipeVisiteur != null)
+					$scoreMatch = $scoreAPEquipeDomicile . $separateur . $scoreAPEquipeVisiteur . $tab;
+				else
+					$scoreMatch = $scoreEquipeDomicile . $separateur . $scoreEquipeVisiteur . $tab;
 			}
 			else {
 				$scoreMatch = $scoreAPEquipeDomicile . $ap . $separateur . $scoreAPEquipeVisiteur . $ap;
