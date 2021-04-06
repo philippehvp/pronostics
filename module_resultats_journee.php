@@ -139,8 +139,12 @@
 					if($vainqueur != null) {
 						if($vainqueur == -1)
 							$scoreAffiche = $scoreAPEquipeDomicile . ' AP - ' . $scoreAPEquipeVisiteur . ' AP';
-						else if($vainqueur == 1)
-							$scoreAffiche = $scoreAPEquipeDomicile . ' TAB - ' . $scoreAPEquipeVisiteur;
+						else if($vainqueur == 1) {
+							$scoreDomicile = $scoreAPEquipeDomicile != null ? $scoreAPEquipeDomicile : $scoreEquipeDomicile;
+							$scoreVisiteur = $scoreAPEquipeVisiteur != null ? $scoreAPEquipeVisiteur : $scoreEquipeVisiteur;
+							$scoreAffiche = $scoreDomicile . ' TAB - ' . $scoreVisiteur;
+
+						}
 						else if($vainqueur == 2)
 							$scoreAffiche = $scoreAPEquipeDomicile . ' - ' . $scoreAPEquipeVisiteur . ' TAB';
 						else
