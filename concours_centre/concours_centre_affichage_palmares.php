@@ -30,6 +30,7 @@
 					'					FROM		pronostiqueurs' .
 					'					FULL JOIN	(' .
 					'									SELECT DISTINCT Trophees_CodeTrophee FROM trophees' .
+					'									WHERE			Trophees_CodeTrophee <> 9' .
 					'								) trophees' .
 					'					JOIN		inscriptions' .
 					'								ON		Pronostiqueur = Pronostiqueurs_Pronostiqueur' .
@@ -48,7 +49,6 @@
 					'	JOIN		pronostiqueurs' .
 					'				ON		pronostiqueurs_trophees.Pronostiqueur = pronostiqueurs.Pronostiqueur' .
 					'	ORDER BY	pronostiqueurs.Pronostiqueurs_NomUtilisateur, pronostiqueurs_trophees.Trophees_CodeTrophee';
-
 	$req = $bdd->query($ordreSQL);
 	$palmares = $req->fetchAll(PDO::FETCH_ASSOC);
 
