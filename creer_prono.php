@@ -358,6 +358,7 @@
 						'							,fn_matchcanalmodifiable(matches.Match, ' . $pronostiqueur . ') AS Matches_MatchCanalModifiable' .
 						'							,CASE' .
 						'								WHEN	matches.Matches_Date > NOW() AND (pronostics_carrefinal.PronosticsCarreFinal_Coefficient IS NULL OR pronostics_carrefinal.PronosticsCarreFinal_Coefficient <> 0)' .
+						'										AND (pronostics_barragesl1.PronosticsBarrageL1_Coefficient IS NULL OR pronostics_barragesl1.PronosticsBarrageL1_Coefficient = 1)' .
 						'								THEN	1' .
 						'								ELSE	0' .
 						'							END AS Buteurs_Pronostiquables' .
@@ -400,6 +401,12 @@
 						'	LEFT JOIN				journees_pronostiqueurs_canal' .
 						'							ON		journees.Journee = journees_pronostiqueurs_canal.Journees_Journee' .
 						'									AND		journees_pronostiqueurs_canal.Pronostiqueurs_Pronostiqueur = ' . $pronostiqueur .
+						'	LEFT JOIN   			(' .
+                    	'								SELECT      Matches_Match, PronosticsBarrageL1_Coefficient' .
+                    	'								FROM        pronostics_barragesl1' .
+                    	'								WHERE       Pronostiqueurs_Pronostiqueur = ' . $pronostiqueur .
+                		'							) pronostics_barragesl1' .
+                		'							ON      matches.Match = pronostics_barragesl1.Matches_Match' .
 						'	WHERE					journees.Journees_Active = 1' .
 						'							AND		inscriptions.Pronostiqueurs_Pronostiqueur = ' . $pronostiqueur .
 						'							AND		matches.Equipes_EquipeDomicile IS NOT NULL' .
