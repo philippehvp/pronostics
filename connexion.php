@@ -27,6 +27,7 @@
 					'				,IFNULL(Pronostiqueurs_PremiereConnexion, 1) AS Pronostiqueurs_PremiereConnexion' .
 					'				,Pronostiqueurs_AfficherTropheesChampionnat' .
 					'				,IFNULL(themes.Themes_NomCourt, \'defaut\') AS Pronostiqueurs_Theme' .
+					'				,IFNULL(Pronostiqueurs_ReponseSondage, 1) AS Pronostiqueurs_ReponseSondage' .
 					'	FROM		pronostiqueurs' .
 					'	LEFT JOIN	themes' .
 					'				ON		pronostiqueurs.Themes_Theme = themes.Theme' .
@@ -45,6 +46,7 @@
 	$_SESSION["photo_pronostiqueur"] = $donnees["Pronostiqueurs_Photo"];
 	$_SESSION["theme_pronostiqueur"] = $donnees["Pronostiqueurs_Theme"];
 	$premiereConnexion = $donnees["Pronostiqueurs_PremiereConnexion"];
+	$reponseSondage = $donnees["Pronostiqueurs_ReponseSondage"];
 	$afficherTropheesChampionnat = $donnees["Pronostiqueurs_AfficherTropheesChampionnat"];
 
 	$req->closeCursor();
@@ -58,13 +60,13 @@
 		} else if($afficherTropheesChampionnat != null && $afficherTropheesChampionnat != 0) {
 				$pageAAfficher = 'Location: consulter_trophees.php?championnat=' . $afficherTropheesChampionnat . '&affichertrophees=1';
 				header($pageAAfficher);
+		} else if($reponseSondage != 1) {
+			// S'il n'a pas répondu au sondage, il va être dirigé vers cette page
+			header('Location: reponse_sondage.php');
 		} else {
 			header('Location: accueil.php');
 		}
 	} else {
-		$ordreSQL =		'	INSERT INTO echecs_connexion' .
-						'	VALUES(NOW(), ' . $bdd->quote($login) . ', ' . $bdd->quote($mdp) . ')';
-		$bdd->exec($ordreSQL);
 		$_SESSION["pronostiqueur"] = 0;
 		$_SESSION["nom_pronostiqueur"] = '';
 		$_SESSION["prenom_pronostiqueur"] = '';

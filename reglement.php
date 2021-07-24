@@ -43,7 +43,7 @@
 			echo '</div>';
 			//include_once('pied.php');
 		echo '</div>';
-?>
+	?>
 
 	<script>
 		$(function() {

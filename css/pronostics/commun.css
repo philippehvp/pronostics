@@ -1,810 +1,816 @@
 /* Surcharge dataTables */
 @viewport {
-   width: device-width; /* largeur du viewport */
-   zoom: 0.5; /* zoom initial à 1.0 (et clin d'oeil aux fans d'IE6/7) */
+  width: device-width; /* largeur du viewport */
+  zoom: 0.5; /* zoom initial à 1.0 (et clin d'oeil aux fans d'IE6/7) */
 }
 
 .dataTables_wrapper.no-footer .dataTables_scrollBody {
-	border-bottom: none !important;
+  border-bottom: none !important;
 }
 
-table.dataTable thead th, table.dataTable thead td {
-	border: none;
-}
-
-table.dataTable.no-footer {
-	/*border-bottom: none;*/
+table.dataTable thead th,
+table.dataTable thead td {
+  border: none;
 }
 
 /* Eléments communs */
 @font-face {
-	font-family: "pronostics";
-	src: url("../../polices/segoeui.woff");
+  font-family: "pronostics";
+  src: url("../../polices/segoeui.woff");
 }
 
 @font-face {
-	font-family: "icones";
-	src: url('../../polices/entypo.woff') format('woff');
+  font-family: "icones";
+  src: url("../../polices/entypo.woff") format("woff");
 }
 
 * {
-	margin: 0;
-	padding: 0;
-	outline: 0;
-	border-spacing: 0;
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  border-spacing: 0;
 }
 
 html {
-	/*width: 100%;*/
-	height: 100%;
+  /*width: 100%;*/
+  height: 100%;
 }
 
 body {
-	/*width: 100%;*/
-	height: 100%;
-	font-size: 1em;
-	background-position: 0 0;
-	background-repeat: repeat;
+  /*width: 100%;*/
+  height: 100%;
+  font-size: 1em;
+  background-position: 0 0;
+  background-repeat: repeat;
 }
 
 body.cdf {
-	background-image: none;
-	background-color: #000;
+  background-image: none;
+  background-color: #000;
 }
 
 body.pnthn {
-	background-image: none;
-	background-color: #000;
-	color: #fff;
+  background-image: none;
+  background-color: #000;
+  color: #fff;
 }
 
 h1 {
-	font-size: 2em;
-	text-transform: uppercase;
-	margin-bottom: 2px;
+  font-size: 2em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
 }
-
 
 ul {
-	list-style-type: none;
+  list-style-type: none;
 }
-
 
 /* Classes diverses */
 .titre--site {
-	font-size: 1.5em;
-	font-weight: bold;
-	line-height: 45px;
-	vertical-align: top;
-	margin-left: 8px;
+  font-size: 1.5em;
+  font-weight: bold;
+  line-height: 45px;
+  vertical-align: top;
+  margin-left: 8px;
 }
 
 .marge-haute {
-	margin-top: 95px;
+  margin-top: 95px;
 }
 
 .contenu-page {
-	width: 1200px;
-	margin: 0 auto;
-	padding-top: 85px;
+  width: 1200px;
+  margin: 0 auto;
+  padding-top: 85px;
 }
 
 .centre-page {
-	width: 1200px;
-	margin: 0 auto;
+  width: 1200px;
+  margin: 0 auto;
 }
 
 .retour-haut-page {
-	width: 50px; 
-	height: 20px;
-	padding: 10px; 
-	text-align: center; 
-	text-decoration: none;
-	position: fixed;
-	top: 100px;
-	right: 40px;
-	display: none;
-	background-repeat: no-repeat;
-	background-position: 50% 50%;
-	z-index: 1000;
+  width: 50px;
+  height: 20px;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  position: fixed;
+  top: 100px;
+  right: 40px;
+  display: none;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  z-index: 1000;
 }
 
 .retour-haut-page:hover {
-	text-decoration:none;
+  text-decoration: none;
 }
 
 .bandeau-info {
-	position: absolute;
-	display: none;
-	padding-left: 5px;
-	padding-right: 5px;
-	height: 29px;
-	line-height: 29px;
-	vertical-align: middle;
-	z-index: 2000000;
-	color: #000;
-	background-color: #fff;
-	border-bottom: 1px solid #000;
-	border-right: 1px solid #000;
+  position: absolute;
+  display: none;
+  padding-left: 5px;
+  padding-right: 5px;
+  height: 29px;
+  line-height: 29px;
+  vertical-align: middle;
+  z-index: 2000000;
+  color: #000;
+  background-color: #fff;
+  border-bottom: 1px solid #000;
+  border-right: 1px solid #000;
 }
 
 .gauche {
-	float: left;
+  float: left;
 }
 
 .droite {
-	float: right;
+  float: right;
 }
 
 .colle-gauche {
-	clear: both;
+  clear: both;
 }
 
 .aligne-gauche {
-	text-align: left;
+  text-align: left;
 }
 
 .aligne-droite {
-	text-align: right;
+  text-align: right;
 }
 
 .aligne-centre {
-	text-align: center;
+  text-align: center;
 }
 
 .aligne-haut {
-	vertical-align: top;
+  vertical-align: top;
 }
 
 .retour-ligne {
-	white-space: normal !important;
+  white-space: normal !important;
 }
 
 .blanc {
-	color: #333;
+  color: #333;
 }
 
 .vert {
-	background-color: #457a1e !important;
-	color: #fff;
+  background-color: #457a1e !important;
+  color: #fff;
 }
 
 .orange {
-	background-color: #e67f2a !important;
-	color: #fff;
+  background-color: #e67f2a !important;
+  color: #fff;
 }
 
 .rouge {
-	background-color: #cf2323 !important;
-	color: #fff !important;
+  background-color: #cf2323 !important;
+  color: #fff !important;
 }
 
 .texte-vert {
-	color: #457a1e !important;
+  color: #457a1e !important;
 }
 
 .texte-orange {
-	color: #e67f2a !important;
+  color: #e67f2a !important;
 }
 
 .texte-rouge {
-	color: #cf2323;
+  color: #cf2323;
 }
 
 .texte-blanc {
-	color: #fff !important;
+  color: #fff !important;
 }
 
 .texte-gras {
-	font-weight: bold;
+  font-weight: bold;
 }
 
 .texte-italique {
-	font-style: italic;
+  font-style: italic;
 }
 
 .texte-petit {
-	font-size: 0.75em;
+  font-size: 0.75em;
 }
 
 .texte-moyen {
-	font-size: 1em;
+  font-size: 1em;
 }
 
 .texte-grand {
-	font-size: 1.5em;
+  font-size: 1.5em;
 }
 
 .texte-souligne {
-	text-decoration: underline;
+  text-decoration: underline;
 }
 
 .curseur-main {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .onglet {
-	list-style: none !important;
+  list-style: none !important;
 }
 
 .lienJournee {
-	cursor: pointer;
-	font-size: 1em;
+  cursor: pointer;
+  font-size: 1em;
 }
 
 .lienJournee:hover {
-	text-decoration: underline;
+  text-decoration: underline;
 }
 
 .icones {
-	font-family: icones;
-	vertical-align: bottom;
+  font-family: icones;
+  vertical-align: bottom;
 }
 
 .icones-grandes {
-	font-size: 1.4em;
+  font-size: 1.4em;
 }
 
 .icones-normales {
-	font-size: 1.2em;
+  font-size: 1.2em;
 }
 
 .icones--marge-gauche {
-	margin-left: 6px;
+  margin-left: 6px;
 }
 
-a.lien:active, a.lien:hover {
-	color: #fff;
+a.lien:active,
+a.lien:hover {
+  color: #fff;
 }
 
-a.lien:link, a.lien:visited {
-	color: #fff;
-	text-decoration: underline;
+a.lien:link,
+a.lien:visited {
+  color: #fff;
+  text-decoration: underline;
 }
 
 .lienActif {
-	color: #fff;
+  color: #fff;
 }
 
 .lienActif:hover {
-	text-decoration: underline;
-	cursor: pointer;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
-.bouton-precedent, .bouton-suivant {
-	width: 50px;
-	height: 20px;
-	background-repeat: no-repeat;
-	background-position: 50% 50%;
-	display: inline-block;
+.bouton-precedent,
+.bouton-suivant {
+  width: 50px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  display: inline-block;
 }
 
 .centre {
-	text-align: center;
+  text-align: center;
 }
 
 .bordure-grise {
-	border: 1px solid #ccc;
+  border: 1px solid #ccc;
 }
 
 .pas-de-bordure-droite {
-	border-right: none !important;
+  border-right: none !important;
 }
 
 .blanc-fond-rouge {
-	color: #fff;
-	background-color: #f00;
+  color: #fff;
+  background-color: #f00;
 }
 
 .entete {
-	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.7);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.7);
 }
 
 /* Surcharge jqueryui */
-.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
-	font-weight: bold;
-	text-decoration: underline;
+.ui-state-active a,
+.ui-state-active a:link,
+.ui-state-active a:visited {
+  font-weight: bold;
+  text-decoration: underline;
 }
 
 .ui-datepicker table {
-	background-color: #b4bab6;
+  background-color: #b4bab6;
 }
 
 .ui-widget {
-	font-family: pronostics,Verdana,Helvetica,Arial,sans-serif;
-	font-size: 1em;
+  font-family: pronostics, Verdana, Helvetica, Arial, sans-serif;
+  font-size: 1em;
 }
 
 .ui-dialog {
-	padding: 0;
+  padding: 0;
 }
 
 .ui-dialog {
-	background-color: rgba(0, 0, 0, 0.8);
-	border: 2px solid #b4bab6;
-	z-index: 1001;
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 2px solid #b4bab6;
+  z-index: 1001;
 }
 
 .ui-dialog-titlebar-close {
-	display: none;
+  display: none;
 }
 
 .ui-dialog .ui-dialog-buttonpane {
-	padding: 0;
+  padding: 0;
 }
 
 .ui-tabs .ui-tabs-nav li.ui-tabs-active {
-	margin-bottom: 0;
-	padding-bottom: 0;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 .ui-tabs .ui-tabs-nav {
-	margin-bottom: 16px;
-	padding: 0;
+  margin-bottom: 16px;
+  padding: 0;
 }
 
 .ui-tabs .ui-tabs-nav .ui-tabs-anchor {
-	padding: 0 2em 0 0;
+  padding: 0 2em 0 0;
 }
 
 .ui-tabs .ui-tabs-panel {
-	padding: 0;
+  padding: 0;
 }
 
-.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
-	border: none;
-	background: none;
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default {
+  border: none;
+  background: none;
 }
 
 .ui-tabs .ui-tabs-nav li {
-	margin: 0;
+  margin: 0;
 }
 
 .ui-resizable-se {
-	background: none;
+  background: none;
 }
 
 .tuile {
-	float: left;
-	margin-bottom: 6px;
+  float: left;
+  margin-bottom: 6px;
 }
 
 .conteneur {
-	min-height: 100%;
-	position: relative;
+  min-height: 100%;
+  position: relative;
 }
 
 /* Page bandeau.php */
 .bandeau {
-	width: 100%;
-	height: 84px;
-	z-index: 500;
-	position: fixed;
-	top: 0;
-	/*background-image: url('../../images/fond_bandeau.png');
+  width: 100%;
+  height: 84px;
+  z-index: 500;
+  position: fixed;
+  top: 0;
+  /*background-image: url('../../images/fond_bandeau.png');
 	background-position: 50% 0;
 	background-repeat: no-repeat;*/
 }
 
 /* Page pied.php */
 .separation-pied {
-	clear: both;
-	padding-bottom: 170px;
+  clear: both;
+  padding-bottom: 170px;
 }
 
 .pied {
-	position: absolute;
-	bottom: 0;
-	width: 100%;
-	height: 149px;
-	margin-top: 20px;
-	color: #c8c5c2;
-	background-color: #282c2f;
-	border-top: 1px solid #3d3d3d;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 149px;
+  margin-top: 20px;
+  color: #c8c5c2;
+  background-color: #282c2f;
+  border-top: 1px solid #3d3d3d;
 }
-
-
-
 
 /* Page creer_prono.php */
 .match-canal {
-	background-image: url('../../images/canal.png');
-	background-repeat: no-repeat;
-	background-position: 50% 50%;
+  background-image: url("../../images/canal.png");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
 }
 
 #divPronostics div.zoneMatchCanal {
-	width: 1200px;
-	height: 23px;
-	text-align: center;
+  width: 1200px;
+  height: 23px;
+  text-align: center;
 }
 
 #divPronostics div.zoneMatchCanal button.selectionMatchCanal {
-	background-color: none;
-	width: 68px;
-	height: 23px;
-	margin: 0 auto;
+  background-color: none;
+  width: 68px;
+  height: 23px;
+  margin: 0 auto;
 }
 
 #divPronostics div.zoneMatchCanal button.matchCanal {
-	background-image: url('../../images/canal_actif.png');
-	background-repeat: no-repeat;
+  background-image: url("../../images/canal_actif.png");
+  background-repeat: no-repeat;
 }
 
 #divPronostics div.zoneMatchCanal button.matchNonCanal {
-	background-image: url('../../images/canal_inactif.png');
-	background-repeat: no-repeat;
+  background-image: url("../../images/canal_inactif.png");
+  background-repeat: no-repeat;
 }
 
 #divPronostics div.pronosticEquipe {
-	width: 500px;
-	height: 120px;
-	text-align: center;
+  width: 500px;
+  height: 120px;
+  text-align: center;
 }
 
 #divPronostics div.pronosticEquipe label {
-	font-size: 1.1em;
-	font-weight: bold;
+  font-size: 1.1em;
+  font-weight: bold;
 }
 
 #divPronostics div.pronosticLogistique {
-	width: 1200px;
-	height: 20px;
-	text-align: center;
-	font-size: 0.7em;
+  width: 1200px;
+  height: 20px;
+  text-align: center;
+  font-size: 0.7em;
 }
 
 #divPronostics div.pronosticZoneScore {
-	width: 200px;
-	height: 130px;
-	text-align: center;
+  width: 200px;
+  height: 130px;
+  text-align: center;
 }
 
 #divPronostics div.pronosticZoneScore label {
-	font-size: 1.8em;
-	margin-bottom: 5px;
-	line-height: 1.8em;
+  font-size: 1.8em;
+  margin-bottom: 5px;
+  line-height: 1.8em;
 }
 
 #divPronostics div.pronosticZoneScore label.non-pronostiquable {
-	font-size: 1.2em;
-	margin-bottom: 5px;
-	line-height: 1.8em;
+  font-size: 1.2em;
+  margin-bottom: 5px;
+  line-height: 1.8em;
 }
 
 #divPronostics div.pronosticScore {
-	width: 100px;
-	height: 25px;
-	text-align: center;
+  width: 100px;
+  height: 25px;
+  text-align: center;
 }
 
 #divPronostics div.pronosticButeurs {
-	font-size: 0.7em;
-	display: block;
-	width: 500px;
-	height: 100px;
-	overflow: auto;
-	text-align: center;
+  font-size: 0.7em;
+  display: block;
+  width: 500px;
+  height: 100px;
+  overflow: auto;
+  text-align: center;
 }
 
 #divPronostics div.pronosticScoreAP {
-	width: 100px;
-	height: 25px;
-	text-align: center;
+  width: 100px;
+  height: 25px;
+  text-align: center;
 }
 
 #divPronostics div.pronosticCoteEquipe {
-	width: 500px;
-	height: 20px;
-	text-align: center;
-	font-size: 0.8em;
+  width: 500px;
+  height: 20px;
+  text-align: center;
+  font-size: 0.8em;
 }
 
 #divPronostics div.pronosticCoteNul {
-	width: 200px;
-	height: 20px;
-	text-align: center;
-	font-size: 0.8em;
+  width: 200px;
+  height: 20px;
+  text-align: center;
+  font-size: 0.8em;
 }
 
-#divPronostics div.matchLigue1, #divPronostics div.matchAller, #divPronostics div.matchRetour, #divPronostics div.matchCoupe, #divPronostics div.matchCS {
-	width: 200px;
-	height: 100px;
-	text-align: center;
+#divPronostics div.matchLigue1,
+#divPronostics div.matchAller,
+#divPronostics div.matchRetour,
+#divPronostics div.matchCoupe,
+#divPronostics div.matchCS {
+  width: 200px;
+  height: 100px;
+  text-align: center;
 }
 
-#divPronostics div.matchLigue1, #divPronostics div.matchAller, #divPronostics div.matchRetour, #divPronostics div.matchCoupe {
-	font-size: 3.2em;
+#divPronostics div.matchLigue1,
+#divPronostics div.matchAller,
+#divPronostics div.matchRetour,
+#divPronostics div.matchCoupe {
+  font-size: 3.2em;
 }
 
 #divPronostics div.matchCS {
-	font-size: 2em;
+  font-size: 2em;
 }
 
 #divPronostics div.pronosticVainqueur {
-	width: 200px;
-	height: 25px;
-	text-align: center;
+  width: 200px;
+  height: 25px;
+  text-align: center;
 }
 
 #divPronostics label.matchEuropeen {
-	font-size: 1.1em;
-	font-weight: bold;
+  font-size: 1.1em;
+  font-weight: bold;
 }
 
 .effectif-equipe {
-	overflow: auto;
-	width: 388px;
-	height: 640px;
-	font-size: 0.9em;
+  overflow: auto;
+  width: 388px;
+  height: 640px;
+  font-size: 0.9em;
 }
 
 .effectif-equipe li {
-	padding-left: 35px;
+  padding-left: 35px;
 }
 
 .effectif-equipe li.buteur {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .effectif-equipe li.titre-liste {
-	padding-left: 35px;
-	font-size: 1.3em;
+  padding-left: 35px;
+  font-size: 1.3em;
 }
 
 .listeButeurs div.fleches-gauche-droite {
-	width: 20px;
-	height: 225px;
-	text-align: center;
-	padding-top: 200px;
-	font-size: 3em;
+  width: 20px;
+  height: 225px;
+  text-align: center;
+  padding-top: 200px;
+  font-size: 3em;
 }
 
 .poste-gardien {
-	color: #fff;
-	background-color: #5169c4;
-	background-image: url('../../images/poste_gardien.png');
-	background-position: 0 50%;
-	background-repeat: no-repeat;
+  color: #fff;
+  background-color: #5169c4;
+  background-image: url("../../images/poste_gardien.png");
+  background-position: 0 50%;
+  background-repeat: no-repeat;
 }
 
 .poste-defenseur {
-	color: #fff;
-	background-color: #457a1e;
-	background-image: url('../../images/poste_defenseur.png');
-	background-position: 0 50%;
-	background-repeat: no-repeat;
+  color: #fff;
+  background-color: #457a1e;
+  background-image: url("../../images/poste_defenseur.png");
+  background-position: 0 50%;
+  background-repeat: no-repeat;
 }
 
 .poste-milieu {
-	color: #fff;
-	background-color: #e67f2a;
-	background-image: url('../../images/poste_milieu.png');
-	background-position: 0 50%;
-	background-repeat: no-repeat;
+  color: #fff;
+  background-color: #e67f2a;
+  background-image: url("../../images/poste_milieu.png");
+  background-position: 0 50%;
+  background-repeat: no-repeat;
 }
 
 .poste-attaquant {
-	color: #fff;
-	background-color: #cf2323;
-	background-image: url('../../images/poste_attaquant.png');
-	background-position: 0 50%;
-	background-repeat: no-repeat;
+  color: #fff;
+  background-color: #cf2323;
+  background-image: url("../../images/poste_attaquant.png");
+  background-position: 0 50%;
+  background-repeat: no-repeat;
 }
 
 /* Pages creer_bonus.php et gerer_bonus.php */
 .creation-bonus div.tuile {
-	margin: 0 6px 6px 0;
-	float: left;
-	text-align: center;
-	width: 324px;
-	height: 120px;
-	position: relative;
+  margin: 0 6px 6px 0;
+  float: left;
+  text-align: center;
+  width: 324px;
+  height: 120px;
+  position: relative;
 }
 
 .creation-bonus div.texte {
-	font: 0.7em pronostics,Verdana,Helvetica,Arial,sans-serif;
-	text-align: left;
-	position: absolute;
-	top: 100px;
-	left: 7px;
+  font: 0.7em pronostics, Verdana, Helvetica, Arial, sans-serif;
+  text-align: left;
+  position: absolute;
+  top: 100px;
+  left: 7px;
 }
 
 .creation-bonus div.saisie {
-	text-align: center;
-	padding-top: 50px;
-	position: relative;
-	top: 0;
+  text-align: center;
+  padding-top: 50px;
+  position: relative;
+  top: 0;
 }
 
 .creation-bonus .saisie-joueur {
-	text-align: center;
-	padding-top: 29px;
-	position: relative;
-	top: 0;
+  text-align: center;
+  padding-top: 29px;
+  position: relative;
+  top: 0;
 }
 
-.creation-bonus .saisie-joueur div, .creation-bonus .saisie-joueur div table {
-	position: absolute;
-	z-index: 1000;
+.creation-bonus .saisie-joueur div,
+.creation-bonus .saisie-joueur div table {
+  position: absolute;
+  z-index: 1000;
 }
 
 .creation-bonus .saisie-joueur table {
-	border: 1px solid #ccc;
-	width: 300px;
-	left: 80px;
-	font-size: 0.9em;
-	font-weight: normal;
-	text-align: left;
+  border: 1px solid #ccc;
+  width: 300px;
+  left: 80px;
+  font-size: 0.9em;
+  font-weight: normal;
+  text-align: left;
 }
 
 /* Pages creer_qualification.php et gerer_qualification.php */
 .classement-groupe {
-	margin-bottom: 6px;
+  margin-bottom: 6px;
 }
 
 .tuile-consultation {
-	width: 760px;
-	margin-bottom: 6px;
+  width: 760px;
+  margin-bottom: 6px;
 }
 
 #divClassementGroupes div.nomGroupe {
-	width: 303px;
-    padding-left: 10px;
-	font-size: 1em;
+  width: 303px;
+  padding-left: 10px;
+  font-size: 1em;
 }
 
 #divClassementGroupes div.nomPronostiqueur {
 }
 
 #divClassementGroupes div.nomPronostiqueur {
-	font-size: 3em;
-	text-align: center;
+  font-size: 3em;
+  text-align: center;
 }
 
 #divClassementGroupes div.equipes {
-	width: 900px;
-	height: 105px;
-	margin: 0 auto;
-	padding-top: 12px;
+  width: 900px;
+  height: 105px;
+  margin: 0 auto;
+  padding-top: 12px;
 }
 
 #divClassementGroupes ul.listeTriee li {
-	margin-right: 6px;
-	float: left;
-	width: 117px;
-	height: 90px;
-	font-size: 0.7em;
-	text-align: center;
-	cursor: pointer;
+  margin-right: 6px;
+  float: left;
+  width: 117px;
+  height: 90px;
+  font-size: 0.7em;
+  text-align: center;
+  cursor: pointer;
 }
 
 #divClassementGroupes div.equipesConsultation {
-	width: 580px;
-	height: 50px;
-	margin-left: 50px;
-	padding-top: 1px;
+  width: 580px;
+  height: 50px;
+  margin-left: 50px;
+  padding-top: 1px;
 }
 
 #divClassementGroupes div.equipesConsultation label {
-	display: inline-block;
-	margin-right: 10px;
-	width: 100px;
-	line-height: 50px;
+  display: inline-block;
+  margin-right: 10px;
+  width: 100px;
+  line-height: 50px;
 }
 
 #divClassementGroupes ul.listeTrieeConsultation li {
-	float: left;
-	font-size: 0.7em;
-	text-align: center;
-	width: 117px;
-	height: 50px;
+  float: left;
+  font-size: 0.7em;
+  text-align: center;
+  width: 117px;
+  height: 50px;
 }
 
 #divClassementGroupes ul.listeTrieeConsultation li img.consultation {
-	width: 25px;
-	height: 25px;
+  width: 25px;
+  height: 25px;
 }
 
 /* Pages d'affichage des résultats */
 #divResultatsPronostics {
-	margin-top: 16px;
+  margin-top: 16px;
 }
 
 /* Page creer_match.php */
 
 .match input[type="text"] {
-	width: 96px;
+  width: 96px;
 }
 
-.match .lien-page, .liste-matches--entete .lien-page {
-	width: 50em !important;
+.match .lien-page,
+.liste-matches--entete .lien-page {
+  width: 50em !important;
 }
 
 .bouton {
-	display: inline-block;
-	padding: 3px 5px;
-	color: #fff;
-	background-color: #598e8c;
-	cursor: pointer;
-	
+  display: inline-block;
+  padding: 3px 5px;
+  color: #fff;
+  background-color: #598e8c;
+  cursor: pointer;
 }
 
 #divListeMatches {
-	color: #333;
+  color: #333;
 }
 
 #divListeMatches .liste-matches--entete {
-	background-color: #ccc;
+  background-color: #ccc;
 }
 
 #divListeMatches div.match {
-	margin-top: 16px;
-	padding-top: 8px;
-	padding-bottom: 16px;
-	background-color: #f1f2f4;
+  margin-top: 16px;
+  padding-top: 8px;
+  padding-bottom: 16px;
+  background-color: #f1f2f4;
 }
 
 #divListeMatches label.detail {
-	display: inline-block;
-	width: 192px;
-	text-align: right;
-	padding-right: 8px;
+  display: inline-block;
+  width: 192px;
+  text-align: right;
+  padding-right: 8px;
 }
 
 /* Page classements_pronostiqueurs.php */
 
-
 /* Page gerer_effectif.php */
 #divEffectif {
-	float: left;
-	padding-right: 20px;
-	background-color: #000;
+  float: left;
+  padding-right: 20px;
+  background-color: #000;
 }
 
 /* Pages creer_fiche.php et consulter_fiches.php */
 .fiche {
-	padding: 16px;
-	height: 470px;
+  padding: 16px;
+  height: 470px;
 }
 
 .fondTransparent {
-	border: none;
+  border: none;
 }
 
 .fiche .photo {
-	width: 180px;
-	height: 180px;
-	margin: 0 20px 0 0;
-	text-align: center;
-	vertical-align: middle;
+  width: 180px;
+  height: 180px;
+  margin: 0 20px 0 0;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .simple {
-	display: inline-block;
-	width: 128px;
-	text-align: right;
-	margin-right: 8px;
-	height: 29px;
+  display: inline-block;
+  width: 128px;
+  text-align: right;
+  margin-right: 8px;
+  height: 29px;
 }
 
 .fiche label.zone {
-	display: inline-block;
-	width: 128px;
-	text-align: right;
-	margin-right: 8px;
-	vertical-align: top;
-	height: 80px;
+  display: inline-block;
+  width: 128px;
+  text-align: right;
+  margin-right: 8px;
+  vertical-align: top;
+  height: 80px;
 }
 
 .fiche input[type="text"] {
-	width: 200px;
-	height: 21px;
-	padding-left: 13px;
-	margin-bottom: 16px;
-	display: inline-block;
-	border: 1px solid #999;
-	background-color: rgba(255, 255, 255, 0.3);
+  width: 200px;
+  height: 21px;
+  padding-left: 13px;
+  margin-bottom: 16px;
+  display: inline-block;
+  border: 1px solid #999;
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
 /*
@@ -813,71 +819,71 @@ a.lien:link, a.lien:visited {
 }*/
 
 .fiche textarea {
-	width: 300px;
-	height: 65px;
-	padding-left: 13px;
-	resize: none;
-	margin-bottom: 16px;
-	display: inline-block;
-	border: 1px solid #999;
+  width: 300px;
+  height: 65px;
+  padding-left: 13px;
+  resize: none;
+  margin-bottom: 16px;
+  display: inline-block;
+  border: 1px solid #999;
 }
 
 .fiche textarea.grande-zone {
-	width: 448px;
-	height: 128px;
-	padding-left: 13px;
-	resize: none;
-	margin-bottom: 16px;
-	display: inline-block;
-	color: #fff;
-	border: 1px solid #999;
-	background-color: rgba(255, 255, 255, 0.3);
+  width: 448px;
+  height: 128px;
+  padding-left: 13px;
+  resize: none;
+  margin-bottom: 16px;
+  display: inline-block;
+  color: #fff;
+  border: 1px solid #999;
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
 .lecture-seule {
-	border: none !important;
-	background: none !important;
+  border: none !important;
+  background: none !important;
 }
 
 .fiche-valider {
-	margin-top: 6px;
+  margin-top: 6px;
 }
 
 .fiche--nom {
-	display: inline-block;
-	width: 120px;
-	cursor: pointer;
+  display: inline-block;
+  width: 120px;
+  cursor: pointer;
 }
 
 /* Page reglement.php */
 #divReglement {
-	width: 1180px;
-	margin: 0 auto;
-	padding: 0 10px;
+  width: 1180px;
+  margin: 0 auto;
+  padding: 0 10px;
 }
 
 #divReglement p {
-	margin-bottom: 8px;
+  margin-bottom: 8px;
 }
 
 #divReglement ul {
-	margin-left: 16px;
-	margin-top: -10px;
+  margin-left: 16px;
+  margin-top: -10px;
 }
 
 #divReglement ul li {
-	list-style-type: disc;
-	margin-left: 16px;
+  list-style-type: disc;
+  margin-left: 16px;
 }
 
 #divReglement ul li ul li {
-	list-style-type: square;
-	margin-left: 16px;
-	margin-top: 6px;
+  list-style-type: square;
+  margin-left: 16px;
+  margin-top: 6px;
 }
 
 #divReglement h2 {
-	margin-top: 16px;
+  margin-top: 16px;
 }
 
 /* Pages de connexion / modification de mot de passe / première connexion */
@@ -889,555 +895,556 @@ a.lien:link, a.lien:visited {
 }*/
 
 .connexion--cartouche {
-	position: relative;
-	vertical-align: middle;
-	color: #a1a4a8;
-	background-color: #f1f2f4;
-	padding-bottom: 80px;
-	width: 390px;
-	margin: 0 auto;
-	/*border: 1px solid #ccc;*/
+  position: relative;
+  vertical-align: middle;
+  color: #a1a4a8;
+  background-color: #f1f2f4;
+  padding-bottom: 80px;
+  width: 390px;
+  margin: 0 auto;
+  /*border: 1px solid #ccc;*/
 }
 
 .connexion--entete {
-	color: #fff;
-	background-color: #598e8c;
-	font-size: 1.5em;
-	width: 100%;
-	padding: 0.5em 0;
+  color: #fff;
+  background-color: #598e8c;
+  font-size: 1.5em;
+  width: 100%;
+  padding: 0.5em 0;
 }
 
 .connexion--entete label {
-	padding-left: 20px;
+  padding-left: 20px;
 }
 
 .connexion--cartouche label.bouton-connexion {
-	display: inline-block;
-	margin-top: 3px;
-	padding: 5px 8px;
-	background-color: #598e8c;
-	color: #fff;
+  display: inline-block;
+  margin-top: 3px;
+  padding: 5px 8px;
+  background-color: #598e8c;
+  color: #fff;
 }
 
 .connexion--echec {
-	display: block;
+  display: block;
 }
 
 .connexion--libelle {
-	float: left;
-	width: 144px;
-	padding-left: 20px;
+  float: left;
+  width: 144px;
+  padding-left: 20px;
 }
 
 .connexion--champ {
-	width: 190px;
-	height: 32px;
-	padding-left: 13px;
-	margin-bottom: 5px;
-	color: #a1a4a8;
-	background-color: #e5e7e9;
-	border: 1px solid #d0d1d2;
+  width: 190px;
+  height: 32px;
+  padding-left: 13px;
+  margin-bottom: 5px;
+  color: #a1a4a8;
+  background-color: #e5e7e9;
+  border: 1px solid #d0d1d2;
 }
 
 .connexion input:focus {
-	background-color: #fff;
-	border: 1px solid #fff;
-	outline: none;
+  background-color: #fff;
+  border: 1px solid #fff;
+  outline: none;
 }
 
 /* Page consulter_match.php */
-#divMatch div.tuile {
-}
-
 #divMatch div.canal {
-	background-image: url('../../images/canal.png');
-	background-repeat: no-repeat;
-	background-position: 50% 40%;
+  background-image: url("../../images/canal.png");
+  background-repeat: no-repeat;
+  background-position: 50% 40%;
 }
 
 #divMatch div.matchEquipe {
-	width: 500px;
-	height: 120px;
-	text-align: center;
+  width: 500px;
+  height: 120px;
+  text-align: center;
 }
 
 #divMatch div.matchEquipe label {
-	font-size: 1.1em;
-	font-weight: bold;
+  font-size: 1.1em;
+  font-weight: bold;
 }
 
 #divMatch div.matchLogistique {
-	width: 1200px;
-	height: 20px;
-	text-align: center;
-	font-size: 0.7em;
+  width: 1200px;
+  height: 20px;
+  text-align: center;
+  font-size: 0.7em;
 }
 
 #divMatch div.matchZoneScore {
-	width: 200px;
-	height: 120px;
-	text-align: center;
+  width: 200px;
+  height: 120px;
+  text-align: center;
 }
 
 #divMatch div.matchZoneScore label {
-	margin-bottom: 5px;
-	line-height: 1.8em;
+  margin-bottom: 5px;
+  line-height: 1.8em;
 }
 
 #divMatch div.matchScore {
-	width: 200px;
-	height: 45px;
-	text-align: center;
+  width: 200px;
+  height: 45px;
+  text-align: center;
 }
 
 #divMatch div.matchButeurs {
-	font-size: 0.7em;
-	display: block;
-	width: 500px;
-	height: 100px;
-	overflow: auto;
-	text-align: center;
+  font-size: 0.7em;
+  display: block;
+  width: 500px;
+  height: 100px;
+  overflow: auto;
+  text-align: center;
 }
 
 #divMatch div.matchScoreAP {
-	width: 100px;
-	height: 25px;
-	text-align: center;
+  width: 100px;
+  height: 25px;
+  text-align: center;
 }
 
 #divMatch div.matchCoteEquipe {
-	width: 500px;
-	height: 20px;
-	text-align: center;
-	font-size: 0.8em;
+  width: 500px;
+  height: 20px;
+  text-align: center;
+  font-size: 0.8em;
 }
 
 #divMatch div.matchCoteNul {
-	width: 200px;
-	height: 20px;
-	text-align: center;
-	font-size: 0.8em;
+  width: 200px;
+  height: 20px;
+  text-align: center;
+  font-size: 0.8em;
 }
 
-#divMatch div.matchLigue1, #divMatch div.matchAller, #divMatch div.matchRetour, #divMatch div.matchCoupe, #divMatch div.matchCS {
-	width: 200px;
-	height: 100px;
-	text-align: center;
+#divMatch div.matchLigue1,
+#divMatch div.matchAller,
+#divMatch div.matchRetour,
+#divMatch div.matchCoupe,
+#divMatch div.matchCS {
+  width: 200px;
+  height: 100px;
+  text-align: center;
 }
 
-#divMatch div.matchLigue1, #divMatch div.matchAller, #divMatch div.matchRetour, #divMatch div.matchCoupe {
-	font-size: 3.2em;
+#divMatch div.matchLigue1,
+#divMatch div.matchAller,
+#divMatch div.matchRetour,
+#divMatch div.matchCoupe {
+  font-size: 3.2em;
 }
 
 #divMatch div.matchCS {
-	font-size: 2em;
+  font-size: 2em;
 }
 
 #divMatch div.matchVainqueur {
-	width: 200px;
-	height: 25px;
-	text-align: center;
+  width: 200px;
+  height: 25px;
+  text-align: center;
 }
 
 #divMatch label.matchEuropeen {
-	font-size: 1.1em;
-	font-weight: bold;
+  font-size: 1.1em;
+  font-weight: bold;
 }
 
 #divMatch div.matchSeparateur {
-	width: 1200px;
-	height: 39px;
-	font-size: 1.2em;
-	text-align: center;
-	border-top: 1px solid #fff;
+  width: 1200px;
+  height: 39px;
+  font-size: 1.2em;
+  text-align: center;
+  border-top: 1px solid #fff;
 }
 
 #divMatch div.matchEffectif {
-	width: 500px;
-	/*height: 140px;*/
-	overflow: auto;
-	font-size: 0.9em;
+  width: 500px;
+  /*height: 140px;*/
+  overflow: auto;
+  font-size: 0.9em;
 }
 
 #divMatch .matchEffectif div {
-	margin-left: 16px;
-	margin-right: 16px;
+  margin-left: 16px;
+  margin-right: 16px;
 }
 
 #divMatch .matchEffectifSeparateur {
-	width: 200px;
-	height: 140px;
+  width: 200px;
+  height: 140px;
 }
 
 /* Module classement général */
 #divClassements {
-	height: 580px;
+  height: 580px;
 }
-
 
 /* Module tchat */
 .module--tchat-texte {
-	width: 95%;
-	height: 24px;
-	resize: none;
-	padding-left: 13px;
-	border: 1px solid #999;
-	background-color: rgba(255, 255, 255, 0.3);
+  width: 95%;
+  height: 24px;
+  resize: none;
+  padding-left: 13px;
+  border: 1px solid #999;
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
 .module--tchat-texte-vide {
-	font-style: italic;
+  font-style: italic;
 }
 
 .module--tchat-messages {
-	margin-left: 8px;
+  margin-left: 8px;
 }
 
 .module--tchat-destinataires:hover {
-	text-decoration: underline;
-	cursor: pointer;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .module--tchat-groupes .action:hover {
-	text-decoration: underline;
-	cursor: pointer;
+  text-decoration: underline;
+  cursor: pointer;
 }
-
 
 /* Module tchat de groupe */
 .module--tchat-groupe-texte {
-	width: 480px;
-	height: 72px;
-	resize: none;
-	padding-left: 13px;
-	border: 1px solid #999;
-	background-color: rgba(255, 255, 255, 0.3);
-	color: #fff;
+  width: 480px;
+  height: 72px;
+  resize: none;
+  padding-left: 13px;
+  border: 1px solid #999;
+  background-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
 }
 
 /* Module vignette */
 div.vignette {
-	width: 248px;
-	height: 140px;
-	border: 1px solid #fff;
-	float: left;
+  width: 248px;
+  height: 140px;
+  border: 1px solid #fff;
+  float: left;
 }
 
 div.vignette img {
-	width: 248px;
-	height: 140px;
-	opacity: 0.8;
+  width: 248px;
+  height: 140px;
+  opacity: 0.8;
 }
 
 div.vignette img:hover {
-	opacity: 1;
+  opacity: 1;
 }
-
-
-
-
 
 /* Modules */
 div.module {
-	overflow: hidden;
+  overflow: hidden;
 }
 
 div.module input[type="checkbox"] {
-	margin: 0 0.3em 0 0;
+  margin: 0 0.3em 0 0;
 }
 
 .module--options .rafraichissement {
-	padding-left: 19px;
+  padding-left: 19px;
 }
 
 .module--options select {
-	background: transparent;
-	border: none;
+  background: transparent;
+  border: none;
 }
 
 .module--options {
-	padding-left: 8px;
-	border-bottom: 1px solid #ccc;
+  padding-left: 8px;
+  border-bottom: 1px solid #ccc;
 }
 
-.module--options select, .module--options input[type="checkbox"], .module--options label {
-	height: 21px;
-	line-height: 21px;
-	vertical-align: top;
-	display: inline-block;
+.module--options select,
+.module--options input[type="checkbox"],
+.module--options label {
+  height: 21px;
+  line-height: 21px;
+  vertical-align: top;
+  display: inline-block;
 }
 
 .module--entete {
-	height: 29px;
+  height: 29px;
 }
 
 .module--titre {
-	color: #fff;
-	font-size: 0.8em;
-	font-weight: bold;
-	float: left;
-	display: inline-block;
-	height: 29px;
-	line-height: 29px;
-	vertical-align: middle;
-	width: 100%;
+  color: #fff;
+  font-size: 0.8em;
+  font-weight: bold;
+  float: left;
+  display: inline-block;
+  height: 29px;
+  line-height: 29px;
+  vertical-align: middle;
+  width: 100%;
 }
 
 .module--entete div.bouton-fermeture {
-	float: right;
-	display: inline-block;
-	height: 29px;
-	background-image: url('../../images/bouton_fermer.png');
-	background-position: 50% 50%;
-	background-repeat: no-repeat;
-	cursor: pointer;
-	width: 35px;
-	position: absolute;
-	right: 0;
+  float: right;
+  display: inline-block;
+  height: 29px;
+  background-image: url("../../images/bouton_fermer.png");
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  width: 35px;
+  position: absolute;
+  right: 0;
 }
 
 .module--entete div.bouton-epingle {
-	float: right;
-	display: inline-block;
-	height: 29px;
-	background-image: url('../../images/bouton_epingle.png');
-	background-position: 50% 50%;
-	background-repeat: no-repeat;
-	cursor: pointer;
-	width: 35px;
-	position: absolute;
-	right: 35px;
+  float: right;
+  display: inline-block;
+  height: 29px;
+  background-image: url("../../images/bouton_epingle.png");
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  width: 35px;
+  position: absolute;
+  right: 35px;
 }
 
 .module--entete div.mode-incruste {
-	background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
-div.module--entete div.bouton-fermeture:hover, div.module--entete div.bouton-epingle:hover {
-	cursor: pointer;
+div.module--entete div.bouton-fermeture:hover,
+div.module--entete div.bouton-epingle:hover {
+  cursor: pointer;
 }
 
 .module--contenu {
-	overflow: auto;
-	height: 100%;
+  overflow: auto;
+  height: 100%;
 }
 
 .stats-match--resultat {
-	font-size: 0.8em;
-	display: inline-block;
-	width: 48px;
+  font-size: 0.8em;
+  display: inline-block;
+  width: 48px;
 }
 
 .titre-score {
-	font-size: 1.8em;
+  font-size: 1.8em;
 }
-
 
 /* Concours Centre */
 
 .cc {
-	display: block;
-	position: absolute;
-	width: 1196px;
-	height: 838px;
-	border-left: 2px solid #ccc;
-	border-right: 2px solid #ccc;
-	border-bottom: 2px solid #ccc;
-	background-color: #fff;
-	z-index: 10000;
-	color: #23355b;
-	vertical-align: middle;
-	background-color: #fff;
-	background-image: url('../../images/concours_centre_fond.jpg');
-	background-repeat: no-repeat;
-	background-position: 50% 0;
+  display: block;
+  position: absolute;
+  width: 1196px;
+  height: 838px;
+  border-left: 2px solid #ccc;
+  border-right: 2px solid #ccc;
+  border-bottom: 2px solid #ccc;
+  background-color: #fff;
+  z-index: 10000;
+  color: #23355b;
+  vertical-align: middle;
+  background-color: #fff;
+  background-image: url("../../images/concours_centre_fond.jpg");
+  background-repeat: no-repeat;
+  background-position: 50% 0;
 }
 
 .cc--contenu {
-	padding: 5px 30px;
+  padding: 5px 30px;
 }
 
 .cc--titre {
-	font-size: 2em;
-	font-weight: bold;
+  font-size: 2em;
+  font-weight: bold;
 }
 
 .cc--onglets {
-	margin-top: 10px;
+  margin-top: 10px;
 }
 
 .cc--nom-onglet {
-	font-size: 1.1em;
-	margin-right: 32px;
-	color: #999;
-	text-transform: uppercase;
+  font-size: 1.1em;
+  margin-right: 32px;
+  color: #999;
+  text-transform: uppercase;
 }
 
 .cc--nom-onglet:hover {
-	text-decoration: underline;
+  text-decoration: underline;
 }
 
 .cc--selectionne {
-	text-decoration: underline;
-	color: #2c78b2 !important;
+  text-decoration: underline;
+  color: #2c78b2 !important;
 }
 
 .cc--nom-sous-onglet {
-	font-size: 1em;
-	margin-right: 32px;
-	color: #999;
-	text-transform: uppercase;
+  font-size: 1em;
+  margin-right: 32px;
+  color: #999;
+  text-transform: uppercase;
 }
 
 .cc--nom-sous-onglet:hover {
-	color: #2c78b2;
+  color: #2c78b2;
 }
 
 .cc--contenu-interieur {
-	width: 100%;
-	height: 680px;
+  width: 100%;
+  height: 680px;
 }
 
 .cc--contenu-interieur-initial {
-	background-image: url('../../images/concours_centre_bienvenue.png');
-	background-repeat: no-repeat;
-	background-position: 50% 50%;
+  background-image: url("../../images/concours_centre_bienvenue.png");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
 }
 
 .cc--pronostiqueurs {
-	height: 280px;
-	overflow: hidden;
+  height: 280px;
+  overflow: hidden;
 }
 
 .cc--equipes {
-	max-height: 280px;
-	overflow: hidden;
+  max-height: 280px;
+  overflow: hidden;
 }
 
 .cc--vignette {
-	text-align: center;
-	margin: 0 3px 6px 3px;
+  text-align: center;
+  margin: 0 3px 6px 3px;
 }
 
 .cc--vignette img {
-	margin-bottom: 8px;
+  margin-bottom: 8px;
 }
 
 .cc--vignette:hover {
-	background-color: #2c78b2;
-	color: #fff;
+  background-color: #2c78b2;
+  color: #fff;
 }
 
 .cc--vignette--nom {
-	font-size: 0.9em;
-	/*color: #7891a7;*/
+  font-size: 0.9em;
+  /*color: #7891a7;*/
 }
 
 .cc--selectionnee {
-	background-color: #2c78b2;
+  background-color: #2c78b2;
 }
 
-.cc--pronostiqueurs-detail--nom, .cc--equipes-detail--nom {
-	font-size: 2em;
-	font-weight: bold;
+.cc--pronostiqueurs-detail--nom,
+.cc--equipes-detail--nom {
+  font-size: 2em;
+  font-weight: bold;
 }
 
 .cc--equipes-detail--nom {
-	vertical-align: middle;
+  vertical-align: middle;
 }
 
 .cc--pronostiqueurs-detail textarea {
-	width: 388px;
-	height: 128px;
-	padding-left: 10px;
-	resize: none;
-	display: inline-block;
-	border: 1px solid #999;
-	background-color: transparent;
+  width: 388px;
+  height: 128px;
+  padding-left: 10px;
+  resize: none;
+  display: inline-block;
+  border: 1px solid #999;
+  background-color: transparent;
 }
 
 .cc--pronostiqueurs-detail img.photo {
-	border: 1px solid #ccc;
+  border: 1px solid #ccc;
 }
 
 .cc--pronostiqueurs-detail textarea.grande-zone {
-	width: 388px;
-	height: 128px;
-	padding-left: 10px;
-	resize: none;
-	display: inline-block;
-	border: 1px solid #999;
-	background-color: transparent;
+  width: 388px;
+  height: 128px;
+  padding-left: 10px;
+  resize: none;
+  display: inline-block;
+  border: 1px solid #999;
+  background-color: transparent;
 }
 
 .cc--pronostiqueurs-detail--section {
-	display: block;
-	width: 390px;
-	height: 24px;
-	padding-left: 10px;
-	background-color: #2c78b2;
-	color: #fff;
-	margin-top: 3px;
+  display: block;
+  width: 390px;
+  height: 24px;
+  padding-left: 10px;
+  background-color: #2c78b2;
+  color: #fff;
+  margin-top: 3px;
 }
 
 .cc--pronostiqueurs-trophee--nom-championnat {
-	display: inline-block;
-	width: 200px;
-	height: 100px;
-	line-height: 100px;
-	text-align: right;
-	margin-right: 20px;
-	vertical-align: middle;
+  display: inline-block;
+  width: 200px;
+  height: 100px;
+  line-height: 100px;
+  text-align: right;
+  margin-right: 20px;
+  vertical-align: middle;
 }
 
 .cc--pronostiqueurs-trophee {
-	display: inline-block;
-	padding-right: 16px;
+  display: inline-block;
+  padding-right: 16px;
 }
 
 .cc--pronostiqueurs-trophee label.journees {
-	font-size: 0.9em;
+  font-size: 0.9em;
 }
 
 .cc--pronostiqueurs-trophee img {
-	display: inline-block;
+  display: inline-block;
 }
 
 .cc--tableau {
-	text-align: center;
-	font-size: 0.9em;
-	white-space: nowrap;
-	background-color: #fff;
+  text-align: center;
+  font-size: 0.9em;
+  white-space: nowrap;
+  background-color: #fff;
 }
 
 .cc--tableau tr {
-	background-color: transparent !important;
+  background-color: transparent !important;
 }
 
 .cc--tableau th {
-	padding: 0 1em !important;
-	line-height: 1.8em !important;
-	color: #fff;
-	background-color: #2c78b2 !important;
-	font-weight: normal !important;
-	/*border-bottom: 1px solid #23355b !important;*/
+  padding: 0 1em !important;
+  line-height: 1.8em !important;
+  color: #fff;
+  background-color: #2c78b2 !important;
+  font-weight: normal !important;
+  /*border-bottom: 1px solid #23355b !important;*/
 }
 
 .cc--tableau tr td:nth-child(odd) {
-	background-color: #ecf5fc;
+  background-color: #ecf5fc;
 }
 
 .cc--tableau tr td:nth-child(even) {
 }
 
 .cc--tableau tr.surbrillance td {
-	color: #fff;
-	background-color: #23355b;
+  color: #fff;
+  background-color: #23355b;
 }
 
 .cc--tableau tr.rival td {
-	color: #fff;
-	background-color: #999;
+  color: #fff;
+  background-color: #999;
 }
 
 /*.cc--tableau th:last-child {
@@ -1445,229 +1452,229 @@ div.module--entete div.bouton-fermeture:hover, div.module--entete div.bouton-epi
 }*/
 
 .cc--tableau td {
-	padding: 0 1em !important;
-	white-space: nowrap;
+  padding: 0 1em !important;
+  white-space: nowrap;
 }
 
 .cc--tableau td:last-child {
-	font-size: 0.9em;
+  font-size: 0.9em;
 }
 
 .cc--pronostiqueurs-detail--legende {
-	border: 1px solid #23355b;
+  border: 1px solid #23355b;
 }
 
 .cc--pronostiqueurs-detail--legende th {
-	padding: 0 16px;
-	line-height: 1.8em;
-	color: #fff;
-	background-color: #2c78b2;
-	font-weight: normal;
-	border-right: 1px solid #23355b;
-	border-bottom: 1px solid #23355b;
+  padding: 0 16px;
+  line-height: 1.8em;
+  color: #fff;
+  background-color: #2c78b2;
+  font-weight: normal;
+  border-right: 1px solid #23355b;
+  border-bottom: 1px solid #23355b;
 }
 
 .cc--pronostiqueurs-detail--legende th:last-child {
-	border-right: none;
+  border-right: none;
 }
 
 .cc--pronostiqueurs-detail--legende td {
-	padding: 0 16px;
-	border-right: 1px solid #23355b;
+  padding: 0 16px;
+  border-right: 1px solid #23355b;
 }
 
 .cc--pronostiqueurs-detail--legende td:last-child {
-	border-right: none;
+  border-right: none;
 }
 
 .cc--pronostiqueurs-detail--legende .titre {
-	color: #fff;
-	background-color: #2c78b2;
+  color: #fff;
+  background-color: #2c78b2;
 }
 
 .cc--statistiques-buteur {
-	height: 720px;
-	overflow: auto;
+  height: 720px;
+  overflow: auto;
 }
 
 .cc--palmares {
-	height: 720px;
-	overflow: auto;
+  height: 720px;
+  overflow: auto;
 }
 
 .cc--repartition-points {
-	height: 720px;
-	overflow: auto;
+  height: 720px;
+  overflow: auto;
 }
 
 .cc--statistiques-l1 {
-	height: 720px;
-	overflow: auto;
+  height: 720px;
+  overflow: auto;
 }
 
 .cc--pourcentage-points {
-	height: 720px;
-	overflow: auto;
+  height: 720px;
+  overflow: auto;
 }
 
 .cc--points-par-equipe {
-	height: 720px;
-	overflow: auto;
+  height: 720px;
+  overflow: auto;
 }
 
 .cc--equipes-entete {
-	line-height: 80px;
-	height: 80px;
-	vertical-align: middle;
+  line-height: 80px;
+  height: 80px;
+  vertical-align: middle;
 }
 
 .cc--equipes-entete img {
-	vertical-align: middle;
-	margin-right: 16px;
+  vertical-align: middle;
+  margin-right: 16px;
 }
 
 .cc--equipes-detail--effectif {
-	padding-right: 32px;
-	font-size: 0.9em;
+  padding-right: 32px;
+  font-size: 0.9em;
 }
 
 .cc--nom-pronostiqueur {
-	display: inline-block;
-	padding-right: 46px;
-	font-size: 0.9em;
+  display: inline-block;
+  padding-right: 46px;
+  font-size: 0.9em;
 }
 
 .confrontations {
-	width: 1232px;
-	height: 1240px;
-	position: relative;
-	margin-left: auto;
-	margin-right: auto;
-	margin-bottom: 130px;
-	top: 120px;
-	background-image: url('../../images/cdf_fond.png');
-	background-repeat: no-repeat;
-	background-position: 50% 50%;
-	font-size: 0.9em;
-	color: #fff;
+  width: 1232px;
+  height: 1240px;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 130px;
+  top: 120px;
+  background-image: url("../../images/cdf_fond.png");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  font-size: 0.9em;
+  color: #fff;
 }
 
 .confrontation--enveloppe {
-	position: absolute;
-	width: 130px;
-	height: 40px;
-	border: 1px solid #aaa;
+  position: absolute;
+  width: 130px;
+  height: 40px;
+  border: 1px solid #aaa;
 }
 
 .confrontation--enveloppe32 {
-	background-color: #333;
+  background-color: #333;
 }
 
 .confrontation--enveloppe16 {
-	background-color: #2b303b;
+  background-color: #2b303b;
 }
 
 .confrontation--enveloppe8 {
-	background-color: #3d4966;
+  background-color: #3d4966;
 }
 
 .confrontation--enveloppe4 {
-	background-color: #4b5e91;
+  background-color: #4b5e91;
 }
 
 .confrontation--enveloppe2 {
-	background-color: #8197d1;
+  background-color: #8197d1;
 }
 
 .confrontation--enveloppe1 {
-	background-color: #732525;
+  background-color: #732525;
 }
 
 .confrontation--vainqueur {
-	background-color: #457a1e !important;
+  background-color: #457a1e !important;
 }
 
 .confrontation--image {
-	display: inline-block;
-	width: 20px;
-	height: 20px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
 }
 
 .confrontation--nom {
-	display: inline-block;
-	width: 80px;
-	height: 20px;
-	line-height: 20px;
-	font-size: 0.9em;
-	padding-left: 5px;
-	vertical-align: top;
+  display: inline-block;
+  width: 80px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 0.9em;
+  padding-left: 5px;
+  vertical-align: top;
 }
 
 .confrontation--nom-sans-score {
-	width: 105px;
+  width: 105px;
 }
 
 .confrontation--score {
-	display: inline-block;
-	width: 24px;
-	height: 20px;
-	line-height: 20px;
-	vertical-align: top;
-	border-left: 1px solid #aaa;
-	background-color: #555;
-	text-align: center;
-	font-size: 0.8em;
+  display: inline-block;
+  width: 24px;
+  height: 20px;
+  line-height: 20px;
+  vertical-align: top;
+  border-left: 1px solid #aaa;
+  background-color: #555;
+  text-align: center;
+  font-size: 0.8em;
 }
 
 .confrontation--titre {
-	display: inline-block;
-	width: 130px;
-	height: 20px;
-	line-height: 20px;
-	text-align: center;
-	color: #fff;
-	background-color: #aaa;
+  display: inline-block;
+  width: 130px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  color: #fff;
+  background-color: #aaa;
 }
 
 .confrontation--branche {
-	display: inline-block;
-	position: absolute;
-	border-style: solid;
-	border-color: #aaa;
-	border-left-width: 0;
-	border-right-width: 0;
-	border-top-width: 0;
-	border-bottom-width: 0;
+  display: inline-block;
+  position: absolute;
+  border-style: solid;
+  border-color: #aaa;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-top-width: 0;
+  border-bottom-width: 0;
 }
 
 .confrontation--branche-gauche-bas {
-	border-left-width: 2px;
-	border-bottom-width: 1px;
+  border-left-width: 2px;
+  border-bottom-width: 1px;
 }
 
 .confrontation--branche-gauche-haut {
-	border-left-width: 2px;
-	border-top-width: 1px;
+  border-left-width: 2px;
+  border-top-width: 1px;
 }
 
 .confrontation--branche-droite-bas {
-	border-right-width: 2px;
-	border-bottom-width: 1px;
+  border-right-width: 2px;
+  border-bottom-width: 1px;
 }
 
 .confrontation--branche-droite-haut {
-	border-right-width: 2px;
-	border-top-width: 1px;
+  border-right-width: 2px;
+  border-top-width: 1px;
 }
 
 .confrontation--branche-demi--gauche {
-	border-left-width: 2px;
-	border-bottom-width: 2px;
+  border-left-width: 2px;
+  border-bottom-width: 2px;
 }
 
 .confrontation--branche-demi--droite {
-	border-right-width: 2px;
-	border-bottom-width: 2px;
+  border-right-width: 2px;
+  border-bottom-width: 2px;
 }
 
 .axis path,
@@ -1687,209 +1694,210 @@ div.module--entete div.bouton-fermeture:hover, div.module--entete div.bouton-epi
   stroke-width: 1.5px;
 }
 
-
 /* Page pantheon.php */
 .pantheon {
-	position: relative;
-	width: 1200px;
-	top: 120px;
-	margin: 0 auto 130px auto;
-	background-color: rgba(0, 0, 0, 0.8);
+  position: relative;
+  width: 1200px;
+  top: 120px;
+  margin: 0 auto 130px auto;
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 .pantheon--liste {
-	
 }
 
-.pantheon--liste--titre span, .pantheon--liste--donnees span {
-	display: inline-block;
-	line-height: 31px;
-	height: 31px;
-	vertical-align: middle;
+.pantheon--liste--titre span,
+.pantheon--liste--donnees span {
+  display: inline-block;
+  line-height: 31px;
+  height: 31px;
+  vertical-align: middle;
 }
 
 .pantheon--liste--bordure-basse {
-	border-bottom: 1px solid #222;
+  border-bottom: 1px solid #222;
 }
 
 .pantheon--liste--titre {
-	font-size: 9px;
-	border-bottom: 1px solid #333;
+  font-size: 9px;
+  border-bottom: 1px solid #333;
 }
 
 .pantheon--liste--photo {
-	width: 31px;
+  width: 31px;
 }
 
 .pantheon--liste--photo img {
-	display: inline-block;
-	width: 31px;
+  display: inline-block;
+  width: 31px;
 }
 
-.pantheon--liste--titre--classement, .pantheon--liste--donnees--classement {
-	width: 25px;
-	text-align: center;
+.pantheon--liste--titre--classement,
+.pantheon--liste--donnees--classement {
+  width: 25px;
+  text-align: center;
 }
 
 .pantheon--liste--nom {
-	width: 120px;
-	padding-left: 5px;
-	padding-right: 5px;
-	font-size: 14px;
+  width: 120px;
+  padding-left: 5px;
+  padding-right: 5px;
+  font-size: 14px;
 }
 
-.pantheon--liste--titre--score, .pantheon--liste--donnees--score {
-	width: 30px;
-	text-align: center;
+.pantheon--liste--titre--score,
+.pantheon--liste--donnees--score {
+  width: 30px;
+  text-align: center;
 }
 
 .pantheon--liste--donnees {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .pantheon--liste--donnees:hover span.survol {
-	background-color: #666 !important;
+  background-color: #666 !important;
 }
 
 .pantheon--liste--donnees--classement {
-	background-color: #3d4966;
-	font-size: 12px;
+  background-color: #3d4966;
+  font-size: 12px;
 }
 
 .pantheon--liste--donnees--score {
-	background-color: #1f1f1f;
-	font-size: 12px;
+  background-color: #1f1f1f;
+  font-size: 12px;
 }
 
 .pantheon--liste--donnees.selectionne span.survol {
-	background-color: #666 !important;
+  background-color: #666 !important;
 }
 
 .pantheon--top3 {
-	text-align: justify;
+  text-align: justify;
 }
 
 .pantheon--top3--pronostiqueur {
-	display: inline-block;
-	vertical-align: top;
-	width: 180px;
-	margin-right: 10px;
-	background-repeat: no-repeat;
-	background-position: 90% 80%;
+  display: inline-block;
+  vertical-align: top;
+  width: 180px;
+  margin-right: 10px;
+  background-repeat: no-repeat;
+  background-position: 90% 80%;
 }
 
 .pantheon--top3--pronostiqueur1 {
-	background-image: url('../../images/laurier_or.png');
-	border: 1px solid #e2c10f;
+  background-image: url("../../images/laurier_or.png");
+  border: 1px solid #e2c10f;
 }
 
 .pantheon--top3--pronostiqueur2 {
-	background-image: url('../../images/laurier_argent.png');
-	border: 1px solid #cecece;
+  background-image: url("../../images/laurier_argent.png");
+  border: 1px solid #cecece;
 }
 
 .pantheon--top3--pronostiqueur3 {
-	background-image: url('../../images/laurier_bronze.png');
-	border: 1px solid #cd853f;
+  background-image: url("../../images/laurier_bronze.png");
+  border: 1px solid #cd853f;
 }
 
 .pantheon--top3--pronostiqueur img {
-	width: 70px;
-	margin: 10px;
+  width: 70px;
+  margin: 10px;
 }
 
 .pantheon--top3--pronostiqueur--nom {
-	font-size: 1.5em;
+  font-size: 1.5em;
 }
 
 .pantheon--top3--pronostiqueur--score {
-	font-size: 1em;
+  font-size: 1em;
 }
 
 .pantheon--top3:after {
-	content: "";
-	width: 100%;
-	display: inline-block;
+  content: "";
+  width: 100%;
+  display: inline-block;
 }
 
 .pantheon--top3--pronostiqueur--entete {
-	text-align: center;
-	color: #fff;
-	font-size: 1.2em;
+  text-align: center;
+  color: #fff;
+  font-size: 1.2em;
 }
 
 .pantheon--top3--pronostiqueur--entete1 {
-	background-color: #e2c10f;
+  background-color: #e2c10f;
 }
 
 .pantheon--top3--pronostiqueur--entete2 {
-	background-color: #cecece;
+  background-color: #cecece;
 }
 
 .pantheon--top3--pronostiqueur--entete3 {
-	background-color: #cd853f;
+  background-color: #cd853f;
 }
 
 .pantheon--detail {
-	padding-top: 20px;
+  padding-top: 20px;
 }
 
 .pantheon--detail--pronostiqueur {
-	margin-right: 10px;
+  margin-right: 10px;
 }
 
 .pantheon--detail--pronostiqueur img {
-	width: 100px;
-	border: 1px solid #666;
+  width: 100px;
+  border: 1px solid #666;
 }
 
 .pantheon--detail--nom {
-	display: inline-block;
-	font-size: 1em;
-	width: 100px;
-	text-align: center;
+  display: inline-block;
+  font-size: 1em;
+  width: 100px;
+  text-align: center;
 }
 
 .pantheon--detail--separateur {
-	display: inline;
-	float: left;
-	width: 40px;
-	height: 160px;
-	/*background-color: #333;*/
-	background-image: url('../../images/palmares.png');
-	background-position: 50% 0;
-	background-repeat: no-repeat;
+  display: inline;
+  float: left;
+  width: 40px;
+  height: 160px;
+  /*background-color: #333;*/
+  background-image: url("../../images/palmares.png");
+  background-position: 50% 0;
+  background-repeat: no-repeat;
 }
 
 .pantheon--detail--liste-categories {
-	overflow: auto;
+  overflow: auto;
 }
 
 .pantheon--detail--tableau-trophees {
-	border: 1px solid #666;
+  border: 1px solid #666;
 }
 
 .pantheon--detail--tableau-trophees th {
-	height: 30px;
-	background-color: #333;
-	font-size: 14px;
-	padding: 0 10px;
-	border-bottom: 1px solid #666;
+  height: 30px;
+  background-color: #333;
+  font-size: 14px;
+  padding: 0 10px;
+  border-bottom: 1px solid #666;
 }
 
 .pantheon--detail--tableau-trophees th:not(:last-child) {
-	border-right: 1px solid #666;
+  border-right: 1px solid #666;
 }
 
 .pantheon--detail--tableau-trophees td {
-	vertical-align: top;
-	text-align: left;
-	font-size: 12px;
-	padding: 5px 10px;
+  vertical-align: top;
+  text-align: left;
+  font-size: 12px;
+  padding: 5px 10px;
 }
 
 .pantheon--detail--tableau-trophees td:not(:last-child) {
-	border-right: 1px solid #666;
+  border-right: 1px solid #666;
 }
 
 /*.pantheon--detail--categorie {
@@ -1911,5 +1919,9 @@ div.module--entete div.bouton-fermeture:hover, div.module--entete div.bouton-epi
 }*/
 
 .pantheon--detail--nom-categorie {
-	display: block;
+  display: block;
+}
+
+#formSondage .choix {
+  display: block;
 }
