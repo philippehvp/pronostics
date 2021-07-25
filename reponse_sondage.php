@@ -19,28 +19,34 @@
 			echo '<div id="divEnteteReponseSondage" class="contenu-page"></div>';
 
 			echo '<div id="divReponseSondage">';
-				echo '<h3>Sondage sur le maintien du mail de compte-rendu hebdomadaire</h3>';
 				echo '<br/>';
-				echo '<p>Texte d\'explication à définir...</p>';
+				
+				include_once('sondage.php');
+
+				echo '<br/><br/>';
 				echo '<form id="formSondage">';
 					echo '<span class="choix">';
 						echo '<input type="radio" id="reponse1" name="sondage" value="1">';
-						echo '<label for="reponse1">' . 'Choix 1 (sans commentaire)' . '</label>';
+						echo '<label for="reponse1">' . 'OUI Je la lis à chaque fois c\'est parfait comme ça' . '</label>';
 					echo '</span>';
 					echo '<span class="choix">';
 						echo '<input type="radio" id="reponse2" name="sondage" value="2">';
-						echo '<label for="reponse2">' . 'Choix 2 (avec commentaire éventuel)' . '</label>';
+						echo '<label for="reponse2">' . 'OUI mais en modifiant son contenu : quelle partie modifier/supprimer ou quelle rubrique rajouter ?' . '</label>';
 					echo '</span>';
 					echo '<span class="choix">';
-						echo '<label for="commentaire">Commentaire réponse 2 :</label>';
-						echo '<input type="text" id="commentaire" name="commentaire" minlength="3" maxlength="255" size="255">';
+						echo '<label for="commentaire">Suggestion :</label><br />';
+						echo '<textarea id="commentaire" name="commentaire" minlength="3" maxlength="500" rows="5" cols="90"></textarea>';
 					echo '</span>';
 					echo '<span class="choix">';
 						echo '<input type="radio" id="reponse3" name="sondage" value="3">';
-						echo '<label for="reponse3">' . 'Choix 3 (sans commentaire)' . '</label>';
+						echo '<label for="reponse3">' . 'NON je ne la lis que quand je gagne donc rarement' . '</label>';
+					echo '</span>';
+					echo '<span class="choix">';
+						echo '<input type="radio" id="reponse4" name="sondage" value="4">';
+						echo '<label for="reponse4">' . 'NON je trouve toutes les infos sur le site donc son contenu ne m\'intéresse pas' . '</label>';
 					echo '</span>';
 				echo '</form>';
-				echo '<label class="validation">Répondre</label>';
+				echo '<br /><label class="validation">Répondre</label>';
 			echo '</div>';	
 		echo '</div>';
 	?>

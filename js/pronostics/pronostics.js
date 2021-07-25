@@ -5592,7 +5592,7 @@ function reponseSondage_validerReponse() {
   var choix = $("input[name=sondage]:checked", "#formSondage").val();
   var commentaire;
   if (choix == "2") {
-    commentaire = $("input[name=commentaire]", "#formSondage").val();
+    commentaire = $("textarea#commentaire", "#formSondage").val();
   } else {
     commentaire = null;
   }
