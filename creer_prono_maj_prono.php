@@ -178,12 +178,14 @@
 								'				AND		Matches_Match = ' . $matchRetour;
 				$req = $bdd->query($ordreSQL);
 				$donnees = $req->fetch();
-
 				$retour_ScoreEquipeDomicile = $donnees["Pronostics_ScoreEquipeDomicile"];
 				$retour_ScoreEquipeVisiteur = $donnees["Pronostics_ScoreEquipeVisiteur"];
 
 				if($aller_ScoreEquipeDomicile != -1 && $retour_ScoreEquipeDomicile != -1 && $aller_ScoreEquipeVisiteur != -1 && $retour_ScoreEquipeVisiteur != -1) {
-					if($aller_ScoreEquipeDomicile == $retour_ScoreEquipeDomicile && $aller_ScoreEquipeVisiteur == $retour_ScoreEquipeVisiteur) {
+					$totalEquipeDomicile = $aller_ScoreEquipeVisiteur + $retour_ScoreEquipeDomicile;
+					$totalEquipeVisiteur = $aller_ScoreEquipeDomicile + $retour_ScoreEquipeVisiteur;
+
+					if($totalEquipeDomicile == $totalEquipeVisiteur) {
 						$resultat["resultat"] = 'PROLONGATION|TAB|score 2-3';
 
 						// Copie des scores du match retour vers les scores de prolongation
@@ -224,7 +226,7 @@
 			break;
 
 			case 4:
-				// Lecture des pronostics AP du match
+				// Lecture des pronostics
 				$ordreSQL =		'	SELECT		IFNULL(Pronostics_ScoreEquipeDomicile, -1) AS Pronostics_ScoreEquipeDomicile, IFNULL(Pronostics_ScoreEquipeVisiteur, -1) AS Pronostics_ScoreEquipeVisiteur' .
 								'	FROM		pronostics' .
 								'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
@@ -311,6 +313,15 @@
 	else if($type == 'scoreAP') {
 		// Lecture des scores AP du match retour (type de match 3)
 		if($typeMatch == 3) {
+			$ordreSQL =		'	SELECT		IFNULL(Pronostics_ScoreEquipeDomicile, -1) AS Pronostics_ScoreEquipeDomicile, IFNULL(Pronostics_ScoreEquipeVisiteur, -1) AS Pronostics_ScoreEquipeVisiteur' .
+							'	FROM		pronostics' .
+							'	WHERE		Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
+							'				AND		Matches_Match = ' . $matchAller;
+			$req = $bdd->query($ordreSQL);
+			$donnees = $req->fetch();
+			$aller_ScoreEquipeDomicile = $donnees["Pronostics_ScoreEquipeDomicile"];
+			$aller_ScoreEquipeVisiteur = $donnees["Pronostics_ScoreEquipeVisiteur"];
+			
 			$ordreSQL =		'	SELECT		IFNULL(Pronostics_ScoreEquipeDomicile, -1) AS Pronostics_ScoreEquipeDomicile,' .
 							'				IFNULL(Pronostics_ScoreEquipeVisiteur, -1) AS Pronostics_ScoreEquipeVisiteur,' .
 							'				IFNULL(Pronostics_ScoreAPEquipeDomicile, IFNULL(Pronostics_ScoreEquipeDomicile, -1)) AS Pronostics_ScoreAPEquipeDomicile,' .
@@ -320,21 +331,22 @@
 							'				AND		Matches_Match = ' . $matchRetour;
 			$req = $bdd->query($ordreSQL);
 			$donnees = $req->fetch();
-
 			$retour_ScoreEquipeDomicile = $donnees["Pronostics_ScoreEquipeDomicile"];
 			$retour_ScoreEquipeVisiteur = $donnees["Pronostics_ScoreEquipeVisiteur"];
 			$retour_ScoreAPEquipeDomicile = $donnees["Pronostics_ScoreAPEquipeDomicile"];
 			$retour_ScoreAPEquipeVisiteur = $donnees["Pronostics_ScoreAPEquipeVisiteur"];
 
 			if($retour_ScoreEquipeDomicile != -1 && $retour_ScoreAPEquipeDomicile != -1 && $retour_ScoreEquipeVisiteur != -1 && $retour_ScoreAPEquipeVisiteur != -1) {
-				if($retour_ScoreEquipeDomicile == $retour_ScoreAPEquipeDomicile && $retour_ScoreEquipeVisiteur == $retour_ScoreAPEquipeVisiteur) {
+				$totalEquipeDomicile = $aller_ScoreEquipeVisiteur + $retour_ScoreAPEquipeDomicile;
+				$totalEquipeVisiteur = $aller_ScoreEquipeDomicile + $retour_ScoreAPEquipeVisiteur;
+				if($totalEquipeDomicile == $totalEquipeVisiteur) {
 					$resultat["resultat"] = 'PROLONGATION|TAB|score AP 3';
 				}
 				else {
 					// S'il n'y a pas TAB, on efface le nom du vainqueur car il a pu avoir été écrit à un moment
 					$ordreSQL =		'	UPDATE			pronostics' .
-									'	SET				Pronostics_Vainqueur = NULL' .
-									'					,Pronostics_DateMAJ = NOW()' .
+									'	SET				Pronostics_Vainqueur = NULL,' .
+									'					Pronostics_DateMAJ = NOW()' .
 									'	WHERE			Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
 									'					AND		Matches_Match = ' . $matchRetour;
 					$bdd->exec($ordreSQL);

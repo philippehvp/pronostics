@@ -183,7 +183,7 @@
 				// Dans le cas du match retour d'une confrontation directe, il faut indiquer le nombre de points pour la qualification d'une équipe
 				// Il n'y a pas de points de qualification pour le match nul bien entendu
 				// C'est le cas également pour les matches de Coupe
-				if(($matchLie != null && $matchLie < $numeroMatch) || ($matchesAvecProlongation == 1)) {
+				if(($matchLie != null && $matchLie < $numeroMatch) || ($matchesAvecProlongation == 1) || ($matchCS)) {
 					echo '<tr>';
 						echo '<td class="colonne-theme">Qualification</td>';
 						echo '<td colspan="2">';
