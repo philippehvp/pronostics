@@ -28,6 +28,7 @@
 					'				,Pronostiqueurs_AfficherTropheesChampionnat' .
 					'				,IFNULL(themes.Themes_NomCourt, \'defaut\') AS Pronostiqueurs_Theme' .
 					'				,IFNULL(Pronostiqueurs_ReponseSondage, 1) AS Pronostiqueurs_ReponseSondage' .
+					'				,Pronostiqueurs_Auth' .
 					'	FROM		pronostiqueurs' .
 					'	LEFT JOIN	themes' .
 					'				ON		pronostiqueurs.Themes_Theme = themes.Theme' .
@@ -45,6 +46,7 @@
 	$_SESSION["administrateur"] = $donnees["Pronostiqueurs_Administrateur"];
 	$_SESSION["photo_pronostiqueur"] = $donnees["Pronostiqueurs_Photo"];
 	$_SESSION["theme_pronostiqueur"] = $donnees["Pronostiqueurs_Theme"];
+	$_SESSION["auth_pronostiqueur"] = $donnees["Pronostiqueurs_Auth"];
 	$premiereConnexion = $donnees["Pronostiqueurs_PremiereConnexion"];
 	$reponseSondage = $donnees["Pronostiqueurs_ReponseSondage"];
 	$afficherTropheesChampionnat = $donnees["Pronostiqueurs_AfficherTropheesChampionnat"];
@@ -72,6 +74,7 @@
 		$_SESSION["prenom_pronostiqueur"] = '';
 		$_SESSION["administrateur"] = 0;
 		$_SESSION["photo_pronostiqueur"] = '';
+		$_SESSION["auth_pronostiqueur"] = '';
 		$_SESSION["erreur_login"] = 1;
 		header('Location: index.php');
 	}

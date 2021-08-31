@@ -331,10 +331,10 @@
 							'				AND		Matches_Match = ' . $matchRetour;
 			$req = $bdd->query($ordreSQL);
 			$donnees = $req->fetch();
-			$retour_ScoreEquipeDomicile = $donnees["Pronostics_ScoreEquipeDomicile"];
-			$retour_ScoreEquipeVisiteur = $donnees["Pronostics_ScoreEquipeVisiteur"];
-			$retour_ScoreAPEquipeDomicile = $donnees["Pronostics_ScoreAPEquipeDomicile"];
-			$retour_ScoreAPEquipeVisiteur = $donnees["Pronostics_ScoreAPEquipeVisiteur"];
+			$retour_ScoreEquipeDomicile = $donnees["Pronostics_ScoreEquipeDomicile"] != null ? $donnees["Pronostics_ScoreEquipeDomicile"] : -1;
+			$retour_ScoreEquipeVisiteur = $donnees["Pronostics_ScoreEquipeVisiteur"] != null ? $donnees["Pronostics_ScoreEquipeVisiteur"] : -1;
+			$retour_ScoreAPEquipeDomicile = $donnees["Pronostics_ScoreAPEquipeDomicile"] != null ? $donnees["Pronostics_ScoreAPEquipeDomicile"] : -1;
+			$retour_ScoreAPEquipeVisiteur = $donnees["Pronostics_ScoreAPEquipeVisiteur"] != null ? $donnees["Pronostics_ScoreAPEquipeVisiteur"] : -1;
 
 			if($retour_ScoreEquipeDomicile != -1 && $retour_ScoreAPEquipeDomicile != -1 && $retour_ScoreEquipeVisiteur != -1 && $retour_ScoreAPEquipeVisiteur != -1) {
 				$totalEquipeDomicile = $aller_ScoreEquipeVisiteur + $retour_ScoreAPEquipeDomicile;

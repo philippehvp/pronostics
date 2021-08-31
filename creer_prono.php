@@ -174,15 +174,15 @@
 			$pronostics_ScoreAPEquipeVisiteur = $unMatch["Pronostics_ScoreAPEquipeVisiteur"] != null ? $unMatch["Pronostics_ScoreAPEquipeVisiteur"] : -1;
 			$pronosticsLies_ScoreEquipeDomicile = $unMatch["PronosticsLies_ScoreEquipeDomicile"] != null ? $unMatch["PronosticsLies_ScoreEquipeDomicile"] : -1;
 			$pronosticsLies_ScoreEquipeVisiteur = $unMatch["PronosticsLies_ScoreEquipeVisiteur"] != null ? $unMatch["PronosticsLies_ScoreEquipeVisiteur"] : -1;
-			$pronosticsLies_ScoreAPEquipeDomicile = $unMatch["PronosticsLies_ScoreAPEquipeDomicile"] != null ? $unMatch["PronosticsLies_ScoreAPEquipeDomicile"] : -1;
-			$pronosticsLies_ScoreAPEquipeVisiteur = $unMatch["PronosticsLies_ScoreAPEquipeVisiteur"] != null ? $unMatch["PronosticsLies_ScoreAPEquipeVisiteur"] : -1;
 
 			// Sauf dans certains cas
 			if($typeMatch == 3) {
 				// Match retour d'une confrontation aller-retour
 				// Si tous les 4 scores (match aller et retour) ont été saisis, on les compare pour voir s'il faut afficher les scores AP ou non
 				if($pronostics_ScoreEquipeDomicile != -1 && $pronostics_ScoreEquipeVisiteur != -1 && $pronosticsLies_ScoreEquipeDomicile != -1 && $pronosticsLies_ScoreEquipeVisiteur != -1)
-					if($pronostics_ScoreEquipeDomicile == $pronosticsLies_ScoreEquipeDomicile && $pronostics_ScoreEquipeVisiteur == $pronosticsLies_ScoreEquipeVisiteur)
+					$totalEquipeDomicile = $pronostics_ScoreEquipeVisiteur + $pronosticsLies_ScoreEquipeDomicile;
+					$totalEquipeVisiteur = $pronostics_ScoreEquipeDomicile + $pronosticsLies_ScoreEquipeVisiteur;
+					if($totalEquipeDomicile == $totalEquipeVisiteur)
 						$style = '';
 			}
 			else if($typeMatch == 4) {
@@ -238,18 +238,20 @@
 			if($typeMatch == 3) {
 				// Match retour d'une confrontation aller-retour
 				// Si tous les 6 scores (aller, retour 90ème et AP) ont été saisis, on les compare pour voir s'il faut afficher les scores AP ou non
-				if($pronosticsLies_ScoreEquipeDomicile != 1 && $pronosticsLies_ScoreEquipeVisiteur != -1 && $pronostics_ScoreEquipeDomicile != -1 && $pronostics_ScoreEquipeVisiteur != -1 && $pronostics_ScoreAPEquipeDomicile != -1 && $pronostics_ScoreAPEquipeVisiteur != -1)
-					if($pronosticsLies_ScoreEquipeDomicile == $pronostics_ScoreEquipeDomicile && $pronosticsLies_ScoreEquipeVisiteur == $pronostics_ScoreEquipeVisiteur && $pronostics_ScoreEquipeDomicile == $pronostics_ScoreAPEquipeDomicile && $pronostics_ScoreEquipeVisiteur == $pronostics_ScoreAPEquipeVisiteur) {
+				if(	$pronosticsLies_ScoreEquipeDomicile != -1 &&
+					$pronosticsLies_ScoreEquipeVisiteur != -1 &&
+					$pronostics_ScoreEquipeDomicile != -1 &&
+					$pronostics_ScoreEquipeVisiteur != -1 &&
+					$pronostics_ScoreAPEquipeDomicile != -1 &&
+					$pronostics_ScoreAPEquipeVisiteur != -1)
+					$totalEquipeDomicile = $pronosticsLies_ScoreEquipeVisiteur + $pronostics_ScoreAPEquipeDomicile;
+					$totalEquipeVisiteur = $pronosticsLies_ScoreEquipeDomicile + $pronostics_ScoreAPEquipeVisiteur;
+					if($totalEquipeDomicile == $totalEquipeVisiteur) {
 						$style = '';
 					}
 			}
 			else if($typeMatch == 4) {
-				// Match seul avec prolongation (match de Coupe de France, finale de la LDC)
-				/*echo '$pronostics_ScoreEquipeDomicile = ' . $pronostics_ScoreEquipeDomicile . '<br />';
-				echo '$pronostics_ScoreEquipeVisiteur = ' . $pronostics_ScoreEquipeVisiteur . '<br />';
-				echo '$pronostics_ScoreAPEquipeDomicile = ' . $pronostics_ScoreAPEquipeDomicile . '<br />';
-				echo '$pronostics_ScoreAPEquipeVisiteur = ' . $pronostics_ScoreAPEquipeVisiteur . '<br />';*/
-
+				// Match seul avec prolongation (finale de Coupe de France, finale de la LDC, finale d'EL)
 				if($pronostics_ScoreEquipeDomicile != -1 && $pronostics_ScoreEquipeVisiteur != -1)
 					if($pronostics_ScoreEquipeDomicile == $pronostics_ScoreEquipeVisiteur)
 						if($pronostics_ScoreAPEquipeDomicile != -1 && $pronostics_ScoreAPEquipeVisiteur != -1)
