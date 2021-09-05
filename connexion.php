@@ -28,7 +28,7 @@
 					'				,Pronostiqueurs_AfficherTropheesChampionnat' .
 					'				,IFNULL(themes.Themes_NomCourt, \'defaut\') AS Pronostiqueurs_Theme' .
 					'				,IFNULL(Pronostiqueurs_ReponseSondage, 1) AS Pronostiqueurs_ReponseSondage' .
-					'				,Pronostiqueurs_Auth' .
+					'				,Pronostiqueurs_AuthId' .
 					'	FROM		pronostiqueurs' .
 					'	LEFT JOIN	themes' .
 					'				ON		pronostiqueurs.Themes_Theme = themes.Theme' .
@@ -46,7 +46,7 @@
 	$_SESSION["administrateur"] = $donnees["Pronostiqueurs_Administrateur"];
 	$_SESSION["photo_pronostiqueur"] = $donnees["Pronostiqueurs_Photo"];
 	$_SESSION["theme_pronostiqueur"] = $donnees["Pronostiqueurs_Theme"];
-	$_SESSION["auth_pronostiqueur"] = $donnees["Pronostiqueurs_Auth"];
+	$_SESSION["auth_pronostiqueur"] = $donnees["Pronostiqueurs_AuthId"];
 	$premiereConnexion = $donnees["Pronostiqueurs_PremiereConnexion"];
 	$reponseSondage = $donnees["Pronostiqueurs_ReponseSondage"];
 	$afficherTropheesChampionnat = $donnees["Pronostiqueurs_AfficherTropheesChampionnat"];
