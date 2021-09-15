@@ -18,7 +18,8 @@
 		$nomEquipe = '';
 	}
 
-	$ordreSQL =		'	SELECT		DISTINCT Equipe, Equipes_Nom, IFNULL(Equipes_NomCourt, \'-\') AS Equipes_NomCourt, Equipes_Fanion' .
+	$ordreSQL =		'	SELECT		DISTINCT Equipe, Equipes_Nom, IFNULL(Equipes_NomCourt, \'-\') AS Equipes_NomCourt' .
+					'				,IFNULL(Equipes_NomCorrespondanceComplementaire, \'-\') AS Equipes_NomCorrespondanceComplementaire, Equipes_Fanion' .
 					'				,CASE WHEN l1.Equipes_Equipe IS NOT NULL THEN 1 ELSE 0 END AS Equipes_L1' .
 					'				,IFNULL(Equipes_L1Europe, 0) AS Equipes_L1Europe' .
 					'				,CASE WHEN ldc.Equipes_Equipe IS NOT NULL THEN 1 ELSE 0 END AS Equipes_LDC' .
@@ -57,6 +58,7 @@
 				echo '<th>Identifiant</th>';
 				echo '<th>Nom</th>';
 				echo '<th>Nom court</th>';
+				echo '<th>Nom compl.</th>';
 				echo '<th>Fanion</th>';
 				echo '<th>L1</th>';
 				echo '<th>L1 Europe</th>';
@@ -79,8 +81,9 @@
 						echo '<td class="aligne-centre">' . $uneEquipe["Equipe"] . '</td>';
 						echo '<td><input type="text" id="txtEquipeNom_' . $uneEquipe["Equipe"] . '" value="' . $uneEquipe["Equipes_Nom"] . '" onchange="gererEquipe_modifierEquipe($(this), ' . $uneEquipe["Equipe"] . ', 0);" /></td>';
 						echo '<td><input type="text" id="txtEquipeNomCourt_' . $uneEquipe["Equipe"] . '" value="' . $uneEquipe["Equipes_NomCourt"] . '" onchange="gererEquipe_modifierEquipe($(this), ' . $uneEquipe["Equipe"] . ', 1);" /></td>';
+						echo '<td><input type="text" id="txtEquipeNomCorrespondanceComplementaire_' . $uneEquipe["Equipe"] . '" value="' . $uneEquipe["Equipes_NomCorrespondanceComplementaire"] . '" onchange="gererEquipe_modifierEquipe($(this), ' . $uneEquipe["Equipe"] . ', 2);" /></td>';
 						echo '<td>';
-                            echo '<input type="text" id="txtEquipeFanion_' . $uneEquipe["Equipe"] . '" value="' . $uneEquipe["Equipes_Fanion"] . '" onchange="gererEquipe_modifierEquipe($(this), ' . $uneEquipe["Equipe"] . ', 2);" />';
+                            echo '<input type="text" id="txtEquipeFanion_' . $uneEquipe["Equipe"] . '" value="' . $uneEquipe["Equipes_Fanion"] . '" onchange="gererEquipe_modifierEquipe($(this), ' . $uneEquipe["Equipe"] . ', 3);" />';
                             echo '&nbsp;<label for="ficFanion_' . $uneEquipe["Equipe"] . '" class="bouton">Fanion</label>';
                             echo '<input id="ficFanion_' . $uneEquipe["Equipe"] . '" name="ficFanion_' . $uneEquipe["Equipe"] . '" type="file" style="display: none;" />';
                         echo '</td>';

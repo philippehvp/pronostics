@@ -14,7 +14,8 @@
 	switch($champ) {
 		case 0: $colonne = 'Equipes_Nom'; break;
 		case 1: $colonne = 'Equipes_NomCourt'; break;
-		case 2: $colonne = 'Equipes_Fanion'; break;
+		case 2: $colonne = 'Equipes_NomCorrespondanceComplementaire'; break;
+		case 3: $colonne = 'Equipes_Fanion'; break;
 	}
 
 	$ordreSQL =		'	UPDATE		equipes' .

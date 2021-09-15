@@ -20,7 +20,7 @@
 			$bdd = new PDO('mysql:host=db;port=3306;dbname=lepoulpeg', 'root', 'Allezlom2014', array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
 		} else {
 			$_SESSION["local"] = 0;
-			$bdd = new PDO('mysql:host=mysql55-217.perso;dbname=lepoulpeg', 'lepoulpeg', 'Allezlom2014', array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
+			$bdd = new PDO('mysql:host=lepoulpeg.mysql.db;dbname=lepoulpeg', 'lepoulpeg', 'Allezlom2014', array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
 		}
 		$bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
