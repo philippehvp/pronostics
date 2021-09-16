@@ -1,6 +1,5 @@
 <?php
 	// Lecture des remplacements de joueurs, buteurs, scores (90', AP et fin de TAB) et fin des matches en direct
-
 	include_once('commun_administrateur.php');
 	include_once('creer_match_fonctions.php');
 
@@ -8,7 +7,6 @@
 					'	FROM		matches' .
 					'	JOIN		matches_direct' .
 					'				ON		matches.Match = matches_direct.Matches_Match';
-
 	$req = $bdd->query($ordreSQL);
 	$matches = $req->fetchAll();
 

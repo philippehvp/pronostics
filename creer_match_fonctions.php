@@ -23,7 +23,6 @@
 							'				AND		Joueurs_Joueur = ' . $joueur .
 							'				AND		MatchesEvenements_Evenement = ' . $codeEvenement .
 							'				AND		MatchesEvenements_Datation = ' . $datation;
-
 			$req = $bdd->query($ordreSQL);
 			$evenement = $req->fetchAll();
 
@@ -37,6 +36,7 @@
 				else
 					$ordreSQL =		'	INSERT INTO matches_evenements(Matches_Match, Joueurs_Joueur, MatchesEvenements_Evenement, MatchesEvenements_Datation)' .
 									'	VALUES(' . $match . ', ' . $joueur . ', ' . $codeEvenement . ', ' . $datation . ')';
+				
 				$bdd->exec($ordreSQL);
 				return 1;
 			}
@@ -77,12 +77,12 @@
 			'þ'=>'b', 'Þ'=>'B', 'đ'=>'d',
 			'Ç'=>'C', 'Ć'=>'C', 'Č'=>'C', 'ć'=>'c', 'č'=>'c',
 			'Đ'=>'D', 'Ď'=>'D',
-			'ę'=>'e', 'ě'=>'e',
+			'É'=>'E', 'ę'=>'e', 'ě'=>'e',
 			'ğ'=>'g',
 			'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'İ'=>'I', 'Ï'=>'I', 'ı'=>'i', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i',
 			'Ł'=>'L', 'ł'=>'l',
 			'Ñ'=>'N', 'ñ'=>'n', 'ń'=>'n',
-			'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'ð'=>'o', 'ò'=>'o', 'ó'=>'o', 'õ'=>'o', 'ö'=>'o', 'ø'=>'o', 'ō'=>'o',
+			'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'ð'=>'o', 'ò'=>'o', 'ó'=>'o', 'õ'=>'o', 'ö'=>'o', 'ø'=>'o', 'ō'=>'o', 'ô'=>'o',
 			'Ř'=>'R', 'ř'=>'r',
 			'Š'=>'S', 'Ş'=>'S', 'š'=>'s', 'ş'=>'s', 'ș'=>'s',
 			'ţ'=>'t', 'ț'=>'t', 'Ț'=>'T',
@@ -336,16 +336,17 @@
 		$bdd->exec($ordreSQL);
 	}
 
-	// Suppression du match de la liste des matches en direct et mise à jour du statut de match en direct
-	// La suppression de la surveillance n'intervient que 30 minutes après la fin de la détection de la fin du match
-	// Cela permet de détecter des mises à jour effeectuées sur le site externe
+	/**
+	 * Suppression du match de la liste des matches en direct et mise à jour du statut de match en direct
+	 * La suppression de la surveillance n'intervient que 30 minutes après la fin de la détection de la fin du match
+	 * Cela permet de détecter des mises à jour effeectuées sur le site externe
+	 */
 	function supprimerMatchDuDirect($bdd, $match) {
 		$ordreSQL =		'	DELETE		matches_direct' .
 						'	FROM		matches_direct' .
 						'	JOIN		matches_evenements' .
 						'				ON		matches_direct.Matches_Match = matches_evenements.Matches_Match' .
-						'	WHERE		matches_direct.Matches_Match = ' . $match .
-						'				AND		matches_evenements.MatchesEvenements_Evenement = 9' .
+						'	WHERE		matches_evenements.MatchesEvenements_Evenement = 9' .
 						'				AND		NOW() > DATE_ADD(matches_evenements.MatchesEvenements_DateEvenement, INTERVAL 30 MINUTE)';
 		$bdd->exec($ordreSQL);
 
@@ -357,10 +358,12 @@
 		mettreAJourJournee($bdd, $match);
 	}
 
-	// Ajout d'un message d'erreur
-	// L'ajout du message d'erreur ne doit se faire qu'une seule fois
-	// Si le message n'existait pas auparavant, il est ajouté et la fonction retourne la valeur 1
-	// Si le message existait déjà, il n'est pas ajouté et la fonction retourne la valeur 0
+	/**
+	 * Ajout d'un message d'erreur
+	 * L'ajout du message d'erreur ne doit se faire qu'une seule fois
+	 * Si le message n'existait pas auparavant, il est ajouté et la fonction retourne la valeur 1
+	 * Si le message existait déjà, il n'est pas ajouté et la fonction retourne la valeur 0
+	 */
 	function ajouterErreur($bdd, $match, $message, $datation) {
 		$ordreSQL =		'	SELECT		COUNT(*) AS Nombre' .
 						'	FROM		matches_erreurs' .

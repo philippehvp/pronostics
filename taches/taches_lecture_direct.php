@@ -21,7 +21,6 @@
 					'	FROM		matches' .
 					'	JOIN		matches_direct' .
 					'				ON		matches.Match = matches_direct.Matches_Match';
-
 	$req = $bdd->query($ordreSQL);
 	$matches = $req->fetchAll();
 
@@ -44,7 +43,6 @@
 		if(!$baliseMatchDetail) {
 			continue;
 		}
-
 		$baliseScore = $xpath->query('//span[contains(@class, "score")]', $baliseMatchDetail->item(0));
 		if(!$baliseScore) {
 			continue;
