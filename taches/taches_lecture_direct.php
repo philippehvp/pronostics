@@ -89,8 +89,8 @@
 			}
 
 			$nomJoueur = remplacerCaracteres(my_utf8_decode(trim($unRemplacant->parentNode->textContent)));
-
 			$joueur = rechercherJoueur($bdd, $nomJoueur, $equipe, $unMatch["Matches_Date"], 1);
+
 			if($joueur <= 0) {
 				$joueur = rechercherJoueurInitialePrenom($bdd, $nomJoueur, $equipe, $unMatch["Matches_Date"], 1);
 			}
@@ -117,8 +117,9 @@
 					}
 				}
 			}
-			else
+			else {
 				ajouterErreur($bdd, $match, 'Equipe ' . $equipe . ' - Joueur remplaçant ' . $nomJoueur . ' inconnu', 0);
+			}
 		}
 
 		// Expulsions de joueurs (expulsion directe ou après deux cartons jaunes)

@@ -189,7 +189,7 @@
                                     echo '<label class="titre">Pronostics</label>';
                                     echo '<label class="lien" onclick="window.open(\'creer_prono.php\', \'_self\');" title="Saisir les pronostics de la journée ou des journées en cours"><span>Journée(s) en cours</span></label>';
 
-                                    if($administrateur == 1) {
+                                    if($pronostiqueur == 7) {
                                         echo '<label class="lien" onclick="window.open(\'http://lepoulpedor.com/parieurs/#/home?authId=' . $_SESSION["auth_pronostiqueur"] . '\', \'_blank\');" title="Parieurs (beta)"><span>Parieurs (beta)</span></label>';
                                     }
 

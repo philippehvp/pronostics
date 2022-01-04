@@ -3681,8 +3681,8 @@ function modules_sauvegarderPositionModule(module, nomConteneur, parametre) {
       data: {
         module: module,
         parametre: parametre,
-        x: coordonnees.left < 5000 ? coordonnees.left : 5000,
-        y: coordonnees.top < 3000 ? coordonnees.top : 3000,
+        x: coordonnees.left < 5000 ? coordonnees.left : 300,
+        y: coordonnees.top < 3000 ? coordonnees.top : 300,
       },
     });
   }

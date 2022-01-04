@@ -43,7 +43,7 @@
 			if($championnat == 2)
 				$nombrePoules = 8;
 			else if($championnat == 3)
-				$nombrePoules = 12;
+				$nombrePoules = 8;
 			else
 				$nombrePoules = 1;
 
