@@ -32,7 +32,7 @@
 		// Lecture des données déjà saisies par le pronostiqueur
 		$ordreSQL =		'	SELECT		PronosticsBonus_EquipeChampionne' .
 						'				,PronosticsBonus_EquipeLDC1, PronosticsBonus_EquipeLDC2, PronosticsBonus_EquipeLDC3' .
-						'				,PronosticsBonus_EquipeReleguee1, PronosticsBonus_EquipeReleguee2, PronosticsBonus_EquipeReleguee3' .
+						'				,PronosticsBonus_EquipeReleguee1, PronosticsBonus_EquipeReleguee2, PronosticsBonus_EquipeReleguee3, PronosticsBonus_EquipeReleguee4' .
 						'				,PronosticsBonus_JoueurMeilleurButeur' .
 						'				,PronosticsBonus_JoueurMeilleurPasseur' .
 						'				,buteurs.Joueurs_NomFamille AS NomMeilleurButeur' .
@@ -55,6 +55,7 @@
 			$pronosticsBonus_EquipeReleguee1 = $pronostics_bonus[0]["PronosticsBonus_EquipeReleguee1"] != null ? $pronostics_bonus[0]["PronosticsBonus_EquipeReleguee1"] : 0;
 			$pronosticsBonus_EquipeReleguee2 = $pronostics_bonus[0]["PronosticsBonus_EquipeReleguee2"] != null ? $pronostics_bonus[0]["PronosticsBonus_EquipeReleguee2"] : 0;
 			$pronosticsBonus_EquipeReleguee3 = $pronostics_bonus[0]["PronosticsBonus_EquipeReleguee3"] != null ? $pronostics_bonus[0]["PronosticsBonus_EquipeReleguee3"] : 0;
+			$pronosticsBonus_EquipeReleguee4 = $pronostics_bonus[0]["PronosticsBonus_EquipeReleguee4"] != null ? $pronostics_bonus[0]["PronosticsBonus_EquipeReleguee4"] : 0;
 			$meilleurButeur = $pronostics_bonus[0]["PronosticsBonus_JoueurMeilleurButeur"] != null ? $pronostics_bonus[0]["PronosticsBonus_JoueurMeilleurButeur"] : 0;
 			$meilleurPasseur = $pronostics_bonus[0]["PronosticsBonus_JoueurMeilleurPasseur"] != null ? $pronostics_bonus[0]["PronosticsBonus_JoueurMeilleurPasseur"] : 0;
 			$nomMeilleurButeur = $pronostics_bonus[0]["NomMeilleurButeur"] != null ? $pronostics_bonus[0]["NomMeilleurButeur"] : 0;
@@ -68,6 +69,7 @@
 			$pronosticsBonus_EquipeReleguee1 = 0;
 			$pronosticsBonus_EquipeReleguee2 = 0;
 			$pronosticsBonus_EquipeReleguee3 = 0;
+			$pronosticsBonus_EquipeReleguee4 = 0;
 			$meilleurButeur = 0;
 			$meilleurPasseur = 0;
 			$nomMeilleurButeur = '';
@@ -168,7 +170,7 @@
 						}
 					echo '</select>';
 				echo '</div>';
-				echo '<div class="texte"><label>Equipe terminant 18<sup>ème</sup></label></div>';
+				echo '<div class="texte"><label>Equipe 1 reléguée en ligue 2</label></div>';
 			echo '</div>';
 
 			echo '<div class="tuile gauche impair">';
@@ -195,6 +197,19 @@
 					echo '</select>';
 				echo '</div>';
 				echo '<div class="texte"><label>Equipe 3 reléguée en ligue 2</label></div>';
+			echo '</div>';
+
+			echo '<div class="tuile colle-gauche impair">';
+				echo '<div class="saisie">';
+					echo '<select id="selectEquipesReleguees4">';
+						echo '<option value="-1" selected="selected">Equipes</option>';
+						foreach($equipes as $uneEquipe) {
+							$selected = $pronosticsBonus_EquipeReleguee4 == $uneEquipe["Equipe"] ? ' selected="selected"' : '';
+							echo '<option value="' . $uneEquipe["Equipe"] . '"' . $selected . '>' . $uneEquipe["Equipes_Nom"] . '</option>';
+						}
+					echo '</select>';
+				echo '</div>';
+				echo '<div class="texte"><label>Equipe 4 reléguée en ligue 2</label></div>';
 			echo '</div>';
 
 			// Bouton de validation
