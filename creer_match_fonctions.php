@@ -73,7 +73,7 @@
 	// Fonction de remplacement de certains caractères d'un nom passé en paramètre
 	function remplacerCaracteres($chaine) {
 		$tableauCaracteres = array(
-			'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'á'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ă'=>'a', 'ą'=>'a',
+			'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'á'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ă'=>'a', 'ą'=>'a', 'ə'=>'a',
 			'þ'=>'b', 'Þ'=>'B', 'đ'=>'d',
 			'Ç'=>'C', 'Ć'=>'C', 'Č'=>'C', 'ć'=>'c', 'č'=>'c',
 			'Đ'=>'D', 'Ď'=>'D',

@@ -550,12 +550,14 @@
 						'				ON		pronostics_bonus.PronosticsBonus_EquipeLDC2 = equipes_2.Equipe' .
 						'	JOIN		equipes equipes_3' .
 						'				ON		pronostics_bonus.PronosticsBonus_EquipeLDC3 = equipes_3.Equipe' .
+						'	JOIN		equipes equipes_17' .
+						'				ON		pronostics_bonus.PronosticsBonus_EquipeReleguee1 = equipes_17.Equipe' .
 						'	JOIN		equipes equipes_18' .
-						'				ON		pronostics_bonus.PronosticsBonus_EquipeReleguee1 = equipes_18.Equipe' .
+						'				ON		pronostics_bonus.PronosticsBonus_EquipeReleguee2 = equipes_18.Equipe' .
 						'	JOIN		equipes equipes_19' .
-						'				ON		pronostics_bonus.PronosticsBonus_EquipeReleguee2 = equipes_19.Equipe' .
+						'				ON		pronostics_bonus.PronosticsBonus_EquipeReleguee3 = equipes_19.Equipe' .
 						'	JOIN		equipes equipes_20' .
-						'				ON		pronostics_bonus.PronosticsBonus_EquipeReleguee3 = equipes_20.Equipe' .
+						'				ON		pronostics_bonus.PronosticsBonus_EquipeReleguee4 = equipes_20.Equipe' .
 						'	JOIN		joueurs meilleurs_buteurs' .
 						'				ON		pronostics_bonus.PronosticsBonus_JoueurMeilleurButeur = meilleurs_buteurs.Joueur' .
 						'	JOIN		joueurs meilleurs_passeurs' .
