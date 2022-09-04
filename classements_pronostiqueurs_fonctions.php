@@ -439,7 +439,7 @@
 		$req = $bdd->query($ordreSQL);
 		$equipe_championne = $req->fetchAll();
 
-		// Trois premières et trois dernières places du championnat
+		// Trois premières et quatre dernières places du championnat
 		$ordreSQL =		'	SELECT		equipes.Equipes_NomCourt' .
 						'				,CASE' .
 						'					WHEN		bonus_anticipes_equipes_podium.Equipes_Equipe IS NOT NULL' .
@@ -467,7 +467,7 @@
 						'				ON		Equipes_Equipe = Equipe' .
 						'	LEFT JOIN	bonus_anticipes_equipes_relegation' .
 						'				ON		classements_virtuels_equipes.Equipes_Equipe = bonus_anticipes_equipes_relegation.Equipes_Equipe' .
-						'	WHERE		ClassementsEquipes_Classement >= 18' .
+						'	WHERE		ClassementsEquipes_Classement >= 17' .
 						'	ORDER BY	ClassementsEquipes_Classement ASC';
 
 		$req = $bdd->query($ordreSQL);
@@ -528,7 +528,7 @@
 						'				END AS Equipes_LDC' .
 						'				,CASE' .
 						'					WHEN	NOW() >= bonus_date_max.Bonus_Date_Max OR pronostics_bonus.Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] .
-						'					THEN	CONCAT(equipes_18.Equipes_NomCourt, \', \', equipes_19.Equipes_NomCourt, \', \', equipes_20.Equipes_NomCourt)' .
+						'					THEN	CONCAT(equipes_17.Equipes_NomCourt, \', \', equipes_18.Equipes_NomCourt, \', \', equipes_19.Equipes_NomCourt, \', \', equipes_20.Equipes_NomCourt)' .
 						'					ELSE	\'?\'' .
 						'				END AS Equipes_Releguees' .
 						'				,CASE' .
