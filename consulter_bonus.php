@@ -87,9 +87,10 @@
                             echo '<th>LDC 1</th>';
                             echo '<th>LDC 2</th>';
                             echo '<th>LDC 3</th>';
-                            echo '<th>18<sup>ème</sup></th>';
+                            echo '<th>Releguée 1</th>';
                             echo '<th>Releguée 2</th>';
                             echo '<th>Releguée 3</th>';
+                            echo '<th>Releguée 4</th>';
                             echo '<th>Meilleur buteur</th>';
                             echo '<th>Meilleur passeur</th>';
                         echo '</tr>';
