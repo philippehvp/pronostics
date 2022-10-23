@@ -216,7 +216,7 @@
 														}
 													);
 			<?php
-				if($_SESSION["cdm_pronostiqueur"] == 1 || time() < 1528988400) {
+				if($_SESSION["cdm_pronostiqueur"] == 1 || time() < 1668963600) {
 			?>
 					$('#nomMeilleurButeur').keyup(function(event) {
 						// Lecture de la taille de la zone de texte

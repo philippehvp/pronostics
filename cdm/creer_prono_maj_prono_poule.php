@@ -10,7 +10,7 @@
 
 	// Le paramètre equipe indique s'il s'agit du score de l'équipe A ou celui de l'équipe B
 	// On vérifie avant tout qu'il n'est pas trop tard pour faire la modification
-	if($_SESSION["cdm_pronostiqueur"] != 1 && time() > 1528988400) {
+	if($_SESSION["cdm_pronostiqueur"] != 1 && time() > 1668960000) {
 		echo 'DEPASSE';
 		exit();
 	}

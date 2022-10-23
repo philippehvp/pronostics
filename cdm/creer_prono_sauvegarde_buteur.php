@@ -6,7 +6,7 @@
 	// Lecture des paramètres passés à la page
 	$joueur = isset($_POST["joueur"]) ? $_POST["joueur"] : 0;
 
-	if($_SESSION["cdm_pronostiqueur"] != 1 && time() > 1528988400) {
+	if($_SESSION["cdm_pronostiqueur"] != 1 && time() > 1668960000) {
 		echo 'Heure de pronostic dépassée';
 		exit();
 	}

@@ -29,12 +29,12 @@
 }
 
 .ui-dialog .ui-dialog-content {
-	background-color: #0039a6;
+	background-color: #8a1538;
 }
 
 .ui-dialog .ui-dialog-buttonpane {
 	margin: 0;
-	background-color: #0039a6;
+	background-color: #8a1538;
 }
 
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
@@ -49,17 +49,17 @@
 /* Boutons */
 .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited {
 	color: #fff;
-	background-color: #0039a6;
+	background-color: #8a1538;
 	text-decoration: none;
 }
 
 .ui-state-default a:hover, .ui-state-default a:active {
-	background-color: #d52b1e;
+	background-color: #410a1b;
 	background-image: none;
 }
 
 li.ui-tabs-active .ui-tabs-anchor, .ui-tabs .ui-tabs-nav li.ui-state-disabled .ui-tabs-anchor, .ui-tabs .ui-tabs-nav li.ui-tabs-loading .ui-tabs-anchor {
-	background-color: #d52b1e;
+	background-color: #8a1538;
 	background-image: none;
 }
 
@@ -70,11 +70,11 @@ li.ui-tabs-active .ui-tabs-anchor, .ui-tabs .ui-tabs-nav li.ui-state-disabled .u
 
 .ui-button, .ui-dialog .ui-dialog-buttonpane button {
 	color: #fff;
-	background-color: #0039a6;
+	background-color: #8a1538;
 }
 
 .ui-button:hover, .ui-dialog .ui-dialog-buttonpane button:hover {
-	background-color: #d52b1e;
+	background-color: #410a1b;
 }
 
 .ui-tabs .ui-tabs-panel {
@@ -100,7 +100,7 @@ body {
 	background-color: #cccccc;
 	font: 0.9em Verdana,Helvetica,Arial,sans-serif;
 	height: 100%;
-	background-image: url('../../images/fond/fond_principal_russie.jpg');
+	background-image: url('../../images/fond/fond_principal_qatar.png');
 	background-repeat: repeat;
 	background-position: center top;
 }
@@ -111,7 +111,7 @@ ul {
 
 select, select option {
 	color: #fff;
-	background-color: #0039a6;
+	background-color: #8a1538;
 	border: 1px solid #fff;
 }
 
@@ -148,7 +148,7 @@ h1 {
 
 .blanc {
 	background-color: #fff;
-	color: #0039a6;
+	color: #8a1538;
 }
 
 .vert {
@@ -170,11 +170,11 @@ h1 {
 }
 
 .pair {
-	background-color: #0039a6;
+	background-color: #8a1538;
 }
 
 .impair {
-	background-color: #828282;
+	background-color: #410a1b;
 }
 
 table tbody tr.bordureHaut td {
@@ -187,7 +187,7 @@ table {
 
 table thead th {
 	background-color: #fff;
-	color: #0039a6;
+	color: #8a1538;
 	font-size: 0.9em;
 	font-weight: normal;
 }
@@ -219,7 +219,7 @@ table.lignes tbody tr td {
 	height: 20px;
 	padding: 10px; 
 	text-align: center; 
-	background: #0039a6;
+	background: #8a1538;
 	color: #fff;
 	text-decoration: none;
 	position: fixed;
@@ -282,7 +282,7 @@ table.lignes tbody tr td {
 	display: none;
 	padding: 5px 0 5px 5px;
 	margin-left: 30px;
-	background-color: #872a2b;
+	background-color: #8a1538;
 	position: absolute;
 	top: 70px;
 }
@@ -354,7 +354,7 @@ table.lignes tbody tr td {
 }
 
 #divMenuW8 div.tuileCarree:hover, #divMenuW8 div.tuileRectangulaire:hover {
-	background-color: #d52b1e;
+	background-color: #8a1538;
 }
 
 #divMenuW8 div.tuileFermer {
@@ -367,7 +367,7 @@ table.lignes tbody tr td {
 }
 
 #divMenuW8 div.tuileFermer label.fermer:hover {
-	color: #d52b1e;
+	color: #8a1538;
 }
 
 #divMenuW8 div.tuileProfil {
@@ -379,7 +379,7 @@ table.lignes tbody tr td {
 }
 
 #divMenuW8 div.tuileProfil div.zoneTexte label.deconnecter:hover {
-	color: #d52b1e;
+	color: #8a1538;
 }
 
 #divMenuW8 div.tuileProfil div.zoneTexte {
@@ -474,7 +474,7 @@ table.lignes tbody tr td {
 }
 
 #divConnexion div.validation:hover {
-	color: #d52b1e;
+	color: #8a1538;
 }
 
 #divConnexion input {
@@ -488,8 +488,8 @@ table.lignes tbody tr td {
 
 #divConnexion input:focus {
 	color: #fff;
-	background-color: #d52b1e;
-	border: 1px solid #d52b1e;
+	background-color: #8a1538;
+	border: 1px solid #8a1538;
 	outline: none;
 }
 
@@ -570,20 +570,20 @@ table.lignes tbody tr td {
 }
 
 #divPronosticsPoules table.classementPoule tbody tr.fondVert {
-	background-color: #0039a6;
+	background-color: #8a1538;
 }
 
 #divPronosticsPoules table.classementPoule tbody tr.fondOrange {
-	background-color: #d52b1e;
+	background-color: #8a1538;
 }
 
 #divPronosticsPoules .ui-button .ui-button-text {
-	color: #0039a6;
-	background-image: url('../../images/fond_transparent.png');
+	color: #fff;
+	background-color: #8a1538;
 }
 
 #divPronosticsPoules .ui-button .ui-button-text:hover {
-	background-color: #d52b1e;
+	background-color: #8a1538;
 }
 
 ul.listeTriee li {
@@ -623,7 +623,7 @@ ul.listeTriee li {
 #divEntetePhaseFinale {
 	font-size: 1.2em;
 	color: #fff;
-	background: #0039a6;
+	background: #410a1b;
 	width: 900px;
 	height: 40px;
 	line-height: 40px;
@@ -670,7 +670,7 @@ ul.listeTriee li {
 	width: 120px;
 	height: 24px;
 	line-height: 24px;
-	background: #d52b1e;
+	background: #8a1538;
 }
 
 #divTableau div.equipe1_8 span.score, #divTableau div.equipe1_4 span.score, #divTableau div.equipe1_2 span.score, #divTableau div.equipe1_1 span.score {
@@ -758,7 +758,7 @@ ul.listeTriee li {
 	width: 900px;
 	height: 50px;
 	color: #fff;
-	background-color: #0039a6;
+	background-color: #410a1b;
 	text-align: center;
 	padding-top: 10px;
 	position: relative;
@@ -796,7 +796,7 @@ ul.listeTriee li {
 }
 
 #divMeilleurButeur div.listeJoueurs table tbody tr:hover td {
-	background-color: #d52b1e;
+	background-color: #8a1538;
 	cursor: pointer;
 }
 
@@ -940,7 +940,7 @@ ul.listeTriee li {
 ,#tblStatistiques tr:nth-child(even)
 ,#tblStatistiquesEvolution tr:nth-child(even)
 ,#tblPoints tr:nth-child(even) {
-	background-color: #0039a6;
+	background-color: #8a1538;
 }
 
 #tblPronosticsPoule tr:nth-child(odd)
@@ -1078,7 +1078,7 @@ ul.listeTriee li {
 }
 
 #divStatistiques table tr:nth-child(even) {
-	background-color: #0039a6;
+	background-color: #8a1538;
 }
 
 #divStatistiques table tr:nth-child(odd) {

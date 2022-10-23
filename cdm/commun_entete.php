@@ -7,4 +7,4 @@
 	<link rel="stylesheet" href="css/custom-theme/jquery-ui-1.10.4.custom.css" />
 	<link rel="stylesheet" href="css/cdm/cdm.css" />
 	
-	<title>Russie 2018</title>
+	<title>Qatar 2022</title>

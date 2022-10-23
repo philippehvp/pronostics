@@ -17,9 +17,9 @@
 		// - avant le premier match de poule : phase de pronostics
 		// - après le premier match de poule et une heure avant le premier 1/8 de finale : phase de poule
 		// - après la phase de poule on se trouve en phase finale
-		if(time() < 1528988400) {
+		if(time() < 1668960000) {
 			$phase = 0;
-		} else if(time() >= 1528988400 && time() < 1530363600) {
+		} else if(time() >= 1668960000 && time() < 1670079600) {
 			$phase = 1;
 		} else {
 			$phase = 2;
