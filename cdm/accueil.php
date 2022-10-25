@@ -48,9 +48,11 @@
 			}
 		
 			// Affichage du classement général
-			echo '<div id="divClassementGeneral" class="colle-gauche gauche">';
-				include_once('module_classement_general.php');
-			echo '</div>';
+			if($phase != 0) {
+				echo '<div id="divClassementGeneral" class="colle-gauche gauche">';
+					include_once('module_classement_general.php');
+				echo '</div>';
+			}
 			
 			// Pronostics de poule
 			if($phase == 1) {

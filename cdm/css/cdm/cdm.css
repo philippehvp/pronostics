@@ -59,7 +59,7 @@
 }
 
 li.ui-tabs-active .ui-tabs-anchor, .ui-tabs .ui-tabs-nav li.ui-state-disabled .ui-tabs-anchor, .ui-tabs .ui-tabs-nav li.ui-tabs-loading .ui-tabs-anchor {
-	background-color: #8a1538;
+	background-color: #410a1b;
 	background-image: none;
 }
 
@@ -339,7 +339,7 @@ table.lignes tbody tr td {
 
 #divMenuW8 div {
 	margin: 0 8px 8px 0;
-	background-color: #0039a6;
+	background-color: #8a1538;
 	float: left;
 	height: 20px;
 	padding: 100px 0 0 7px;
@@ -516,7 +516,7 @@ table.lignes tbody tr td {
 	height: 35px;
 	line-height: 35px;
 	font-size: 1em;
-	color: #0039a6;
+	color: #8a1538;
 }
 
 #divPronosticsPoules div.matchPoule span {
@@ -670,7 +670,7 @@ ul.listeTriee li {
 	width: 120px;
 	height: 24px;
 	line-height: 24px;
-	background: #8a1538;
+	background: #410a1b;
 }
 
 #divTableau div.equipe1_8 span.score, #divTableau div.equipe1_4 span.score, #divTableau div.equipe1_2 span.score, #divTableau div.equipe1_1 span.score {
@@ -791,7 +791,7 @@ ul.listeTriee li {
 #divMeilleurButeur div.listeJoueurs table {
 	border: 1px solid #ccc;
 	width: 200px;
-	background-color: #0039a6;
+	background-color: #8a1538;
 	color: #fff;
 }
 
@@ -818,9 +818,10 @@ ul.listeTriee li {
 
 #divReglement {
 	width: 890px;
-	height: 1050px;
+	height: 100%;
 	margin: 0 auto;
 	padding-left: 10px;
+	background-color: rgba(0, 0, 0, 0.5);
 }
 
 #divReglement ul {
@@ -1106,7 +1107,7 @@ ul.listeTriee li {
 
 #divEnteteJournees div.nomModule, #divEnteteClassements div.nomModule {
 	background-color: #fff;
-	color: #0039a6;
+	color: #8a1538;
 	width: 150px;
 	height: 25px;
 	font-size: 0.8em;
