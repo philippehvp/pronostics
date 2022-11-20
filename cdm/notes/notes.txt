@@ -2,8 +2,8 @@ couleurs
 normal : 8a1538
 accentué : 410a1b
 
-Premier match de poule :
-1668960000 soit 20/11/2022 à 17h
+Blocage avant le premier match de poule :
+1668956400 soit 20/11/2022 à 16h
 
 Premier match de 1/8 :
 1670079600 soit 03/12/2022 à 16h
@@ -13,7 +13,45 @@ Ouverture : 1528988400 soit 14/06/2018 à 15h
 Poule : 1530374400 soit 30/06/2018 à 18h
 0039a6
 
-1668960000
+1668956400
+
+
+
+
+/* Pronostics de poule mal saisis */
+select      distinct cdm_pronostiqueurs.Pronostiqueurs_Nom
+from        cdm_pronostiqueurs
+join        cdm_pronostics_poule
+            on      cdm_pronostiqueurs.Pronostiqueur = cdm_pronostics_poule.Pronostiqueurs_Pronostiqueur
+where       cdm_pronostiqueurs.Pronostiqueur <> 1
+            and     cdm_pronostics_poule.PronosticsPoule_Score is null;
+
+Hugo, Stephane Q, Vincent N, Romain B, Gaetan, Yohann B, Michael M
+
+
+
+/* Phase finale mal saisie */
+select      group_concat(cdm_pronostiqueurs.Pronostiqueurs_Nom separator ', ')
+from        cdm_pronostiqueurs
+left join   cdm_pronostics_phase_finale
+            on      cdm_pronostiqueurs.Pronostiqueur = cdm_pronostics_phase_finale.Pronostiqueurs_Pronostiqueur
+where       cdm_pronostiqueurs.Pronostiqueur <> 1
+            and     cdm_pronostics_phase_finale.Pronostiqueurs_Pronostiqueur is null;
+
+Hugo, Stephane Q, Vincent N, Romain B, Gaetan, Michael M
+
+
+/* Meilleur buteur mal saisi */
+SELECT      group_concat(cdm_pronostiqueurs.Pronostiqueurs_Nom separator ', ')
+FROM        cdm_pronostiqueurs
+join        cdm_pronostics_buteur
+            on      Pronostiqueur = Pronostiqueurs_Pronostiqueur
+where       Pronostiqueurs_Pronostiqueur <> 1
+            and     Joueurs_Joueur = 0;
+Hugo, Stephane Q, Vincent N, Romain B, Gaetan, Michael M
+
+
+
 
 
 Clé
