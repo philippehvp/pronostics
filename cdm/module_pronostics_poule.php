@@ -97,9 +97,9 @@
 					'	LEFT JOIN	cdm_scores' .
 					'				ON		cdm_pronostiqueurs.Pronostiqueur = cdm_scores.Pronostiqueurs_Pronostiqueur' .
 					'						AND		cdm_matches_poule.Match = cdm_scores.Matches_Match' .
+					'						AND		cdm_scores.Scores_Phase = 1' .
 					'	WHERE		cdm_pronostiqueurs.Pronostiqueur <> 1' .
-					'				AND		Matches_JourneeEnCours = ' . $journeeEnCours .
-					'				AND		cdm_scores.Scores_Phase = 1' .
+					'				AND		cdm_matches_poule.Matches_JourneeEnCours = ' . $journeeEnCours .
 					'	ORDER BY	Ordre, cdm_pronostiqueurs.Pronostiqueurs_Nom, equipesA.Pronostiqueurs_Pronostiqueur, Matches_DateLocale, cdm_matches_poule.Match';
 
 	$req = $bdd->query($ordreSQL);
