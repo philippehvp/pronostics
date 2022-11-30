@@ -2,7 +2,7 @@
 	// Page d'affichage du classement général
 
 	$JOURNEE_MIN = 1;
-	$JOURNEE_MAX = 25;
+	$JOURNEE_MAX = 23;
 
 	$appelAjax = isset($_POST["appelAjax"]) ? $_POST["appelAjax"] : 0;
 	if($appelAjax == 1) {

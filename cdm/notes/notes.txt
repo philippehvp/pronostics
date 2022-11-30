@@ -38,7 +38,13 @@ left join   cdm_pronostics_phase_finale
 where       cdm_pronostiqueurs.Pronostiqueur <> 1
             and     cdm_pronostics_phase_finale.Pronostiqueurs_Pronostiqueur is null;
 
-Hugo, Stephane Q, Vincent N, Romain B, Gaetan, Michael M
+select      cdm_pronostiqueurs.Pronostiqueurs_Nom, cdm_pronostiqueurs.Pronostiqueur
+from        cdm_pronostiqueurs
+left join   cdm_pronostics_phase_finale
+            on      cdm_pronostiqueurs.Pronostiqueur = cdm_pronostics_phase_finale.Pronostiqueurs_Pronostiqueur
+where       cdm_pronostiqueurs.Pronostiqueur <> 1
+group by    cdm_pronostiqueurs.Pronostiqueurs_Nom
+having      count(*) < 16;
 
 
 /* Meilleur buteur mal saisi */

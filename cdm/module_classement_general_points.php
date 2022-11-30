@@ -34,15 +34,15 @@
 					'					JOIN		(' .
 					'									SELECT		DISTINCT' .
 					'												CASE' .
-					'													WHEN	' . $journeeEnCours . ' = 12 AND Poules_Poule IN (1, 2)' .
+					'													WHEN	' . $journeeEnCours . ' = 10 AND Poules_Poule IN (1, 2)' .
 					'													THEN	Poules_Poule' .
-					'													WHEN	' . $journeeEnCours . ' = 13 AND Poules_Poule IN (1, 2, 3, 4)' .
+					'													WHEN	' . $journeeEnCours . ' = 11 AND Poules_Poule IN (1, 2, 3, 4)' .
 					'													THEN	Poules_Poule' .
-					'													WHEN	' . $journeeEnCours . ' = 14 AND Poules_Poule IN (1, 2, 3, 4, 5, 6)' .
+					'													WHEN	' . $journeeEnCours . ' = 12 AND Poules_Poule IN (1, 2, 3, 4, 5, 6)' .
 					'													THEN	Poules_Poule' .
-					'													WHEN	' . $journeeEnCours . ' = 15 AND Poules_Poule IN (1, 2, 3, 4, 5, 6, 7, 8)' .
+					'													WHEN	' . $journeeEnCours . ' = 13 AND Poules_Poule IN (1, 2, 3, 4, 5, 6, 7, 8)' .
 					'													THEN	Poules_Poule' .
-					'													WHEN	' . $journeeEnCours . ' >= 16' .
+					'													WHEN	' . $journeeEnCours . ' >= 14' .
 					'													THEN	Poules_Poule' .
 					'													ELSE	NULL' .
 					'												END AS Poules_Poule' .
@@ -71,15 +71,15 @@
 					'					JOIN		(' .
 					'									SELECT		DISTINCT' .
 					'												CASE' .
-					'													WHEN	' . $journeeEnCours . ' = 12 AND Poules_Poule IN (1, 2)' .
+					'													WHEN	' . $journeeEnCours . ' = 10 AND Poules_Poule IN (1, 2)' .
 					'													THEN	Poules_Poule' .
-					'													WHEN	' . $journeeEnCours . ' = 13 AND Poules_Poule IN (1, 2, 3, 4)' .
+					'													WHEN	' . $journeeEnCours . ' = 11 AND Poules_Poule IN (1, 2, 3, 4)' .
 					'													THEN	Poules_Poule' .
-					'													WHEN	' . $journeeEnCours . ' = 14 AND Poules_Poule IN (1, 2, 3, 4, 5, 6)' .
+					'													WHEN	' . $journeeEnCours . ' = 12 AND Poules_Poule IN (1, 2, 3, 4, 5, 6)' .
 					'													THEN	Poules_Poule' .
-					'													WHEN	' . $journeeEnCours . ' = 15 AND Poules_Poule IN (1, 2, 3, 4, 5, 6, 7, 8)' .
+					'													WHEN	' . $journeeEnCours . ' = 13 AND Poules_Poule IN (1, 2, 3, 4, 5, 6, 7, 8)' .
 					'													THEN	Poules_Poule' .
-					'													WHEN	' . $journeeEnCours . ' >= 16' .
+					'													WHEN	' . $journeeEnCours . ' >= 14' .
 					'													THEN	Poules_Poule' .
 					'													ELSE	NULL' .
 					'												END AS Poules_Poule' .

@@ -6,7 +6,7 @@
 	// La détection de l'appel dépend de la présence du paramètre appelAjax
 
 	$JOURNEE_MIN = 1;
-	$JOURNEE_MAX = 15;
+	$JOURNEE_MAX = 13;
 	
 	$appelAjax = isset($_POST["appelAjax"]) ? $_POST["appelAjax"] : 0;
 	if($appelAjax == 1) {
@@ -127,75 +127,76 @@
 	echo '</div>';
 		
 	// Affichage des matches dans l'en-tête de la table
-	echo '<table id="tblPronosticsPoule">';
-		echo '<thead>';
-			echo '<tr>';
-				echo '<th>&nbsp;</th>';
-				for($i = 0; $i < $nombreMatches; $i++) {
-					if($i < $nombreMatches - 1)
-						$bordure = 'bordure-droite';
-					else
-						$bordure = '';
-
-					echo '<th class="match" title="' . $matches[$i]["EquipesA_Nom"] . ' vs ' . $matches[$i]["EquipesB_Nom"] . '">';
-						// Zone des noms des équipes
-						// Match en direct ?
-						$matchEnDirect = $matches[$i]["Matches_EnDirect"] == 1 ? 'matchEnDirect' : '';
-						echo '<div class="gauche nomEquipes">';
-							// Equipe A
-							echo '<div>' . $matches[$i]["EquipesA_NomCourt"] . '</div>';
-							
-							// Equipe B
-							echo '<div>' . $matches[$i]["EquipesB_NomCourt"] . '</div>';
-						echo '</div>';
-						
-						// Zone des scores des matches
-						echo '<div class="gauche scoreEquipes ' . $matchEnDirect . '">';
-							// Score équipes
-							echo $matches[$i]["Score_EquipeA"] . ' - ' . $matches[$i]["Score_EquipeB"];
-						echo '</div>';
-					echo '</th>';
-				}
-			echo '</tr>';
-		echo '</thead>';
-		echo '<tbody>';
-			for($j = 0; $j < $nombrePronostics; $j++) {
+	echo '<div id="divPronosticsPoule">';
+		echo '<table id="tblPronosticsPoule">';
+			echo '<thead>';
 				echo '<tr>';
-					echo '<td class="nomPronostiqueur bordure-droite">' . $pronostics[$j*$nombreMatches]["Pronostiqueurs_Nom"] . '</td>';
-					for($k = 0; $k < $nombreMatches; $k++) {
-						if($k < $nombreMatches - 1)
+					echo '<th>&nbsp;</th>';
+					for($i = 0; $i < $nombreMatches; $i++) {
+						if($i < $nombreMatches - 1)
 							$bordure = 'bordure-droite';
 						else
 							$bordure = '';
-						
-						$scoreA = $pronostics[$j*$nombreMatches+$k]["Score_EquipeA"] != null ? $pronostics[$j*$nombreMatches+$k]["Score_EquipeA"] : '&nbsp;';
-						$scoreB = $pronostics[$j*$nombreMatches+$k]["Score_EquipeB"] != null ? $pronostics[$j*$nombreMatches+$k]["Score_EquipeB"] : '&nbsp;';
-						$scoreMatch = $pronostics[$j*$nombreMatches+$k]["Scores_ScoreMatch"] != null ? $pronostics[$j*$nombreMatches+$k]["Scores_ScoreMatch"] : '&nbsp;';
-						
-						// Couleur de chaque cellule selon les résultats
-						if($scoreMatch < 5)
-							$style = '';
-						else if($scoreMatch >= 5 && $scoreMatch < 10)
-							$style = 'orange';
-						else
-							$style = 'vert';
-							
-						echo '<td class="match">';
-							// Score des équipes
-							echo '<div class="gauche scoreEquipes fondScore">';
-								echo $scoreA . ' - ' . $scoreB;
+
+						echo '<th class="match" title="' . $matches[$i]["EquipesA_Nom"] . ' vs ' . $matches[$i]["EquipesB_Nom"] . '">';
+							// Zone des noms des équipes
+							// Match en direct ?
+							$matchEnDirect = $matches[$i]["Matches_EnDirect"] == 1 ? 'matchEnDirect' : '';
+							echo '<div class="gauche nomEquipes">';
+								// Equipe A
+								echo '<div>' . $matches[$i]["EquipesA_NomCourt"] . '</div>';
+								
+								// Equipe B
+								echo '<div>' . $matches[$i]["EquipesB_NomCourt"] . '</div>';
 							echo '</div>';
 							
-							// Zone des points match
-							echo '<div class="gauche pointsMatch ' . $style . '">';
-								echo $scoreMatch;
+							// Zone des scores des matches
+							echo '<div class="gauche scoreEquipes ' . $matchEnDirect . '">';
+								// Score équipes
+								echo $matches[$i]["Score_EquipeA"] . ' - ' . $matches[$i]["Score_EquipeB"];
 							echo '</div>';
-						echo '</td>';
-						
+						echo '</th>';
 					}
 				echo '</tr>';
-			}
-		echo '</tbody>';
-	echo '</table>';
-	
+			echo '</thead>';
+			echo '<tbody>';
+				for($j = 0; $j < $nombrePronostics; $j++) {
+					echo '<tr>';
+						echo '<td class="nomPronostiqueur bordure-droite">' . $pronostics[$j*$nombreMatches]["Pronostiqueurs_Nom"] . '</td>';
+						for($k = 0; $k < $nombreMatches; $k++) {
+							if($k < $nombreMatches - 1)
+								$bordure = 'bordure-droite';
+							else
+								$bordure = '';
+							
+							$scoreA = $pronostics[$j*$nombreMatches+$k]["Score_EquipeA"] != null ? $pronostics[$j*$nombreMatches+$k]["Score_EquipeA"] : '&nbsp;';
+							$scoreB = $pronostics[$j*$nombreMatches+$k]["Score_EquipeB"] != null ? $pronostics[$j*$nombreMatches+$k]["Score_EquipeB"] : '&nbsp;';
+							$scoreMatch = $pronostics[$j*$nombreMatches+$k]["Scores_ScoreMatch"] != null ? $pronostics[$j*$nombreMatches+$k]["Scores_ScoreMatch"] : '&nbsp;';
+							
+							// Couleur de chaque cellule selon les résultats
+							if($scoreMatch < 5)
+								$style = '';
+							else if($scoreMatch >= 5 && $scoreMatch < 10)
+								$style = 'orange';
+							else
+								$style = 'vert';
+								
+							echo '<td class="match">';
+								// Score des équipes
+								echo '<div class="gauche scoreEquipes fondScore">';
+									echo $scoreA . ' - ' . $scoreB;
+								echo '</div>';
+								
+								// Zone des points match
+								echo '<div class="gauche pointsMatch ' . $style . '">';
+									echo $scoreMatch;
+								echo '</div>';
+							echo '</td>';
+							
+						}
+					echo '</tr>';
+				}
+			echo '</tbody>';
+		echo '</table>';
+	echo '</div>';
 ?>

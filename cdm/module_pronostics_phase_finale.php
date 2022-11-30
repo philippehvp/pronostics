@@ -5,8 +5,8 @@
 	// Selon l'appelant, il est nécessaire ou non d'inclure l'en-tête, de créer la balise englobante ou non, etc.
 	// La détection de l'appel dépend de la présence du paramètre appelAjax
 
-	$JOURNEE_MIN = 16;
-	$JOURNEE_MAX = 25;
+	$JOURNEE_MIN = 14;
+	$JOURNEE_MAX = 23;
 	
 	$appelAjax = isset($_POST["appelAjax"]) ? $_POST["appelAjax"] : 0;
 	if($appelAjax == 1) {

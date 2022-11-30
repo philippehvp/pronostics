@@ -925,6 +925,7 @@ ul.listeTriee li {
 }
 
 #tblPronosticsPoule, #tblPronosticsPhaseFinale, #tblMeilleurButeur, #tblClassementsPoule {
+	margin-top: 30px;
 	border-bottom: 1px solid #fff;
 }
 
