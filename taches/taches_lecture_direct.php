@@ -43,13 +43,17 @@
 		if(!$baliseMatchDetail) {
 			continue;
 		}
+
 		$baliseScore = $xpath->query('//span[contains(@class, "score")]', $baliseMatchDetail->item(0));
+
 		if(!$baliseScore) {
 			continue;
 		}
 
-		$scoreEquipeDomicile = trim($baliseScore->item(0)->textContent);
-		$scoreEquipeVisiteur = trim($baliseScore->item(1)->textContent);
+		$score = explode(" - ", $baliseScore->item(0)->textContent);
+
+		$scoreEquipeDomicile = trim($score[0]);
+		$scoreEquipeVisiteur = trim($score[1]);
 
 		if($scoreEquipeDomicile == "" || $scoreEquipeVisiteur == "") {
 			continue;
@@ -326,8 +330,8 @@
 		}
 
 		// Arrivé ici, on regarde si le match est terminé pour indiquer qu'il n'est plus en direct
-		$texteMatchTermine = "Match termin";
-		$baliseMatchTermine = $xpath->query('//div[contains(text(), "' . my_utf8_decode($texteMatchTermine) . '")]');
+		$texteMatchTermine = "Aujourd'hui";
+		$baliseMatchTermine = $xpath->query('//div[contains(text(), "' . my_utf8_decode($texteMatchTermine) . '") and contains(@class, "status")]');
 		if($baliseMatchTermine->length) {
 			ajouterEvenement($bdd, $match, 0, 9, 0, 1);
 			supprimerMatchDuDirect($bdd, $match);

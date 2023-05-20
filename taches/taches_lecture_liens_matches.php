@@ -26,21 +26,20 @@
 
 	// Premier temps : lecture de la page de lien pour les matches qui commencent d'ici 15 minutes et qui n'en possèdent pas encore
 	$ordreSQL =		'	SELECT		DISTINCT Journees_Journee' .
-								'	FROM			matches' .
-								'	WHERE			DATE_ADD(NOW(), INTERVAL 15 MINUTE) >= matches.Matches_Date' .
-								'						AND		matches.Matches_Date >= NOW()' .
-								'						AND		LENGTH(LTRIM(RTRIM(IFNULL(Matches_LienPage, \'\')))) = 0';
-
+					'	FROM		matches' .
+					'	WHERE		DATE_ADD(NOW(), INTERVAL 15 MINUTE) >= matches.Matches_Date' .
+					'				AND		matches.Matches_Date >= NOW()' .
+					'				AND		LENGTH(LTRIM(RTRIM(IFNULL(Matches_LienPage, \'\')))) = 0';
 	$req = $bdd->query($ordreSQL);
 	$journees = $req->fetchAll();
 	
 	foreach($journees as $uneJournee) {
 		// Parcours du fichier XML pour détection des différents matches à surveiller
 		$ordreSQL =		'	SELECT		Championnats_LienPage' .
-									'	FROM			championnats' .
-									'	JOIN			journees' .
-									'						ON		championnats.Championnat = journees.Championnats_Championnat' .
-									'	WHERE			journees.Journee = ' . $uneJournee["Journees_Journee"];
+						'	FROM		championnats' .
+						'	JOIN		journees' .
+						'				ON		championnats.Championnat = journees.Championnats_Championnat' .
+						'	WHERE		journees.Journee = ' . $uneJournee["Journees_Journee"];
 		$req = $bdd->query($ordreSQL);
 		$championnats = $req->fetchAll();
 		$lienXML = $championnats[0]["Championnats_LienPage"];
@@ -60,65 +59,69 @@
 		}
 		$tableauMatches = array_unique($tableauMatches);
 
-		// Recherche dans la table des matches pour la journée en question
-		// La requête de sélection se construit selon les matches lus dans le fichier XML
-		$ordreSQL =		'	SELECT		DISTINCT matches.Match, Matches_Date, EquipesDomicile_Nom, EquipesVisiteur_Nom, Matches_LienPage' .
-									'	FROM			(';
+		if ($tableauMatches && sizeof($tableauMatches)) {
+			// Recherche dans la table des matches pour la journée en question
+			// La requête de sélection se construit selon les matches lus dans le fichier XML
+			$ordreSQL =		'	SELECT		DISTINCT matches.Match, Matches_Date, EquipesDomicile_Nom, EquipesVisiteur_Nom, Matches_LienPage' .
+							'	FROM		(';
+							
+			$passageEffectue = 0;
+			foreach($tableauMatches as $unMatch) {
+				if($passageEffectue == 1)
+					$ordreSQL .=		'	UNION';
+				else
+					$passageEffectue = 1;
 						
-		$passageEffectue = 0;
-		foreach($tableauMatches as $unMatch) {
-			if($passageEffectue == 1)
-				$ordreSQL .=		'	UNION';
-			else
-				$passageEffectue = 1;
-					
-			$ordreSQL .=	'			SELECT		matches.Match, Matches_Date, equipes_domicile.Equipes_Nom AS EquipesDomicile_Nom, equipes_visiteur.Equipes_Nom AS EquipesVisiteur_Nom' .
-										'								,' . $bdd->quote($unMatch) . ' AS Matches_LienPage' .
-										'			FROM			matches' .
-										'			JOIN			equipes equipes_domicile' .
-										'								ON		matches.Equipes_EquipeDomicile = equipes_domicile.Equipe' .
-										'			JOIN			equipes equipes_visiteur' .
-										'								ON		matches.Equipes_EquipeVisiteur = equipes_visiteur.Equipe' .
-										'			WHERE			matches.Journees_Journee = ' . $uneJournee["Journees_Journee"] .
-										'								AND		LOCATE(IFNULL(equipes_domicile.Equipes_NomCorrespondance, equipes_domicile.Equipes_NomCourt), ' . $bdd->quote($unMatch) . ') > 0' .
-										'								AND		LOCATE(IFNULL(equipes_visiteur.Equipes_NomCorrespondance, equipes_visiteur.Equipes_NomCourt), ' . $bdd->quote($unMatch) . ') > 0';
+				$ordreSQL .=	'			SELECT		matches.Match, Matches_Date, equipes_domicile.Equipes_Nom AS EquipesDomicile_Nom, equipes_visiteur.Equipes_Nom AS EquipesVisiteur_Nom' .
+								'								,' . $bdd->quote($unMatch) . ' AS Matches_LienPage' .
+								'			FROM			matches' .
+								'			JOIN			equipes equipes_domicile' .
+								'								ON		matches.Equipes_EquipeDomicile = equipes_domicile.Equipe' .
+								'			JOIN			equipes equipes_visiteur' .
+								'								ON		matches.Equipes_EquipeVisiteur = equipes_visiteur.Equipe' .
+								'			WHERE			matches.Journees_Journee = ' . $uneJournee["Journees_Journee"] .
+								'								AND		LOCATE(IFNULL(equipes_domicile.Equipes_NomCorrespondance, equipes_domicile.Equipes_NomCourt), ' . $bdd->quote($unMatch) . ') > 0' .
+								'								AND		LOCATE(IFNULL(equipes_visiteur.Equipes_NomCorrespondance, equipes_visiteur.Equipes_NomCourt), ' . $bdd->quote($unMatch) . ') > 0';
+			}
+			$ordreSQL .=	'				) matches';
+			$req = $bdd->query($ordreSQL);
+			$matches = $req->fetchAll();
+			
+			// Mise à jour des matches avec le lien vers la page lue
+			foreach($matches as $unMatch) {
+				$ordreSQL =		'	UPDATE		matches' .
+								'	SET			Matches_LienPage = \'' . $unMatch["Matches_LienPage"] . '\'' .
+								'	WHERE		matches.Match = ' . $unMatch["Match"] .
+								'				AND		LENGTH(LTRIM(RTRIM(IFNULL(Matches_LienPage, \'\')))) = 0';
+				$bdd->exec($ordreSQL);
+			}
 		}
-		$ordreSQL .=	'				) matches';
-		$req = $bdd->query($ordreSQL);
-		$matches = $req->fetchAll();
-		
-		// Mise à jour des matches avec le lien vers la page lue
-		foreach($matches as $unMatch) {
-			$ordreSQL =		'	UPDATE		matches' .
-										'	SET			Matches_LienPage = \'' . $unMatch["Matches_LienPage"] . '\'' .
-										'	WHERE		matches.Match = ' . $unMatch["Match"] .
-										'				AND		LENGTH(LTRIM(RTRIM(IFNULL(Matches_LienPage, \'\')))) = 0';
-			$bdd->exec($ordreSQL);
-		}
+
 	}
 
 	// Deuxième temps, on regarde si :
 	// - des matches vont commencer d'ici 15 minutes et pour lesquels la composition des équipes n'a pas encore été déterminée
 	// - des matches sont en direct et dont la composition n'a pas encore été remplie automatiquement
 	$ordreSQL =		'	SELECT		matches.Match, Matches_Date, Equipes_EquipeDomicile, Equipes_EquipeVisiteur, IFNULL(Matches_LienPage, \'\') AS Matches_LienPage' .
-								'	FROM			matches' .
-								'	WHERE			DATE_ADD(NOW(), INTERVAL 15 MINUTE) >= matches.Matches_Date' .
-								'						AND		matches.Matches_Date >= NOW()' .
-								'						AND		LENGTH(LTRIM(RTRIM(IFNULL(Matches_LienPage, \'\')))) > 0' .
-								'						AND		IFNULL(Matches_CompositionLue, 0) = 0' .
-								'	UNION ALL' .
-								'	SELECT		matches.Match, Matches_Date, Equipes_EquipeDomicile, Equipes_EquipeVisiteur, IFNULL(Matches_LienPage, \'\') AS Matches_LienPage' .
-								'	FROM			matches' .
-								'	JOIN			matches_direct' .
-								'						ON		matches.Match = matches_direct.Matches_Match' .
-								'	WHERE			LENGTH(LTRIM(RTRIM(IFNULL(Matches_LienPage, \'\')))) > 0' .
-								'						AND		IFNULL(Matches_CompositionLue, 0) = 0';
+					'	FROM			matches' .
+					'	WHERE			DATE_ADD(NOW(), INTERVAL 15 MINUTE) >= matches.Matches_Date' .
+					'						AND		matches.Matches_Date >= NOW()' .
+					'						AND		LENGTH(LTRIM(RTRIM(IFNULL(Matches_LienPage, \'\')))) > 0' .
+					'						AND		IFNULL(Matches_CompositionLue, 0) = 0' .
+					'	UNION ALL' .
+					'	SELECT		matches.Match, Matches_Date, Equipes_EquipeDomicile, Equipes_EquipeVisiteur, IFNULL(Matches_LienPage, \'\') AS Matches_LienPage' .
+					'	FROM			matches' .
+					'	JOIN			matches_direct' .
+					'						ON		matches.Match = matches_direct.Matches_Match' .
+					'	WHERE			LENGTH(LTRIM(RTRIM(IFNULL(Matches_LienPage, \'\')))) > 0' .
+					'						AND		IFNULL(Matches_CompositionLue, 0) = 0';
 	$req = $bdd->query($ordreSQL);
 	$matches = $req->fetchAll();
 
 	foreach($matches as $unMatch) {
 		$document = new DOMDocument();
-		@$document->loadHTMLFile($unMatch["Matches_LienPage"]);
+		$pageComposition = $unMatch["Matches_LienPage"] . "?p=compositions";
+		@$document->loadHTMLFile($pageComposition);
 		$dateMatch = $unMatch["Matches_Date"];
 		$equipeDomicile = $unMatch["Equipes_EquipeDomicile"];
 		$equipeVisiteur = $unMatch["Equipes_EquipeVisiteur"];
@@ -186,7 +189,7 @@
 					'				AND		matches.Matches_Date >= NOW()' .
 					'				AND		LENGTH(LTRIM(RTRIM(IFNULL(Matches_LienPage, \'\')))) > 0' .
 					'				AND		matches_direct_actuels.Matches_Match IS NULL';
-	
+
 	$bdd->exec($ordreSQL);
 	
 ?>
