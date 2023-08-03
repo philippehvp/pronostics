@@ -223,7 +223,7 @@
                                     echo '<label class="lien" onclick="window.open(\'consulter_resultats.php?championnat=3\', \'_self\');" title="Résultats de l\'Europa League"><span>Europa League</span></label>';
                                     echo '<label class="lien" onclick="window.open(\'consulter_resultats.php?championnat=4\', \'_self\');" title="Résultats des barrages de la LDC"><span>Barrages LDC</span></label>';
 
-                                    echo '<label class="titre espacement-haut">Concours 2022-2023</label>';
+                                    echo '<label class="titre espacement-haut">Concours 2023-2024</label>';
                                     echo '<label class="lien" onclick="window.open(\'consulter_fiches.php\', \'_self\');" title="Joueurs du concours"><span>Les joueurs</span></label>';
                                     echo '<label class="lien" onclick="window.open(\'reglement.php\', \'_self\');" title="Règlement 2022-2023"><span>Le règlement</span></label>';
                                 echo '</div>';
