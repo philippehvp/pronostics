@@ -69,8 +69,9 @@
 
 		// Sorties et entrées de joueurs (sorties normales et expulsions)
 		$remplacants = $xpath->query('//span[contains(@class, "ico_evenement91") or contains(@class, "ico_evenement92") or contains(@class, "ico_evenement81") or contains(@class, "ico_evenement82")]');
-		
+
 		foreach($remplacants as $unRemplacant) {
+			
 			$classeEvenement = $unRemplacant->getAttribute('class');
 
 			$codeClasseEvenement = 0;
@@ -102,7 +103,9 @@
 			// Ecriture de l'événement dans la table des événements
 			if($joueur > 0) {
 				// Recherche de la minute
-				$noeuds = $xpath->query('td[@class="c2"]', $unRemplacant->parentNode->parentNode);
+				
+				$noeuds = $xpath->query('td[@class="c2"]', $unRemplacant->parentNode->parentNode->parentNode);
+
 				$minute = -1;
 				foreach($noeuds as $unNoeud)
 					$minute = str_replace('\'', '', $unNoeud->textContent);
@@ -150,7 +153,7 @@
 				// Ecriture de l'événement dans la table des événements des joueurs
 				if($joueur > 0) {
 					// Recherche de la minute
-					$noeuds = $xpath->query('td[@class="c2"]', $unExpulse->parentNode->parentNode);
+					$noeuds = $xpath->query('td[@class="c2"]', $unExpulse->parentNode->parentNode->parentNode);
 					$minute = -1;
 					foreach($noeuds as $unNoeud)
 						$minute = str_replace('\'', '', $unNoeud->textContent);
@@ -189,15 +192,19 @@
 			effacerEvenementsScore($bdd, $match);
 
 			$buteurs = $xpath->query('//span[contains(@class, "ico_evenement1") or contains(@class, "ico_evenement2")]');
+
 			foreach($buteurs as $unButeur) {
-				$attributs = $unButeur->parentNode->attributes;
+
+				$attributs = $unButeur->parentNode->parentNode->attributes;
 				foreach($attributs as $unAttribut) {
-					$nomJoueur = str_replace('(Pénalty)', '', remplacerCaracteres(my_utf8_decode(trim($unButeur->parentNode->textContent))));
+
+					$nomJoueurBrut = str_replace('(Pénalty)', '', remplacerCaracteres(my_utf8_decode(trim($unButeur->parentNode->parentNode->nodeValue))));
+					$nomJoueur = trim($nomJoueurBrut, " \t\n\r\0\x0B\xC2\xA0");
+					
 					if($unAttribut->nodeValue == 'c1') {
 						$codeEvenement = 31;
 						$equipe = $unMatch["Equipes_EquipeDomicile"];
-					}
-					else if($unAttribut->nodeValue == 'c3') {
+					} else if($unAttribut->nodeValue == 'c3') {
 						$codeEvenement = 32;
 						$equipe = $unMatch["Equipes_EquipeVisiteur"];
 					}
@@ -216,8 +223,9 @@
 
 					// Ecriture de l'événement dans la table des événements
 					if($joueur > 0) {
+
 						// Recherche de la minute
-						$noeuds = $xpath->query('td[@class="c2"]', $unButeur->parentNode->parentNode);
+						$noeuds = $xpath->query('td[@class="c2"]', $unButeur->parentNode->parentNode->parentNode);
 						$minute = -1;
 						foreach($noeuds as $unNoeud)
 							$minute = str_replace('\'', '', $unNoeud->textContent);
@@ -227,8 +235,10 @@
 							mettreAJourJournee($bdd, $match);
 						}
 					}
-					else
+					else {
+						//echo 'Buteur non trouvé : ' . $nomJoueur . ' - ';
 						ajouterErreur($bdd, $match, 'Equipe ' . $equipe . ' - Buteur ' . $nomJoueur . ' inconnu', 0);
+					}
 				}
 			}
 
