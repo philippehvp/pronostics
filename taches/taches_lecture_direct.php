@@ -130,41 +130,41 @@
 		}
 
 		// Expulsions de joueurs (expulsion directe ou après deux cartons jaunes)
-		$expulses = $xpath->query('//span[contains(@class, "ico_evenement3") or contains(@class, "ico_evenement5")]');
+		// $expulses = $xpath->query('//span[contains(@class, "ico_evenement3") or contains(@class, "ico_evenement5")]');
 
-		foreach($expulses as $unExpulse) {
-			$attributs = $unExpulse->parentNode->attributes;
-			foreach($attributs as $unAttribut) {
-				if($unAttribut->nodeValue == 'c1') {
-					// Expulsion d'un joueur de l'équipe domicile
-					$codeEvenement = 25;
-					$equipe = $unMatch["Equipes_EquipeDomicile"];
-				} else if($unAttribut->nodeValue == 'c3') {
-					// Expulsion d'un joueur de l'équipe visiteur
-					$codeEvenement = 26;
-					$equipe = $unMatch["Equipes_EquipeVisiteur"];
-				}
+		// foreach($expulses as $unExpulse) {
+		// 	$attributs = $unExpulse->parentNode->attributes;
+		// 	foreach($attributs as $unAttribut) {
+		// 		if($unAttribut->nodeValue == 'c1') {
+		// 			// Expulsion d'un joueur de l'équipe domicile
+		// 			$codeEvenement = 25;
+		// 			$equipe = $unMatch["Equipes_EquipeDomicile"];
+		// 		} else if($unAttribut->nodeValue == 'c3') {
+		// 			// Expulsion d'un joueur de l'équipe visiteur
+		// 			$codeEvenement = 26;
+		// 			$equipe = $unMatch["Equipes_EquipeVisiteur"];
+		// 		}
 
-				$nomJoueur = remplacerCaracteres(my_utf8_decode(trim($unExpulse->parentNode->textContent)));
-				$joueur = rechercherJoueur($bdd, $nomJoueur, $equipe, $unMatch["Matches_Date"], 1);
-				if($joueur <= 0)
-					$joueur = rechercherJoueurInitialePrenom($bdd, $nomJoueur, $equipe, $unMatch["Matches_Date"], 1);
+		// 		$nomJoueur = remplacerCaracteres(my_utf8_decode(trim($unExpulse->parentNode->textContent)));
+		// 		$joueur = rechercherJoueur($bdd, $nomJoueur, $equipe, $unMatch["Matches_Date"], 1);
+		// 		if($joueur <= 0)
+		// 			$joueur = rechercherJoueurInitialePrenom($bdd, $nomJoueur, $equipe, $unMatch["Matches_Date"], 1);
 
-				// Ecriture de l'événement dans la table des événements des joueurs
-				if($joueur > 0) {
-					// Recherche de la minute
-					$noeuds = $xpath->query('td[@class="c2"]', $unExpulse->parentNode->parentNode->parentNode);
-					$minute = -1;
-					foreach($noeuds as $unNoeud)
-						$minute = str_replace('\'', '', $unNoeud->textContent);
+		// 		// Ecriture de l'événement dans la table des événements des joueurs
+		// 		if($joueur > 0) {
+		// 			// Recherche de la minute
+		// 			$noeuds = $xpath->query('td[@class="c2"]', $unExpulse->parentNode->parentNode->parentNode);
+		// 			$minute = -1;
+		// 			foreach($noeuds as $unNoeud)
+		// 				$minute = str_replace('\'', '', $unNoeud->textContent);
 
-					if($minute != -1)
-						ajouterEvenement($bdd, $match, $joueur, $codeEvenement, $minute, 1);
-				} else {
-					ajouterErreur($bdd, $match, 'Equipe ' . $equipe . ' - Expulsion ' . $nomJoueur . ' inconnu', 0);
-				}
-			}
-		}
+		// 			if($minute != -1)
+		// 				ajouterEvenement($bdd, $match, $joueur, $codeEvenement, $minute, 1);
+		// 		} else {
+		// 			ajouterErreur($bdd, $match, 'Equipe ' . $equipe . ' - Expulsion ' . $nomJoueur . ' inconnu', 0);
+		// 		}
+		// 	}
+		// }
 
 		if($unMatch["Matches_MatchIgnore"] == 0) {
 			// Lecture des buts
@@ -242,13 +242,17 @@
 				}
 			}
 
-			// Buts CSC (ico_evenement7)
+			// Buts CSC (ico_evenementOG)
 			// Le but est du bon côté, mais le nom du buteur doit être recherché dans l'équipe adverse
 			$buteurs = $xpath->query('//span[contains(@class, "ico_evenement7")]');
+
 			foreach($buteurs as $unButeur) {
-				$attributs = $unButeur->parentNode->attributes;
+
+				$attributs = $unButeur->parentNode->parentNode->attributes;
 				foreach($attributs as $unAttribut) {
-					$nomJoueur = str_replace('(Contre son camps)', '', remplacerCaracteres(my_utf8_decode(trim($unButeur->parentNode->textContent))));
+
+					$nomJoueurBrut = str_replace('(Contre son camps)', '', remplacerCaracteres(my_utf8_decode(trim($unButeur->parentNode->parentNode->nodeValue))));
+					$nomJoueur = trim($nomJoueurBrut, " \t\n\r\0\x0B\xC2\xA0");
 					if($unAttribut->nodeValue == 'c3') {
 						$codeEvenement = 33;
 						$equipe = $unMatch["Equipes_EquipeDomicile"];

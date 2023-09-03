@@ -550,6 +550,8 @@
 						'				ON		pronostics_bonus.PronosticsBonus_EquipeLDC2 = equipes_2.Equipe' .
 						'	JOIN		equipes equipes_3' .
 						'				ON		pronostics_bonus.PronosticsBonus_EquipeLDC3 = equipes_3.Equipe' .
+						'	JOIN		equipes equipes_4' .
+						'				ON		pronostics_bonus.PronosticsBonus_EquipeLDC4 = equipes_4.Equipe' .
 						'	JOIN		equipes equipes_17' .
 						'				ON		pronostics_bonus.PronosticsBonus_EquipeReleguee1 = equipes_17.Equipe' .
 						'	JOIN		equipes equipes_18' .

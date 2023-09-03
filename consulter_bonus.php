@@ -25,6 +25,7 @@
                         '               ,CASE WHEN  Bonus_Date_Max <= NOW() OR Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] . ' THEN IFNULL(equipesLDC1.Equipes_NomCourt, \'-\') ELSE \'-\' END AS PronosticsBonus_EquipeLDC1' .
                         '               ,CASE WHEN  Bonus_Date_Max <= NOW() OR Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] . ' THEN IFNULL(equipesLDC2.Equipes_NomCourt, \'-\') ELSE \'-\' END AS PronosticsBonus_EquipeLDC2' .
                         '               ,CASE WHEN  Bonus_Date_Max <= NOW() OR Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] . ' THEN IFNULL(equipesLDC3.Equipes_NomCourt, \'-\') ELSE \'-\' END AS PronosticsBonus_EquipeLDC3' .
+                        '               ,CASE WHEN  Bonus_Date_Max <= NOW() OR Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] . ' THEN IFNULL(equipesLDC4.Equipes_NomCourt, \'-\') ELSE \'-\' END AS PronosticsBonus_EquipeLDC4' .
                         '               ,CASE WHEN  Bonus_Date_Max <= NOW() OR Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] . ' THEN IFNULL(equipesReleguees1.Equipes_NomCourt, \'-\') ELSE \'-\' END AS PronosticsBonus_EquipeReleguee1' .
                         '               ,CASE WHEN  Bonus_Date_Max <= NOW() OR Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] . ' THEN IFNULL(equipesReleguees2.Equipes_NomCourt, \'-\') ELSE \'-\' END AS PronosticsBonus_EquipeReleguee2' .
                         '               ,CASE WHEN  Bonus_Date_Max <= NOW() OR Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] . ' THEN IFNULL(equipesReleguees3.Equipes_NomCourt, \'-\') ELSE \'-\' END AS PronosticsBonus_EquipeReleguee3' .
@@ -37,6 +38,7 @@
                         '                           OR      pronostics_bonus.PronosticsBonus_EquipeLDC1 IS NULL' .
                         '                           OR      pronostics_bonus.PronosticsBonus_EquipeLDC2 IS NULL' .
                         '                           OR      pronostics_bonus.PronosticsBonus_EquipeLDC3 IS NULL' .
+                        '                           OR      pronostics_bonus.PronosticsBonus_EquipeLDC4 IS NULL' .
                         '                           OR      pronostics_bonus.PronosticsBonus_EquipeReleguee1 IS NULL' .
                         '                           OR      pronostics_bonus.PronosticsBonus_EquipeReleguee2 IS NULL' .
                         '                           OR      pronostics_bonus.PronosticsBonus_EquipeReleguee3 IS NULL' .
@@ -59,6 +61,8 @@
                         '               ON      pronostics_bonus.PronosticsBonus_EquipeLDC2 = equipesLDC2.Equipe' .
                         '   LEFT JOIN   equipes equipesLDC3' .
                         '               ON      pronostics_bonus.PronosticsBonus_EquipeLDC3 = equipesLDC3.Equipe' .
+                        '   LEFT JOIN   equipes equipesLDC4' .
+                        '               ON      pronostics_bonus.PronosticsBonus_EquipeLDC4 = equipesLDC4.Equipe' .
                         '   LEFT JOIN   equipes equipesReleguees1' .
                         '               ON      pronostics_bonus.PronosticsBonus_EquipeReleguee1 = equipesReleguees1.Equipe' .
                         '   LEFT JOIN   equipes equipesReleguees2' .
@@ -87,6 +91,7 @@
                             echo '<th>LDC 1</th>';
                             echo '<th>LDC 2</th>';
                             echo '<th>LDC 3</th>';
+                            echo '<th>LDC 4</th>';
                             echo '<th>Releguée 1</th>';
                             echo '<th>Releguée 2</th>';
                             echo '<th>Releguée 3</th>';
@@ -106,6 +111,7 @@
                                 echo '<td>' . $pronostics_bonus[$i]["PronosticsBonus_EquipeLDC1"]. '</td>';
                                 echo '<td>' . $pronostics_bonus[$i]["PronosticsBonus_EquipeLDC2"]. '</td>';
                                 echo '<td>' . $pronostics_bonus[$i]["PronosticsBonus_EquipeLDC3"]. '</td>';
+                                echo '<td>' . $pronostics_bonus[$i]["PronosticsBonus_EquipeLDC4"]. '</td>';
                                 echo '<td>' . $pronostics_bonus[$i]["PronosticsBonus_EquipeReleguee1"]. '</td>';
                                 echo '<td>' . $pronostics_bonus[$i]["PronosticsBonus_EquipeReleguee2"]. '</td>';
                                 echo '<td>' . $pronostics_bonus[$i]["PronosticsBonus_EquipeReleguee3"]. '</td>';

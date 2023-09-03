@@ -2376,6 +2376,7 @@ function creerBonus_validerBonus() {
   var equipeLDC1 = $("#selectEquipesLDC1").val();
   var equipeLDC2 = $("#selectEquipesLDC2").val();
   var equipeLDC3 = $("#selectEquipesLDC3").val();
+  var equipeLDC4 = $("#selectEquipesLDC4").val();
   var equipeReleguee1 = $("#selectEquipesReleguees1").val();
   var equipeReleguee2 = $("#selectEquipesReleguees2").val();
   var equipeReleguee3 = $("#selectEquipesReleguees3").val();
@@ -2388,6 +2389,7 @@ function creerBonus_validerBonus() {
     equipeLDC1 == -1 ||
     equipeLDC2 == -1 ||
     equipeLDC3 == -1 ||
+    equipeLDC4 == -1 ||
     equipeReleguee1 == -1 ||
     equipeReleguee2 == -1 ||
     equipeReleguee3 == -1 ||
@@ -2407,6 +2409,7 @@ function creerBonus_validerBonus() {
       equipeLDC1: equipeLDC1,
       equipeLDC2: equipeLDC2,
       equipeLDC3: equipeLDC3,
+      equipeLDC4: equipeLDC4,
       equipeReleguee1: equipeReleguee1,
       equipeReleguee2: equipeReleguee2,
       equipeReleguee3: equipeReleguee3,

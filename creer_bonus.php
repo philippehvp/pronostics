@@ -31,7 +31,7 @@
 
 		// Lecture des données déjà saisies par le pronostiqueur
 		$ordreSQL =		'	SELECT		PronosticsBonus_EquipeChampionne' .
-						'				,PronosticsBonus_EquipeLDC1, PronosticsBonus_EquipeLDC2, PronosticsBonus_EquipeLDC3' .
+						'				,PronosticsBonus_EquipeLDC1, PronosticsBonus_EquipeLDC2, PronosticsBonus_EquipeLDC3, PronosticsBonus_EquipeLDC4' .
 						'				,PronosticsBonus_EquipeReleguee1, PronosticsBonus_EquipeReleguee2, PronosticsBonus_EquipeReleguee3, PronosticsBonus_EquipeReleguee4' .
 						'				,PronosticsBonus_JoueurMeilleurButeur' .
 						'				,PronosticsBonus_JoueurMeilleurPasseur' .
@@ -52,6 +52,7 @@
 			$pronosticsBonus_EquipeLDC1 = $pronostics_bonus[0]["PronosticsBonus_EquipeLDC1"] != null ? $pronostics_bonus[0]["PronosticsBonus_EquipeLDC1"] : 0;
 			$pronosticsBonus_EquipeLDC2 = $pronostics_bonus[0]["PronosticsBonus_EquipeLDC2"] != null ? $pronostics_bonus[0]["PronosticsBonus_EquipeLDC2"] : 0;
 			$pronosticsBonus_EquipeLDC3 = $pronostics_bonus[0]["PronosticsBonus_EquipeLDC3"] != null ? $pronostics_bonus[0]["PronosticsBonus_EquipeLDC3"] : 0;
+			$pronosticsBonus_EquipeLDC4 = $pronostics_bonus[0]["PronosticsBonus_EquipeLDC4"] != null ? $pronostics_bonus[0]["PronosticsBonus_EquipeLDC4"] : 0;
 			$pronosticsBonus_EquipeReleguee1 = $pronostics_bonus[0]["PronosticsBonus_EquipeReleguee1"] != null ? $pronostics_bonus[0]["PronosticsBonus_EquipeReleguee1"] : 0;
 			$pronosticsBonus_EquipeReleguee2 = $pronostics_bonus[0]["PronosticsBonus_EquipeReleguee2"] != null ? $pronostics_bonus[0]["PronosticsBonus_EquipeReleguee2"] : 0;
 			$pronosticsBonus_EquipeReleguee3 = $pronostics_bonus[0]["PronosticsBonus_EquipeReleguee3"] != null ? $pronostics_bonus[0]["PronosticsBonus_EquipeReleguee3"] : 0;
@@ -66,6 +67,7 @@
 			$pronosticsBonus_EquipeLDC1 = 0;
 			$pronosticsBonus_EquipeLDC2 = 0;
 			$pronosticsBonus_EquipeLDC3 = 0;
+			$pronosticsBonus_EquipeLDC4 = 0;
 			$pronosticsBonus_EquipeReleguee1 = 0;
 			$pronosticsBonus_EquipeReleguee2 = 0;
 			$pronosticsBonus_EquipeReleguee3 = 0;
@@ -157,6 +159,19 @@
 					echo '</select>';
 				echo '</div>';
 				echo '<div class="texte"><label>Equipe 3 qualifiée en LDC</label></div>';
+			echo '</div>';
+
+			echo '<div class="tuile gauche pair">';
+				echo '<div class="saisie">';
+					echo '<select id="selectEquipesLDC4">';
+						echo '<option value="-1" selected="selected">Equipes</option>';
+						foreach($equipes as $uneEquipe) {
+							$selected = $pronosticsBonus_EquipeLDC4 == $uneEquipe["Equipe"] ? ' selected="selected"' : '';
+							echo '<option value="' . $uneEquipe["Equipe"] . '"' . $selected . '>' . $uneEquipe["Equipes_Nom"] . '</option>';
+						}
+					echo '</select>';
+				echo '</div>';
+				echo '<div class="texte"><label>Equipe 4 qualifiée en LDC</label></div>';
 			echo '</div>';
 
 			// Equipes releguées
