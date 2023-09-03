@@ -12,7 +12,6 @@
 	$equipeReleguee1 = isset($_POST["equipeReleguee1"]) ? $_POST["equipeReleguee1"] : 0;
 	$equipeReleguee2 = isset($_POST["equipeReleguee2"]) ? $_POST["equipeReleguee2"] : 0;
 	$equipeReleguee3 = isset($_POST["equipeReleguee3"]) ? $_POST["equipeReleguee3"] : 0;
-	$equipeReleguee4 = isset($_POST["equipeReleguee4"]) ? $_POST["equipeReleguee4"] : 0;
 	$meilleurButeur = isset($_POST["meilleurButeur"]) ? $_POST["meilleurButeur"] : 0;
 	$meilleurPasseur = isset($_POST["meilleurPasseur"]) ? $_POST["meilleurPasseur"] : 0;
 
@@ -20,7 +19,7 @@
 	$ordreSQL =		'	REPLACE INTO	pronostics_bonus	(	Pronostiqueurs_Pronostiqueur' .
 					'											,PronosticsBonus_EquipeChampionne' .
 					'											,PronosticsBonus_EquipeLDC1, PronosticsBonus_EquipeLDC2, PronosticsBonus_EquipeLDC3, PronosticsBonus_EquipeLDC4' .
-					'											,PronosticsBonus_EquipeReleguee1, PronosticsBonus_EquipeReleguee2, PronosticsBonus_EquipeReleguee3, PronosticsBonus_EquipeReleguee4' .
+					'											,PronosticsBonus_EquipeReleguee1, PronosticsBonus_EquipeReleguee2, PronosticsBonus_EquipeReleguee3' .
 					'											,PronosticsBonus_JoueurMeilleurButeur, PronosticsBonus_JoueurMeilleurPasseur' .
 					'										)' .
 					'	SELECT			pronostics.*' .
@@ -34,7 +33,6 @@
 					'									,' . $equipeReleguee1 . ' AS Equipe_Releguee1' .
 					'									,' . $equipeReleguee2 . ' AS Equipe_Releguee2' .
 					'									,' . $equipeReleguee3 . ' AS Equipe_Releguee3' .
-					'									,' . $equipeReleguee4 . ' AS Equipe_Releguee4' .
 					'									,' . $meilleurButeur . ' AS Meilleur_Buteur' .
 					'									,' . $meilleurPasseur . ' AS Meilleur_Passeur' .
 					'					) pronostics' .

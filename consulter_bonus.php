@@ -29,7 +29,6 @@
                         '               ,CASE WHEN  Bonus_Date_Max <= NOW() OR Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] . ' THEN IFNULL(equipesReleguees1.Equipes_NomCourt, \'-\') ELSE \'-\' END AS PronosticsBonus_EquipeReleguee1' .
                         '               ,CASE WHEN  Bonus_Date_Max <= NOW() OR Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] . ' THEN IFNULL(equipesReleguees2.Equipes_NomCourt, \'-\') ELSE \'-\' END AS PronosticsBonus_EquipeReleguee2' .
                         '               ,CASE WHEN  Bonus_Date_Max <= NOW() OR Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] . ' THEN IFNULL(equipesReleguees3.Equipes_NomCourt, \'-\') ELSE \'-\' END AS PronosticsBonus_EquipeReleguee3' .
-                        '               ,CASE WHEN  Bonus_Date_Max <= NOW() OR Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] . ' THEN IFNULL(equipesReleguees4.Equipes_NomCourt, \'-\') ELSE \'-\' END AS PronosticsBonus_EquipeReleguee4' .
                         '               ,CASE WHEN  Bonus_Date_Max <= NOW() OR Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] . ' THEN IFNULL(buteurs.Joueurs_NomCourt, buteurs.Joueurs_NomFamille) ELSE \'-\' END AS PronosticsBonus_MeilleurButeur' .
                         '               ,CASE WHEN  Bonus_Date_Max <= NOW() OR Pronostiqueurs_Pronostiqueur = ' . $_SESSION["pronostiqueur"] . ' THEN IFNULL(passeurs.Joueurs_NomCourt, passeurs.Joueurs_NomFamille) ELSE \'-\' END AS PronosticsBonus_MeilleurPasseur' .
                         '               ,CASE WHEN  pronostics_bonus.PronosticsBonus_JoueurMeilleurButeur IS NULL' .
@@ -42,7 +41,6 @@
                         '                           OR      pronostics_bonus.PronosticsBonus_EquipeReleguee1 IS NULL' .
                         '                           OR      pronostics_bonus.PronosticsBonus_EquipeReleguee2 IS NULL' .
                         '                           OR      pronostics_bonus.PronosticsBonus_EquipeReleguee3 IS NULL' .
-                        '                           OR      pronostics_bonus.PronosticsBonus_EquipeReleguee4 IS NULL' .
                         '                     THEN  0' .
                         '                     ELSE  1' .
                         '               END AS Bonus_Saisis' .
@@ -69,8 +67,6 @@
                         '               ON      pronostics_bonus.PronosticsBonus_EquipeReleguee2 = equipesReleguees2.Equipe' .
                         '   LEFT JOIN   equipes equipesReleguees3' .
                         '               ON      pronostics_bonus.PronosticsBonus_EquipeReleguee3 = equipesReleguees3.Equipe' .
-                        '   LEFT JOIN   equipes equipesReleguees4' .
-                        '               ON      pronostics_bonus.PronosticsBonus_EquipeReleguee4 = equipesReleguees4.Equipe' .
                         '   CROSS JOIN  bonus_date_max';
 
         $req = $bdd->query($ordreSQL);
@@ -95,7 +91,6 @@
                             echo '<th>Releguée 1</th>';
                             echo '<th>Releguée 2</th>';
                             echo '<th>Releguée 3</th>';
-                            echo '<th>Releguée 4</th>';
                             echo '<th>Meilleur buteur</th>';
                             echo '<th>Meilleur passeur</th>';
                         echo '</tr>';
@@ -115,7 +110,6 @@
                                 echo '<td>' . $pronostics_bonus[$i]["PronosticsBonus_EquipeReleguee1"]. '</td>';
                                 echo '<td>' . $pronostics_bonus[$i]["PronosticsBonus_EquipeReleguee2"]. '</td>';
                                 echo '<td>' . $pronostics_bonus[$i]["PronosticsBonus_EquipeReleguee3"]. '</td>';
-                                echo '<td>' . $pronostics_bonus[$i]["PronosticsBonus_EquipeReleguee4"]. '</td>';
                                 echo '<td>' . $pronostics_bonus[$i]["PronosticsBonus_MeilleurButeur"]. '</td>';
                                 echo '<td>' . $pronostics_bonus[$i]["PronosticsBonus_MeilleurPasseur"]. '</td>';
                             echo '</tr>';

@@ -2380,7 +2380,6 @@ function creerBonus_validerBonus() {
   var equipeReleguee1 = $("#selectEquipesReleguees1").val();
   var equipeReleguee2 = $("#selectEquipesReleguees2").val();
   var equipeReleguee3 = $("#selectEquipesReleguees3").val();
-  var equipeReleguee4 = $("#selectEquipesReleguees4").val();
   var meilleurButeur = $("#id-meilleur-buteur").val();
   var meilleurPasseur = $("#id-meilleur-passeur").val();
 
@@ -2393,7 +2392,6 @@ function creerBonus_validerBonus() {
     equipeReleguee1 == -1 ||
     equipeReleguee2 == -1 ||
     equipeReleguee3 == -1 ||
-    equipeReleguee4 == -1 ||
     meilleurButeur == null ||
     meilleurPasseur == null
   ) {
@@ -2413,7 +2411,6 @@ function creerBonus_validerBonus() {
       equipeReleguee1: equipeReleguee1,
       equipeReleguee2: equipeReleguee2,
       equipeReleguee3: equipeReleguee3,
-      equipeReleguee4: equipeReleguee4,
       meilleurButeur: meilleurButeur,
       meilleurPasseur: meilleurPasseur,
     },
