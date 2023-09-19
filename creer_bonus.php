@@ -183,7 +183,7 @@
 						}
 					echo '</select>';
 				echo '</div>';
-				echo '<div class="texte"><label>Equipe 1 reléguée en ligue 2</label></div>';
+				echo '<div class="texte"><label>Equipe 1 reléguée en ligue 2 (16ème barragiste)</label></div>';
 			echo '</div>';
 
 			echo '<div class="tuile gauche impair">';
