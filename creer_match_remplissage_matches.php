@@ -42,17 +42,20 @@
 
     $tableauTR = $xpath->query('.//tr', $table->item(0));
     $indiceMatch = 0;
+
     foreach($tableauTR as $unTR) {
         if($unTR->getAttribute('data-matchid')) {
-            $heure = $xpath->query(".//td[contains(@class, 'lm1')]", $unTR);
+            $heureBrut = $xpath->query('.//td[contains(@class, "lm2")]', $unTR);
+            $heure = trim($heureBrut->item(0)->nodeValue);
+            
             if($dateRemaniee) {
-                $dateMatch = DateTime::createFromFormat('d m Y H:i:s', $dateRemaniee . ' ' . $heure->item(0)->nodeValue . ':00');
+                $dateMatch = DateTime::createFromFormat('d m Y H:i:s', $dateRemaniee . ' ' . $heure . ':00');
+                
                 $noeudMatch = $xpath->query(".//td[contains(@class, 'lm3')]/a", $unTR);
-                $nomDuMatch = $noeudMatch->item(0)->getAttribute('title');
-                $nomDuMatch = str_replace('Détail du match : ', '', $nomDuMatch);
-                $equipes = explode(' - ', $nomDuMatch);
-                $equipe1 = rechercherEquipeDepuisNomCorrespondanceComplementaire($bdd, $equipes[0]);
-                $equipe2 = rechercherEquipeDepuisNomCorrespondanceComplementaire($bdd, $equipes[1]);
+                $nomEquipe1 = $noeudMatch->item(0)->getAttribute('data-team1');
+                $nomEquipe2 = $noeudMatch->item(0)->getAttribute('data-team2');
+                $equipe1 = rechercherEquipeDepuisNomCorrespondanceComplementaire($bdd, $nomEquipe1);
+                $equipe2 = rechercherEquipeDepuisNomCorrespondanceComplementaire($bdd, $nomEquipe2);
                 if($equipe1 != 0 && $equipe2 != 0) {
                     // Arrivé ici, on vérifie que le match à inscrire n'est pas le match européen de Ligue 1
                     // Auquel cas il faut passer au match suivant
@@ -63,8 +66,8 @@
                     if($estMatchEuropeenL1 == 1) {
                         $indiceMatch++;
                     }
-                    inscrireEquipesDansMatch($bdd, ($match + $indiceMatch), $dateMatch, $equipe1, $equipe2);
 
+                    inscrireEquipesDansMatch($bdd, ($match + $indiceMatch), $dateMatch, $equipe1, $equipe2);
                     $indiceMatch++;
                 }
             }
