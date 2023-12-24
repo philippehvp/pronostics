@@ -107,10 +107,8 @@
 		if($champ == '')
 			return -2;
 
-		//echo "AVANT:" . $joueurNomComplet . PHP_EOL;
 		$joueurNomModifie = remplacerCaracteres($joueurNomComplet);
-		//echo "APRES:" . $joueurNomModifie . PHP_EOL;
-		$ordreSQL =		'	SELECT		Joueur' .
+		$ordreSQL =		'	SELECT			Joueur' .
 						'	FROM			joueurs' .
 						'	JOIN			joueurs_equipes' .
 						'					ON		joueurs.Joueur = joueurs_equipes.Joueurs_Joueur' .
@@ -132,7 +130,8 @@
 						'										END = ' . $bdd->quote($joueurNomModifie) .
 						'									)' .
 						'					AND		JoueursEquipes_Debut <= \'' . $date . '\'' .
-						'					AND		(JoueursEquipes_Fin IS NULL OR JoueursEquipes_Fin > \'' . $date . '\')';
+						'					AND		(JoueursEquipes_Fin IS NULL OR JoueursEquipes_Fin > \'' . $date . '\')' .
+						'	LIMIT			1';
 		try {
 			$req = $bdd->query($ordreSQL);
 		} catch(Exception $e) {

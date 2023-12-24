@@ -6,8 +6,9 @@
 
 	// Lecture des paramètres passés à la page
 	$match = isset($_POST["match"]) ? $_POST["match"] : 0;
-	$joueursInconnusEquipeDomicile = isset($_POST["joueursInconnusEquipeDomicile"]) ? $_POST["joueursInconnusEquipeDomicile"] : null;
-	$joueursInconnusEquipeVisiteur = isset($_POST["joueursInconnusEquipeVisiteur"]) ? $_POST["joueursInconnusEquipeVisiteur"] : null;
+	$joueursInconnus = isset($_POST["joueursInconnus"]) ? $_POST["joueursInconnus"] : null;
+	$joueursDoublon = isset($_POST["joueursDoublon"]) ? $_POST["joueursDoublon"] : null;
+
 	// Lecture de la liste des joueurs d'une équipe
 	function lireListeJoueurs($match, $equipe, $date) {
 		$ordreSQL =		'	SELECT		joueurs.Joueur' .
@@ -37,17 +38,20 @@
 	}
 
     // Affichage de la liste des joueurs inconnus
-    function afficherListeJoueursInconnus($bdd, $match, $matchDate, $joueursInconnus, $equipe, $equipeNom) {
+    function afficherListeJoueursInconnus($bdd, $match, $matchDate, $joueursInconnus, $equipeDomicile, $equipeDomicileNom, $equipeVisiteur, $equipeVisiteurNom) {
         // Lecture de la liste des joueurs des équipes
-        $req = $bdd->query(lireListeJoueurs($match, $equipe, $matchDate));
-        $joueursEquipe = $req->fetchAll();
+        $req = $bdd->query(lireListeJoueurs($match, $equipeDomicile, $matchDate));
+        $joueursEquipeDomicile = $req->fetchAll();
+		$req = $bdd->query(lireListeJoueurs($match, $equipeVisiteur, $matchDate));
+        $joueursEquipeVisiteur = $req->fetchAll();
 
-        echo '<label>Joueurs inconnus de ' . $equipeNom . '</label>';
+        echo '<label>Joueurs inconnus</label>';
 		echo '<table class="tableau--liste-joueurs">';
 			echo '<thead>';
 				echo '<tr>';
-					echo '<th>Nom lu sur PMU</th>';
-					echo '<th>Liste des joueurs</th>';
+					echo '<th>Nom</th>';
+					echo '<th>' . $equipeDomicileNom . '</th>';
+					echo '<th>' . $equipeVisiteurNom . '</th>';
 					echo '<th>Prénom</th>';
 					echo '<th>Nom</th>';
 					echo '<th>Nom de correspondance</th>';
@@ -60,12 +64,39 @@
 					echo '<tr>';
 						echo '<td>' . $unJoueurInconnu["joueur"] . '</td>';
 						echo '<td>';
-							afficherListeJoueurs($i, $equipe, 'txtPrenom_' . $i . '_' . $equipe, 'txtNom_' . $i . '_' . $equipe, 'txtCorrespondance_' . $i . '_' . $equipe, $joueursEquipe);
+							afficherListeJoueurs($i, $equipeDomicile, 'txtPrenom_' . $i . '_' . $equipeDomicile, 'txtNom_' . $i . '_' . $equipeDomicile, 'txtCorrespondance_' . $i . '_' . $equipeDomicile, $joueursEquipeDomicile);
 						echo '</td>';
-						echo '<td><input type="text" id="txtPrenom_' . $i . '_' . $equipe . '" onchange="creerMatch_modifierPrenomJoueur(this, \'' . $i . '_' . $equipe . '\');" /></td>';
-						echo '<td><input type="text" id="txtNom_' . $i . '_' . $equipe . '" onchange="creerMatch_modifierNomJoueur(this, \'' . $i . '_' . $equipe . '\');" /></td>';
-						echo '<td><input type="text" id="txtCorrespondance_' . $i . '_' . $equipe . '" /></td>';
-						echo '<td><label class="bouton" onclick="creerMatch_copierNomCorrespondance(\'' . rawurlencode($unJoueurInconnu["joueur"]) . '\', \'' . $i . '_' . $equipe . '\', \'txtCorrespondance_' . $i . '_' . $equipe . '\', 3);">Copier</label> - <label class="bouton" onclick="creerMatch_supprimerNomCorrespondance(\'' . $i . '_' . $equipe . '\', \'txtCorrespondance_' . $i . '_' . $equipe . '\', 3);">Supprimer</label></td>';
+						echo '<td>';
+							afficherListeJoueurs($i, $equipeVisiteur, 'txtPrenom_' . $i . '_' . $equipeVisiteur, 'txtNom_' . $i . '_' . $equipeVisiteur, 'txtCorrespondance_' . $i . '_' . $equipeVisiteur, $joueursEquipeVisiteur);
+						echo '</td>';
+						echo '<td>';
+							echo '<input type="text" id="txtPrenom_' . $i . '_' . $equipeDomicile . '" onchange="creerMatch_modifierPrenomJoueur(this, \'' . $i . '_' . $equipeDomicile . '\');" />';
+							echo '<br />';
+							echo '<input type="text" id="txtPrenom_' . $i . '_' . $equipeVisiteur . '" onchange="creerMatch_modifierPrenomJoueur(this, \'' . $i . '_' . $equipeVisiteur . '\');" />';
+						echo '</td>';
+						echo '<td>';
+							echo '<input type="text" id="txtNom_' . $i . '_' . $equipeDomicile . '" onchange="creerMatch_modifierNomJoueur(this, \'' . $i . '_' . $equipeDomicile . '\');" />';
+							echo '<br />';
+							echo '<input type="text" id="txtNom_' . $i . '_' . $equipeVisiteur . '" onchange="creerMatch_modifierNomJoueur(this, \'' . $i . '_' . $equipeVisiteur . '\');" />';
+						echo '</td>';
+						echo '<td>';
+							echo '<input type="text" id="txtCorrespondance_' . $i . '_' . $equipeDomicile . '" />';
+							echo '<br />';
+							echo '<input type="text" id="txtCorrespondance_' . $i . '_' . $equipeVisiteur . '" />';
+						echo '</td>';
+						echo '<td>';
+							$copierNomCorrespondanceDomicile = 'creerMatch_copierNomCorrespondance(\'' . rawurlencode($unJoueurInconnu["joueur"]) . '\', \'' . $i . '_' . $equipeDomicile . '\', \'txtCorrespondance_' . $i . '_' . $equipeDomicile . '\', 3)';
+							echo '<label class="bouton" onclick="' . $copierNomCorrespondanceDomicile . '">Copier</label> - ';
+
+							$supprimerNomCorrespondanceDomicile = 'creerMatch_supprimerNomCorrespondance(\'' . $i . '_' . $equipeDomicile . '\', \'txtCorrespondance_' . $i . '_' . $equipeDomicile . '\', 3)';
+							echo '<label class="bouton" onclick="' . $supprimerNomCorrespondanceDomicile . '">Supprimer</label>';
+							echo '<br />';
+							$copierNomCorrespondanceVisiteur = 'creerMatch_copierNomCorrespondance(\'' . rawurlencode($unJoueurInconnu["joueur"]) . '\', \'' . $i . '_' . $equipeVisiteur . '\', \'txtCorrespondance_' . $i . '_' . $equipeVisiteur . '\', 3)';
+							echo '<label class="bouton" onclick="' . $copierNomCorrespondanceVisiteur . '">Copier</label> - ';
+
+							$supprimerNomCorrespondanceVisiteur = 'creerMatch_supprimerNomCorrespondance(\'' . $i . '_' . $equipeVisiteur . '\', \'txtCorrespondance_' . $i . '_' . $equipeVisiteur . '\', 3)';
+							echo '<label class="bouton" onclick="' . $supprimerNomCorrespondanceVisiteur . '">Supprimer</label>';
+						echo '</td>';
 					echo '</tr>';
 					$i++;
 				}
@@ -84,24 +115,12 @@
                     '   JOIN        equipes as equipes_visiteur' .
                     '               ON      matches.Equipes_EquipeVisiteur = equipes_visiteur.Equipe' .
 					'	WHERE		matches.Match = ' . $match;
+	
 	$req = $bdd->query($ordreSQL);
 	$equipes = $req->fetchAll();
 
-	// Deux cas sont possibles :
-    // - dans les deux équipes, il y a au moins un joueur inconnu
-    // - dans une seule des deux équipes il y a un ou plusieurs joueurs inconnus
-    if(count($joueursInconnusEquipeDomicile) && count($joueursInconnusEquipeVisiteur)) {
-        // Dans les deux équipes
-        afficherListeJoueursInconnus($bdd, $match, $equipes[0]["Matches_Date"], $joueursInconnusEquipeDomicile, $equipes[0]["EquipesDomicile_Equipe"], $equipes[0]["EquipesDomicile_Nom"]);
-        echo '<br /><br />';
-        afficherListeJoueursInconnus($bdd, $match, $equipes[0]["Matches_Date"], $joueursInconnusEquipeVisiteur, $equipes[0]["EquipesVisiteur_Equipe"], $equipes[0]["EquipesVisiteur_Nom"]);
-    }
-    else {
-        // Une seule des deux équipes comporte un ou plusieurs joueurs inconnus
-        if(count($joueursInconnusEquipeDomicile))
-            afficherListeJoueursInconnus($bdd, $match, $equipes[0]["Matches_Date"], $joueursInconnusEquipeDomicile, $equipes[0]["EquipesDomicile_Equipe"], $equipes[0]["EquipesDomicile_Nom"]);
-        else
-            afficherListeJoueursInconnus($bdd, $match, $equipes[0]["Matches_Date"], $joueursInconnusEquipeVisiteur, $equipes[0]["EquipesVisiteur_Equipe"], $equipes[0]["EquipesVisiteur_Nom"]);
-    }
-
+	// Joueurs inconnus et en doublon
+	afficherListeJoueursInconnus($bdd, $match, $equipes[0]["Matches_Date"], $joueursInconnus, $equipes[0]["EquipesDomicile_Equipe"], $equipes[0]["EquipesDomicile_Nom"], $equipes[0]["EquipesVisiteur_Equipe"], $equipes[0]["EquipesVisiteur_Nom"]);
+	//echo '<br /><br />';
+	//afficherListeJoueursDoublon($bdd, $match, $equipes[0]["Matches_Date"], $joueursInconnusEquipeVisiteur, $equipes[0]["EquipesVisiteur_Equipe"], $equipes[0]["EquipesVisiteur_Nom"]);
 ?>

@@ -831,37 +831,45 @@ function creerMatch_detecterCotesV2(numeroMatch) {
                 return;
               }
 
-              if (html.nombreJoueursInconnus > 0) {
+              if (
+                html.nombreJoueursInconnus > 0 ||
+                html.nombreJoueursDoublon > 0
+              ) {
                 // Affichage d'une fenêtre de mise à jour des données des joueurs pour lesquels la recherche a été infructueuse
                 $.ajax({
                   url: "creer_match_correction_cotes_v2.php",
                   type: "POST",
                   data: {
                     match: numeroMatch,
-                    joueursInconnusEquipeDomicile:
-                      html.joueursInconnusEquipeDomicile,
-                    joueursInconnusEquipeVisiteur:
-                      html.joueursInconnusEquipeVisiteur,
+                    joueursInconnus: html.joueursInconnus,
+                    joueursDoublon: html.joueursDoublon,
                   },
-                }).done(function (html) {
-                  if ($(".listeJoueurs").length == 0)
-                    $("body").append('<div class="listeJoueurs"></div>');
+                })
+                  .done(function (html) {
+                    if ($(".listeJoueurs").length == 0)
+                      $("body").append('<div class="listeJoueurs"></div>');
 
-                  $(".listeJoueurs").empty().append(html);
-                  $(".listeJoueurs").dialog({
-                    autoOpen: true,
-                    width: "auto",
-                    height: "auto",
-                    modal: true,
-                    title: "Correction des joueurs non trouvés",
-                    position: "center",
-                    buttons: {
-                      Fermer: function () {
-                        $(this).dialog("close");
+                    $(".listeJoueurs").empty().append(html);
+                    $(".listeJoueurs").dialog({
+                      autoOpen: true,
+                      width: "auto",
+                      height: "auto",
+                      modal: true,
+                      title: "Correction des joueurs non trouvés",
+                      position: "center",
+                      buttons: {
+                        Fermer: function () {
+                          $(this).dialog("close");
+                        },
                       },
-                    },
+                    });
+                  })
+                  .fail(function (html) {
+                    console.log(
+                      "Fonction creer_match_correction_cotes_v2.php : dans le fail - " +
+                        html
+                    );
                   });
-                });
               } else
                 afficherMessageInformationBandeau(
                   "Lecture des cotes des joueurs effectuée avec succès",
