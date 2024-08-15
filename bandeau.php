@@ -126,7 +126,7 @@
 
                                         echo '<label class="titre espacement-haut">Coupe de France</label>';
                                         echo '<label class="lien" onclick="window.open(\'gerer_cdf.php\', \'_self\');" title="Gérer la Coupe de France"><span>Gestion de la Coupe</span></label>';
-                                        echo '<label class="lien" onclick="window.open(\'cdf_prec.php?saison=2019\', \'_self\');" title="Coupe de France 2019"><span>Coupe de France 2019</span></label>';
+                                        echo '<label class="lien" onclick="window.open(\'cdf_prec.php?saison=2022\', \'_self\');" title="Coupe de France 2022"><span>Coupe de France 2022</span></label>';
 
                                         echo '<label class="titre espacement-haut">Historique</label>';
                                         echo '<label class="lien" onclick="window.open(\'poulpe/index.php\', \'_blank\');" title="Historique"><span>Historique</span></label>';
@@ -223,9 +223,9 @@
                                     echo '<label class="lien" onclick="window.open(\'consulter_resultats.php?championnat=3\', \'_self\');" title="Résultats de l\'Europa League"><span>Europa League</span></label>';
                                     echo '<label class="lien" onclick="window.open(\'consulter_resultats.php?championnat=4\', \'_self\');" title="Résultats des barrages de la LDC"><span>Barrages LDC</span></label>';
 
-                                    echo '<label class="titre espacement-haut">Concours 2023-2024</label>';
+                                    echo '<label class="titre espacement-haut">Concours 2024-2025</label>';
                                     echo '<label class="lien" onclick="window.open(\'consulter_fiches.php\', \'_self\');" title="Joueurs du concours"><span>Les joueurs</span></label>';
-                                    echo '<label class="lien" onclick="window.open(\'reglement.php\', \'_self\');" title="Règlement 2022-2023"><span>Le règlement</span></label>';
+                                    echo '<label class="lien" onclick="window.open(\'reglement.php\', \'_self\');" title="Règlement 2024-2025"><span>Le règlement</span></label>';
                                 echo '</div>';
                             echo '</div>';
                         echo '</div>';

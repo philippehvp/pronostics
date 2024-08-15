@@ -29,6 +29,7 @@
 		$ordreSQL = 'UPDATE modules SET Modules_PageVerification = \'module_tchat_verification.php\' WHERE Modules_Page = \'module_tchat.php\'';
 		$req = $bdd->exec($ordreSQL);
 
+		
 
 		/*$ordreSQL = 'SELECT Module, Modules_Nom, Modules_Page, Modules_PageVerification FROM modules WHERE Module < 10';
 		$req = $bdd->query($ordreSQL);

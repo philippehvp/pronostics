@@ -50,8 +50,6 @@
 
 		$(function() {
 			retournerHautPage();
-			activitePronostiqueur();
-			verificationMessage();
 
 			// Premier affichage des confrontations forcé
 			rafraichirPage();

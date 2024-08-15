@@ -451,7 +451,7 @@
 						'				ON		Equipes_Equipe = Equipe' .
 						'	LEFT JOIN	bonus_anticipes_equipes_podium' .
 						'				ON		classements_virtuels_equipes.Equipes_Equipe = bonus_anticipes_equipes_podium.Equipes_Equipe' .
-						'	WHERE		ClassementsEquipes_Classement <= 3' .
+						'	WHERE		ClassementsEquipes_Classement <= 4' .
 						'	ORDER BY	ClassementsEquipes_Classement ASC';
 		$req = $bdd->query($ordreSQL);
 		$equipes_podium = $req->fetchAll();

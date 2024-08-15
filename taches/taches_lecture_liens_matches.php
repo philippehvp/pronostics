@@ -133,47 +133,77 @@
 			return;
 		}
 
-		$tableauComposition = $xpath->query('div[@class="panel-body"]/table/tbody/tr/td', $divComposition->item(0));
+		//echo "Equipe dom" . $divComposition->item(0)->nodeValue;
+		//echo " - Equipe vis " . $divComposition->item(1)->nodeValue;
+
+		$tableauCompositionDomicile = $xpath->query('div[@class="panel-body"]/table/tbody/tr/td/div/span[@class="rating"]/preceding-sibling::span[1]', $divComposition->item(0));
+		$tableauCompositionVisiteur = $xpath->query('div[@class="panel-body"]/table/tbody/tr/td/div/span[@class="rating"]/preceding-sibling::span[1]', $divComposition->item(1));
 
 		// Equipe domicile
-		$htmlEquipeDomicile = remplacerCaracteres(my_utf8_decode(trim($document->saveHTML($tableauComposition->item(0)))));
-		$htmlEquipeDomicile = preg_replace('/<[^>]*>/', ',', $htmlEquipeDomicile);
-		$joueursEquipeDomicile = explode(",", $htmlEquipeDomicile);
+		$i = 0;
+		foreach($tableauCompositionDomicile as $unJoueur) {
+			$nomJoueurModifie = trim($unJoueur->nodeValue);
+			$retour = ajouterJoueur($bdd, $nomJoueurModifie, $equipeDomicile, $unMatch["Match"], $dateMatch, 1);
+			if($retour == -1)
+				array_push($tableauErreurs, array('equipe'=>$equipeDomicile, 'joueur'=>$nomJoueurModifie));
+			else if($retour == 0)
+				array_push($tableauErreurs, array('equipe'=>$equipeDomicile, 'joueur'=>$nomJoueurModifie));
+			if(++$i == 11)
+				break;
+		};
 
 		// Equipe visiteur
-		$htmlEquipeVisiteur = remplacerCaracteres(my_utf8_decode(trim($document->saveHTML($tableauComposition->item(1)))));
-		$htmlEquipeVisiteur = preg_replace('/<[^>]*>/', ',', $htmlEquipeVisiteur);
-		$joueursEquipeVisiteur = explode(",", $htmlEquipeVisiteur);
+		$i = 0;
+		foreach($tableauCompositionVisiteur as $unJoueur) {
+			$nomJoueurModifie = trim($unJoueur->nodeValue);
+			$retour = ajouterJoueur($bdd, $nomJoueurModifie, $equipeVisiteur, $unMatch["Match"], $dateMatch, 1);
+			if($retour == -1)
+				array_push($tableauErreurs, array('equipe'=>$equipeVisiteur, 'joueur'=>$nomJoueurModifie));
+			else if($retour == 0)
+				array_push($tableauErreurs, array('equipe'=>$equipeVisiteur, 'joueur'=>$nomJoueurModifie));
+			if(++$i == 11)
+				break;
+		};
+
+		// Equipe domicile
+		//$htmlEquipeDomicile = remplacerCaracteres(my_utf8_decode(trim($document->saveHTML($tableauCompositionDomicile->item(0)))));
+		//$htmlEquipeDomicile = preg_replace('/<[^>]*>/', ',', $htmlEquipeDomicile);
+		//$joueursEquipeDomicile = explode(",", $htmlEquipeDomicile);
+
+		// Equipe visiteur
+		//$htmlEquipeVisiteur = remplacerCaracteres(my_utf8_decode(trim($document->saveHTML($tableauCompositionVisiteur->item(0)))));
+		//$htmlEquipeVisiteur = preg_replace('/<[^>]*>/', ',', $htmlEquipeVisiteur);
+		//$joueursEquipeVisiteur = explode(",", $htmlEquipeVisiteur);
 
 		// Lecture des joueurs de l'équipe domicile
-		$i = 0;
-		foreach($joueursEquipeDomicile as $unJoueur) {
-			if($unJoueur && trim($unJoueur) != "") {
-				$nomJoueurModifie = trim($unJoueur);
-				$retour = ajouterJoueur($bdd, $nomJoueurModifie, $equipeDomicile, $unMatch["Match"], $dateMatch, 1);
-				if($retour == -1)
-					array_push($tableauErreurs, array('equipe'=>$equipeDomicile, 'joueur'=>$nomJoueurModifie));
-				else if($retour == 0)
-					array_push($tableauErreurs, array('equipe'=>$equipeDomicile, 'joueur'=>$nomJoueurModifie));
-				if(++$i == 11)
-					break;
-			}
-		}
+		// $i = 0;
+		// foreach($joueursEquipeDomicile as $unJoueur) {
+		// 	if($unJoueur && trim($unJoueur) != "") {
+		// 		$nomJoueurModifie = trim($unJoueur);
+		// 		$retour = ajouterJoueur($bdd, $nomJoueurModifie, $equipeDomicile, $unMatch["Match"], $dateMatch, 1);
+		// 		if($retour == -1)
+		// 			array_push($tableauErreurs, array('equipe'=>$equipeDomicile, 'joueur'=>$nomJoueurModifie));
+		// 		else if($retour == 0)
+		// 			array_push($tableauErreurs, array('equipe'=>$equipeDomicile, 'joueur'=>$nomJoueurModifie));
+		// 		if(++$i == 11)
+		// 			break;
+		// 	}
+		// }
 		
 		// Lecture des joueurs de l'équipe visiteur
-		$i = 0;
-		foreach($joueursEquipeVisiteur as $unJoueur) {
-			if($unJoueur && trim($unJoueur) != "") {
-				$nomJoueurModifie = trim($unJoueur);
-				$retour = ajouterJoueur($bdd, $nomJoueurModifie, $equipeVisiteur, $unMatch["Match"], $dateMatch, 1);
-				if($retour == -1)
-					array_push($tableauErreurs, array('equipe'=>$equipeVisiteur, 'joueur'=>$nomJoueurModifie));
-				else if($retour == 0)
-					array_push($tableauErreurs, array('equipe'=>$equipeVisiteur, 'joueur'=>$nomJoueurModifie));
-				if(++$i == 11)
-					break;
-			}
-		}
+		// $i = 0;
+		// foreach($joueursEquipeVisiteur as $unJoueur) {
+		// 	if($unJoueur && trim($unJoueur) != "") {
+		// 		$nomJoueurModifie = trim($unJoueur);
+		// 		$retour = ajouterJoueur($bdd, $nomJoueurModifie, $equipeVisiteur, $unMatch["Match"], $dateMatch, 1);
+		// 		if($retour == -1)
+		// 			array_push($tableauErreurs, array('equipe'=>$equipeVisiteur, 'joueur'=>$nomJoueurModifie));
+		// 		else if($retour == 0)
+		// 			array_push($tableauErreurs, array('equipe'=>$equipeVisiteur, 'joueur'=>$nomJoueurModifie));
+		// 		if(++$i == 11)
+		// 			break;
+		// 	}
+		// }
 		
 		// On indique que la composition a été lue, même si des erreurs sont survenues
 		finaliserCompositionEquipes($bdd, $unMatch["Match"]);
