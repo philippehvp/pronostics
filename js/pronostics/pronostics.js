@@ -2599,6 +2599,52 @@ function gererQualification_validerQualifiees(
   });
 }
 
+// Création de la phase des qualifications - Ajout d'une équipe et son classement
+function creerPhaseQualification_pronostiquerEquipe(
+  equipe,
+  championnat,
+  phase
+) {
+  var param =
+    "equipe=" + equipe + "&championnat=" + championnat + "&phase=" + phase;
+
+  $.ajax({
+    url: "creer_phase_qualification_maj_phase.php",
+    type: "POST",
+    data: param,
+    dataType: "json",
+  }).done(function (html) {
+    if (html.ajoutAutorise == 0) {
+      alert(html.message);
+      // On désactive le bouton radio que l'on vient d'activer puisque cela n'a pas été autorisé en base
+      $('[name="phase' + equipe + '"]').prop("checked", false);
+    } else if (html.phaseComplete) {
+      alert(html.message);
+    }
+  });
+}
+
+function creerPhaseQualification_effacerPronostic(equipe, championnat) {
+  creerPhaseQualification_pronostiquerEquipe(equipe, championnat, 0);
+}
+
+// Gestion de la phase des qualifications - Ajout d'une équipe et son classement
+function gererPhaseQualification_validerEquipe(equipe, championnat, phase) {
+  var param =
+    "equipe=" + equipe + "&championnat=" + championnat + "&phase=" + phase;
+
+  $.ajax({
+    url: "gerer_phase_qualification_maj_phase.php",
+    type: "POST",
+    data: param,
+    dataType: "json",
+  }).done();
+}
+
+function gererPhaseQualification_effacerPronostic(equipe, championnat) {
+  gererPhaseQualification_validerEquipe(equipe, championnat, 0);
+}
+
 // Gestion des qualifications - Validation des équipes qualifiées pour une poule
 function gererQualification_validerQualifieesPoule(
   championnat,

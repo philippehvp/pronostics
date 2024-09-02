@@ -138,7 +138,7 @@
                                     echo '<div class="groupe-menu gauche">';
                                         echo '<label class="titre">Poules Coupes d\'Europe</label>';
                                         echo '<label class="lien" title="Gestion des poules">Poules <span onclick="window.open(\'gerer_poules.php?championnat=2\', \'_self\');">LDC</span> - <span onclick="window.open(\'gerer_poules.php?championnat=3\', \'_self\');">EL</span></label>';
-                                        echo '<label class="lien" title="Gestion des qualifications">Qualifications <span onclick="window.open(\'gerer_qualification.php?championnat=2\', \'_self\');">LDC</span> - <span onclick="window.open(\'gerer_qualification.php?championnat=3\', \'_self\');">EL</span></label>';
+                                        echo '<label class="lien" title="Gestion phase qualifications">Phase qualifications <span onclick="window.open(\'gerer_phase_qualification.php?championnat=2\', \'_self\');">LDC</span> - <span onclick="window.open(\'gerer_phase_qualification.php?championnat=3\', \'_self\');">EL</span></label>';
 
                                         echo '<label class="titre espacement-haut">Divers</label>';
 
@@ -189,9 +189,9 @@
                                     echo '<label class="titre">Pronostics</label>';
                                     echo '<label class="lien" onclick="window.open(\'creer_prono.php\', \'_self\');" title="Saisir les pronostics de la journée ou des journées en cours"><span>Journée(s) en cours</span></label>';
 
-                                    if($pronostiqueur == 7) {
-                                        echo '<label class="lien" onclick="window.open(\'http://lepoulpedor.com/parieurs/#/home?authId=' . $_SESSION["auth_pronostiqueur"] . '\', \'_blank\');" title="Parieurs (beta)"><span>Parieurs (beta)</span></label>';
-                                    }
+                                    // if($pronostiqueur == 7) {
+                                    //     echo '<label class="lien" onclick="window.open(\'http://lepoulpedor.com/parieurs/#/home?authId=' . $_SESSION["auth_pronostiqueur"] . '\', \'_blank\');" title="Parieurs (beta)"><span>Parieurs (beta)</span></label>';
+                                    // }
 
                                     if($menu100 == 1)
                                         echo '<label class="lien" onclick="window.open(\'consulter_bonus.php\', \'_self\');" title="Consulter les bonus de la Ligue 1 (meilleur buteur et passeur, équipes sur le podium...)"><span>Consulter les bonus</span></label>';
@@ -206,7 +206,7 @@
                                         echo '<label class="lien" onclick="window.open(\'creer_bonus.php\', \'_self\');" title="Saisir les bonus de la Ligue 1 (meilleur buteur et passeur, équipes sur le podium...)"><span>Saisir les bonus de Ligue 1</span></label>';
 
                                     if($menu130 == 1)
-                                        echo '<label class="lien" onclick="window.open(\'creer_qualification.php\', \'_self\');" title="Saisir les qualifications des poules européennes"><span>Saisir les qualifications des poules européennes</span></label>';
+                                        echo '<label class="lien" onclick="window.open(\'creer_phase_qualification.php\', \'_self\');" title="Saisir les qualifications des poules européennes"><span>Saisir les qualifications</span></label>';
 
                                     echo '<label class="titre espacement-haut">Trophées</label>';
                                     echo '<label class="lien" onclick="window.open(\'consulter_trophees.php?championnat=1\', \'_self\');" title="Consulter les trophées de Ligue 1"><span>Ligue 1</span></label>';

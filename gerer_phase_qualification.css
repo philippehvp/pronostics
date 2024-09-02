@@ -1,0 +1,20 @@
+.fanion {
+  width: 30px;
+  height: 30px;
+}
+
+table {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+tr {
+  height: 3em;
+}
+
+.phase {
+  width: 8em;
+}
+
+.colonne-fanion {
+  width: 3em;
+}
