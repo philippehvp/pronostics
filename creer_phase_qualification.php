@@ -23,7 +23,8 @@
 
 		// Lecture des groupes et des équipes
 		$ordreSQL =		'	SELECT		equipes.Equipe, equipes.Equipes_Nom, equipes.Equipes_Fanion,' .
-						'				pronostics_phase.PronosticsPhase_Qualification, pronostics_phase.Championnats_Championnat' .
+						'				pronostics_phase.PronosticsPhase_Qualification, pronostics_phase.Championnats_Championnat,' .
+						'				equipes_groupes.EquipesGroupes_Chapeau' .
 						'	FROM		equipes_groupes' .
 						'	JOIN		groupes' .
 						'				ON		equipes_groupes.Groupes_Groupe = groupes.Groupe' .
@@ -42,23 +43,29 @@
 
 		echo '<div id="divPhaseQualification" class="contenu-page">';
 			echo '<table>';
-				echo '<thead>';
-					echo '<tr>';
-						echo '<th class="colonne-fanion">&nbsp;</th>';
-						echo '<th>Equipes</th>';
-						echo '<th class="phase">Qualifiée 1/8</th>';
-						echo '<th class="phase">Barrages</th>';
-						echo '<th class="phase">Eliminée</th>';
-						echo '<th class="phase">&nbsp;</th>';
-					echo '</tr>';
-				echo '</thead>';
-
 				echo '<tbody>';
+					$chapeau = 0;
 					foreach($equipes as $uneEquipe) {
 						$checked1 = $uneEquipe["PronosticsPhase_Qualification"] == 1 ? 'checked="checked"' : '';
 						$checked2 = $uneEquipe["PronosticsPhase_Qualification"] == 2 ? 'checked="checked"' : '';
 						$checked3 = $uneEquipe["PronosticsPhase_Qualification"] == 3 ? 'checked="checked"' : '';
 
+						if ($chapeau != $uneEquipe["EquipesGroupes_Chapeau"]) {
+							$chapeau = $uneEquipe["EquipesGroupes_Chapeau"];
+							echo '<tr>';
+								echo '<td colspan="6">Chapeau ' . $chapeau . '</>';
+							echo '</tr>';
+
+							echo '<tr>';
+								echo '<td class="colonne-fanion">&nbsp;</td>';
+								echo '<td>&nbsp;</td>';
+								echo '<td class="phase">Qualifiée 1/8</td>';
+								echo '<td class="phase">Barrages</td>';
+								echo '<td class="phase">Eliminée</td>';
+								echo '<td class="phase">&nbsp;</td>';
+							echo '</tr>';
+
+						}
 
 						echo '<tr>';
 							echo '<td><img class="fanion" src="images/equipes/' . $uneEquipe["Equipes_Fanion"] . '" alt="" /></td>';

@@ -2618,6 +2618,7 @@ function creerPhaseQualification_pronostiquerEquipe(
       alert(html.message);
       // On désactive le bouton radio que l'on vient d'activer puisque cela n'a pas été autorisé en base
       $('[name="phase' + equipe + '"]').prop("checked", false);
+      creerPhaseQualification_effacerPronostic(equipe, championnat);
     } else if (html.phaseComplete) {
       alert(html.message);
     }
