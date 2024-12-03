@@ -4773,10 +4773,10 @@ function gererCDF_placerPronostiqueurs1A4() {
 
 // Gestion de la Coupe de France - Sélection d'un pronostiqueur
 function gerer_cdf_selectionnerPronostiqueur(numeroCase) {
-  if (numeroCase == null || numeroCase < 5 || numeroCase > 50) return;
+  if (numeroCase == null || numeroCase < 5 || numeroCase > 45) return;
 
   // Maintenant, on détermine si on modifie une case pour un joueur exempté ou une confrontation normale
-  var exempte = numeroCase >= 5 && numeroCase <= 14 ? 1 : 2;
+  var exempte = numeroCase >= 5 && numeroCase <= 19 ? 1 : 2;
 
   $.ajax({
     url: "gerer_cdf_liste_pronostiqueurs.php",

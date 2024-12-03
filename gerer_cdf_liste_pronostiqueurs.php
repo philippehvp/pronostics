@@ -46,7 +46,7 @@
                         '               ON      pronostiqueurs.Pronostiqueur = confrontations.Pronostiqueurs_PronostiqueurA' .
                         '                       OR      pronostiqueurs.Pronostiqueur = confrontations.Pronostiqueurs_PronostiqueurB' .
                         '   WHERE       classements.Classements_ClassementGeneralMatch >= 5' .
-                        '               AND     classements.Classements_ClassementGeneralMatch <= 14' .
+                        '               AND     classements.Classements_ClassementGeneralMatch <= 19' .
                         '   ORDER BY    Deja_Place, pronostiqueurs.Pronostiqueurs_NomUtilisateur';
     else
         $ordreSQL =     '   SELECT      DISTINCT pronostiqueurs.Pronostiqueur' .
@@ -73,7 +73,7 @@
                         '   LEFT JOIN   confrontations' .
                         '               ON      pronostiqueurs.Pronostiqueur = confrontations.Pronostiqueurs_PronostiqueurA' .
                         '                       OR      pronostiqueurs.Pronostiqueur = confrontations.Pronostiqueurs_PronostiqueurB' .
-                        '   WHERE       classements.Classements_ClassementGeneralMatch > 14' .
+                        '   WHERE       classements.Classements_ClassementGeneralMatch > 19' .
                         '   ORDER BY    Deja_Place, pronostiqueurs.Pronostiqueurs_NomUtilisateur';
     $req = $bdd->query($ordreSQL);
     $pronostiqueurs = $req->fetchAll();
