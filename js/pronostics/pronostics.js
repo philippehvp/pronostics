@@ -2682,6 +2682,20 @@ function gererQualification_validerQualifieesPoule(
   });
 }
 
+function consulterPhaseQualification_changerPronostiqueur() {
+  const pronostiqueur = $("#selectPronostiqueur").val();
+  let url = window.location.href;
+  const pos = url.indexOf("?");
+
+  if (pos > -1) {
+    url = url.slice(0, pos);
+    url += "?pronostiqueur=" + pronostiqueur;
+  } else {
+    url += "?pronostiqueur=" + pronostiqueur;
+  }
+  window.location.href = url;
+}
+
 // Gestion des poules - Création des poules
 function gererPoules_creerPoules(
   championnat,
@@ -5660,7 +5674,7 @@ function reponseSondage_validerReponse() {
       url: "reponse_sondage_validation.php",
       type: "POST",
       data: { choix: choix, commentaire: commentaire },
-    }).done(function (html) {
+    }).done(function () {
       window.location.replace("accueil.php");
     });
   }

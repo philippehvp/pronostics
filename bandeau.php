@@ -145,8 +145,8 @@
                                         if($menu100 == 1)               echo '<label class="lien" onclick="menu_basculerAffichage(100);" title="Masquer page de consultation des bonus"><span>Masquer "Consultation de bonus"</span></label>';
                                         else                            echo '<label class="lien" onclick="menu_basculerAffichage(100);" title="Afficher page de consultation des bonus"><span>Afficher "Consultation de bonus"</span></label>';
 
-                                        if($menu110 == 1)               echo '<label class="lien" onclick="menu_basculerAffichage(110);" title="Masquer page de consultation des qualifications"><span>Masquer "Consulter les qualifications"</span></label>';
-                                        else                            echo '<label class="lien" onclick="menu_basculerAffichage(110);" title="Afficher page de consultation des qualifications"><span>Afficher "Consulter les qualifications"</span></label>';
+                                        if($menu110 == 1)               echo '<label class="lien" onclick="menu_basculerAffichage(110);" title="Masquer page de consultation des qualifications"><span>Masquer "Consulter mes qualifications"</span></label>';
+                                        else                            echo '<label class="lien" onclick="menu_basculerAffichage(110);" title="Afficher page de consultation des qualifications"><span>Afficher "Consulter mes qualifications"</span></label>';
 
                                         if($menu120 == 1)               echo '<label class="lien" onclick="menu_basculerAffichage(120);" title="Masquer page de création des bonus"><span>Masquer "Création de bonus"</span></label>';
                                         else                            echo '<label class="lien" onclick="menu_basculerAffichage(120);" title="Afficher page de création des bonus"><span>Afficher "Création de bonus"</span></label>';
@@ -200,7 +200,7 @@
                                         echo '<label class="lien" onclick="window.open(\'consulter_bareme_bonus.php\', \'_self\');" title="Consulter les barèmes de bonus"><span>Consulter les barèmes de bonus</span></label>';
 
                                     if($menu110 == 1)
-                                        echo '<label class="lien" onclick="window.open(\'consulter_qualification.php\', \'_self\');" title="Consulter les pronostics des classements de poule de votre championnat européen"><span>Consulter les classements de poule</span></label>';
+                                        echo '<label class="lien" onclick="window.open(\'consulter_phase_qualification.php\', \'_self\');" title="Consulter les pronostics de qualifications des poules de mon championnat européen"><span>Consulter les pronostics de poule</span></label>';
 
                                     if($menu120 == 1)
                                         echo '<label class="lien" onclick="window.open(\'creer_bonus.php\', \'_self\');" title="Saisir les bonus de la Ligue 1 (meilleur buteur et passeur, équipes sur le podium...)"><span>Saisir les bonus de Ligue 1</span></label>';

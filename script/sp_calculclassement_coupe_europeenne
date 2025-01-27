@@ -1,0 +1,218 @@
+DROP PROCEDURE IF EXISTS sp_calculclassement_coupe_europeenne;
+DELIMITER $$
+CREATE DEFINER=`lepoulpeg`@`%` PROCEDURE `sp_calculclassement_coupe_europeenne`(IN `p_Championnat` INT)
+    NO SQL
+    DETERMINISTIC
+BEGIN
+    
+    TRUNCATE TABLE classements_equipes_points_differents;
+
+	INSERT INTO	classements_equipes_points_differents(Classements_Points, Classements_BP_BC, Classements_BP, Classements_Nombre)
+	SELECT		Points, BP - BC, BP, COUNT(*)
+	FROM		equipes
+	JOIN		(
+					SELECT		Equipe, SUM(Points) AS Points
+					FROM		(
+									SELECT		equipes.Equipe, fn_nombrevictoires_coupe_europeenne(equipes.Equipe, p_Championnat) * 3 AS Points
+									FROM		equipes
+									JOIN		engagements
+												ON		equipes.Equipe = engagements.Equipes_Equipe
+									WHERE		engagements.Championnats_Championnat = p_Championnat
+                                    UNION ALL
+									SELECT		equipes.Equipe, fn_nombrenuls_coupe_europeenne(equipes.Equipe, p_Championnat) AS Points
+									FROM		equipes
+									JOIN		engagements
+												ON		equipes.Equipe = engagements.Equipes_Equipe
+									WHERE		engagements.Championnats_Championnat = p_Championnat
+								) equipes
+					GROUP BY	Equipe
+				) points
+				ON		equipes.Equipe = points.Equipe
+	JOIN		(
+					SELECT		Equipe, SUM(BP) AS BP
+					FROM		(
+									SELECT		equipes.Equipe, SUM(Matches_ScoreEquipeDomicile) AS BP
+									FROM		matches
+									JOIN		journees
+												ON		matches.Journees_Journee = journees.Journee
+									JOIN		equipes
+												ON		matches.Equipes_EquipeDomicile = equipes.Equipe
+									WHERE		journees.Championnats_Championnat = p_Championnat
+                                                AND     journees.Journees_NumeroInterne <= 8
+									GROUP BY	equipes.Equipe
+									UNION ALL
+									SELECT		equipes.Equipe, SUM(Matches_ScoreEquipeVisiteur) AS BP
+									FROM		matches
+									JOIN		journees
+												ON		matches.Journees_Journee = journees.Journee
+									JOIN		equipes
+												ON		matches.Equipes_EquipeVisiteur = equipes.Equipe
+									WHERE		journees.Championnats_Championnat = p_Championnat
+                                                AND     journees.Journees_NumeroInterne <= 8
+									GROUP BY	equipes.Equipe
+								) bp
+					GROUP BY	bp.Equipe
+				) bp
+				ON		equipes.Equipe = bp.Equipe
+	JOIN		(
+					SELECT		Equipe, SUM(BC) AS BC
+					FROM		(
+									SELECT		equipes.Equipe, SUM(Matches_ScoreEquipeVisiteur) AS BC
+									FROM		matches
+									JOIN		journees
+												ON		matches.Journees_Journee = journees.Journee
+									JOIN		equipes
+												ON		matches.Equipes_EquipeDomicile = equipes.Equipe
+									WHERE		journees.Championnats_Championnat = p_Championnat
+                                                AND     journees.Journees_NumeroInterne <= 8
+									GROUP BY	equipes.Equipe
+									UNION ALL
+									SELECT		equipes.Equipe, SUM(Matches_ScoreEquipeDomicile) AS BC
+									FROM		matches
+									JOIN		journees
+												ON		matches.Journees_Journee = journees.Journee
+									JOIN		equipes
+												ON		matches.Equipes_EquipeVisiteur = equipes.Equipe
+									WHERE		journees.Championnats_Championnat = p_Championnat
+                                                AND     journees.Journees_NumeroInterne <= 8
+									GROUP BY	equipes.Equipe
+								) bc
+					GROUP BY	bc.Equipe
+				) bc
+				ON		equipes.Equipe = bc.Equipe
+	GROUP BY	Points, BP - BC, BP;
+
+    DELETE  FROM    classements_equipes_coupe_europeenne
+    WHERE           classements_equipes_coupe_europeenne.Championnats_Championnat = p_Championnat;
+    
+    INSERT INTO     classements_equipes_coupe_europeenne(Equipes_Equipe, Championnats_Championnat)
+    SELECT		    Equipes_Equipe, p_Championnat
+    FROM		    equipes
+    JOIN            engagements
+                    ON      equipes.Equipe = engagements.Equipes_Equipe
+    WHERE		    engagements.Championnats_Championnat = p_Championnat;
+
+
+	INSERT INTO classements_equipes_coupe_europeenne(Equipes_Equipe, Championnats_Championnat, ClassementsEquipesCoupeEuropeenne_Points, ClassementsEquipesCoupeEuropeenne_BP_BC, ClassementsEquipesCoupeEuropeenne_BP)
+	SELECT		equipes.Equipe, p_Championnat, points.Points, bp.BP - bc.BC, bp.BP
+	FROM		equipes
+	JOIN		(
+					SELECT		Equipe, SUM(Points) AS Points
+					FROM		(
+									SELECT		equipes.Equipe, fn_nombrevictoires_coupe_europeenne(equipes.Equipe, p_Championnat) * 3 AS Points
+									FROM		equipes
+									JOIN		engagements
+												ON		equipes.Equipe = engagements.Equipes_Equipe
+									WHERE		engagements.Championnats_Championnat = p_Championnat
+									UNION ALL
+									SELECT		equipes.Equipe, fn_nombrenuls_coupe_europeenne(equipes.Equipe, p_Championnat) AS Points
+									FROM		equipes
+									JOIN		engagements
+												ON		equipes.Equipe = engagements.Equipes_Equipe
+									WHERE		engagements.Championnats_Championnat = p_Championnat
+								) equipes
+					GROUP BY	Equipe
+				) points
+				ON		equipes.Equipe = points.Equipe
+	JOIN		(
+					SELECT		Equipe, SUM(BP) AS BP
+					FROM		(
+									SELECT		equipes.Equipe, SUM(Matches_ScoreEquipeDomicile) AS BP
+									FROM		matches
+									JOIN		journees
+												ON		matches.Journees_Journee = journees.Journee
+									JOIN		equipes
+												ON		matches.Equipes_EquipeDomicile = equipes.Equipe
+									WHERE		journees.Championnats_Championnat = p_Championnat
+                                                AND     journees.Journees_NumeroInterne <= 8
+									GROUP BY	equipes.Equipe
+									UNION ALL
+									SELECT		equipes.Equipe, SUM(Matches_ScoreEquipeVisiteur) AS BP
+									FROM		matches
+									JOIN		journees
+												ON		matches.Journees_Journee = journees.Journee
+									JOIN		equipes
+												ON		matches.Equipes_EquipeVisiteur = equipes.Equipe
+									WHERE		journees.Championnats_Championnat = p_Championnat
+                                                AND     journees.Journees_NumeroInterne <= 8
+									GROUP BY	equipes.Equipe
+								) bp
+					GROUP BY	bp.Equipe
+				) bp
+				ON		equipes.Equipe = bp.Equipe
+	JOIN		(
+					SELECT		Equipe, SUM(BC) AS BC
+					FROM		(
+									SELECT		equipes.Equipe, SUM(Matches_ScoreEquipeVisiteur) AS BC
+									FROM		matches
+									JOIN		journees
+												ON		matches.Journees_Journee = journees.Journee
+									JOIN		equipes
+												ON		matches.Equipes_EquipeDomicile = equipes.Equipe
+									WHERE		journees.Championnats_Championnat = p_Championnat
+                                                AND     journees.Journees_NumeroInterne <= 8
+									GROUP BY	equipes.Equipe
+									UNION ALL
+									SELECT		equipes.Equipe, SUM(Matches_ScoreEquipeDomicile) AS BC
+									FROM		matches
+									JOIN		journees
+												ON		matches.Journees_Journee = journees.Journee
+									JOIN		equipes
+												ON		matches.Equipes_EquipeVisiteur = equipes.Equipe
+									WHERE		journees.Championnats_Championnat = p_Championnat
+                                                AND     journees.Journees_NumeroInterne <= 8
+									GROUP BY	equipes.Equipe
+								) bc
+					GROUP BY	bc.Equipe
+				) bc
+				ON		equipes.Equipe = bc.Equipe;
+
+
+	UPDATE		classements_equipes_coupe_europeenne
+	JOIN		(
+					SELECT		COUNT(c1.Equipes_Equipe) AS Classement, c1.Equipes_Equipe, c1.ClassementsEquipesCoupeEuropeenne_Points, c1.ClassementsEquipesCoupeEuropeenne_BP_BC, c1.ClassementsEquipesCoupeEuropeenne_BP
+					FROM		classements_equipes_coupe_europeenne AS c1
+					JOIN		classements_equipes_coupe_europeenne AS c2
+								ON		(
+											c1.ClassementsEquipesCoupeEuropeenne_Points < c2.ClassementsEquipesCoupeEuropeenne_Points
+											OR
+											(
+												c1.ClassementsEquipesCoupeEuropeenne_Points = c2.ClassementsEquipesCoupeEuropeenne_Points
+												AND		c1.ClassementsEquipesCoupeEuropeenne_BP_BC < c2.ClassementsEquipesCoupeEuropeenne_BP_BC
+											)
+											OR
+											(
+												c1.ClassementsEquipesCoupeEuropeenne_Points = c2.ClassementsEquipesCoupeEuropeenne_Points
+												AND		c1.ClassementsEquipesCoupeEuropeenne_BP_BC = c2.ClassementsEquipesCoupeEuropeenne_BP_BC
+												AND		c1.ClassementsEquipesCoupeEuropeenne_BP <= c2.ClassementsEquipesCoupeEuropeenne_BP
+											)
+										)
+					GROUP BY	c1.Equipes_Equipe
+				) classements_recalcules
+				ON		classements_equipes_coupe_europeenne.Equipes_Equipe = classements_recalcules.Equipes_Equipe
+	JOIN		classements_equipes_points_differents
+				ON		classements_equipes_coupe_europeenne.ClassementsEquipesCoupeEuropeenne_Points = classements_equipes_points_differents.Classements_Points
+						AND		classements_equipes_coupe_europeenne.ClassementsEquipesCoupeEuropeenne_BP_BC = classements_equipes_points_differents.Classements_BP_BC
+						AND		classements_equipes_coupe_europeenne.ClassementsEquipesCoupeEuropeenne_BP = classements_equipes_points_differents.Classements_BP
+	SET			classements_equipes_coupe_europeenne.ClassementsEquipesCoupeEuropeenne_Classement = classements_recalcules.Classement - classements_equipes_points_differents.Classements_Nombre + 1;
+
+    /* Une fois les équipes classées, on détermine pour chacune d'elles dans quelle "phase" elle se trouve */
+    /* Seules les équipes se trouvant dans une phase différente de celle attendue rapportent des points */
+    UPDATE      equipes_groupes
+    JOIN        classements_equipes_coupe_europeenne
+    ON          equipes_groupes.Equipes_Equipe = classements_equipes_coupe_europeenne.Equipes_Equipe
+    SET         equipes_groupes.EquipesGroupes_Phase =
+                CASE
+                    WHEN    classements_equipes_coupe_europeenne.ClassementsEquipesCoupeEuropeenne_Classement <= 8
+                    THEN    1
+                    WHEN    classements_equipes_coupe_europeenne.ClassementsEquipesCoupeEuropeenne_Classement > 8
+                            AND     classements_equipes_coupe_europeenne.ClassementsEquipesCoupeEuropeenne_Classement <= 24
+                    THEN    2
+                    WHEN    classements_equipes_coupe_europeenne.ClassementsEquipesCoupeEuropeenne_Classement > 24
+                            AND     classements_equipes_coupe_europeenne.ClassementsEquipesCoupeEuropeenne_Classement <= 36
+                    THEN    3
+                    ELSE    NULL
+                END;
+
+END$$
+DELIMITER ;

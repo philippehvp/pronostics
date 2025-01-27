@@ -26,7 +26,7 @@
 
 		// Lecture des groupes et des équipes
 		$ordreSQL =		'	SELECT		equipes.Equipe, equipes.Equipes_Nom, equipes.Equipes_Fanion,' .
-						'				phase.Phase_Qualification' .
+						'				equipes_groupes.EquipesGroupes_Phase' .
 						'	FROM		equipes_groupes' .
 						'	JOIN		groupes' .
 						'				ON		equipes_groupes.Groupes_Groupe = groupes.Groupe' .
@@ -58,9 +58,9 @@
 
 				echo '<tbody>';
 					foreach($equipes as $uneEquipe) {
-						$checked1 = $uneEquipe["Phase_Qualification"] == 1 ? 'checked="checked"' : '';
-						$checked2 = $uneEquipe["Phase_Qualification"] == 2 ? 'checked="checked"' : '';
-						$checked3 = $uneEquipe["Phase_Qualification"] == 3 ? 'checked="checked"' : '';
+						$checked1 = $uneEquipe["EquipesGroupes_Phase"] == 1 ? 'checked="checked"' : '';
+						$checked2 = $uneEquipe["EquipesGroupes_Phase"] == 2 ? 'checked="checked"' : '';
+						$checked3 = $uneEquipe["EquipesGroupes_Phase"] == 3 ? 'checked="checked"' : '';
 
 
 						echo '<tr>';

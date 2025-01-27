@@ -2,14 +2,9 @@
 	include_once('commun_administrateur.php');
 
 	function sauvegarderPronostic($bdd, $equipe, $championnat, $phase) {
-		$ordreSQL =		'	REPLACE INTO	phase(' .
-						'						Equipes_Equipe' .
-						'						,Championnats_Championnat' .
-						'						,Phase_Qualification' .
-						'					)' .
-						'	SELECT			' . $equipe .
-						'					,' . $championnat .
-						'					,' . $phase;
+		$ordreSQL =		'	UPDATE		equipes_groupes' .
+						'	SET			EquipesGroupes_Phase = ' . $phase .
+						'	WHERE		Equipes_Equipe = ' . $equipe;
 		$bdd->exec($ordreSQL);
 	}
 
