@@ -115,9 +115,19 @@
 						echo '<tr>';
 							echo '<td><img class="fanion" src="images/equipes/' . $uneEquipe["Equipes_Fanion"] . '" alt="" /></td>';
 							echo '<td>' . $uneEquipe["Equipes_Nom"] . '</td>';
-							echo '<td><input type="radio" value="1" name="phase' . $uneEquipe["Equipe"] . '"' . $checked1 . '"></td>';
-							echo '<td><input type="radio" value="2" name="phase' . $uneEquipe["Equipe"] . '"' . $checked2 . '"></td>';
-							echo '<td><input type="radio" value="3" name="phase' . $uneEquipe["Equipe"] . '"' . $checked3 . '"></td>';
+							if ($checked1) {
+								echo '<td><input type="radio" value="1" name="phase' . $uneEquipe["Equipe"] . '"' . $checked1 . '></td>';
+								echo '<td>&nbsp;</td>';
+								echo '<td>&nbsp;</td>';	
+							} else if ($checked2) {
+								echo '<td>&nbsp;</td>';
+								echo '<td><input type="radio" value="2" name="phase' . $uneEquipe["Equipe"] . '"' . $checked2 . '></td>';
+								echo '<td>&nbsp;</td>';
+							} else if ($checked3) {
+								echo '<td>&nbsp;</td>';
+								echo '<td>&nbsp;</td>';
+								echo '<td><input type="radio" value="3" name="phase' . $uneEquipe["Equipe"] . '"' . $checked3 . '></td>';
+							}
 							echo '<td>' . $uneEquipe["PronosticsPhase_Points"]. '</td>';
 						echo '</tr>';
 					}
